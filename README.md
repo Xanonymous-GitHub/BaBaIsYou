@@ -1,4 +1,44 @@
 # BaBa Is You
 <img src="https://i.imgur.com/44OJbB0.gif">
 
-## The official wiki is [here](https://babaiswiki.fandom.com)
+## Links
+- [Official Wiki](https://babaiswiki.fandom.com)
+- [Course Gitlab](https://css-gitlab.csie.ntut.edu.tw/109000000/oopl2020s)
+- [PixiJS](https://www.pixijs.com)
+
+## Settings
+1. Basic Game Stage
+    - Game Map
+        - put in different file
+    - Characters
+    - Words
+        - every effect is a class/interface
+2. Full Game
+    - Main screen
+    - Level selection
+3. Self Features
+    - Multiplayer
+    - Self design characters
+    - Ranking
+
+## Steps
+1. 2/28 ~ 3/15
+    - Read PixiJS tutorial
+    - Create basic game stage
+    - Baba that can control with keys
+2. 3/15 ~ 4/15
+    - Create objects & words on map
+3. 4/15 ~ 5/7
+    - Create levels & maps
+    - Level selection & main screen
+4. 5/7 ~ 5/21
+    - Accounts
+        - Firebase
+    - Ranking & score
+        - Finish time
+        - Steps
+5. 5/21 ~ 5/31 (Optional)
+    - Store
+    - Modelling
+6. 6/1 ~ 
+    - Testing
