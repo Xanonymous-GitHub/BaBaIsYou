@@ -5,22 +5,16 @@
 
 @import "shared";
 
-@layer base {
-  html,
-  body,
-  #app {
-    @apply overflow-auto;
-    @apply m-0;
-    @include fix-100vh-in-mobile-WebKit;
-    -webkit-overflow-scrolling: touch;
-    -moz-text-size-adjust: none;
-    -ms-text-size-adjust: none;
-    -webkit-text-size-adjust: none;
-    overscroll-behavior: contain;
-    -ms-scroll-chaining: none;
-  }
-
-  body {
-    @apply font-rosita
-  }
+html,
+body,
+#app {
+  @include fix-100vh-in-mobile-WebKit;
+  -webkit-overflow-scrolling: touch;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  overscroll-behavior: contain;
+  -ms-scroll-chaining: none;
+  margin: 0;
+  overflow: auto;
 }

@@ -5,7 +5,7 @@ module.exports = {
   purge: {
     enabled: isProduction,
     content: [
-      './src/**/*.{html,vue,js,ts,jsx,tsx}'
+      './src/**/*.{vue,js,ts,jsx,tsx}'
     ],
     options: {
       keyframes: true,
@@ -13,7 +13,6 @@ module.exports = {
       variables: true,
     },
     mode: 'all',
-    preserveHtmlElements: false,
   },
   presets: [],
   darkMode: 'media', // or 'class'

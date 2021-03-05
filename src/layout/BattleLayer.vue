@@ -2,10 +2,11 @@
   <main id="battle-layer"
         class="
         flex
-        h-full
+        h-screen
         justify-center
         relative
-        bg-gray-900">
+        dark:bg-gray-900
+        bg-white">
     <div ref="battleLayer"
          class="
          battle-layer
