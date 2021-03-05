@@ -1,8 +1,15 @@
-import {appWidth, appHeight} from "@/core/settings";
-
 abstract class Thing {
   private _posX?: number;
   private _posY?: number;
+  private _maxXPoint?: number;
+  private _maxYPoint?: number;
+  
+  constructor(defaultX: number, defaultY: number, maxX: number, maxY: number) {
+    this._posX = defaultX
+    this._posY = defaultY
+    this._maxXPoint = maxX
+    this._maxYPoint = maxY
+  }
   
   public get posX(): number {
     return Number(this._posX)

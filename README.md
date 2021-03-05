@@ -58,7 +58,7 @@ and go to project root, run `yarn install`
 
 - top class: `Thing`
    - `Noun`
-   - `Charactor`
+   - `Character`
    - `Operator`
    - `Property`
    - `Collectible` (too few)
