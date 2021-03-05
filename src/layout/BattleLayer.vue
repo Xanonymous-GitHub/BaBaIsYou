@@ -1,5 +1,11 @@
 <template>
-  <main id="battle-layer" ref="battleLayer">
+  <main id="battle-layer" ref="battleLayer"
+        class="
+        h-screen
+        flex
+        justify-center
+        align-middle
+        bg-gray-900">
 
   </main>
 </template>
