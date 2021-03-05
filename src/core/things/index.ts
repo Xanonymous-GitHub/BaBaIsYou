@@ -4,10 +4,10 @@ import {Towards} from "@/core/types/things";
 export abstract class Thing extends PIXI.Sprite {
   private _blockX?: number
   private _blockY?: number
-  private _maxBlockX?: number
-  private _maxBlockY?: number
+  private readonly _maxBlockX?: number
+  private readonly _maxBlockY?: number
   private _defaultTowards?: Towards
-  private _blockSize?: number
+  private readonly _blockSize?: number
   
   protected constructor(
     texture: PIXI.Texture,
@@ -54,11 +54,55 @@ export abstract class Thing extends PIXI.Sprite {
     this._blockY = y
   };
   
-  public abstract moveTop(): Promise<void>;
+  protected async moveTop(): Promise<void> {
+    await new Promise<void>((resolve, reject) => {
+      if (this.blockY === this._maxBlockY) {
+        reject()
+      } else if (this.blockY === 0) {
+        reject()
+      } else {
+        this.blockY--
+      }
+      resolve()
+    })
+  };
   
-  public abstract moveDown(): Promise<void>;
+  protected async moveDown(): Promise<void> {
+    await new Promise<void>((resolve, reject) => {
+      if (this.blockY === this._maxBlockY) {
+        reject()
+      } else if (this.blockY === 0) {
+        reject()
+      } else {
+        this.blockY++
+      }
+      resolve()
+    })
+  };
   
-  public abstract moveRight(): Promise<void>;
+  protected async moveRight(): Promise<void> {
+    await new Promise<void>((resolve, reject) => {
+      if (this.blockX === this._maxBlockX) {
+        reject()
+      } else if (this.blockX === 0) {
+        reject()
+      } else {
+        this.blockX++
+      }
+      resolve()
+    })
+  };
   
-  public abstract moveLeft(): Promise<void>;
+  protected async moveLeft(): Promise<void> {
+    await new Promise<void>((resolve, reject) => {
+      if (this.blockX === this._maxBlockX) {
+        reject()
+      } else if (this.blockX === 0) {
+        reject()
+      } else {
+        this.blockX--
+      }
+      resolve()
+    })
+  };
 }
