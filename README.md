@@ -9,13 +9,13 @@
 ## Project operations
 In this project, we use vite 2 and pnpm to build and manage dependencies.
 
-before start, please install pnpm in your device by this command: `npm i -g pnpm`
+before start, please install pnpm in your device by this command: `npm i -g yarn`
 
-and go to project root, run `pnpm i`
+and go to project root, run `yarn install`
 
-- run project in dev mode: `pnpm dev`
-- build project for production: `pnpm build`
-- host project after build: `pnpm serve`
+- run project in dev mode: `yarn dev`
+- build project for production: `yarn build`
+- host project after build: `yarn serve`
 
 ## Settings
 1. Basic Game Stage
