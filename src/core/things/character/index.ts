@@ -1,4 +1,6 @@
-class Character extends Thing{
+import {Thing} from "@/core/things";
+
+class Character extends Thing {
   moveDown(): Promise<void> {
     return Promise.resolve(undefined);
   }
