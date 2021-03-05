@@ -3597,7 +3597,7 @@ vite@^2.0.5:
   optionalDependencies:
     fsevents "~2.3.1"
 
-vue@^3.0.5:
+vue@^3.0.7:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.0.7.tgz#8bcff51f8be570f9e4ce8cc5f52e2ab0fe3c74a1"
   integrity sha512-8h4TikD+JabbMK9aRlBO4laG0AtNHRPHynxYgWZ9sq1YUPfzynd9Jeeb27XNyZytC7aCQRX9xe1+TQJuc181Tw==
