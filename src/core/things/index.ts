@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import {Towards} from "@/core/types/things";
+import {Towards} from "../types/things";
 
 export abstract class Thing extends PIXI.Sprite {
   private _blockX?: number
@@ -36,6 +36,9 @@ export abstract class Thing extends PIXI.Sprite {
     this._blockSize = blockSize
     this.height = blockSize
     this.width = blockSize
+    
+    // center the sprite's anchor point.
+    this.anchor.set(0.5)
   }
   
   public get blockX(): number {

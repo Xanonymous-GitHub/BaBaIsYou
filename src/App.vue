@@ -1,15 +1,15 @@
 <template>
-  <BattleLayer/>
+  <GameLayer/>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue'
-import BattleLayer from "./layout/BattleLayer.vue";
+import GameLayer from "./layout/GameLayer.vue";
 
 export default defineComponent({
   name: 'App',
   components: {
-    BattleLayer
+    GameLayer
   }
 })
 </script>

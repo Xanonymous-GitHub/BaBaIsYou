@@ -14,7 +14,8 @@ export const appHeight = 720
 
 export const appOptions = {
   powerPreference: 'low-power',
-  // resizeTo: document.querySelector('#app') as HTMLDivElement
   width: appWidth,
   height: appHeight,
+  autoDensity: true,
+  preserveDrawingBuffer: true
 } as IApplicationOptions

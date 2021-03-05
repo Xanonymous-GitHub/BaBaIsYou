@@ -1,5 +1,5 @@
 <template>
-  <main id="battle-layer"
+  <main id="game-layer"
         class="
         flex
         h-screen
@@ -7,9 +7,9 @@
         relative
         dark:bg-gray-900
         bg-white">
-    <div ref="battleLayer"
+    <div ref="gameLayer"
          class="
-         battle-layer
+         game-layer
          self-center"
     />
   </main>
@@ -20,25 +20,25 @@ import {defineComponent, onMounted, ref} from 'vue'
 import gameConcrete from '../core'
 
 export default defineComponent({
-  name: "BattleLayer",
+  name: "GameLayer",
   setup() {
-    const battleLayer = ref<HTMLElement>({} as HTMLElement)
+    const gameLayer = ref<HTMLElement>({} as HTMLElement)
 
     onMounted(() => {
-      battleLayer.value.appendChild(
+      gameLayer.value.appendChild(
           gameConcrete
       )
     })
 
     return {
-      battleLayer
+      gameLayer
     }
   }
 })
 </script>
 
 <style lang="scss" scoped>
-.battle-layer {
+.game-layer {
   max-height: min-content;
   min-height: max-content;
   height: min-content;
