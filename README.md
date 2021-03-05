@@ -53,3 +53,12 @@ and go to project root, run `yarn install`
     - Modelling
 6. 6/1 ~ 
     - Testing
+   
+## core structure
+
+- top class: `Thing`
+   - `Noun`
+   - `Charactor`
+   - `Operator`
+   - `Property`
+   - `Collectible` (too few)
