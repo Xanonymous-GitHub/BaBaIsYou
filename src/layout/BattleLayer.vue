@@ -1,12 +1,16 @@
 <template>
-  <main id="battle-layer" ref="battleLayer"
+  <main id="battle-layer"
         class="
-        h-screen
         flex
+        h-full
         justify-center
-        align-middle
+        relative
         bg-gray-900">
-
+    <div ref="battleLayer"
+         class="
+         battle-layer
+         self-center"
+    />
   </main>
 </template>
 
@@ -31,3 +35,11 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.battle-layer {
+  max-height: min-content;
+  min-height: max-content;
+  height: min-content;
+}
+</style>

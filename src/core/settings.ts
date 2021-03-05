@@ -13,7 +13,7 @@ export const appWidth = 900
 export const appHeight = 600
 
 export const appOptions = {
-  powerPreference: 'high-performance',
+  powerPreference: 'low-power',
   // resizeTo: document.querySelector('#app') as HTMLDivElement
   width: appWidth,
   height: appHeight,
