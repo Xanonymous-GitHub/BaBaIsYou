@@ -1,9 +1,6 @@
 import * as PIXI from 'pixi.js'
+import {appOptions} from "./settings";
 
-const app = new PIXI.Application({
-  powerPreference: 'high-performance',
-  width: 1280,
-  height: 720
-})
+const app = new PIXI.Application(appOptions)
 
 export default app.view
