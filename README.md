@@ -6,6 +6,17 @@
 - [Course Gitlab](https://css-gitlab.csie.ntut.edu.tw/109000000/oopl2020s)
 - [PixiJS](https://www.pixijs.com)
 
+## Project operations
+In this project, we use vite 2 and pnpm to build and manage dependencies.
+
+before start, please install pnpm in your device by this command: `npm i -g pnpm`
+
+and go to project root, run `pnpm i`
+
+- run project in dev mode: `pnpm dev`
+- build project for production: `pnpm build`
+- host project after build: `pnpm serve`
+
 ## Settings
 1. Basic Game Stage
     - Game Map
