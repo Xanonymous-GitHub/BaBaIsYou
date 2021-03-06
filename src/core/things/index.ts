@@ -43,19 +43,19 @@ export abstract class Thing extends PIXI.Sprite {
   
   public get blockX(): number {
     return Number(this._blockX)
-  };
+  }
   
   public set blockX(x: number) {
     this._blockX = x
-  };
+  }
   
   public get blockY(): number {
     return Number(this._blockX)
-  };
+  }
   
   public set blockY(y: number) {
     this._blockY = y
-  };
+  }
   
   protected async moveTop(): Promise<void> {
     await new Promise<void>((resolve, reject) => {
@@ -68,7 +68,7 @@ export abstract class Thing extends PIXI.Sprite {
       }
       resolve()
     })
-  };
+  }
   
   protected async moveDown(): Promise<void> {
     await new Promise<void>((resolve, reject) => {
@@ -81,7 +81,7 @@ export abstract class Thing extends PIXI.Sprite {
       }
       resolve()
     })
-  };
+  }
   
   protected async moveRight(): Promise<void> {
     await new Promise<void>((resolve, reject) => {
@@ -94,7 +94,7 @@ export abstract class Thing extends PIXI.Sprite {
       }
       resolve()
     })
-  };
+  }
   
   protected async moveLeft(): Promise<void> {
     await new Promise<void>((resolve, reject) => {
@@ -107,5 +107,5 @@ export abstract class Thing extends PIXI.Sprite {
       }
       resolve()
     })
-  };
+  }
 }
