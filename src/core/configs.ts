@@ -13,9 +13,9 @@ export const appWidth = 1080
 export const appHeight = 720
 
 export const appOptions = {
-  powerPreference: 'low-power',
-  width: appWidth,
-  height: appHeight,
-  autoDensity: true,
-  preserveDrawingBuffer: true
+    powerPreference: 'low-power',
+    width: appWidth,
+    height: appHeight,
+    autoDensity: true,
+    preserveDrawingBuffer: true
 } as IApplicationOptions
