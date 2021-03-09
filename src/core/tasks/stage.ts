@@ -54,9 +54,9 @@ class MountContainerToStageAt extends StageTask<void> {
 class UnmountContainerFromStageAt extends StageTask<PIXI.DisplayObject> {
     protected readonly _unmountAtIndex: number
 
-    constructor(stage: PIXI.Container, container: PIXI.Container, unMountAtIndex: number) {
+    constructor(stage: PIXI.Container, container: PIXI.Container, unmountAtIndex: number) {
         super(stage, container)
-        this._unmountAtIndex = unMountAtIndex
+        this._unmountAtIndex = unmountAtIndex
     }
 
     public async execute(): Promise<PIXI.DisplayObject> {
