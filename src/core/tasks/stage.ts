@@ -23,14 +23,14 @@ class MountContainerToStage extends StageTask<void> {
     }
 }
 
-class UnMountContainerFromStage extends StageTask<PIXI.Container> {
+class UnmountContainerFromStage extends StageTask<PIXI.Container> {
     public async execute(): Promise<PIXI.Container> {
         return await new Promise<PIXI.Container>((resolve, reject) => {
-            const unMountContainerFromStage = this._stage.removeChild(this._container)
-            if (unMountContainerFromStage) {
-                resolve(unMountContainerFromStage)
+            const unmountContainerFromStage = this._stage.removeChild(this._container)
+            if (unmountContainerFromStage) {
+                resolve(unmountContainerFromStage)
             }
-            reject(unMountContainerFromStage)
+            reject(unmountContainerFromStage)
         })
     }
 }
@@ -51,21 +51,21 @@ class MountContainerToStageAt extends StageTask<void> {
     }
 }
 
-class UnMountContainerFromStageAt extends StageTask<PIXI.DisplayObject> {
-    protected readonly _unMountAtIndex: number
+class UnmountContainerFromStageAt extends StageTask<PIXI.DisplayObject> {
+    protected readonly _unmountAtIndex: number
 
     constructor(stage: PIXI.Container, container: PIXI.Container, unMountAtIndex: number) {
         super(stage, container)
-        this._unMountAtIndex = unMountAtIndex
+        this._unmountAtIndex = unMountAtIndex
     }
 
     public async execute(): Promise<PIXI.DisplayObject> {
         return await new Promise<PIXI.DisplayObject>((resolve, reject) => {
-            const unMountContainerFromStage = this._stage.removeChildAt(this._unMountAtIndex)
-            if (unMountContainerFromStage) {
-                resolve(unMountContainerFromStage)
+            const unmountContainerFromStage = this._stage.removeChildAt(this._unmountAtIndex)
+            if (unmountContainerFromStage) {
+                resolve(unmountContainerFromStage)
             }
-            reject(unMountContainerFromStage)
+            reject(unmountContainerFromStage)
         })
     }
 }
