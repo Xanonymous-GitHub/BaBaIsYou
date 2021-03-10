@@ -14,7 +14,7 @@ abstract class StageTask<T> implements Task<T> {
 }
 
 
-class MountContainerToStage extends StageTask<void> {
+export class MountContainerToStage extends StageTask<void> {
     public async execute(): Promise<void> {
         await new Promise<void>(resolve => {
             this._stage.addChild(this._container)
@@ -23,7 +23,7 @@ class MountContainerToStage extends StageTask<void> {
     }
 }
 
-class UnmountContainerFromStage extends StageTask<PIXI.Container> {
+export class UnmountContainerFromStage extends StageTask<PIXI.Container> {
     public async execute(): Promise<PIXI.Container> {
         return await new Promise<PIXI.Container>((resolve, reject) => {
             const unmountContainerFromStage = this._stage.removeChild(this._container)
@@ -35,7 +35,7 @@ class UnmountContainerFromStage extends StageTask<PIXI.Container> {
     }
 }
 
-class MountContainerToStageAt extends StageTask<void> {
+export class MountContainerToStageAt extends StageTask<void> {
     protected readonly _mountAtIndex: number
 
     constructor(stage: PIXI.Container, container: PIXI.Container, mountAtIndex: number) {
@@ -51,7 +51,7 @@ class MountContainerToStageAt extends StageTask<void> {
     }
 }
 
-class UnmountContainerFromStageAt extends StageTask<PIXI.DisplayObject> {
+export class UnmountContainerFromStageAt extends StageTask<PIXI.DisplayObject> {
     protected readonly _unmountAtIndex: number
 
     constructor(stage: PIXI.Container, container: PIXI.Container, unmountAtIndex: number) {

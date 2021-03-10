@@ -6,7 +6,7 @@ abstract class ContainerTask<T> implements Task<T> {
     public abstract execute(): Promise<T>;
 }
 
-class MountThingsToContainer extends ContainerTask<PIXI.Container> {
+export class MountThingsToContainer extends ContainerTask<PIXI.Container> {
     private readonly _things: Array<Thing>
     private readonly _container: PIXI.Container
 
@@ -24,7 +24,7 @@ class MountThingsToContainer extends ContainerTask<PIXI.Container> {
     }
 }
 
-class UnMountThingsFromContainer extends ContainerTask<Array<Thing>> {
+export class UnMountThingsFromContainer extends ContainerTask<Array<Thing>> {
     private readonly _container: PIXI.Container
 
     constructor(container: PIXI.Container) {

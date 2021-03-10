@@ -1,7 +1,8 @@
 import * as PIXI from 'pixi.js'
 import {Towards} from "../types/things";
+import {Factor} from "../types";
 
-export abstract class Thing extends PIXI.Sprite {
+export class Thing extends PIXI.Sprite {
     private _blockX: number // start from 0
     private _blockY: number // start from 0
     private readonly _maxBlockX: number
@@ -39,6 +40,10 @@ export abstract class Thing extends PIXI.Sprite {
 
         // center the sprite's anchor point.
         this.anchor.set(0.5)
+
+        // move to the point
+        this.x = (this._blockX + 0.5) * this._blockSize
+        this.y = (this._blockY + 0.5) * this._blockSize
     }
 
     public get blockX(): number {
@@ -46,7 +51,8 @@ export abstract class Thing extends PIXI.Sprite {
     }
 
     public set blockX(x: number) {
-        this._blockX = (x + 0.5) * this._blockSize
+        this._blockX = x
+        this.x = (x + 0.5) * this._blockSize
     }
 
     public get blockY(): number {
@@ -54,7 +60,8 @@ export abstract class Thing extends PIXI.Sprite {
     }
 
     public set blockY(y: number) {
-        this._blockY = (y + 0.5) * this._blockSize
+        this._blockY = y
+        this.y = (y + 0.5) * this._blockSize
     }
 
     protected async moveTop(): Promise<void> {
@@ -110,14 +117,12 @@ export abstract class Thing extends PIXI.Sprite {
     }
 }
 
-abstract class Factory<T> {
-    protected readonly _factor!: { new(...params: Array<any>): T }
-
-    public abstract createInstance(...params: Array<any>): T;
+abstract class Factory {
+    public abstract createInstance<T>(_factor: Factor<T>): T;
 }
 
-export class ThingFactory<T extends Thing> extends Factory<T> {
-    public createInstance(...params: Array<any>): T {
-        return new this._factor(params)
+export class ThingFactory extends Factory {
+    public createInstance<T>(factor: Factor<T>, ...args: Array<any>): T {
+        return new factor(...args)
     }
 }

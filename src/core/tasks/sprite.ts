@@ -7,7 +7,7 @@ abstract class SpriteTask<T> implements Task<T> {
     public abstract execute(): Promise<T>;
 }
 
-class createThing<T extends Thing> extends SpriteTask<T> {
+export class createThing<T extends Thing> extends SpriteTask<T> {
     private readonly _texture: PIXI.Texture
     private readonly _defaultBlockX: number
     private readonly _defaultBlockY: number
@@ -37,9 +37,11 @@ class createThing<T extends Thing> extends SpriteTask<T> {
 
     public async execute(): Promise<T> {
         return await new Promise<T>((resolve, reject) => {
-            const thing = new ThingFactory<T>()
-                .createInstance(
-                    Object
+            const thing = new ThingFactory()
+                .createInstance<T>(
+                    // @ts-ignore
+                    Thing,
+                    ...Object
                         .getOwnPropertyNames(this)
                         .map(name => Object.getOwnPropertyDescriptor(this, name)!.value)
                 )

@@ -5,7 +5,7 @@ abstract class TextureTask<T> implements Task<T> {
     public abstract execute(): Promise<T>;
 }
 
-class LoadSourceToTexture extends TextureTask<PIXI.Texture> {
+export class LoadSourceToTexture extends TextureTask<PIXI.Texture> {
     private readonly _path: string
 
     constructor(path: string) {
