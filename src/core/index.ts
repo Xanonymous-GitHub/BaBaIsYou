@@ -1,7 +1,8 @@
-import {Application, utils} from 'pixi.js'
-import {appOptions} from "./configs";
+import {createGameApp} from "./app";
 
-export const createGameApp = (): Application => {
-    utils.skipHello()
-    return new Application(appOptions)
-}
+const app = createGameApp()
+
+// load start scene
+
+
+export const appView = app.view
