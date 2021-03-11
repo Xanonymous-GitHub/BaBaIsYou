@@ -3,13 +3,12 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue'
-import GameLayer from "./layout/GameLayer.vue";
+import {defineComponent, defineAsyncComponent} from 'vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    GameLayer
+    GameLayer: defineAsyncComponent(() => import('./layout/GameLayer.vue'))
   }
 })
 </script>

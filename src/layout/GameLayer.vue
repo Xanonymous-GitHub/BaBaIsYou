@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import {defineComponent, onMounted, ref} from 'vue'
-import gameConcrete from '../core'
+import {createGameApp} from '../core'
 
 export default defineComponent({
   name: "GameLayer",
@@ -25,8 +25,9 @@ export default defineComponent({
     const gameLayer = ref<HTMLElement>({} as HTMLElement)
 
     onMounted(() => {
+      const gameConcrete = createGameApp()
       gameLayer.value.appendChild(
-          gameConcrete
+        gameConcrete.view
       )
     })
 
