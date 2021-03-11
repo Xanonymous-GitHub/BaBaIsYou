@@ -1,8 +1,8 @@
-import * as PIXI from 'pixi.js'
+import {Sprite, Texture} from 'pixi.js'
 import {Towards} from "../types/things";
 import {Factor} from "../types";
 
-export class Thing extends PIXI.Sprite {
+export class Thing extends Sprite {
     private _blockX: number // start from 0
     private _blockY: number // start from 0
     private readonly _maxBlockX: number
@@ -11,7 +11,7 @@ export class Thing extends PIXI.Sprite {
     private _defaultTowards?: Towards
 
     protected constructor(
-        texture: PIXI.Texture,
+        texture: Texture,
         defaultBlockX: number,
         defaultBlockY: number,
         blockSize: number,

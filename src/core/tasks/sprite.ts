@@ -1,4 +1,4 @@
-import * as PIXI from 'pixi.js'
+import {Texture} from 'pixi.js'
 import {Task} from './'
 import {Thing, ThingFactory} from "../things";
 import {Towards} from "../types/things";
@@ -8,7 +8,7 @@ abstract class SpriteTask<T> implements Task<T> {
 }
 
 export class createThing<T extends Thing> extends SpriteTask<T> {
-    private readonly _texture: PIXI.Texture
+    private readonly _texture: Texture
     private readonly _defaultBlockX: number
     private readonly _defaultBlockY: number
     private readonly _blockSize: number
@@ -17,7 +17,7 @@ export class createThing<T extends Thing> extends SpriteTask<T> {
     private readonly _defaultTowards?: Towards
 
     constructor(
-        texture: PIXI.Texture,
+        texture: Texture,
         defaultBlockX: number,
         defaultBlockY: number,
         blockSize: number,

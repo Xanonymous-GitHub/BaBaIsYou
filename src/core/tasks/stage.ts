@@ -1,11 +1,11 @@
-import * as PIXI from "pixi.js";
+import {Container, DisplayObject} from "pixi.js";
 import {Task} from './'
 
 abstract class StageTask<T> implements Task<T> {
-    protected readonly _stage: PIXI.Container
-    protected readonly _container: PIXI.Container
+    protected readonly _stage: Container
+    protected readonly _container: Container
 
-    protected constructor(stage: PIXI.Container, container: PIXI.Container) {
+    protected constructor(stage: Container, container: Container) {
         this._stage = stage
         this._container = container
     }
@@ -23,9 +23,9 @@ export class MountContainerToStage extends StageTask<void> {
     }
 }
 
-export class UnmountContainerFromStage extends StageTask<PIXI.Container> {
-    public async execute(): Promise<PIXI.Container> {
-        return await new Promise<PIXI.Container>((resolve, reject) => {
+export class UnmountContainerFromStage extends StageTask<Container> {
+    public async execute(): Promise<Container> {
+        return await new Promise<Container>((resolve, reject) => {
             const unmountContainerFromStage = this._stage.removeChild(this._container)
             if (unmountContainerFromStage) {
                 resolve(unmountContainerFromStage)
@@ -38,7 +38,7 @@ export class UnmountContainerFromStage extends StageTask<PIXI.Container> {
 export class MountContainerToStageAt extends StageTask<void> {
     protected readonly _mountAtIndex: number
 
-    constructor(stage: PIXI.Container, container: PIXI.Container, mountAtIndex: number) {
+    constructor(stage: Container, container: Container, mountAtIndex: number) {
         super(stage, container)
         this._mountAtIndex = mountAtIndex
     }
@@ -51,16 +51,16 @@ export class MountContainerToStageAt extends StageTask<void> {
     }
 }
 
-export class UnmountContainerFromStageAt extends StageTask<PIXI.DisplayObject> {
+export class UnmountContainerFromStageAt extends StageTask<DisplayObject> {
     protected readonly _unmountAtIndex: number
 
-    constructor(stage: PIXI.Container, container: PIXI.Container, unmountAtIndex: number) {
+    constructor(stage: Container, container: Container, unmountAtIndex: number) {
         super(stage, container)
         this._unmountAtIndex = unmountAtIndex
     }
 
-    public async execute(): Promise<PIXI.DisplayObject> {
-        return await new Promise<PIXI.DisplayObject>((resolve, reject) => {
+    public async execute(): Promise<DisplayObject> {
+        return await new Promise<DisplayObject>((resolve, reject) => {
             const unmountContainerFromStage = this._stage.removeChildAt(this._unmountAtIndex)
             if (unmountContainerFromStage) {
                 resolve(unmountContainerFromStage)
