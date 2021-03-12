@@ -1,4 +1,6 @@
 import PriorityQueue from "../../data-structures/priorityQueue";
+import {MAX_COMMAND_AMOUNT, COMMAND_MIN_INTERVAL} from "../../app/configs";
+import {deBounce} from "../../utils/debouncer";
 
 export interface Command {
     readonly value: string
@@ -68,9 +70,17 @@ class CommandServiceConcrete implements CommandService {
         return priority
     }
 
+    private get _size(): number {
+        return this._commands.size()
+    }
+
     public addCommand(command: Command): void {
-        const priority = this._judgementCommandPriority(command)
-        this._commands.add(command, priority)
+        if (this._size <= MAX_COMMAND_AMOUNT) {
+            deBounce(() => {
+                const priority = this._judgementCommandPriority(command)
+                this._commands.add(command, priority)
+            }, COMMAND_MIN_INTERVAL)
+        }
     }
 
     public clearCommand(): void {

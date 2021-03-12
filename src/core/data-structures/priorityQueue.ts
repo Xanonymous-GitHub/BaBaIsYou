@@ -49,4 +49,8 @@ export default class PriorityQueue<T> extends MinHeap<T> {
         }
         return a < b ? -1 : 1;
     }
+
+    public size(): number {
+        return this.priorities.size
+    }
 }

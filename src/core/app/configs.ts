@@ -20,3 +20,6 @@ export const appOptions = {
     preserveDrawingBuffer: true,
     antialias: true
 } as IApplicationOptions
+
+export const MAX_COMMAND_AMOUNT = 8
+export const COMMAND_MIN_INTERVAL = 300
