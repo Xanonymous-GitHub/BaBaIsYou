@@ -6,9 +6,12 @@ import {Container} from "pixi.js";
 const createContainerStore = (containerService: ContainerService) => {
     return {
         getContainerByName: (name: string) => containerService.getContainerByName(name),
-        getContainerByIndex: (index: number) => containerService.getContainerByIndex(index),
-        getContainerById: (id: string) => containerService.getContainerById(id),
+        getNonEmptyContainerByIndex: (index: number) => containerService.getNonEmptyContainerByIndex(index),
+        getEmptyContainer: () => containerService.getEmptyContainer(),
         addContainer: (container: Container, name: string, index?: number) => containerService.addContainer(container, name, index),
+        hasContainerById: (id: string) => containerService.hasContainerById(id),
+        hasContainerByName: (name: string) => containerService.hasContainerByName(name),
+        hasAnyContainer: () => containerService.hasAnyContainer(),
     }
 }
 
@@ -33,4 +36,4 @@ export const createGameStore = () => {
     }
 }
 
-export type GameStore = typeof createGameStore
+export type GameStore = ReturnType<typeof createGameStore>
