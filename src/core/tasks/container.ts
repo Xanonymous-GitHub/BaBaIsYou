@@ -1,5 +1,5 @@
 import {Container} from 'pixi.js'
-import {Task} from "./"
+import {Task} from './'
 import {Thing} from '../things'
 
 abstract class ContainerTask<T> implements Task<T> {

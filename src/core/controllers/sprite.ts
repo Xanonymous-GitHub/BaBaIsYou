@@ -1,5 +1,5 @@
-import {Controller} from "./";
-import {GameStore} from "../store";
+import {Controller} from './';
+import {GameStore} from '../store';
 
 class SpriteControllerConcrete extends Controller {
     constructor(store: GameStore) {

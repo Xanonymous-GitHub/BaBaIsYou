@@ -14,7 +14,7 @@ export default defineConfig({
             safelist: 'prose prose-sm m-auto'
         }),
         compress({
-            brotli: false,
+            brotli: true,
             verbose: true
         }),
         legacy({
@@ -44,5 +44,8 @@ export default defineConfig({
             keep_fnames: false,
             compress: true,
         }
+    },
+    esbuild: {
+        include: './src/**/*.{js,ts,jsx,tsx,css,json,text,base64,dataurl,file,binary}'
     }
 })

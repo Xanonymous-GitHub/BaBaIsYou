@@ -1,6 +1,6 @@
 import {createContainerService} from './container'
-import {createCommandService} from "./command";
-import {createSpriteService} from "./sprite";
+import {createCommandService} from './command';
+import {createSpriteService} from './sprite';
 
 export const createServices = () => {
     const containerService = createContainerService()
@@ -10,6 +10,6 @@ export const createServices = () => {
     return {
         containerService,
         commandService,
-        spriteService,
+        spriteService
     }
 }

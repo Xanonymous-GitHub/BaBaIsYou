@@ -10,7 +10,7 @@ export default class PriorityQueue<T> extends MaxHeap<T> {
         this.compare = new Comparator(this.comparePriority.bind(this));
     }
 
-    public add(item: T, priority: number = 0): PriorityQueue<T> {
+    public add(item: T, priority = 0): PriorityQueue<T> {
         this.priorities.set(item, priority);
         super.add(item);
         return this;

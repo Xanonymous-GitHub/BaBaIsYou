@@ -1,6 +1,6 @@
 import {Sprite, Texture} from 'pixi.js'
-import {Towards} from "../types/things";
-import {Factor} from "../types";
+import {Towards} from '../types/things';
+import {Factor} from '../types';
 
 export class Thing extends Sprite {
     private _blockX: number // start from 0
@@ -17,7 +17,7 @@ export class Thing extends Sprite {
         blockSize: number,
         maxBlockX: number,
         maxBlockY: number,
-        defaultTowards?: Towards,
+        defaultTowards?: Towards
     ) {
         // provide the texture to the sprite.
         super(texture)

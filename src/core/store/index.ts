@@ -1,8 +1,8 @@
-import {createServices} from "./services";
+import {createServices} from './services';
 import {ContainerService} from './services/container'
 import {CommandService, Command} from './services/command'
 import {SpriteService} from './services/sprite'
-import {Container, Sprite} from "pixi.js";
+import {Container, Sprite} from 'pixi.js';
 
 const createContainerStore = (containerService: ContainerService) => {
     return {
@@ -12,7 +12,7 @@ const createContainerStore = (containerService: ContainerService) => {
         addContainer: (container: Container, name: string, index?: number) => containerService.addContainer(container, name, index),
         hasContainerById: (id: string) => containerService.hasContainerById(id),
         hasContainerByName: (name: string) => containerService.hasContainerByName(name),
-        hasAnyContainer: () => containerService.hasAnyContainer(),
+        hasAnyContainer: () => containerService.hasAnyContainer()
     }
 }
 
@@ -21,7 +21,7 @@ const createCommandStore = (commandService: CommandService) => {
         nextCommand: () => commandService.nextCommand(),
         addCommand: (command: Command) => commandService.addCommand(command),
         clearCommand: () => commandService.clearCommand(),
-        initCommandWatchService: () => commandService.initCommandWatchService(),
+        initCommandWatchService: () => commandService.initCommandWatchService()
     }
 }
 
@@ -31,7 +31,7 @@ const createSpriteStore = (spriteService: SpriteService) => {
         getSpritesByName: (name: string, amount: number) => spriteService.getSpritesByName(name, amount),
         getSpriteAmountByName: (name: string) => spriteService.getSpriteAmountByName(name),
         addSpriteByName: (name: string, sprite: Sprite) => spriteService.addSpriteByName(name, sprite),
-        addSpritesByName: (name: string, sprites: Array<Sprite>) => spriteService.addSpritesByName(name, sprites),
+        addSpritesByName: (name: string, sprites: Array<Sprite>) => spriteService.addSpritesByName(name, sprites)
     }
 }
 
@@ -45,7 +45,7 @@ export const createGameStore = () => {
     return {
         ...containerStore,
         ...commandStore,
-        ...spriteStore,
+        ...spriteStore
     }
 }
 

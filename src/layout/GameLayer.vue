@@ -20,7 +20,7 @@ import {defineComponent, onMounted, ref} from 'vue'
 import {appView} from '../core'
 
 export default defineComponent({
-  name: "GameLayer",
+  name: 'GameLayer',
   setup() {
     const gameLayer = ref<HTMLElement>({} as HTMLElement)
 

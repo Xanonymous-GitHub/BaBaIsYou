@@ -1,6 +1,6 @@
-import {createGameApp} from "./app";
-import {createGameStore} from "./store";
-import {DEBUG_RESOURCES} from "./loaders";
+import {createGameApp} from './app';
+import {createGameStore} from './store';
+import {DEBUG_RESOURCES} from './loaders';
 
 const app = createGameApp()
 const store = createGameStore()

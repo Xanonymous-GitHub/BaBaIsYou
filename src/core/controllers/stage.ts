@@ -1,8 +1,8 @@
 import {Container} from 'pixi.js'
-import {SceneSetup} from "../types";
-import {ContainerController} from "./container";
-import {GameStore} from "../store";
-import {Controller} from "./";
+import {SceneSetup} from '../types';
+import {ContainerController} from './container';
+import {GameStore} from '../store';
+import {Controller} from './';
 
 class StageControllerConcrete extends Controller {
     private readonly _stage: Container

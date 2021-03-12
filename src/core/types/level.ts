@@ -1,5 +1,4 @@
-import {SceneSetup} from "./";
-import {Thing} from "./things";
+import {SceneSetup} from './';
+import {Thing} from './things';
 
-export interface LevelSceneSetup extends SceneSetup<Thing> {
-}
+export type LevelSceneSetup = SceneSetup<Thing>

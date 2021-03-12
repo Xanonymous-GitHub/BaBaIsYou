@@ -148,7 +148,7 @@ export default class Heap<T extends Object> {
         }
     }
 
-    public heapifyDown(customStartIndex: number = 0): void {
+    public heapifyDown(customStartIndex = 0): void {
         let currentIndex = customStartIndex;
         let nextIndex = null;
 
@@ -164,7 +164,7 @@ export default class Heap<T extends Object> {
 
             if (this.pairIsInCorrectOrder(
                 this.heapContainer[currentIndex],
-                this.heapContainer[nextIndex],
+                this.heapContainer[nextIndex]
             )) {
                 break;
             }

@@ -1,5 +1,5 @@
 import {Container} from 'pixi.js'
-import {getUid} from "../../utils/uuid";
+import {getUid} from '../../utils/uuid';
 
 
 export interface ContainerPackage {

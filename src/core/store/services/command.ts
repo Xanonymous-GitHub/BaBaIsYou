@@ -1,6 +1,6 @@
-import PriorityQueue from "../../data-structures/priorityQueue";
-import {MAX_COMMAND_AMOUNT, COMMAND_MIN_INTERVAL} from "../../app/configs";
-import {deBounce} from "../../utils/debouncer";
+import PriorityQueue from '../../data-structures/priorityQueue';
+import {MAX_COMMAND_AMOUNT, COMMAND_MIN_INTERVAL} from '../../app/configs';
+import {deBounce} from '../../utils/debouncer';
 import mousetrap from 'mousetrap'
 
 export interface Command {
@@ -49,7 +49,7 @@ const commandPackages: Array<CommandPackage> = [
             value: 'right'
         },
         priority: 1
-    },
+    }
 ]
 
 const createCommandPrioritiesMap = (): Map<Command, number> => {

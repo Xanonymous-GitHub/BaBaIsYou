@@ -1,7 +1,7 @@
 import {Texture} from 'pixi.js'
 import {Task} from './'
-import {Thing, ThingFactory} from "../things";
-import {Towards} from "../types/things";
+import {Thing, ThingFactory} from '../things';
+import {Towards} from '../types/things';
 
 abstract class SpriteTask<T> implements Task<T> {
     public abstract execute(): Promise<T>;

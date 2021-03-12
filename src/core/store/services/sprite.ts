@@ -1,5 +1,5 @@
 import {Sprite} from 'pixi.js'
-import {getUid} from "../../utils/uuid";
+import {getUid} from '../../utils/uuid';
 
 interface SpritePackage {
     readonly id: string,

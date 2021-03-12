@@ -1,4 +1,4 @@
-import {GameStore} from "../store";
+import {GameStore} from '../store';
 
 export abstract class Controller {
     protected readonly _store: GameStore
