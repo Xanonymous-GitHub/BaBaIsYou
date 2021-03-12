@@ -1,6 +1,7 @@
 import PriorityQueue from "../../data-structures/priorityQueue";
 import {MAX_COMMAND_AMOUNT, COMMAND_MIN_INTERVAL} from "../../app/configs";
 import {deBounce} from "../../utils/debouncer";
+import mousetrap from 'mousetrap'
 
 export interface Command {
     readonly value: string
@@ -33,7 +34,7 @@ const commandPackages: Array<CommandPackage> = [
     },
     {
         command: {
-            value: 'DOWN'
+            value: 'down'
         },
         priority: 1
     },
@@ -79,7 +80,7 @@ class CommandServiceConcrete implements CommandService {
             deBounce(() => {
                 const priority = this._judgementCommandPriority(command)
                 this._commands.add(command, priority)
-            }, COMMAND_MIN_INTERVAL)
+            }, COMMAND_MIN_INTERVAL)()
         }
     }
 
@@ -92,9 +93,8 @@ class CommandServiceConcrete implements CommandService {
     }
 
     public initCommandWatchService(): void {
-        const mousetrap = require('mousetrap')
         for (const commandPackage of commandPackages) {
-            mousetrap.bind(commandPackage.command.value, this.addCommand(commandPackage.command))
+            mousetrap.bind(commandPackage.command.value, () => this.addCommand(commandPackage.command))
         }
     }
 }

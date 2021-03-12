@@ -1,5 +1,6 @@
 import {Container} from 'pixi.js'
-import {SceneSetup} from "@/core/types";
+import {SceneSetup} from "../types";
+import {GameStore} from "../store";
 
 class StageController {
     private readonly _stage: Container
@@ -8,7 +9,7 @@ class StageController {
         this._stage = stage
     }
 
-    public async addScene(sceneSetup: SceneSetup<any>) {
+    public async addScene(store: GameStore, sceneSetup: SceneSetup<any>) {
         // 1. check if the scene is already mounted on the stage.
         // 2. call container controller to make the loading scene.
         // 3. receive the scene from container controller.
