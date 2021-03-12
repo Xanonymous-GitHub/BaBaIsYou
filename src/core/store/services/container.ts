@@ -9,9 +9,9 @@ export interface ContainerPackage {
 }
 
 export interface ContainerService {
-    getContainerByName: (name: string) => ContainerPackage
-    getNonEmptyContainerByIndex: (index: number) => ContainerPackage
-    getEmptyContainer: () => ContainerPackage | null
+    getContainerByName: (name: string) => Readonly<Container>
+    getNonEmptyContainerByIndex: (index: number) => Readonly<Container>
+    getEmptyContainer: () => Readonly<Container> | null
     addContainer: (container: Container, name: string, index?: number) => void
     hasContainerById: (id: string) => boolean
     hasContainerByName: (name: string) => boolean
@@ -49,24 +49,24 @@ class ContainerServiceConcrete implements ContainerService {
         return this._containerPackages.concat(this._emptyContainerPackages).length !== 0
     }
 
-    public getNonEmptyContainerByIndex(index: number): Readonly<ContainerPackage> {
+    public getNonEmptyContainerByIndex(index: number): Readonly<Container> {
         const nonEmptyContainerAmount = this._nonEmptySize
         if (index < 0 || index >= nonEmptyContainerAmount) throw new Error(`Index ${index} out of range`)
         const containerPackage = this._containerPackages[index]
         if (!containerPackage) throw new Error(`Container package ${index} not a valid container package`)
         this._removeContainerPackage(containerPackage.id)
-        return containerPackage
+        return containerPackage.container
     }
 
-    public getEmptyContainer(): Readonly<ContainerPackage> | null {
+    public getEmptyContainer(): Readonly<Container> | null {
         const emptyContainerPackageAmount = this._emptyContainerPackages.length
         if (emptyContainerPackageAmount === 0) return null
         const emptyContainerPackage = this._emptyContainerPackages[emptyContainerPackageAmount - 1]
         this._removeContainerPackage(emptyContainerPackage.id)
-        return emptyContainerPackage
+        return emptyContainerPackage.container
     }
 
-    public getContainerByName(name: string): Readonly<ContainerPackage> {
+    public getContainerByName(name: string): Readonly<Container> {
         let containerPackage = this._containerPackages.find(pkg => pkg.name === name)
         if (!containerPackage) {
             const emptyContainerPackage = this._emptyContainerPackages.find(pkg => pkg.name === name)
@@ -74,7 +74,7 @@ class ContainerServiceConcrete implements ContainerService {
             containerPackage = emptyContainerPackage
         }
         this._removeContainerPackage(containerPackage.id)
-        return containerPackage
+        return containerPackage.container
     }
 
     public addContainer(container: Container, name: string, index?: number): void {

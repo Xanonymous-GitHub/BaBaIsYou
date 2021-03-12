@@ -1,7 +1,8 @@
 import {createServices} from "./services";
 import {ContainerService} from './services/container'
 import {CommandService, Command} from './services/command'
-import {Container} from "pixi.js";
+import {SpriteService} from './services/sprite'
+import {Container, Sprite} from "pixi.js";
 
 const createContainerStore = (containerService: ContainerService) => {
     return {
@@ -24,15 +25,27 @@ const createCommandStore = (commandService: CommandService) => {
     }
 }
 
+const createSpriteStore = (spriteService: SpriteService) => {
+    return {
+        getSpriteByName: (name: string) => spriteService.getSpriteByName(name),
+        getSpritesByName: (name: string, amount: number) => spriteService.getSpritesByName(name, amount),
+        getSpriteAmountByName: (name: string) => spriteService.getSpriteAmountByName(name),
+        addSpriteByName: (name: string, sprite: Sprite) => spriteService.addSpriteByName(name, sprite),
+        addSpritesByName: (name: string, sprites: Array<Sprite>) => spriteService.addSpritesByName(name, sprites),
+    }
+}
+
 export const createGameStore = () => {
     const services = createServices()
 
     const containerStore = createContainerStore(services.containerService)
     const commandStore = createCommandStore(services.commandService)
+    const spriteStore = createSpriteStore(services.spriteService)
 
     return {
         ...containerStore,
         ...commandStore,
+        ...spriteStore,
     }
 }
 
