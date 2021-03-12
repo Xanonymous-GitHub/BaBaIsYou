@@ -1,12 +1,15 @@
 import {Container} from 'pixi.js'
 import {SceneSetup} from "../types";
 import {ContainerController} from "./container";
+import {GameStore} from "../store";
+import {Controller} from "./";
 
-class StageControllerConcrete {
+class StageControllerConcrete extends Controller {
     private readonly _stage: Container
     private readonly _containerController: ContainerController
 
-    constructor(stage: Container, containerController: ContainerController) {
+    constructor(store: GameStore, stage: Container, containerController: ContainerController) {
+        super(store)
         this._stage = stage
         this._containerController = containerController
     }
@@ -37,8 +40,8 @@ class StageControllerConcrete {
     }
 }
 
-export const createStageController = (stage: Container, containerController: ContainerController) => {
-    return new StageControllerConcrete(stage, containerController)
+export const createStageController = (store: GameStore, stage: Container, containerController: ContainerController) => {
+    return new StageControllerConcrete(store, stage, containerController)
 }
 
 export type StageController = ReturnType<typeof createStageController>
