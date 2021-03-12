@@ -3,11 +3,15 @@ import vue from '@vitejs/plugin-vue'
 import compress from 'vite-plugin-compress'
 import {minifyHtml} from 'vite-plugin-html';
 import legacy from '@vitejs/plugin-legacy'
+import WindiCSS from 'vite-plugin-windicss'
 
 export default defineConfig({
     plugins: [
         vue({
             isProduction: true,
+        }),
+        WindiCSS({
+            safelist: 'prose prose-sm m-auto'
         }),
         compress({
             brotli: false,
