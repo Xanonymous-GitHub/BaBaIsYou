@@ -5,6 +5,7 @@
 - [Official Wiki](https://babaiswiki.fandom.com)
 - [Course Gitlab](https://css-gitlab.csie.ntut.edu.tw/109000000/oopl2020s)
 - [PixiJS](https://www.pixijs.com)
+- [SpriteSheet Tool](https://www.leshylabs.com/apps/sstool/)
 
 ## Project operations
 In this project, we use vite 2 and pnpm to build and manage dependencies.
