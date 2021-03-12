@@ -1,7 +1,7 @@
-import MinHeap from './minHeap';
+import MaxHeap from './maxHeap';
 import Comparator from './comparator';
 
-export default class PriorityQueue<T> extends MinHeap<T> {
+export default class PriorityQueue<T> extends MaxHeap<T> {
     private readonly priorities!: Map<T, number>;
 
     constructor() {

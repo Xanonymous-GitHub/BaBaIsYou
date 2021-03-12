@@ -24,7 +24,7 @@ const commandPackages: Array<CommandPackage> = [
         command: {
             value: 'esc'
         },
-        priority: 0
+        priority: 9999999999999
     },
     {
         command: {
@@ -62,34 +62,40 @@ const createCommandPrioritiesMap = (): Map<Command, number> => {
 }
 
 class CommandServiceConcrete implements CommandService {
-    private readonly _commands: PriorityQueue<Command> = new PriorityQueue<Command>()
+    private readonly _commandPackages: PriorityQueue<CommandPackage> = new PriorityQueue<CommandPackage>()
     private readonly _commandPrioritiesMap: Map<Command, number> = createCommandPrioritiesMap()
 
     private _judgementCommandPriority(command: Command): number {
         const priority = this._commandPrioritiesMap.get(command)
         if (typeof priority === 'undefined' || priority === undefined) throw new Error(`this command ${command} is not have any priority defined`)
-        return priority
+        if (priority === 9999999999999) return priority
+        return Date.now()
     }
 
     private get _size(): number {
-        return this._commands.size()
+        return this._commandPackages.size()
     }
 
     public addCommand(command: Command): void {
-        if (this._size <= MAX_COMMAND_AMOUNT) {
+        if (this._size < MAX_COMMAND_AMOUNT) {
             deBounce(() => {
                 const priority = this._judgementCommandPriority(command)
-                this._commands.add(command, priority)
+                this._commandPackages.add({
+                    command,
+                    priority
+                }, priority)
             }, COMMAND_MIN_INTERVAL)()
         }
     }
 
     public clearCommand(): void {
-        this._commands.clear()
+        this._commandPackages.clear()
     }
 
     public nextCommand(): Readonly<Command> | null {
-        return this._commands.poll()
+        const commandPackage = this._commandPackages.poll()
+        if (!commandPackage) return null
+        return commandPackage.command
     }
 
     public initCommandWatchService(): void {
