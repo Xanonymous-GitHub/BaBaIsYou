@@ -18,9 +18,6 @@ export interface ContainerService {
 class ContainerServiceConcrete implements ContainerService {
     private _containerPackages: Array<ContainerPackage> = []
 
-    constructor() {
-    }
-
     private get _size(): number {
         return this._containerPackages.length
     }

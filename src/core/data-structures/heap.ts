@@ -1,8 +1,8 @@
 import Comparator from './comparator';
 
-export default class Heap {
+export default class Heap<T extends Object> {
     protected compare!: Comparator
-    private readonly heapContainer!: Array<any>
+    private readonly heapContainer!: Array<T>
 
     constructor(comparatorFunction?: Function) {
         if (new.target === Heap) {
@@ -38,15 +38,15 @@ export default class Heap {
         return this.getRightChildIndex(parentIndex) < this.heapContainer.length;
     }
 
-    public leftChild(parentIndex: number): any {
+    public leftChild(parentIndex: number): T {
         return this.heapContainer[this.getLeftChildIndex(parentIndex)];
     }
 
-    public rightChild(parentIndex: number): any {
+    public rightChild(parentIndex: number): T {
         return this.heapContainer[this.getRightChildIndex(parentIndex)];
     }
 
-    public parent(childIndex: number): any {
+    public parent(childIndex: number): T {
         return this.heapContainer[this.getParentIndex(childIndex)];
     }
 
@@ -56,7 +56,7 @@ export default class Heap {
         this.heapContainer[indexOne] = tmp;
     }
 
-    public peek(): any {
+    public peek(): T | null {
         if (this.heapContainer.length === 0) {
             return null;
         }
@@ -64,30 +64,30 @@ export default class Heap {
         return this.heapContainer[0];
     }
 
-    public poll(): any {
+    public poll(): T | null {
         if (this.heapContainer.length === 0) {
             return null;
         }
 
         if (this.heapContainer.length === 1) {
-            return this.heapContainer.pop();
+            return this.heapContainer.pop()!;
         }
 
         const item = this.heapContainer[0];
 
-        this.heapContainer[0] = this.heapContainer.pop();
+        this.heapContainer[0] = this.heapContainer.pop()!;
         this.heapifyDown();
 
         return item;
     }
 
-    public add(item: any): Heap {
+    public add(item: T): Heap<T> {
         this.heapContainer.push(item);
         this.heapifyUp();
         return this;
     }
 
-    public remove(item: any, comparator: Comparator = this.compare): Heap {
+    public remove(item: T, comparator: Comparator = this.compare): Heap<T> {
         const numberOfItemsToRemove = this.find(item, comparator).length;
 
         for (let iteration = 0; iteration < numberOfItemsToRemove; iteration += 1) {
@@ -95,7 +95,7 @@ export default class Heap {
             if (indexToRemove === (this.heapContainer.length - 1)) {
                 this.heapContainer.pop();
             } else {
-                this.heapContainer[indexToRemove] = this.heapContainer.pop();
+                this.heapContainer[indexToRemove] = this.heapContainer.pop()!;
 
                 const parentItem = this.parent(indexToRemove);
 
@@ -116,7 +116,7 @@ export default class Heap {
         return this;
     }
 
-    public find(item: any, comparator: Comparator = this.compare): Array<number> {
+    public find(item: T, comparator: Comparator = this.compare): Array<number> {
         const foundItemIndices = [];
 
         for (let itemIndex = 0; itemIndex < this.heapContainer.length; itemIndex += 1) {
@@ -174,10 +174,14 @@ export default class Heap {
         }
     }
 
-    public pairIsInCorrectOrder(firstElement: any, secondElement: any): boolean {
+    public pairIsInCorrectOrder(firstElement: T, secondElement: T): boolean {
         throw new Error(`
       You have to implement heap pair comparision method
       for ${firstElement} and ${secondElement} values.
     `);
+    }
+
+    public clear(): void {
+        this.heapContainer.length = 0;
     }
 }
