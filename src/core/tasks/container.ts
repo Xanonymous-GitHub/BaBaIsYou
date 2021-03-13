@@ -4,31 +4,31 @@ import {Thing} from '../things'
 
 abstract class ContainerTask<T> implements Task<T> {
     public abstract execute(): Promise<T>;
+
+    public abstract setArgs(...args: any[]): void
 }
 
-export class MountThingsToContainer extends ContainerTask<Container> {
-    private readonly _things: Array<Thing>
-    private readonly _container: Container
+export class MountThingsToContainerTask extends ContainerTask<Readonly<Container>> {
+    private _things!: Array<Readonly<Thing>>
+    private _container!: Readonly<Container>
 
-    constructor(container: Container, things: Array<Thing>) {
-        super()
+    public setArgs(container: Readonly<Container>, things: Array<Readonly<Thing>>): void {
         this._things = things
         this._container = container
     }
 
-    public async execute(): Promise<Container> {
-        return await new Promise<Container>(resolve => {
-            this._container.addChild(...this._things)
+    public async execute(): Promise<Readonly<Container>> {
+        return await new Promise<Readonly<Container>>(resolve => {
+            this._container.addChild(...(this._things as Array<Thing>))
             resolve(this._container)
         })
     }
 }
 
-export class UnMountThingsFromContainer extends ContainerTask<Array<Thing>> {
-    private readonly _container: Container
+export class UnMountThingsFromContainerTask extends ContainerTask<Array<Thing>> {
+    private _container!: Readonly<Container>
 
-    constructor(container: Container) {
-        super()
+    public setArgs(container: Readonly<Container>): void {
         this._container = container
     }
 

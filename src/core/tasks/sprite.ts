@@ -5,18 +5,20 @@ import {Towards} from '../types/things';
 
 abstract class SpriteTask<T> implements Task<T> {
     public abstract execute(): Promise<T>;
+
+    public abstract setArgs(...args: any[]): void
 }
 
-export class createThing<T extends Thing> extends SpriteTask<T> {
-    private readonly _texture: Texture
-    private readonly _defaultBlockX: number
-    private readonly _defaultBlockY: number
-    private readonly _blockSize: number
-    private readonly _maxBlockX: number
-    private readonly _maxBlockY: number
-    private readonly _defaultTowards?: Towards
+export class createThingTask<T extends Thing> extends SpriteTask<T> {
+    private _texture!: Texture
+    private _defaultBlockX!: number
+    private _defaultBlockY!: number
+    private _blockSize!: number
+    private _maxBlockX!: number
+    private _maxBlockY!: number
+    private _defaultTowards?: Towards
 
-    constructor(
+    public setArgs(
         texture: Texture,
         defaultBlockX: number,
         defaultBlockY: number,
@@ -25,7 +27,6 @@ export class createThing<T extends Thing> extends SpriteTask<T> {
         maxBlockY: number,
         defaultTowards?: Towards
     ) {
-        super();
         this._texture = texture
         this._defaultBlockX = defaultBlockX
         this._defaultBlockY = defaultBlockY

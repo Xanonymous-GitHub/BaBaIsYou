@@ -3,13 +3,14 @@ import {Task} from './'
 
 abstract class TextureTask<T> implements Task<T> {
     public abstract execute(): Promise<T>;
+
+    public abstract setArgs(...args: any[]): void
 }
 
-export class LoadSourceToTexture extends TextureTask<Texture> {
-    private readonly _path: string
+export class LoadSourceToTextureTask extends TextureTask<Texture> {
+    private _path!: string
 
-    constructor(path: string) {
-        super()
+    public setArgs(path: string) {
         this._path = path
     }
 

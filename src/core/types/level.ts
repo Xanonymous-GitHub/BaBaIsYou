@@ -1,4 +1,4 @@
 import {SceneSetup} from './';
-import {Thing} from './things';
+import {ThingSetup} from './things';
 
-export type LevelSceneSetup = SceneSetup<Thing>
+export type LevelSceneSetup = SceneSetup<ThingSetup>

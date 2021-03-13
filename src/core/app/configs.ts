@@ -23,3 +23,5 @@ export const appOptions = {
 
 export const MAX_COMMAND_AMOUNT = 8
 export const COMMAND_MIN_INTERVAL = 100
+
+export const RESOURCE_ROOT_PATH = '/things/'

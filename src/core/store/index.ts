@@ -2,7 +2,10 @@ import {createServices} from './services';
 import {ContainerService} from './services/container'
 import {CommandService, Command} from './services/command'
 import {SpriteService} from './services/sprite'
+import {TextureService} from './services/texture'
 import {Container, Sprite} from 'pixi.js';
+import {ResourceMap} from '../resource';
+import {Species} from '../resource';
 
 const createContainerStore = (containerService: ContainerService) => {
     return {
@@ -35,17 +38,28 @@ const createSpriteStore = (spriteService: SpriteService) => {
     }
 }
 
+const createTextureStore = (textureService: TextureService) => {
+    return {
+        addResourceMap: (resourceMap: ResourceMap) => textureService.addResourceMap(resourceMap),
+        loadResourcesByName: (species: Species, names: Array<string>) => textureService.loadResourcesByName(species, names),
+        getLoadingProgress: () => textureService.getLoadingProgress(),
+        getTextureByName: (name: string) => textureService.getTextureByName(name)
+    }
+}
+
 export const createGameStore = () => {
     const services = createServices()
 
     const containerStore = createContainerStore(services.containerService)
     const commandStore = createCommandStore(services.commandService)
     const spriteStore = createSpriteStore(services.spriteService)
+    const textureStore = createTextureStore(services.textureService)
 
     return {
         ...containerStore,
         ...commandStore,
-        ...spriteStore
+        ...spriteStore,
+        ...textureStore
     }
 }
 

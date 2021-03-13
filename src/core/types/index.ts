@@ -1,7 +1,10 @@
+import {ThingSetup} from './things';
+import {Species} from '../resource';
+
 export type Factor<T> = new(...args: Array<any>) => T;
 
-export interface SceneSetup<T> {
+export interface SceneSetup {
     readonly id: string
     readonly name: string
-    readonly elements: Array<T>
+    readonly thingsMap: Map<{ species: Species, name: string }, Array<ThingSetup>>
 }

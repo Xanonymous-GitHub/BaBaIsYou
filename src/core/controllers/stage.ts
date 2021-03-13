@@ -3,6 +3,7 @@ import {SceneSetup} from '../types';
 import {ContainerController} from './container';
 import {GameStore} from '../store';
 import {Controller} from './';
+import {MountContainerToStageAtIndexTask} from '../tasks/stage'
 
 class StageControllerConcrete extends Controller {
     private readonly _stage: Container
@@ -14,14 +15,11 @@ class StageControllerConcrete extends Controller {
         this._containerController = containerController
     }
 
-    public async addScene(sceneSetup: SceneSetup<any>) {
-        // 1. check if the scene is already mounted on the stage.
-        // 2. call container controller to make the loading scene.
-        // 3. receive the scene from container controller.
-        // 4. mount the scene on stage at index 0.
-        if (!(this._stage.getChildByName ? (sceneSetup.name) : undefined)) {
-
-        }
+    public async addScene(sceneSetup: SceneSetup) {
+        const scene = await this._containerController.createScene(sceneSetup)
+        const mountTask = new MountContainerToStageAtIndexTask()
+        mountTask.setArgs(this._stage, scene, 0)
+        await mountTask.execute()
     }
 
     public async removeScene() {

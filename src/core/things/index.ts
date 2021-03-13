@@ -1,6 +1,7 @@
 import {Sprite, Texture} from 'pixi.js'
 import {Towards} from '../types/things';
 import {Factor} from '../types';
+import {ThingSetup} from '../types/things';
 
 export class Thing extends Sprite {
     private _blockX: number // start from 0
@@ -8,7 +9,7 @@ export class Thing extends Sprite {
     private readonly _maxBlockX: number
     private readonly _maxBlockY: number
     private readonly _blockSize: number
-    private _defaultTowards?: Towards
+    private _towards: Towards
 
     protected constructor(
         texture: Texture,
@@ -31,7 +32,7 @@ export class Thing extends Sprite {
         this._maxBlockY = maxBlockY
 
         // setup default sprite towards.
-        this._defaultTowards = defaultTowards;
+        this._towards = defaultTowards ?? 0;
 
         // setup block size.
         this._blockSize = blockSize
@@ -44,6 +45,12 @@ export class Thing extends Sprite {
         // move to the point
         this.x = (this._blockX + 0.5) * this._blockSize
         this.y = (this._blockY + 0.5) * this._blockSize
+    }
+
+    public setup(options: Pick<ThingSetup, 'defaultBlockX' | 'defaultBlockY' | 'defaultTowards'>) {
+        this.blockX = options.defaultBlockX
+        this.blockY = options.defaultBlockY
+        this.towards = options.defaultTowards
     }
 
     public get blockX(): number {
@@ -62,6 +69,14 @@ export class Thing extends Sprite {
     public set blockY(y: number) {
         this._blockY = y
         this.y = (y + 0.5) * this._blockSize
+    }
+
+    public set towards(side: Towards) {
+        this._towards = side
+    }
+
+    public get towards(): Towards {
+        return this._towards
     }
 
     protected async moveTop(): Promise<void> {

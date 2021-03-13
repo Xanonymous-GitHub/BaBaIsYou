@@ -5,11 +5,11 @@ export enum Towards {
     LEFT
 }
 
-export interface Thing {
+export interface ThingSetup {
     readonly defaultBlockX: number
     readonly defaultBlockY: number
     readonly maxBlockX: number
     readonly maxBlockY: number
-    readonly textureSource: string
+    readonly textureName: string
     readonly defaultTowards: number & Towards
 }
