@@ -2,6 +2,7 @@ import PriorityQueue from '../../data-structures/priorityQueue';
 import {MAX_COMMAND_AMOUNT, COMMAND_MIN_INTERVAL} from '../../app/configs';
 import {deBounce} from '../../utils/debouncer';
 import mousetrap from 'mousetrap'
+import {none, Option, some} from 'fp-ts/es6/Option';
 
 export interface Command {
     readonly value: string
@@ -13,7 +14,7 @@ export interface CommandPackage {
 }
 
 export interface CommandService {
-    nextCommand: () => Readonly<Command> | null
+    nextCommand: () => Option<Readonly<Command>>
     addCommand: (command: Command) => void
     clearCommand: () => void
     initCommandWatchService: () => void
@@ -92,10 +93,10 @@ class CommandServiceConcrete implements CommandService {
         this._commandPackages.clear()
     }
 
-    public nextCommand(): Readonly<Command> | null {
+    public nextCommand(): Option<Readonly<Command>> {
         const commandPackage = this._commandPackages.poll()
-        if (!commandPackage) return null
-        return commandPackage.command
+        if (!commandPackage) return none
+        return some(commandPackage.command)
     }
 
     public initCommandWatchService(): void {

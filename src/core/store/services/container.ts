@@ -1,5 +1,6 @@
 import {Container} from 'pixi.js'
 import {getUid} from '../../utils/uuid';
+import {none, Option, some} from 'fp-ts/es6/Option';
 
 
 export interface ContainerPackage {
@@ -11,7 +12,7 @@ export interface ContainerPackage {
 export interface ContainerService {
     getContainerByName: (name: string) => Readonly<Container>
     getNonEmptyContainerByIndex: (index: number) => Readonly<Container>
-    getEmptyContainer: () => Readonly<Container> | null
+    getEmptyContainer: () => Option<Readonly<Container>>
     addContainer: (container: Container, name: string, index?: number) => void
     hasContainerById: (id: string) => boolean
     hasContainerByName: (name: string) => boolean
@@ -58,12 +59,12 @@ class ContainerServiceConcrete implements ContainerService {
         return containerPackage.container
     }
 
-    public getEmptyContainer(): Readonly<Container> | null {
+    public getEmptyContainer(): Option<Readonly<Container>> {
         const emptyContainerPackageAmount = this._emptyContainerPackages.length
-        if (emptyContainerPackageAmount === 0) return null
+        if (emptyContainerPackageAmount === 0) return none
         const emptyContainerPackage = this._emptyContainerPackages[emptyContainerPackageAmount - 1]
         this._removeContainerPackage(emptyContainerPackage.id)
-        return emptyContainerPackage.container
+        return some(emptyContainerPackage.container)
     }
 
     public getContainerByName(name: string): Readonly<Container> {

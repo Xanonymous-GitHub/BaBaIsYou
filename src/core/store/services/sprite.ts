@@ -1,5 +1,6 @@
 import {Sprite} from 'pixi.js'
 import {getUid} from '../../utils/uuid';
+import {none, Option, some} from 'fp-ts/es6/Option';
 
 interface SpritePackage {
     readonly id: string,
@@ -7,8 +8,8 @@ interface SpritePackage {
 }
 
 export interface SpriteService {
-    getSpriteByName: (name: string) => Readonly<Sprite> | null
-    getSpritesByName: (name: string, amount: number) => Array<Readonly<Sprite>> | null
+    getSpriteByName: (name: string) => Option<Readonly<Sprite>>
+    getSpritesByName: (name: string, amount: number) => Option<Array<Readonly<Sprite>>>
     getSpriteAmountByName: (name: string) => number
     addSpriteByName: (name: string, sprite: Sprite) => void
     addSpritesByName: (name: string, sprites: Array<Sprite>) => void
@@ -67,23 +68,23 @@ class SpriteServiceConcrete implements SpriteService {
         return this._spritePackages.get(name)!.length;
     }
 
-    public getSpriteByName(name: string): Readonly<Sprite> | null {
-        if (!this._hasThisSprite(name)) return null
+    public getSpriteByName(name: string): Option<Readonly<Sprite>> {
+        if (!this._hasThisSprite(name)) return none
         const spritePackage = this._spritePackages.get(name)![0]
         if (!spritePackage) throw new Error(`sprite ${name} not found`)
         this._removeSpritePackage(name, spritePackage.id)
-        return spritePackage.sprite
+        return some(spritePackage.sprite)
     }
 
-    public getSpritesByName(name: string, amount: number): Array<Readonly<Sprite>> | null {
-        if (!this._hasThisSprite(name)) return null
+    public getSpritesByName(name: string, amount: number): Option<Array<Readonly<Sprite>>> {
+        if (!this._hasThisSprite(name)) return none
         const realAmount = this.getSpriteAmountByName(name)
         if (realAmount < amount) throw new Error(`sprites amount in store ${realAmount} < ${amount}`)
         const spritePackages = this._removeSpritePackages(name, amount)
         if (!spritePackages) throw new Error(`sprites ${name} can not be removed`)
         const sprites: Array<Sprite> = []
         for (const spritePackage of spritePackages) sprites.push(spritePackage.sprite)
-        return sprites
+        return some(sprites)
     }
 }
 
