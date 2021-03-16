@@ -1,14 +1,16 @@
 # BaBa Is You
 <img src="https://i.imgur.com/44OJbB0.gif">
 
-## Links
+## Links (this will be removed after project release)
 - [Official Wiki](https://babaiswiki.fandom.com)
 - [Course Gitlab](https://css-gitlab.csie.ntut.edu.tw/109000000/oopl2020s)
 - [PixiJS](https://www.pixijs.com)
 - [SpriteSheet Tool](https://www.leshylabs.com/apps/sstool/)
 
+### WARNING: this project is still in development, not stable and not clean.
+
 ## Project operations
-In this project, we use vite 2 and pnpm to build and manage dependencies.
+In this project, we use vite 2 and yarn to build and manage dependencies.
 
 before start, please install yarn in your device by this command: `npm i -g yarn`
 
