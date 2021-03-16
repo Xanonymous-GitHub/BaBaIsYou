@@ -8,13 +8,13 @@ import WindiCSS from 'vite-plugin-windicss'
 export default defineConfig({
     plugins: [
         vue({
-            isProduction: true,
+            isProduction: true
         }),
         WindiCSS({
             safelist: 'prose prose-sm m-auto'
         }),
         compress({
-            brotli: true,
+            brotli: false,
             verbose: true
         }),
         legacy({
@@ -28,8 +28,8 @@ export default defineConfig({
             minifyURLs: true,
             removeAttributeQuotes: true,
             removeComments: true,
-            removeEmptyAttributes: true,
-        }),
+            removeEmptyAttributes: true
+        })
     ],
     build: {
         minify: 'terser',
@@ -42,7 +42,7 @@ export default defineConfig({
             safari10: true,
             keep_classnames: false,
             keep_fnames: false,
-            compress: true,
+            compress: true
         }
     },
     esbuild: {
