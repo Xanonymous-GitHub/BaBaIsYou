@@ -10,7 +10,7 @@
 ## Project operations
 In this project, we use vite 2 and pnpm to build and manage dependencies.
 
-before start, please install pnpm in your device by this command: `npm i -g yarn`
+before start, please install yarn in your device by this command: `npm i -g yarn`
 
 and go to project root, run `yarn install`
 
