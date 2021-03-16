@@ -51,6 +51,6 @@ export default class PriorityQueue<T> extends MaxHeap<T> {
     }
 
     public size(): number {
-        return this.priorities.size
+        return this.heapSize()
     }
 }

@@ -184,4 +184,8 @@ export default class Heap<T extends Object> {
     public clear(): void {
         this.heapContainer.length = 0;
     }
+
+    public heapSize(): number {
+        return this.heapContainer.length
+    }
 }

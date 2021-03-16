@@ -1,19 +1,20 @@
 import {Controller} from './';
 import {GameStore} from '../store';
-import {createThingTask} from '../tasks/sprite';
+import {createThingTask, wrapThingInCommandReceiverTask} from '../tasks/sprite';
 import {isNone} from 'fp-ts/es6/Option';
 import {ThingSetup} from '../types/things';
 import {Thing} from '../things';
 import {getBlockSize} from '../utils/screen';
 import {Species} from '../resource';
+import {ThingCommandDispatchServer} from '../observer';
 
 class SpriteControllerConcrete extends Controller {
     constructor(store: GameStore) {
         super(store)
     }
 
-    public async getThings(thingSetupsMap: Map<{ species: Species, name: string }, Array<ThingSetup>>): Promise<Array<Readonly<Thing>>> {
-        const wrappedThings: Array<Readonly<Thing>> = []
+    public async getThings(thingSetupsMap: Map<{ species: Species, name: string }, Array<ThingSetup>>): Promise<Array<Thing>> {
+        const wrappedThings: Array<Thing> = []
         for (const [{species, name}, thingSetups] of thingSetupsMap) {
             // check we surely need some Things.
             const thingAmountWeNeed = thingSetups.length
@@ -67,6 +68,14 @@ class SpriteControllerConcrete extends Controller {
         }
 
         return wrappedThings
+    }
+
+    public async wrapThingInCommandReceiver(dispatchServer: ThingCommandDispatchServer, things: Array<Thing>): Promise<void> {
+        const bindingTask = new wrapThingInCommandReceiverTask()
+        for (const thing of things) {
+            bindingTask.setArgs(dispatchServer, thing)
+            await bindingTask.execute()
+        }
     }
 }
 

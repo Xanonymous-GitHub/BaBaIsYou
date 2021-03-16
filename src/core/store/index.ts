@@ -3,9 +3,11 @@ import {ContainerService} from './services/container'
 import {CommandService, Command} from './services/command'
 import {SpriteService} from './services/sprite'
 import {TextureService} from './services/texture'
+import {DispatchServerService} from './services/dispatchServer';
 import {Container, Sprite} from 'pixi.js';
 import {ResourceMap} from '../resource';
 import {Species} from '../resource';
+import {ThingCommandDispatchServer} from '../observer';
 
 const createContainerStore = (containerService: ContainerService) => {
     return {
@@ -47,6 +49,15 @@ const createTextureStore = (textureService: TextureService) => {
     }
 }
 
+const createDispatchServerStore = (dispatchServerService: DispatchServerService) => {
+    return {
+        setDispatchServer: (server: ThingCommandDispatchServer) => dispatchServerService.setDispatchServer(server),
+        getDispatchServer: () => dispatchServerService.getDispatchServer(),
+        initDispatchServer: () => dispatchServerService.initDispatchServer(),
+        disposeDispatchServer: () => dispatchServerService.disposeDispatchServer()
+    }
+}
+
 export const createGameStore = () => {
     const services = createServices()
 
@@ -54,12 +65,14 @@ export const createGameStore = () => {
     const commandStore = createCommandStore(services.commandService)
     const spriteStore = createSpriteStore(services.spriteService)
     const textureStore = createTextureStore(services.textureService)
+    const dispatchServerStore = createDispatchServerStore(services.dispatchServerService)
 
     return {
         ...containerStore,
         ...commandStore,
         ...spriteStore,
-        ...textureStore
+        ...textureStore,
+        ...dispatchServerStore
     }
 }
 

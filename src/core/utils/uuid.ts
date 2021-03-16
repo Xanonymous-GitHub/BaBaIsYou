@@ -1,5 +1,5 @@
-import {v5 as uuidV5} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 export const getUid = (): string => {
-    return uuidV5()
+    return uuidv4()
 }

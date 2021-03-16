@@ -87,7 +87,7 @@ export class Thing extends Sprite {
     }
 
     public get blockY(): number {
-        return Number(this._blockX)
+        return Number(this._blockY)
     }
 
     public set blockY(y: number) {
@@ -105,9 +105,7 @@ export class Thing extends Sprite {
 
     protected async moveTop(): Promise<void> {
         await new Promise<void>((resolve, reject) => {
-            if (this.blockY === this._maxBlockY) {
-                reject()
-            } else if (this.blockY === 0) {
+            if (this.blockY === 0) {
                 reject()
             } else {
                 this.blockY--
@@ -120,8 +118,6 @@ export class Thing extends Sprite {
         await new Promise<void>((resolve, reject) => {
             if (this.blockY === this._maxBlockY) {
                 reject()
-            } else if (this.blockY === 0) {
-                reject()
             } else {
                 this.blockY++
             }
@@ -133,8 +129,6 @@ export class Thing extends Sprite {
         await new Promise<void>((resolve, reject) => {
             if (this.blockX === this._maxBlockX) {
                 reject()
-            } else if (this.blockX === 0) {
-                reject()
             } else {
                 this.blockX++
             }
@@ -144,9 +138,7 @@ export class Thing extends Sprite {
 
     protected async moveLeft(): Promise<void> {
         await new Promise<void>((resolve, reject) => {
-            if (this.blockX === this._maxBlockX) {
-                reject()
-            } else if (this.blockX === 0) {
+            if (this.blockX === 0) {
                 reject()
             } else {
                 this.blockX--

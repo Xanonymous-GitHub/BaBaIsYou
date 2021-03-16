@@ -6,7 +6,7 @@ import {getUid} from '../utils/uuid';
 import {Thing} from '../things'
 import {isNone} from 'fp-ts/es6/Option';
 
-class ThingCommandDispatchServerConcrete extends ObservableSubject {
+export class ThingCommandDispatchServerConcrete extends ObservableSubject {
     private _store: GameStore
     private _runningCommand = false
     private _isActive = false
@@ -38,6 +38,7 @@ class ThingCommandDispatchServerConcrete extends ObservableSubject {
                 const nextCommand = this._store.nextCommand()
                 if (!isNone(nextCommand)) {
                     this._setRunning()
+                    this.setChanged()
                     this.notifyObservers(nextCommand.value)
                         .then(() => this._setNotRunning())
                 }
@@ -80,5 +81,5 @@ export const createThingCommandReceiver = (dispatchServer: ThingCommandDispatchS
     return new ThingCommandReceiverConcrete(dispatchServer, thing)
 }
 
-export type ThingCommandDispatchServer = ReturnType<typeof createThingCommandDispatchServer>
+export type ThingCommandDispatchServer = ThingCommandDispatchServerConcrete
 export type ThingCommandReceiver = ReturnType<typeof createThingCommandReceiver>
