@@ -10,6 +10,7 @@ abstract class SpriteTask<T> implements Task<T> {
 }
 
 export class createThingTask<T extends Thing> extends SpriteTask<T> {
+    private _name!: string
     private _texture!: Texture
     private _defaultBlockX!: number
     private _defaultBlockY!: number
@@ -19,6 +20,7 @@ export class createThingTask<T extends Thing> extends SpriteTask<T> {
     private _defaultTowards?: Towards
 
     public setArgs(
+        name: string,
         texture: Texture,
         defaultBlockX: number,
         defaultBlockY: number,
@@ -27,6 +29,7 @@ export class createThingTask<T extends Thing> extends SpriteTask<T> {
         maxBlockY: number,
         defaultTowards?: Towards
     ) {
+        this._name = name
         this._texture = texture
         this._defaultBlockX = defaultBlockX
         this._defaultBlockY = defaultBlockY

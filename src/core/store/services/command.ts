@@ -4,8 +4,16 @@ import {deBounce} from '../../utils/debouncer';
 import mousetrap from 'mousetrap'
 import {none, Option, some} from 'fp-ts/es6/Option';
 
+export enum CommandType {
+    UP = 'up',
+    DOWN = 'down',
+    LEFT = 'left',
+    RIGHT = 'right',
+    ESC = 'esc',
+}
+
 export interface Command {
-    readonly value: string
+    readonly value: CommandType
 }
 
 export interface CommandPackage {
@@ -23,31 +31,31 @@ export interface CommandService {
 const commandPackages: Array<CommandPackage> = [
     {
         command: {
-            value: 'esc'
+            value: CommandType.ESC
         },
         priority: 9999999999999
     },
     {
         command: {
-            value: 'up'
+            value: CommandType.UP
         },
         priority: 1
     },
     {
         command: {
-            value: 'down'
+            value: CommandType.DOWN
         },
         priority: 1
     },
     {
         command: {
-            value: 'left'
+            value: CommandType.LEFT
         },
         priority: 1
     },
     {
         command: {
-            value: 'right'
+            value: CommandType.RIGHT
         },
         priority: 1
     }

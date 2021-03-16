@@ -2,6 +2,7 @@ import {Sprite, Texture} from 'pixi.js'
 import {Towards} from '../types/things';
 import {Factor} from '../types';
 import {ThingSetup} from '../types/things';
+import {Command, CommandType} from '../store/services/command';
 
 export class Thing extends Sprite {
     private _blockX: number // start from 0
@@ -12,6 +13,7 @@ export class Thing extends Sprite {
     private _towards: Towards
 
     protected constructor(
+        name: string,
         texture: Texture,
         defaultBlockX: number,
         defaultBlockY: number,
@@ -22,6 +24,9 @@ export class Thing extends Sprite {
     ) {
         // provide the texture to the sprite.
         super(texture)
+
+        // set name
+        this.name = name
 
         // setup default positions.
         this._blockX = defaultBlockX
@@ -45,6 +50,25 @@ export class Thing extends Sprite {
         // move to the point
         this.x = (this._blockX + 0.5) * this._blockSize
         this.y = (this._blockY + 0.5) * this._blockSize
+    }
+
+    // call when received commands
+    public async performCommand(command: Command): Promise<void> {
+        // TODO make sure can move
+        switch (command.value) {
+            case CommandType.UP:
+                await this.moveTop()
+                break
+            case CommandType.DOWN:
+                await this.moveDown()
+                break
+            case CommandType.LEFT:
+                await this.moveLeft()
+                break
+            case CommandType.RIGHT:
+                await this.moveRight()
+                break
+        }
     }
 
     public setup(options: Pick<ThingSetup, 'defaultBlockX' | 'defaultBlockY' | 'defaultTowards'>) {

@@ -3,7 +3,7 @@ import {Observer} from './observer';
 export interface Observable {
     addObserver: (observer: Observer) => void
     deleteObserver: (observer: Observer) => void
-    notifyObservers: (...args: any[]) => void
+    notifyObservers: (...args: any[]) => Promise<void>
     deleteObservers: () => void
     setChanged: () => void
     clearChanged: () => void
@@ -49,7 +49,7 @@ export class ObservableSubject implements Observable {
         return this._changed
     }
 
-    public notifyObservers(...args: any[]): void {
+    public async notifyObservers(...args: any[]): Promise<void> {
         let observers: Array<Observer> = []
 
         if (this.hasChanged()) {
@@ -57,9 +57,14 @@ export class ObservableSubject implements Observable {
             this.clearChanged()
         }
 
+        const notificationCallers: Array<Promise<void>> = []
         for (let i = observers.length - 1; i >= 0; i--) {
-            observers[i].update(this, args)
+            notificationCallers.push(
+                observers[i].update(this, ...args)
+            )
         }
+
+        await Promise.allSettled(notificationCallers)
     }
 
     public setChanged(): void {
