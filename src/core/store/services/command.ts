@@ -1,6 +1,6 @@
 import PriorityQueue from '../../data-structures/priorityQueue';
 import {MAX_COMMAND_AMOUNT, COMMAND_MIN_INTERVAL} from '../../app/configs';
-import {deBounce} from '../../utils/debouncer';
+import {debounce} from '../../utils/debouncer';
 import mousetrap from 'mousetrap'
 import {none, Option, some} from 'fp-ts/es6/Option';
 
@@ -87,7 +87,7 @@ class CommandServiceConcrete implements CommandService {
 
     public addCommand(command: Command): void {
         if (this._size < MAX_COMMAND_AMOUNT) {
-            deBounce(() => {
+            debounce(() => {
                 const priority = this._judgementCommandPriority(command)
                 this._commandPackages.add({
                     command,
