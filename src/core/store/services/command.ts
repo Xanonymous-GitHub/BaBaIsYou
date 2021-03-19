@@ -33,7 +33,7 @@ const commandPackages: Array<CommandPackage> = [
         command: {
             value: CommandType.ESC
         },
-        priority: 9999999999999
+        priority: 0
     },
     {
         command: {
@@ -77,7 +77,7 @@ class CommandServiceConcrete implements CommandService {
     private _judgementCommandPriority(command: Command): number {
         const priority = this._commandPrioritiesMap.get(command)
         if (typeof priority === 'undefined' || priority === undefined) throw new Error(`this command ${command} is not have any priority defined`)
-        if (priority === 9999999999999) return priority
+        if (priority === 0) return priority
         return Date.now()
     }
 
