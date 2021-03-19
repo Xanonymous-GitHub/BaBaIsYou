@@ -1,6 +1,6 @@
 import {Controller} from './';
 import {GameStore} from '../store';
-import {createThingTask, wrapThingInCommandReceiverTask} from '../tasks/sprite';
+import {CreateThingTask, wrapThingInCommandReceiverTask} from '../tasks/sprite';
 import {isNone} from 'fp-ts/es6/Option';
 import {ThingSetup} from '../types/things';
 import {Thing} from '../things';
@@ -45,7 +45,7 @@ class SpriteControllerConcrete extends Controller {
                 const texture = textureOption.value
 
                 // call creation task to create Things and setup.
-                const creationTask = new createThingTask()
+                const creationTask = new CreateThingTask()
                 for (let i = 0; i < spriteAmountToCreate; i++) {
                     const options = thingSetups[currentSetupIndex++]
                     creationTask.setArgs(

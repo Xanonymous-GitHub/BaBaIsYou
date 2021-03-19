@@ -10,7 +10,7 @@ abstract class SpriteTask<T> implements Task<T> {
     public abstract setArgs(...args: any[]): void
 }
 
-export class createThingTask<T extends Thing> extends SpriteTask<T> {
+export class CreateThingTask<T extends Thing> extends SpriteTask<T> {
     private _name!: string
     private _texture!: Texture
     private _defaultBlockX!: number
