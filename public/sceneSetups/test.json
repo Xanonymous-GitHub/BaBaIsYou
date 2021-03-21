@@ -1,0 +1,34 @@
+{
+  "id": "id_test",
+  "name": "name_test",
+  "thingsMap": [
+    {
+      "species": "characters",
+      "name": "baba",
+      "thingSetup": [
+        {
+          "defaultBlockX": 10,
+          "defaultBlockY": 10,
+          "maxBlockX": 29,
+          "maxBlockY": 19,
+          "textureName": "Text_BABA",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "characters",
+      "name": "flag",
+      "thingSetup": [
+        {
+          "defaultBlockX": 0,
+          "defaultBlockY": 0,
+          "maxBlockX": 14,
+          "maxBlockY": 9,
+          "textureName": "Text_FLAG",
+          "defaultTowards": 0
+        }
+      ]
+    }
+  ]
+}

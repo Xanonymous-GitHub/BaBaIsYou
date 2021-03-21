@@ -10,6 +10,8 @@ import {SceneSetup} from './types'
 import {ThingSetup} from './types/things';
 import {Species} from './resource';
 
+import './sceneSetupConverter';
+
 const app = createGameApp()
 const store = createGameStore()
 const spriteController = createSpriteController(store)
@@ -38,10 +40,10 @@ thingsMap.set({species: Species.CHARACTERS, name: 'BABA'},
 //     [{
 //         defaultBlockX: 10,
 //         defaultBlockY: 10,
-//         defaultTowards: 0,
 //         maxBlockX: 29,
 //         maxBlockY: 19,
 //         textureName: 'Text_BABA'
+//         defaultTowards: 0,
 //     }])
 const TEST_SCENE: SceneSetup = {
     name: '__DEBUG__',
