@@ -1,7 +1,7 @@
 import {appHeight, appWidth} from '../app/configs';
 
 export const getBlockSize = (): number => {
-    return 36 // TODO add block size detection in RWD system.
+    return 40 // TODO add block size detection in RWD system.
 }
 
 export const getMaxHorizontalPoint = () => {
