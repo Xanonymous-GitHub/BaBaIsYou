@@ -3,6 +3,7 @@ import {Task} from './'
 import {Thing, ThingFactory} from '../things';
 import {Towards} from '../types/things';
 import {ThingCommandDispatchServer, createThingCommandReceiver} from '../observer';
+import {RuleController} from '../observer/rule';
 
 abstract class SpriteTask<T> implements Task<T> {
     public abstract execute(): Promise<T>;
@@ -60,16 +61,18 @@ export class CreateThingTask<T extends Thing> extends SpriteTask<T> {
 
 export class wrapThingInCommandReceiverTask extends SpriteTask<void> {
     private _dispatchServer!: ThingCommandDispatchServer
+    private _ruleController!: RuleController
     private _thing!: Thing
 
-    public setArgs(dispatchServer: ThingCommandDispatchServer, thing: Thing): void {
+    public setArgs(dispatchServer: ThingCommandDispatchServer, ruleController: RuleController, thing: Thing): void {
         this._dispatchServer = dispatchServer
+        this._ruleController = ruleController
         this._thing = thing
     }
 
     public async execute(): Promise<void> {
         return await new Promise<void>(resolve => {
-            createThingCommandReceiver(this._dispatchServer, this._thing)
+            createThingCommandReceiver(this._dispatchServer, this._ruleController, this._thing)
             resolve()
         })
     }

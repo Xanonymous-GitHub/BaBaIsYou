@@ -8,6 +8,7 @@ import {Container, Sprite} from 'pixi.js';
 import {ResourceMap} from '../resource';
 import {Species} from '../resource';
 import {ThingCommandDispatchServer} from '../observer';
+import {RuleController} from '../observer/rule';
 
 const createContainerStore = (containerService: ContainerService) => {
     return {
@@ -54,7 +55,9 @@ const createDispatchServerStore = (dispatchServerService: DispatchServerService)
         setDispatchServer: (server: ThingCommandDispatchServer) => dispatchServerService.setDispatchServer(server),
         getDispatchServer: () => dispatchServerService.getDispatchServer(),
         initDispatchServer: () => dispatchServerService.initDispatchServer(),
-        disposeDispatchServer: () => dispatchServerService.disposeDispatchServer()
+        disposeDispatchServer: () => dispatchServerService.disposeDispatchServer(),
+        setRuleController: (controller: RuleController) => dispatchServerService.setRuleController(controller),
+        getRuleController: () => dispatchServerService.getRuleController()
     }
 }
 

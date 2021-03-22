@@ -5,6 +5,7 @@ import {GameStore} from '../store'
 import {getUid} from '../utils/uuid';
 import {Thing} from '../things'
 import {isNone} from 'fp-ts/es6/Option';
+import {RuleController} from './rule';
 
 export class ThingCommandDispatchServerConcrete extends ObservableSubject {
     private _store: GameStore
@@ -50,9 +51,10 @@ export class ThingCommandDispatchServerConcrete extends ObservableSubject {
 class ThingCommandReceiverConcrete implements Observer {
     public observeId: string;
     private _dispatchServer: Observable
-    private _thing: Thing
+    private _ruleController: RuleController
+    private readonly _thing: Thing
 
-    constructor(dispatchServer: ThingCommandDispatchServerConcrete, thing: Thing) {
+    constructor(dispatchServer: ThingCommandDispatchServerConcrete, ruleController: RuleController, thing: Thing) {
         // generate observerId (uuid) for the Thing.
         this.observeId = getUid()
 
@@ -60,12 +62,18 @@ class ThingCommandReceiverConcrete implements Observer {
         this._dispatchServer = dispatchServer
         this._dispatchServer.addObserver(this)
 
+        // set rule controller.
+        this._ruleController = ruleController
+
         // store the thing
         this._thing = thing
     }
 
     public async update(subject: Observable, command: Command): Promise<void> {
-        await this._thing.performCommand(command)
+        const canDoThisCommand = this._ruleController.judgmentCommand(command, this._thing)
+        if (canDoThisCommand) {
+            await this._thing.performCommand(command)
+        }
     }
 
     public disconnect(): void {
@@ -77,8 +85,8 @@ export const createThingCommandDispatchServer = (store: GameStore) => {
     return new ThingCommandDispatchServerConcrete(store)
 }
 
-export const createThingCommandReceiver = (dispatchServer: ThingCommandDispatchServerConcrete, thing: Thing) => {
-    return new ThingCommandReceiverConcrete(dispatchServer, thing)
+export const createThingCommandReceiver = (dispatchServer: ThingCommandDispatchServerConcrete, ruleController: RuleController, thing: Thing) => {
+    return new ThingCommandReceiverConcrete(dispatchServer, ruleController, thing)
 }
 
 export type ThingCommandDispatchServer = ThingCommandDispatchServerConcrete

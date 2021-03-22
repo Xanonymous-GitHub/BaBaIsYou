@@ -7,6 +7,7 @@ import {Thing} from '../things';
 import {getBlockSize} from '../utils/screen';
 import {Species} from '../resource';
 import {ThingCommandDispatchServer} from '../observer';
+import {RuleController} from '../observer/rule';
 
 class SpriteControllerConcrete extends Controller {
     constructor(store: GameStore) {
@@ -70,10 +71,10 @@ class SpriteControllerConcrete extends Controller {
         return wrappedThings
     }
 
-    public async wrapThingsInCommandReceiver(dispatchServer: ThingCommandDispatchServer, things: Array<Thing>): Promise<void> {
+    public async wrapThingsInCommandReceiver(dispatchServer: ThingCommandDispatchServer, ruleController: RuleController, things: Array<Thing>): Promise<void> {
         const bindingTask = new wrapThingInCommandReceiverTask()
         for (const thing of things) {
-            bindingTask.setArgs(dispatchServer, thing)
+            bindingTask.setArgs(dispatchServer, ruleController, thing)
             await bindingTask.execute()
         }
     }
