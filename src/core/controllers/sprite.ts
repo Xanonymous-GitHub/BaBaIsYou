@@ -29,8 +29,7 @@ class SpriteControllerConcrete extends Controller {
             // setup existing Things for new environment.
             let currentSetupIndex = 0
             for (const thing of things) {
-                thing.setup({...thingSetups[currentSetupIndex]})
-                currentSetupIndex++
+                thing.setup({...thingSetups[currentSetupIndex++]})
             }
 
             // make up for the missing Things, and setup.
@@ -46,6 +45,7 @@ class SpriteControllerConcrete extends Controller {
 
                 // call creation task to create Things and setup.
                 const creationTask = new CreateThingTask()
+                const blockSize = getBlockSize()
                 for (let i = 0; i < spriteAmountToCreate; i++) {
                     const options = thingSetups[currentSetupIndex++]
                     creationTask.setArgs(
@@ -53,7 +53,7 @@ class SpriteControllerConcrete extends Controller {
                         texture,
                         options.defaultBlockX,
                         options.defaultBlockY,
-                        getBlockSize(),
+                        blockSize,
                         options.maxBlockX,
                         options.maxBlockY
                     )
@@ -70,7 +70,7 @@ class SpriteControllerConcrete extends Controller {
         return wrappedThings
     }
 
-    public async wrapThingInCommandReceiver(dispatchServer: ThingCommandDispatchServer, things: Array<Thing>): Promise<void> {
+    public async wrapThingsInCommandReceiver(dispatchServer: ThingCommandDispatchServer, things: Array<Thing>): Promise<void> {
         const bindingTask = new wrapThingInCommandReceiverTask()
         for (const thing of things) {
             bindingTask.setArgs(dispatchServer, thing)

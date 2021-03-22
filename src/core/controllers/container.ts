@@ -31,7 +31,7 @@ class ContainerControllerConcrete extends Controller {
         const things = await (this._spriteController.getThings(sceneSetup.thingsMap))
 
         // bind receiver to receive commands.
-        await this._spriteController.wrapThingInCommandReceiver(this._store.getDispatchServer(), things)
+        await this._spriteController.wrapThingsInCommandReceiver(this._store.getDispatchServer(), things)
 
         // mount things to the container.
         const mountTask = new MountThingsToContainerTask()
