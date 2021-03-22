@@ -1,49 +1,47 @@
+import axios from 'axios';
 import {SceneSetup} from '../types';
 import {Species} from '../resource';
 import {ThingSetup} from '../types/things';
 
-export interface SceneSetupImport {
-    readonly id: string
-    readonly name: string
-    readonly thingsMap: Array<ThingsMapImport>
-}
-
-export interface ThingsMapImport {
+export interface ThingsMapJson {
     readonly species: Species
     readonly name: string
     readonly thingsSetup: Array<ThingSetup>
 }
 
-const convertSceneToObject = (sceneSetupImport: SceneSetupImport): SceneSetup => {
+export interface SceneSetupJson {
+    readonly id: string
+    readonly name: string
+    readonly thingsMap: Array<ThingsMapJson>
+}
+
+axios.defaults.baseURL = '/sceneSetups/'
+
+const convertToSceneSetup = (sceneSetupJson: SceneSetupJson): SceneSetup => {
     const thingsMap = new Map<{ species: Species, name: string }, Array<ThingSetup>>()
-    for (const thing of sceneSetupImport.thingsMap) {
+    for (const thing of sceneSetupJson.thingsMap) {
         const key = {species: thing.species, name: thing.name}
         thingsMap.set(key, thing.thingsSetup)
     }
 
     return {
-        id: sceneSetupImport.id,
-        name: sceneSetupImport.name,
+        id: sceneSetupJson.id,
+        name: sceneSetupJson.name,
         thingsMap
     }
 }
 
-const loadSceneSetupImport = async (filePath: string): Promise<SceneSetupImport> => {
-    return await new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest()
-        xhr.onload = () => {
-            if (xhr.status === 200) {
-                resolve(JSON.parse(xhr.responseText))
-            } else {
-                reject('Error occurred while loading JSON from local')
-            }
-        }
-        xhr.open('GET', filePath, true)
-        xhr.send()
-    })
+const loadSceneSetupJson = async (filePath: string): Promise<SceneSetupJson> => {
+    try {
+        const {data} = await axios.get(filePath)
+        return data
+    } catch (e) {
+        throw new Error('Error occurred while loading JSON from local' + e)
+    }
 }
 
 export const getSceneSetup = async (filePath: string): Promise<SceneSetup> => {
-    const sceneSetupImport = await loadSceneSetupImport(filePath)
-    return convertSceneToObject(sceneSetupImport)
+    return convertToSceneSetup(
+        await loadSceneSetupJson(filePath)
+    )
 }
