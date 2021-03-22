@@ -10,7 +10,6 @@ import {SceneSetup} from './types'
 import {ThingSetup} from './types/things';
 import {Species} from './resource';
 
-import {getSceneSetup} from './utils/sceneSetup';
 
 const app = createGameApp()
 const store = createGameStore()
