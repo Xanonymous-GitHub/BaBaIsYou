@@ -30,8 +30,5 @@ const getSceneJsonFromLocal = async (path) => {
 
 const getSceneSetup = async (path) => {
     let result = await getSceneJsonFromLocal(path)
-    let setup = convertSceneToObject(result)
-    console.log(setup)
+    return convertSceneToObject(result)
 }
-
-getSceneSetup("./sceneSetups/test.json")
