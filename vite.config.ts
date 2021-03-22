@@ -4,6 +4,7 @@ import compress from 'vite-plugin-compress'
 import {minifyHtml} from 'vite-plugin-html';
 import legacy from '@vitejs/plugin-legacy'
 import WindiCSS from 'vite-plugin-windicss'
+import viteCompression from 'vite-plugin-compression'
 
 export default defineConfig({
     plugins: [
@@ -14,11 +15,11 @@ export default defineConfig({
             safelist: 'prose prose-sm m-auto'
         }),
         compress({
-            brotli: false,
+            brotli: true,
             verbose: true
         }),
         legacy({
-            targets: ['defaults']
+            targets: ['defaults', 'dead', '> 1%', 'ie 10', 'ie 6', 'ie 7', 'ie 8', 'ie 9', 'ie 11', 'since 2002', 'unreleased versions']
         }),
         minifyHtml({
             collapseBooleanAttributes: true,
@@ -29,6 +30,13 @@ export default defineConfig({
             removeAttributeQuotes: true,
             removeComments: true,
             removeEmptyAttributes: true
+        }),
+        viteCompression({
+            algorithm: 'brotliCompress',
+            ext: '.br'
+        }),
+        viteCompression({
+            algorithm: 'gzip'
         })
     ],
     build: {
