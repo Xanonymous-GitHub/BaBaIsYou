@@ -31,8 +31,8 @@
     "typescript": "^4.2.3",
     "vite": "^2.1.5",
     "vite-plugin-compress": "^2.0.0",
-    "vite-plugin-compression": "^0.2.3",
-    "vite-plugin-html": "^2.0.3",
-    "vite-plugin-windicss": "^0.12.1"
+    "vite-plugin-compression": "^0.2.4",
+    "vite-plugin-html": "^2.0.6",
+    "vite-plugin-windicss": "^0.12.5"
   }
 }
