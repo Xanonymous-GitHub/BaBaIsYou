@@ -1,0 +1,602 @@
+{
+  "id": "Level1",
+  "name": "Level1",
+  "thingsMap": [
+    {
+      "species": "characters",
+      "name": "BABA",
+      "thingSetup": [
+        {
+          "defaultBlockX": 14,
+          "defaultBlockY": 13,
+          "defaultTowards": 2,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "BABA"
+        }
+      ]
+    },
+    {
+      "species": "characters",
+      "name": "FLAG",
+      "thingSetup": [
+        {
+          "defaultBlockX": 11,
+          "defaultBlockY": 8,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "FLAG",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "characters",
+      "name": "WALL",
+      "thingSetup": [
+        {
+          "defaultBlockX": 9,
+          "defaultBlockY": 2,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 10,
+          "defaultBlockY": 2,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 11,
+          "defaultBlockY": 2,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 12,
+          "defaultBlockY": 2,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 13,
+          "defaultBlockY": 2,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 14,
+          "defaultBlockY": 2,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 15,
+          "defaultBlockY": 2,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 2,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 9,
+          "defaultBlockY": 3,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 3,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 9,
+          "defaultBlockY": 4,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 4,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 9,
+          "defaultBlockY": 5,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 5,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 5,
+          "defaultBlockY": 6,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 6,
+          "defaultBlockY": 6,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 7,
+          "defaultBlockY": 6,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 8,
+          "defaultBlockY": 6,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 9,
+          "defaultBlockY": 6,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 6,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 5,
+          "defaultBlockY": 7,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 7,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 5,
+          "defaultBlockY": 8,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 8,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 5,
+          "defaultBlockY": 9,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 9,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 5,
+          "defaultBlockY": 10,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 6,
+          "defaultBlockY": 10,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 7,
+          "defaultBlockY": 10,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 8,
+          "defaultBlockY": 10,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 9,
+          "defaultBlockY": 10,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 10,
+          "defaultBlockY": 10,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 11,
+          "defaultBlockY": 10,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 12,
+          "defaultBlockY": 10,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 13,
+          "defaultBlockY": 10,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 14,
+          "defaultBlockY": 10,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 15,
+          "defaultBlockY": 10,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 10,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 9,
+          "defaultBlockY": 11,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 11,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 9,
+          "defaultBlockY": 12,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 12,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 9,
+          "defaultBlockY": 13,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 13,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 9,
+          "defaultBlockY": 14,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 14,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 9,
+          "defaultBlockY": 15,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 15,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 9,
+          "defaultBlockY": 16,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 10,
+          "defaultBlockY": 16,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 11,
+          "defaultBlockY": 16,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 12,
+          "defaultBlockY": 16,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 13,
+          "defaultBlockY": 16,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 14,
+          "defaultBlockY": 16,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 15,
+          "defaultBlockY": 16,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 16,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "WALL",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "nouns",
+      "name": "Text_BABA",
+      "thingSetup": [
+        {
+          "defaultBlockX": 6,
+          "defaultBlockY": 12,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "Text_BABA",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "nouns",
+      "name": "Text_FLAG",
+      "thingSetup": [
+        {
+          "defaultBlockX": 7,
+          "defaultBlockY": 8,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "Text_FLAG",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "nouns",
+      "name": "Text_WALL",
+      "thingSetup": [
+        {
+          "defaultBlockX": 11,
+          "defaultBlockY": 12,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "Text_WALL",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "operator",
+      "name": "Text_IS",
+      "thingSetup": [
+        {
+          "defaultBlockX": 11,
+          "defaultBlockY": 4,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "Text_IS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 6,
+          "defaultBlockY": 13,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "Text_IS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 11,
+          "defaultBlockY": 13,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "Text_IS",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "property",
+      "name": "Text_YOU",
+      "thingSetup": [
+        {
+          "defaultBlockX": 6,
+          "defaultBlockY": 14,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "Text_YOU",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "property",
+      "name": "Text_WIN",
+      "thingSetup": [
+        {
+          "defaultBlockX": 14,
+          "defaultBlockY": 6,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "Text_WIN",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "property",
+      "name": "Text_STOP",
+      "thingSetup": [
+        {
+          "defaultBlockX": 11,
+          "defaultBlockY": 14,
+          "maxBlockX": 32,
+          "maxBlockY": 17,
+          "textureName": "Text_STOP",
+          "defaultTowards": 0
+        }
+      ]
+    }
+  ]
+}
