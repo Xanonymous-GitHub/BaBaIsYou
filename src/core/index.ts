@@ -30,40 +30,42 @@ store.setDispatchServer(createThingCommandDispatchServer(store))
 store.setRuleController(createRuleController())
 
 // DEBUG
-const thingsMap = new Map<{ species: Species; name: string }, Array<ThingSetup>>()
-thingsMap.set({species: Species.CHARACTERS, name: 'BABA'},
-    [{
-        defaultBlockX: 0,
-        defaultBlockY: 0,
-        defaultTowards: 0,
-        maxBlockX: 32,
-        maxBlockY: 17,
-        textureName: 'BABA'
-    }])
-thingsMap.set({species: Species.NOUNS, name: 'Text_BABA'},
-    [{
-        defaultBlockX: 10,
-        defaultBlockY: 10,
-        maxBlockX: 32,
-        maxBlockY: 17,
-        textureName: 'Text_BABA',
-        defaultTowards: 0
-    }])
-const TEST_SCENE: SceneSetup = {
-    name: '__DEBUG__',
-    id: '__DEBUG__',
-    thingsMap
+const setupGame = async () => {
+    const TEST_SCENE = await getSceneSetup('level1.json')
+    console.log(TEST_SCENE)
+
+    stageController.addScene(TEST_SCENE).then(() => {
+        store.initDispatchServer()
+    })
+
+    app.ticker.add(() => {
+        store.getDispatchServer().run()
+    })
+
+    // start listen keyboard event
+    store.initCommandWatchService()
 }
-stageController.addScene(TEST_SCENE).then(() => {
-    store.initDispatchServer()
-})
 
-app.ticker.add(() => {
-    store.getDispatchServer().run()
-})
+setupGame().then()
 
-
-// start listen keyboard event
-store.initCommandWatchService()
+// const thingsMap = new Map<{ species: Species; name: string }, Array<ThingSetup>>()
+// thingsMap.set({species: Species.CHARACTERS, name: 'BABA'},
+//     [{
+//         defaultBlockX: 0,
+//         defaultBlockY: 0,
+//         defaultTowards: 0,
+//         maxBlockX: 32,
+//         maxBlockY: 17,
+//         textureName: 'BABA'
+//     }])
+// thingsMap.set({species: Species.NOUNS, name: 'Text_BABA'},
+//     [{
+//         defaultBlockX: 10,
+//         defaultBlockY: 10,
+//         maxBlockX: 32,
+//         maxBlockY: 17,
+//         textureName: 'Text_BABA',
+//         defaultTowards: 0
+//     }])
 
 export const appView = app.view

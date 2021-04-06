@@ -1,10 +1,10 @@
 import {Command, CommandType} from '../store/services/command';
 import {Thing} from '../things';
-import {PropertyType} from '../types/property';
+import {PropertyType} from '../types/properties';
 import {NounType} from '../types/nouns';
-import {OperatorType} from '../types/operator';
+import {OperatorType} from '../types/operators';
 import {ThingType} from '../types';
-import {CharacterType} from '../types/character';
+import {CharacterType} from '../types/characters';
 
 export interface RuleController {
     judgmentCommand: (command: Command, thing: Thing) => boolean

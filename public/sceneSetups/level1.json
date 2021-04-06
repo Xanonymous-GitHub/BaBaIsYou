@@ -527,7 +527,7 @@
       ]
     },
     {
-      "species": "operator",
+      "species": "operators",
       "name": "Text_IS",
       "thingSetup": [
         {
@@ -557,7 +557,7 @@
       ]
     },
     {
-      "species": "property",
+      "species": "properties",
       "name": "Text_YOU",
       "thingSetup": [
         {
@@ -571,7 +571,7 @@
       ]
     },
     {
-      "species": "property",
+      "species": "properties",
       "name": "Text_WIN",
       "thingSetup": [
         {
@@ -585,7 +585,7 @@
       ]
     },
     {
-      "species": "property",
+      "species": "properties",
       "name": "Text_STOP",
       "thingSetup": [
         {
