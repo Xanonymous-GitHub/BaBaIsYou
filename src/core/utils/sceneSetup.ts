@@ -12,21 +12,35 @@ export interface ThingsMapJson {
 export interface SceneSetupJson {
     readonly id: string
     readonly name: string
+    readonly sceneWidth: number
+    readonly sceneHeight: number
     readonly thingsMap: Array<ThingsMapJson>
 }
 
 axios.defaults.baseURL = '/sceneSetups/'
 
 const convertToSceneSetup = (sceneSetupJson: SceneSetupJson): SceneSetup => {
+    const maxBlockX = sceneSetupJson.sceneWidth
+    const maxBlockY = sceneSetupJson.sceneHeight
     const thingsMap = new Map<{ species: Species, name: string }, Array<ThingSetup>>()
+
     for (const thing of sceneSetupJson.thingsMap) {
         const key = {species: thing.species, name: thing.name}
+        const thingSetup = new Array<ThingSetup>()
 
-        console.log(thing)
-        // console.log(key)
-        console.log(thing.thingSetup)
+        for (const it of thing.thingSetup) {
+            const setup: ThingSetup = {
+                defaultBlockX: it.defaultBlockX,
+                defaultBlockY: it.defaultBlockY,
+                maxBlockX,
+                maxBlockY,
+                textureName: it.textureName,
+                defaultTowards: it.defaultTowards
+            }
+            thingSetup.push(setup)
+        }
 
-        thingsMap.set(key, thing.thingSetup)
+        thingsMap.set(key, thingSetup)
     }
 
     return {
@@ -46,7 +60,5 @@ const loadSceneSetupJson = async (filePath: string): Promise<SceneSetupJson> => 
 }
 
 export const getSceneSetup = async (filePath: string): Promise<SceneSetup> => {
-    const sceneSetupJson = await loadSceneSetupJson(filePath)
-    const sceneSetup = convertToSceneSetup(sceneSetupJson)
-    return sceneSetup
+    return convertToSceneSetup(await loadSceneSetupJson(filePath))
 }

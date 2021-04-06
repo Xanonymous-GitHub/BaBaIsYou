@@ -1,8 +1,8 @@
 {
   "id": "id_example",
   "name": "name_example",
-  "maxBlockX": 32,
-  "maxBlockY": 17,
+  "sceneWidth": 23,
+  "sceneHeight": 17,
   "thingsMap": [
     {
       "species": "characters",
@@ -12,8 +12,6 @@
           "defaultBlockX": 0,
           "defaultBlockY": 0,
           "defaultTowards": 0,
-          "maxBlockX": 32,
-          "maxBlockY": 17,
           "textureName": "BABA"
         }
       ]
@@ -25,8 +23,6 @@
         {
           "defaultBlockX": 10,
           "defaultBlockY": 10,
-          "maxBlockX": 32,
-          "maxBlockY": 17,
           "textureName": "Text_BABA",
           "defaultTowards": 0
         }
