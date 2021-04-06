@@ -6,7 +6,7 @@ import {ThingSetup} from '../types/things';
 export interface ThingsMapJson {
     readonly species: Species
     readonly name: string
-    readonly thingsSetup: Array<ThingSetup>
+    readonly thingSetup: Array<ThingSetup>
 }
 
 export interface SceneSetupJson {
@@ -21,7 +21,12 @@ const convertToSceneSetup = (sceneSetupJson: SceneSetupJson): SceneSetup => {
     const thingsMap = new Map<{ species: Species, name: string }, Array<ThingSetup>>()
     for (const thing of sceneSetupJson.thingsMap) {
         const key = {species: thing.species, name: thing.name}
-        thingsMap.set(key, thing.thingsSetup)
+
+        console.log(thing)
+        // console.log(key)
+        console.log(thing.thingSetup)
+
+        thingsMap.set(key, thing.thingSetup)
     }
 
     return {
@@ -41,7 +46,7 @@ const loadSceneSetupJson = async (filePath: string): Promise<SceneSetupJson> => 
 }
 
 export const getSceneSetup = async (filePath: string): Promise<SceneSetup> => {
-    return convertToSceneSetup(
-        await loadSceneSetupJson(filePath)
-    )
+    const sceneSetupJson = await loadSceneSetupJson(filePath)
+    const sceneSetup = convertToSceneSetup(sceneSetupJson)
+    return sceneSetup
 }
