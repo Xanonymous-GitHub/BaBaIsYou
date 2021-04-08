@@ -4,7 +4,7 @@ import {createStageController} from './controllers/stage'
 import {createContainerController} from './controllers/container'
 import {createSpriteController} from './controllers/sprite'
 import {createResourceMap} from './resource';
-import {createThingCommandDispatchServer} from './observer';
+import {createInstructionDispatchServer} from './observer';
 import {createRuleController} from './observer/rule';
 import {RESOURCE_ROOT_PATH} from './app/configs';
 import {getSceneSetup} from './utils/sceneSetup';
@@ -20,7 +20,7 @@ const RESOURCES_MAP = createResourceMap(RESOURCE_ROOT_PATH)
 store.addResourceMap(RESOURCES_MAP)
 
 // init dispatcher.
-store.setDispatchServer(createThingCommandDispatchServer(store))
+store.setDispatchServer(createInstructionDispatchServer(store))
 
 // init rule controller.
 store.setRuleController(createRuleController())

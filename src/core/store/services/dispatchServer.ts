@@ -1,9 +1,9 @@
-import {ThingCommandDispatchServer} from '../../observer';
+import {InstructionDispatchServer} from '../../observer';
 import {RuleController} from '../../observer/rule';
 
 export interface DispatchServerService {
-    setDispatchServer: (server: ThingCommandDispatchServer) => void
-    getDispatchServer: () => ThingCommandDispatchServer
+    setDispatchServer: (server: InstructionDispatchServer) => void
+    getDispatchServer: () => InstructionDispatchServer
     initDispatchServer: () => void
     disposeDispatchServer: () => void
     setRuleController: (controller: RuleController) => void
@@ -11,14 +11,14 @@ export interface DispatchServerService {
 }
 
 class DispatchServerServiceConcrete implements DispatchServerService {
-    private _dispatchServer!: ThingCommandDispatchServer
+    private _dispatchServer!: InstructionDispatchServer
     private _ruleController!: RuleController
 
-    public getDispatchServer(): ThingCommandDispatchServer {
+    public getDispatchServer(): InstructionDispatchServer {
         return this._dispatchServer
     }
 
-    public setDispatchServer(dispatchServer: ThingCommandDispatchServer): void {
+    public setDispatchServer(dispatchServer: InstructionDispatchServer): void {
         this._dispatchServer = dispatchServer
     }
 

@@ -7,7 +7,7 @@ import {Thing} from '../things'
 import {isNone} from 'fp-ts/es6/Option';
 import {RuleController} from './rule';
 
-export class ThingCommandDispatchServerConcrete extends ObservableSubject {
+export class InstructionDispatchServerConcrete extends ObservableSubject {
     private _store: GameStore
     private _runningCommand = false
     private _isActive = false
@@ -48,13 +48,13 @@ export class ThingCommandDispatchServerConcrete extends ObservableSubject {
     }
 }
 
-class ThingCommandReceiverConcrete implements Observer {
+class InstructionReceiverConcrete implements Observer {
     public observeId: string;
     private _dispatchServer: Observable
     private _ruleController: RuleController
     private readonly _thing: Thing
 
-    constructor(dispatchServer: ThingCommandDispatchServerConcrete, ruleController: RuleController, thing: Thing) {
+    constructor(dispatchServer: InstructionDispatchServerConcrete, ruleController: RuleController, thing: Thing) {
         // generate observerId (uuid) for the Thing.
         this.observeId = getUid()
 
@@ -81,13 +81,13 @@ class ThingCommandReceiverConcrete implements Observer {
     }
 }
 
-export const createThingCommandDispatchServer = (store: GameStore) => {
-    return new ThingCommandDispatchServerConcrete(store)
+export const createInstructionDispatchServer = (store: GameStore) => {
+    return new InstructionDispatchServerConcrete(store)
 }
 
-export const createThingCommandReceiver = (dispatchServer: ThingCommandDispatchServerConcrete, ruleController: RuleController, thing: Thing) => {
-    return new ThingCommandReceiverConcrete(dispatchServer, ruleController, thing)
+export const createInstructionReceiver = (dispatchServer: InstructionDispatchServerConcrete, ruleController: RuleController, thing: Thing) => {
+    return new InstructionReceiverConcrete(dispatchServer, ruleController, thing)
 }
 
-export type ThingCommandDispatchServer = ThingCommandDispatchServerConcrete
-export type ThingCommandReceiver = ReturnType<typeof createThingCommandReceiver>
+export type InstructionDispatchServer = InstructionDispatchServerConcrete
+export type InstructionReceiver = ReturnType<typeof createInstructionReceiver>

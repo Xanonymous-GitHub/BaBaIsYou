@@ -7,7 +7,7 @@ import {DispatchServerService} from './services/dispatchServer';
 import {Container, Sprite} from 'pixi.js';
 import {ResourceMap} from '../resource';
 import {Species} from '../resource';
-import {ThingCommandDispatchServer} from '../observer';
+import {InstructionDispatchServer} from '../observer';
 import {RuleController} from '../observer/rule';
 
 const createContainerStore = (containerService: ContainerService) => {
@@ -52,7 +52,7 @@ const createTextureStore = (textureService: TextureService) => {
 
 const createDispatchServerStore = (dispatchServerService: DispatchServerService) => {
     return {
-        setDispatchServer: (server: ThingCommandDispatchServer) => dispatchServerService.setDispatchServer(server),
+        setDispatchServer: (server: InstructionDispatchServer) => dispatchServerService.setDispatchServer(server),
         getDispatchServer: () => dispatchServerService.getDispatchServer(),
         initDispatchServer: () => dispatchServerService.initDispatchServer(),
         disposeDispatchServer: () => dispatchServerService.disposeDispatchServer(),

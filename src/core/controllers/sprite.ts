@@ -6,7 +6,7 @@ import {ThingSetup} from '../types/things';
 import {Thing} from '../things';
 import {getBlockSize} from '../utils/screen';
 import {Species} from '../resource';
-import {ThingCommandDispatchServer} from '../observer';
+import {InstructionDispatchServer} from '../observer';
 import {RuleController} from '../observer/rule';
 
 class SpriteControllerConcrete extends Controller {
@@ -71,7 +71,7 @@ class SpriteControllerConcrete extends Controller {
         return wrappedThings
     }
 
-    public async wrapThingsInCommandReceiver(dispatchServer: ThingCommandDispatchServer, ruleController: RuleController, things: Array<Thing>): Promise<void> {
+    public async wrapThingsInCommandReceiver(dispatchServer: InstructionDispatchServer, ruleController: RuleController, things: Array<Thing>): Promise<void> {
         const bindingTask = new wrapThingInCommandReceiverTask()
         for (const thing of things) {
             bindingTask.setArgs(dispatchServer, ruleController, thing)

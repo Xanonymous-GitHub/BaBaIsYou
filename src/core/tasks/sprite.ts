@@ -2,7 +2,7 @@ import {Texture} from 'pixi.js'
 import {Task} from './'
 import {Thing, ThingFactory} from '../things';
 import {Towards} from '../types/things';
-import {ThingCommandDispatchServer, createThingCommandReceiver} from '../observer';
+import {InstructionDispatchServer, createInstructionReceiver} from '../observer';
 import {RuleController} from '../observer/rule';
 
 abstract class SpriteTask<T> implements Task<T> {
@@ -60,11 +60,11 @@ export class CreateThingTask<T extends Thing> extends SpriteTask<T> {
 }
 
 export class wrapThingInCommandReceiverTask extends SpriteTask<void> {
-    private _dispatchServer!: ThingCommandDispatchServer
+    private _dispatchServer!: InstructionDispatchServer
     private _ruleController!: RuleController
     private _thing!: Thing
 
-    public setArgs(dispatchServer: ThingCommandDispatchServer, ruleController: RuleController, thing: Thing): void {
+    public setArgs(dispatchServer: InstructionDispatchServer, ruleController: RuleController, thing: Thing): void {
         this._dispatchServer = dispatchServer
         this._ruleController = ruleController
         this._thing = thing
@@ -72,7 +72,7 @@ export class wrapThingInCommandReceiverTask extends SpriteTask<void> {
 
     public async execute(): Promise<void> {
         return await new Promise<void>(resolve => {
-            createThingCommandReceiver(this._dispatchServer, this._ruleController, this._thing)
+            createInstructionReceiver(this._dispatchServer, this._ruleController, this._thing)
             resolve()
         })
     }
