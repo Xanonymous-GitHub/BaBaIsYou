@@ -2,7 +2,7 @@ import {Sprite, Texture} from 'pixi.js'
 import {Towards} from '../types/things';
 import {Factor} from '../types';
 import {ThingSetup} from '../types/things';
-import {Command, CommandType} from '../store/services/command';
+// import {Command, CommandType} from '../store/services/command';
 
 export class Thing extends Sprite {
     private _blockX: number // start from 0
@@ -52,24 +52,6 @@ export class Thing extends Sprite {
         this.y = (this._blockY + 0.5) * this._blockSize
     }
 
-    // call when received commands
-    public async performCommand(command: Command): Promise<void> {
-        // TODO make sure can move
-        switch (command.value) {
-            case CommandType.UP:
-                await this.moveTop()
-                break
-            case CommandType.DOWN:
-                await this.moveDown()
-                break
-            case CommandType.LEFT:
-                await this.moveLeft()
-                break
-            case CommandType.RIGHT:
-                await this.moveRight()
-                break
-        }
-    }
 
     public setup(options: Pick<ThingSetup, 'defaultBlockX' | 'defaultBlockY' | 'defaultTowards'>) {
         this.blockX = options.defaultBlockX
@@ -103,7 +85,7 @@ export class Thing extends Sprite {
         return this._towards
     }
 
-    protected async moveTop(): Promise<void> {
+    public async moveUp(): Promise<void> {
         await new Promise<void>((resolve, reject) => {
             if (this.blockY === 0) {
                 reject()
@@ -114,7 +96,7 @@ export class Thing extends Sprite {
         })
     }
 
-    protected async moveDown(): Promise<void> {
+    public async moveDown(): Promise<void> {
         await new Promise<void>((resolve, reject) => {
             if (this.blockY === this._maxBlockY) {
                 reject()
@@ -125,7 +107,7 @@ export class Thing extends Sprite {
         })
     }
 
-    protected async moveRight(): Promise<void> {
+    public async moveRight(): Promise<void> {
         await new Promise<void>((resolve, reject) => {
             if (this.blockX === this._maxBlockX) {
                 reject()
@@ -136,7 +118,7 @@ export class Thing extends Sprite {
         })
     }
 
-    protected async moveLeft(): Promise<void> {
+    public async moveLeft(): Promise<void> {
         await new Promise<void>((resolve, reject) => {
             if (this.blockX === 0) {
                 reject()

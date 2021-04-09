@@ -1,20 +1,25 @@
 import {Observable, ObservableSubject} from './observable';
 import {Observer} from './observer';
-import {Command} from '../store/services/command';
 import {GameStore} from '../store'
 import {getUid} from '../utils/uuid';
 import {Thing} from '../things'
 import {isNone} from 'fp-ts/es6/Option';
 import {RuleController} from './rule';
+import {Instruction} from '../instructions';
+import PriorityQueue from '../data-structures/priorityQueue';
+import {Option, none, some} from 'fp-ts/es6/Option';
+import {Command} from '../store/services/command';
 
 export class InstructionDispatchServerConcrete extends ObservableSubject {
     private _store: GameStore
     private _runningCommand = false
     private _isActive = false
+    private _pendingInstructions: PriorityQueue<Instruction>
 
     constructor(store: GameStore) {
         super()
         this._store = store
+        this._pendingInstructions = new PriorityQueue<Instruction>()
     }
 
     private _setRunning() {
@@ -33,6 +38,23 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
         this._isActive = false
     }
 
+    private static _judgementInstructionPriority(instruction: Instruction): number {
+        const instructionPriority = instruction.getPriority()
+        if (!instructionPriority) return Date.now()
+        return instructionPriority
+    }
+
+    private _addInstruction(instruction: Instruction): void {
+        const priority = InstructionDispatchServerConcrete._judgementInstructionPriority(instruction)
+        this._pendingInstructions.add(instruction, priority)
+    }
+
+    private _nextInstruction(): Option<Readonly<Instruction>> {
+        const nextInstruction = this._pendingInstructions.poll()
+        if (!nextInstruction) return none
+        return some(nextInstruction)
+    }
+
     public run() {
         if (this._isActive) {
             if (!this._runningCommand) {
@@ -41,7 +63,10 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
                     this._setRunning()
                     this.setChanged()
                     this.notifyObservers(nextCommand.value)
-                        .then(() => this._setNotRunning())
+                        .then(() => {
+                            // start to clean the _pendingInstructions.
+                            this._setNotRunning()
+                        })
                 }
             }
         }
@@ -70,10 +95,18 @@ class InstructionReceiverConcrete implements Observer {
     }
 
     public async update(subject: Observable, command: Command): Promise<void> {
-        const canDoThisCommand = this._ruleController.judgmentCommand(command, this._thing)
-        if (canDoThisCommand) {
-            await this._thing.performCommand(command)
-        }
+        // 1. when received a command, ask ruleController if self has privilege to execute this command. (am I 'YOU'?)
+
+        // 2. if could, check if there leaves any obstacles to perform this command.
+            // A. am I at the edge?
+            // B. is the place I will go has any other Thing now?
+                // Yes
+                    // send ENCOUNTER request to the neighbor by the Map controller. => accept or reject
+                // No
+                    // accept.
+        // 3. if not any obstacles, apply an self instruction to the DispatchServer.
+
+        // 4. done.
     }
 
     public disconnect(): void {

@@ -1,4 +1,4 @@
-import {Thing} from "@/core/things";
+import {Thing} from '@/core/things';
 
 class Character extends Thing {
   moveDown(): Promise<void> {
@@ -13,7 +13,7 @@ class Character extends Thing {
     return Promise.resolve(undefined);
   }
   
-  moveTop(): Promise<void> {
+  moveUp(): Promise<void> {
     return Promise.resolve(undefined);
   }
 }
