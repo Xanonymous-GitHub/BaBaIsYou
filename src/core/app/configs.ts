@@ -1,21 +1,24 @@
 import {IApplicationOptions} from 'pixi.js'
+import {getBlockSize} from '../utils/screen';
+
+const blockSize = getBlockSize()
 
 /**
- * @name appWidth
+ * @name defaultAppWidth
  * define the width of game canvas. (unit = px)
  * */
-export const appWidth = 1320
+export const defaultAppWidth = 33 * blockSize
 
 /**
- * @name appHeight
+ * @name defaultAppHeight
  * define the Height of game canvas. (unit = px)
  * */
-export const appHeight = 720
+export const defaultAppHeight = 18 * blockSize
 
 export const appOptions = {
     powerPreference: 'low-power', // when use production build, this should be set to 'high-performance'.
-    width: appWidth,
-    height: appHeight,
+    width: defaultAppWidth,
+    height: defaultAppHeight,
     autoDensity: true,
     preserveDrawingBuffer: true,
     antialias: true

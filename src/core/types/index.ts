@@ -13,5 +13,7 @@ export type Factor<T> = new(...args: Array<any>) => T;
 export interface SceneSetup {
     readonly id: string
     readonly name: string
+    readonly sceneWidth: number
+    readonly sceneHeight: number
     readonly thingsMap: Map<{ species: Species, name: string }, Array<ThingSetup>>
 }

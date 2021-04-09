@@ -4,11 +4,13 @@ import {CommandService, Command} from './services/command'
 import {SpriteService} from './services/sprite'
 import {TextureService} from './services/texture'
 import {DispatchServerService} from './services/dispatchServer';
-import {Container, Sprite} from 'pixi.js';
+import {Application, Container, Sprite} from 'pixi.js';
 import {ResourceMap} from '../resource';
 import {Species} from '../resource';
 import {InstructionDispatchServer} from '../observer';
 import {RuleController} from '../observer/rule';
+import {MapController} from '../observer/map';
+import {ScreenService} from './services/screen';
 
 const createContainerStore = (containerService: ContainerService) => {
     return {
@@ -57,7 +59,17 @@ const createDispatchServerStore = (dispatchServerService: DispatchServerService)
         initDispatchServer: () => dispatchServerService.initDispatchServer(),
         disposeDispatchServer: () => dispatchServerService.disposeDispatchServer(),
         setRuleController: (controller: RuleController) => dispatchServerService.setRuleController(controller),
-        getRuleController: () => dispatchServerService.getRuleController()
+        setMapController: (controller: MapController) => dispatchServerService.setMapController(controller),
+        getRuleController: () => dispatchServerService.getRuleController(),
+        getMapController: () => dispatchServerService.getMapController()
+    }
+}
+
+const createScreenStore = (screenService: ScreenService) => {
+    return {
+        setAppSize: (width: number, height: number) => screenService.setAppSize(width, height),
+        getAppEdge: () => screenService.getAppEdge(),
+        bindApp: (app: Application) => screenService.bindApp(app)
     }
 }
 
@@ -69,13 +81,15 @@ export const createGameStore = () => {
     const spriteStore = createSpriteStore(services.spriteService)
     const textureStore = createTextureStore(services.textureService)
     const dispatchServerStore = createDispatchServerStore(services.dispatchServerService)
+    const screenStore = createScreenStore(services.screenService)
 
     return {
         ...containerStore,
         ...commandStore,
         ...spriteStore,
         ...textureStore,
-        ...dispatchServerStore
+        ...dispatchServerStore,
+        ...screenStore
     }
 }
 

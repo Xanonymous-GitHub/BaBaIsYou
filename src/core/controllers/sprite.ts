@@ -1,6 +1,6 @@
 import {Controller} from './';
 import {GameStore} from '../store';
-import {CreateThingTask, wrapThingInCommandReceiverTask} from '../tasks/sprite';
+import {CreateThingTask, connectThingControllerTask} from '../tasks/sprite';
 import {isNone} from 'fp-ts/es6/Option';
 import {ThingSetup} from '../types/things';
 import {Thing} from '../things';
@@ -8,6 +8,7 @@ import {getBlockSize} from '../utils/screen';
 import {Species} from '../resource';
 import {InstructionDispatchServer} from '../observer';
 import {RuleController} from '../observer/rule';
+import {MapController} from '../observer/map';
 
 class SpriteControllerConcrete extends Controller {
     constructor(store: GameStore) {
@@ -47,6 +48,7 @@ class SpriteControllerConcrete extends Controller {
                 // call creation task to create Things and setup.
                 const creationTask = new CreateThingTask()
                 const blockSize = getBlockSize()
+                const {maxX, maxY} = this._store.getAppEdge()
                 for (let i = 0; i < spriteAmountToCreate; i++) {
                     const options = thingSetups[currentSetupIndex++]
                     creationTask.setArgs(
@@ -55,8 +57,8 @@ class SpriteControllerConcrete extends Controller {
                         options.defaultBlockX,
                         options.defaultBlockY,
                         blockSize,
-                        options.maxBlockX,
-                        options.maxBlockY
+                        maxX,
+                        maxY
                     )
                     things.push(
                         await creationTask.execute()
@@ -71,10 +73,10 @@ class SpriteControllerConcrete extends Controller {
         return wrappedThings
     }
 
-    public async wrapThingsInCommandReceiver(dispatchServer: InstructionDispatchServer, ruleController: RuleController, things: Array<Thing>): Promise<void> {
-        const bindingTask = new wrapThingInCommandReceiverTask()
+    public async connectThingsToThingController(dispatchServer: InstructionDispatchServer, ruleController: RuleController, mapController: MapController, things: Array<Thing>): Promise<void> {
+        const bindingTask = new connectThingControllerTask()
         for (const thing of things) {
-            bindingTask.setArgs(dispatchServer, ruleController, thing)
+            bindingTask.setArgs(dispatchServer, ruleController, mapController, thing)
             await bindingTask.execute()
         }
     }

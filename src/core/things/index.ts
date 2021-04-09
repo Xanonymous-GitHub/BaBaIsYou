@@ -1,17 +1,21 @@
 import {Sprite, Texture} from 'pixi.js'
-import {Towards} from '../types/things';
+import {Direction} from '../types/things';
 import {Factor} from '../types';
 import {ThingSetup} from '../types/things';
+import {ThingController} from '../observer';
+import {RuleController} from '../observer/rule';
+import {MapController} from '../observer/map';
 
-// import {Command, CommandType} from '../store/services/command';
-
-export class Thing extends Sprite {
+export abstract class Thing extends Sprite {
     private _blockX: number // start from 0
     private _blockY: number // start from 0
     private readonly _maxBlockX: number
     private readonly _maxBlockY: number
     private readonly _blockSize: number
-    private _towards: Towards
+    private _towards: Direction
+    protected _thingController!: ThingController
+    protected _ruleController!: RuleController
+    protected _mapController!: MapController
 
     protected constructor(
         name: string,
@@ -21,7 +25,7 @@ export class Thing extends Sprite {
         blockSize: number,
         maxBlockX: number,
         maxBlockY: number,
-        defaultTowards?: Towards
+        defaultTowards?: Direction
     ) {
         // provide the texture to the sprite.
         super(texture)
@@ -53,6 +57,17 @@ export class Thing extends Sprite {
         this.y = (this._blockY + 0.5) * this._blockSize
     }
 
+    public bindThingController(thingController: ThingController): void {
+        this._thingController = thingController
+    }
+
+    public bindRuleController(ruleController: RuleController): void {
+        this._ruleController = ruleController
+    }
+
+    public bindMapController(mapController: MapController): void {
+        this._mapController = mapController
+    }
 
     public setup(options: Pick<ThingSetup, 'defaultBlockX' | 'defaultBlockY' | 'defaultTowards'>) {
         this.blockX = options.defaultBlockX
@@ -78,11 +93,11 @@ export class Thing extends Sprite {
         this.y = (y + 0.5) * this._blockSize
     }
 
-    public set towards(side: Towards) {
+    public set towards(side: Direction) {
         this._towards = side
     }
 
-    public get towards(): Towards {
+    public get towards(): Direction {
         return this._towards
     }
 
@@ -145,6 +160,10 @@ export class Thing extends Sprite {
             resolve()
         })
     }
+
+    public abstract handleEncounter(visitor: Thing, direction: Direction): Promise<boolean>
+
+    public abstract handleBesides(visitor: Thing, direction: Direction): Promise<void>
 }
 
 abstract class Factory {

@@ -1,4 +1,4 @@
-export enum Towards {
+export enum Direction {
     TOP,
     DOWN,
     RIGHT,
@@ -8,8 +8,6 @@ export enum Towards {
 export interface ThingSetup {
     readonly defaultBlockX: number
     readonly defaultBlockY: number
-    readonly maxBlockX: number
-    readonly maxBlockY: number
     readonly textureName: string
-    readonly defaultTowards: number & Towards
+    readonly defaultTowards: number & Direction
 }

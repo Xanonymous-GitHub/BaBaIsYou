@@ -9,6 +9,7 @@ import {Instruction} from '../instructions';
 import PriorityQueue from '../data-structures/priorityQueue';
 import {Command} from '../store/services/command';
 import {PropertyType} from '../types/properties';
+import {MapController} from '../observer/map';
 
 
 export class InstructionDispatchServerConcrete extends ObservableSubject {
@@ -80,13 +81,14 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
     }
 }
 
-class InstructionReceiverConcrete implements Observer {
+class ThingControllerConcrete implements Observer {
     public observeId: string;
     private _dispatchServer: Observable
-    private _ruleController: RuleController
+    private readonly _ruleController: RuleController
+    private readonly _mapController: MapController
     private readonly _thing: Thing
 
-    constructor(dispatchServer: InstructionDispatchServerConcrete, ruleController: RuleController, thing: Thing) {
+    constructor(dispatchServer: InstructionDispatchServerConcrete, ruleController: RuleController, mapController: MapController, thing: Thing) {
         // generate observerId (uuid) for the Thing.
         this.observeId = getUid()
 
@@ -97,8 +99,16 @@ class InstructionReceiverConcrete implements Observer {
         // set rule controller.
         this._ruleController = ruleController
 
+        // set map controller.
+        this._mapController = mapController
+
         // store the thing
         this._thing = thing
+
+        // reverse binding
+        this._thing.bindThingController(this)
+        this._thing.bindRuleController(this._ruleController)
+        this._thing.bindMapController(this._mapController)
     }
 
     public async update(subject: Observable, command: Command): Promise<void> {
@@ -127,9 +137,9 @@ export const createInstructionDispatchServer = (store: GameStore) => {
     return new InstructionDispatchServerConcrete(store)
 }
 
-export const createInstructionReceiver = (dispatchServer: InstructionDispatchServerConcrete, ruleController: RuleController, thing: Thing) => {
-    return new InstructionReceiverConcrete(dispatchServer, ruleController, thing)
+export const createThingController = (dispatchServer: InstructionDispatchServerConcrete, ruleController: RuleController, mapController: MapController, thing: Thing) => {
+    return new ThingControllerConcrete(dispatchServer, ruleController, mapController, thing)
 }
 
 export type InstructionDispatchServer = InstructionDispatchServerConcrete
-export type InstructionReceiver = ReturnType<typeof createInstructionReceiver>
+export type ThingController = ReturnType<typeof createThingController>

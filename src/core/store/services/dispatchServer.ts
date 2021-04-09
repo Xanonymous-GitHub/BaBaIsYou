@@ -1,5 +1,6 @@
 import {InstructionDispatchServer} from '../../observer';
 import {RuleController} from '../../observer/rule';
+import {MapController} from '../../observer/map';
 
 export interface DispatchServerService {
     setDispatchServer: (server: InstructionDispatchServer) => void
@@ -7,12 +8,15 @@ export interface DispatchServerService {
     initDispatchServer: () => void
     disposeDispatchServer: () => void
     setRuleController: (controller: RuleController) => void
+    setMapController: (controller: MapController) => void
     getRuleController: () => RuleController
+    getMapController: () => MapController
 }
 
 class DispatchServerServiceConcrete implements DispatchServerService {
     private _dispatchServer!: InstructionDispatchServer
     private _ruleController!: RuleController
+    private _mapController!: MapController
 
     public getDispatchServer(): InstructionDispatchServer {
         return this._dispatchServer
@@ -34,8 +38,16 @@ class DispatchServerServiceConcrete implements DispatchServerService {
         return this._ruleController
     }
 
+    public getMapController() {
+        return this._mapController
+    }
+
     public setRuleController(ruleController: RuleController) {
         this._ruleController = ruleController
+    }
+
+    public setMapController(mapController: MapController) {
+        this._mapController = mapController
     }
 }
 

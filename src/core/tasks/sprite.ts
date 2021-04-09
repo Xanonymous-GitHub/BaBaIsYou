@@ -1,9 +1,10 @@
 import {Texture} from 'pixi.js'
 import {Task} from './'
 import {Thing, ThingFactory} from '../things';
-import {Towards} from '../types/things';
-import {InstructionDispatchServer, createInstructionReceiver} from '../observer';
+import {Direction} from '../types/things';
+import {InstructionDispatchServer, createThingController} from '../observer';
 import {RuleController} from '../observer/rule';
+import {MapController} from '../observer/map';
 
 abstract class SpriteTask<T> implements Task<T> {
     public abstract execute(): Promise<T>;
@@ -19,7 +20,7 @@ export class CreateThingTask<T extends Thing> extends SpriteTask<T> {
     private _blockSize!: number
     private _maxBlockX!: number
     private _maxBlockY!: number
-    private _defaultTowards?: Towards
+    private _defaultTowards?: Direction
 
     public setArgs(
         name: string,
@@ -29,7 +30,7 @@ export class CreateThingTask<T extends Thing> extends SpriteTask<T> {
         blockSize: number,
         maxBlockX: number,
         maxBlockY: number,
-        defaultTowards?: Towards
+        defaultTowards?: Direction
     ) {
         this._name = name
         this._texture = texture
@@ -59,20 +60,27 @@ export class CreateThingTask<T extends Thing> extends SpriteTask<T> {
     }
 }
 
-export class wrapThingInCommandReceiverTask extends SpriteTask<void> {
+export class connectThingControllerTask extends SpriteTask<void> {
     private _dispatchServer!: InstructionDispatchServer
     private _ruleController!: RuleController
+    private _mapController!: MapController
     private _thing!: Thing
 
-    public setArgs(dispatchServer: InstructionDispatchServer, ruleController: RuleController, thing: Thing): void {
+    public setArgs(dispatchServer: InstructionDispatchServer, ruleController: RuleController, mapController: MapController, thing: Thing): void {
         this._dispatchServer = dispatchServer
         this._ruleController = ruleController
+        this._mapController = mapController
         this._thing = thing
     }
 
     public async execute(): Promise<void> {
         return await new Promise<void>(resolve => {
-            createInstructionReceiver(this._dispatchServer, this._ruleController, this._thing)
+            createThingController(
+                this._dispatchServer,
+                this._ruleController,
+                this._mapController,
+                this._thing
+            )
             resolve()
         })
     }

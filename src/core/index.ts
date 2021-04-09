@@ -6,6 +6,7 @@ import {createSpriteController} from './controllers/sprite'
 import {createResourceMap} from './resource';
 import {createInstructionDispatchServer} from './observer';
 import {createRuleController} from './observer/rule';
+import {createMapController} from './observer/map';
 import {RESOURCE_ROOT_PATH} from './app/configs';
 import {getSceneSetup} from './utils/sceneSetup';
 
@@ -24,6 +25,9 @@ store.setDispatchServer(createInstructionDispatchServer(store))
 
 // init rule controller.
 store.setRuleController(createRuleController())
+
+// init map controller.
+store.setMapController(createMapController())
 
 // DEBUG
 const setupGame = async () => {
