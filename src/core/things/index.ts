@@ -2,6 +2,7 @@ import {Sprite, Texture} from 'pixi.js'
 import {Towards} from '../types/things';
 import {Factor} from '../types';
 import {ThingSetup} from '../types/things';
+
 // import {Command, CommandType} from '../store/services/command';
 
 export class Thing extends Sprite {
@@ -85,9 +86,25 @@ export class Thing extends Sprite {
         return this._towards
     }
 
+    public atRightEdge(): boolean {
+        return this.blockX === this._maxBlockX
+    }
+
+    public atLeftEdge(): boolean {
+        return this.blockX === 0
+    }
+
+    public atTopEdge(): boolean {
+        return this.blockY === 0
+    }
+
+    public atBottomEdge(): boolean {
+        return this.blockY === this._maxBlockY
+    }
+
     public async moveUp(): Promise<void> {
         await new Promise<void>((resolve, reject) => {
-            if (this.blockY === 0) {
+            if (this.atTopEdge()) {
                 reject()
             } else {
                 this.blockY--
@@ -98,7 +115,7 @@ export class Thing extends Sprite {
 
     public async moveDown(): Promise<void> {
         await new Promise<void>((resolve, reject) => {
-            if (this.blockY === this._maxBlockY) {
+            if (this.atBottomEdge()) {
                 reject()
             } else {
                 this.blockY++
@@ -109,7 +126,7 @@ export class Thing extends Sprite {
 
     public async moveRight(): Promise<void> {
         await new Promise<void>((resolve, reject) => {
-            if (this.blockX === this._maxBlockX) {
+            if (this.atRightEdge()) {
                 reject()
             } else {
                 this.blockX++
@@ -120,7 +137,7 @@ export class Thing extends Sprite {
 
     public async moveLeft(): Promise<void> {
         await new Promise<void>((resolve, reject) => {
-            if (this.blockX === 0) {
+            if (this.atLeftEdge()) {
                 reject()
             } else {
                 this.blockX--

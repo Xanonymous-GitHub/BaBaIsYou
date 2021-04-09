@@ -3,12 +3,13 @@ import {Observer} from './observer';
 import {GameStore} from '../store'
 import {getUid} from '../utils/uuid';
 import {Thing} from '../things'
-import {isNone} from 'fp-ts/es6/Option';
+import {isNone, none, Option, some} from 'fp-ts/es6/Option';
 import {RuleController} from './rule';
 import {Instruction} from '../instructions';
 import PriorityQueue from '../data-structures/priorityQueue';
-import {Option, none, some} from 'fp-ts/es6/Option';
 import {Command} from '../store/services/command';
+import {PropertyType} from '../types/properties';
+
 
 export class InstructionDispatchServerConcrete extends ObservableSubject {
     private _store: GameStore
@@ -55,6 +56,12 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
         return some(nextInstruction)
     }
 
+    public addObserver(receiver: Observer) {
+        // add to map system.
+        // bind to observer.
+        super.addObserver(receiver)
+    }
+
     public run() {
         if (this._isActive) {
             if (!this._runningCommand) {
@@ -96,14 +103,16 @@ class InstructionReceiverConcrete implements Observer {
 
     public async update(subject: Observable, command: Command): Promise<void> {
         // 1. when received a command, ask ruleController if self has privilege to execute this command. (am I 'YOU'?)
+        const isYou = this._ruleController.$is(this._thing, PropertyType.YOU)
+        if (!isYou) return
 
         // 2. if could, check if there leaves any obstacles to perform this command.
-            // A. am I at the edge?
-            // B. is the place I will go has any other Thing now?
-                // Yes
-                    // send ENCOUNTER request to the neighbor by the Map controller. => accept or reject
-                // No
-                    // accept.
+
+        // B. is the place I will go has any other Thing now?
+        // Yes
+        // send ENCOUNTER request to the neighbor by the Map controller. => accept or reject
+        // No
+        // accept.
         // 3. if not any obstacles, apply an self instruction to the DispatchServer.
 
         // 4. done.

@@ -1,4 +1,3 @@
-import {Command, CommandType} from '../store/services/command';
 import {Thing} from '../things';
 import {PropertyType} from '../types/properties';
 import {NounType} from '../types/nouns';
@@ -7,7 +6,7 @@ import {ThingType} from '../types';
 import {CharacterType} from '../types/characters';
 
 export interface RuleController {
-    judgmentCommand: (command: Command, thing: Thing) => boolean
+    $is: (thing: Thing, requestedProperty: PropertyType) => boolean
     addProperty: (property: PropertyType, thing: Thing) => void
     removeProperty: (property: PropertyType, thing: Thing) => void
 }
@@ -28,20 +27,10 @@ class RuleControllerConcrete implements RuleController {
         this._ruleMap.set(CharacterType.BABA, [PropertyType.YOU])
     }
 
-    public judgmentCommand(command: Command, thing: Thing): boolean {
+    public $is(thing: Thing, requestedProperty: PropertyType): boolean {
         const noun = thing.name as NounType
         const properties = this._ruleMap.get(noun)
-        const commandValue = command.value
-
-        switch (commandValue) {
-            case CommandType.UP:
-            case CommandType.DOWN:
-            case CommandType.RIGHT:
-            case CommandType.LEFT:
-                return Boolean(properties && properties.includes(PropertyType.YOU))
-            default:
-                return false
-        }
+        return Boolean(properties && properties.includes(requestedProperty))
     }
 
     public addProperty(property: PropertyType, thing: Thing): void {
