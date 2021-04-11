@@ -7,7 +7,7 @@ export interface Instruction {
     getPriority: () => number | undefined
 }
 
-export abstract class SingleInstruction implements Instruction {
+export abstract class RawInstruction implements Instruction {
     private readonly _id: string
     protected readonly _subject: Thing
     private _priority?: number
