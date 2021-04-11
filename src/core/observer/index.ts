@@ -46,7 +46,7 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
         return instructionPriority
     }
 
-    private _addInstruction(instruction: Instruction): void {
+    public addInstruction(instruction: Instruction): void {
         const priority = InstructionDispatchServerConcrete._judgementInstructionPriority(instruction)
         this._pendingInstructions.add(instruction, priority)
     }
@@ -55,12 +55,6 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
         const nextInstruction = this._pendingInstructions.poll()
         if (!nextInstruction) return none
         return some(nextInstruction)
-    }
-
-    public addObserver(receiver: Observer) {
-        // add to map system.
-        // bind to observer.
-        super.addObserver(receiver)
     }
 
     public run() {
@@ -81,14 +75,16 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
     }
 }
 
+export type InstructionDispatchServer = InstructionDispatchServerConcrete
+
 class ThingControllerConcrete implements Observer {
     public observeId: string;
-    private _dispatchServer: Observable
+    private readonly _dispatchServer: InstructionDispatchServer
     private readonly _ruleController: RuleController
     private readonly _mapController: MapController
     private readonly _thing: Thing
 
-    constructor(dispatchServer: InstructionDispatchServerConcrete, ruleController: RuleController, mapController: MapController, thing: Thing) {
+    constructor(dispatchServer: InstructionDispatchServer, ruleController: RuleController, mapController: MapController, thing: Thing) {
         // generate observerId (uuid) for the Thing.
         this.observeId = getUid()
 
@@ -128,6 +124,10 @@ class ThingControllerConcrete implements Observer {
         // 4. done.
     }
 
+    public pushInstruction(instruction: Instruction) {
+        this._dispatchServer.addInstruction(instruction)
+    }
+
     public disconnect(): void {
         this._dispatchServer.deleteObserver(this)
     }
@@ -141,5 +141,4 @@ export const createThingController = (dispatchServer: InstructionDispatchServerC
     return new ThingControllerConcrete(dispatchServer, ruleController, mapController, thing)
 }
 
-export type InstructionDispatchServer = InstructionDispatchServerConcrete
 export type ThingController = ReturnType<typeof createThingController>

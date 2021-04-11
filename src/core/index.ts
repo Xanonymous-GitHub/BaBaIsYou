@@ -27,7 +27,7 @@ store.setDispatchServer(createInstructionDispatchServer(store))
 store.setRuleController(createRuleController())
 
 // init map controller.
-store.setMapController(createMapController())
+store.setMapController(createMapController(store.getAppEdge()))
 
 // DEBUG
 const setupGame = async () => {

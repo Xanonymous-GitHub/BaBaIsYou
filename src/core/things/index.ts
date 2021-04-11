@@ -5,8 +5,10 @@ import {ThingSetup} from '../types/things';
 import {ThingController} from '../observer';
 import {RuleController} from '../observer/rule';
 import {MapController} from '../observer/map';
+import {getUid} from '../utils/uuid';
 
 export abstract class Thing extends Sprite {
+    private readonly _id: string
     private _blockX: number // start from 0
     private _blockY: number // start from 0
     private readonly _maxBlockX: number
@@ -29,6 +31,9 @@ export abstract class Thing extends Sprite {
     ) {
         // provide the texture to the sprite.
         super(texture)
+
+        // set uid
+        this._id = getUid()
 
         // set name
         this.name = name
@@ -101,6 +106,10 @@ export abstract class Thing extends Sprite {
         return this._towards
     }
 
+    public get id(): string {
+        return this._id
+    }
+
     public atRightEdge(): boolean {
         return this.blockX === this._maxBlockX
     }
@@ -161,9 +170,11 @@ export abstract class Thing extends Sprite {
         })
     }
 
-    public abstract handleEncounter(visitor: Thing, direction: Direction): Promise<boolean>
+    public abstract handleEncounter(visitor: Thing, visitorFrom: Direction): Promise<boolean>
 
-    public abstract handleBesides(visitor: Thing, direction: Direction): Promise<void>
+    public abstract handleBeside(visitor: Thing, visitorBeside: Direction): Promise<void>
+
+    public abstract handleLeave(visitor: Thing, visitorLeavesFrom: Direction): Promise<void>
 }
 
 abstract class Factory {
