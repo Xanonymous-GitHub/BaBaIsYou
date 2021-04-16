@@ -20,8 +20,8 @@ export interface FeatureList {
 
 export interface RuleController {
     $is: (requester: Thing, requestedFeature: PropertyType) => boolean
-    // $has: (requester: Thing, requestedFeature: NounType) => boolean
-    // $make: (requester: Thing, requestedFeature: NounType) => boolean
+    $has: (requester: Thing, requestedFeature: NounType) => boolean
+    $make: (requester: Thing, requestedFeature: NounType) => boolean
     addFeature: (thing: Thing, operator: OperatorType, featureCondition: FeatureCondition) => void
     removeFeature: (thing: Thing, operator: OperatorType, featureCondition: FeatureCondition) => void
 }
@@ -52,17 +52,24 @@ class RuleControllerConcrete implements RuleController {
     public $is(requester: Thing, requestedFeature: PropertyType): boolean {
         const requesterName = requester.name as NounType
         const featureConditions = this._featureMap.get(requesterName) as FeatureList
-
-        let containsProperty = false
-        for (const featureCondition of featureConditions._is) {
-            if (featureCondition.feature === requestedFeature) {
-                containsProperty = true
-                break
-            }
-        }
+        const containsProperty = Boolean(featureConditions._is.find(featureCondition => featureCondition.feature === requestedFeature))
 
         // NOUN IS NOUN should be processed
 
+        return Boolean(featureConditions && containsProperty)
+    }
+
+    public $has(requester: Thing, requestedFeature: NounType): boolean {
+        const requesterName = requester.name as NounType
+        const featureConditions = this._featureMap.get(requesterName) as FeatureList
+        const containsProperty = Boolean(featureConditions._has.find(featureCondition => featureCondition.feature === requestedFeature))
+        return Boolean(featureConditions && containsProperty)
+    }
+
+    public $make(requester: Thing, requestedFeature: NounType): boolean {
+        const requesterName = requester.name as NounType
+        const featureConditions = this._featureMap.get(requesterName) as FeatureList
+        const containsProperty = Boolean(featureConditions._make.find(featureCondition => featureCondition.feature === requestedFeature))
         return Boolean(featureConditions && containsProperty)
     }
 
