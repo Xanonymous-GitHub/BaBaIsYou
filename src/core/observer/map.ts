@@ -12,9 +12,20 @@ export enum MapUpdateSituation {
     DISAPPEAR = 'disappear'
 }
 
+export interface Neighbor {
+    up: Option<Array<Readonly<Thing>>>
+    down: Option<Array<Readonly<Thing>>>
+    left: Option<Array<Readonly<Thing>>>
+    right: Option<Array<Readonly<Thing>>>
+}
+
 export interface MapController {
     canIEncounter: (subject: Thing, direction: Direction) => Promise<boolean>
     update: (subject: Thing, situation: MapUpdateSituation) => Promise<void>
+    notifyBeside: (subject: Thing, notifyDirections: Array<Direction>) => Promise<void>
+    notifyLeave: (subject: Thing, notifyDirections: Array<Direction>) => Promise<void>
+    whoAreThere: (x: number, y: number) => Option<Array<Readonly<Thing>>>
+    whoNearMe: (subject: Thing) => Neighbor
     clean: () => void
 }
 
@@ -62,16 +73,94 @@ class MapControllerConcrete implements MapController {
         } else throw new Error(`Map system error, pos @ x:${x} y:${y} is invalid type!`)
     }
 
-    public async canIEncounter(subject: Thing, direction: Direction): Promise<boolean> {
-        return Promise.resolve(false);
+    public async canIEncounter(requester: Thing, direction: Direction): Promise<boolean> {
+        const x = requester.blockX
+        const y = requester.blockY
+
+        switch (direction) {
+
+            case Direction.LEFT:
+                if (requester.atLeftEdge()) return false
+                if (isNone(this._gameMap[x - 1][y])) return true
+                return (await Promise.all(
+                    (this._gameMap[x - 1][y] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleEncounter(requester, Direction.RIGHT))
+                )).reduce((previousResult, currentResult) => previousResult && currentResult, true)
+
+            case Direction.RIGHT:
+                if (requester.atRightEdge()) return false
+                if (isNone(this._gameMap[x + 1][y])) return true
+                return (await Promise.all(
+                    (this._gameMap[x + 1][y] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleEncounter(requester, Direction.LEFT))
+                )).reduce((previousResult, currentResult) => previousResult && currentResult, true)
+
+            case Direction.TOP:
+                if (requester.atTopEdge()) return false
+                if (isNone(this._gameMap[x][y - 1])) return true
+                return (await Promise.all(
+                    (this._gameMap[x][y - 1] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleEncounter(requester, Direction.DOWN))
+                )).reduce((previousResult, currentResult) => previousResult && currentResult, true)
+
+            case Direction.DOWN:
+                if (requester.atBottomEdge()) return false
+                if (isNone(this._gameMap[x][y + 1])) return true
+                return (await Promise.all(
+                    (this._gameMap[x][y + 1] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleEncounter(requester, Direction.TOP))
+                )).reduce((previousResult, currentResult) => previousResult && currentResult, true)
+        }
     }
 
-    private async _notifyBeside(subject: Thing, without?: Array<Direction>): Promise<void> {
-        return Promise.resolve(undefined);
+    public async notifyBeside(subject: Thing, notifyDirections: Array<Direction>): Promise<void> {
+        const x = subject.blockX
+        const y = subject.blockY
+
+        await Promise.allSettled(
+            notifyDirections.map((direction): PromiseLike<any> => {
+                switch (direction) {
+                    case Direction.LEFT:
+                        if (subject.atLeftEdge() || isNone(this._gameMap[x - 1][y])) return Promise.resolve()
+                        return Promise.allSettled((this._gameMap[x - 1][y] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleBeside(subject, Direction.RIGHT)))
+
+                    case Direction.RIGHT:
+                        if (subject.atRightEdge() || isNone(this._gameMap[x + 1][y])) return Promise.resolve()
+                        return Promise.allSettled((this._gameMap[x + 1][y] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleBeside(subject, Direction.LEFT)))
+
+                    case Direction.TOP:
+                        if (subject.atTopEdge() || isNone(this._gameMap[x][y - 1])) return Promise.resolve()
+                        return Promise.allSettled((this._gameMap[x][y - 1] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleBeside(subject, Direction.DOWN)))
+
+                    case Direction.DOWN:
+                        if (subject.atBottomEdge() || isNone(this._gameMap[x][y + 1])) return Promise.resolve()
+                        return Promise.allSettled((this._gameMap[x][y + 1] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleBeside(subject, Direction.TOP)))
+                }
+            })
+        )
     }
 
-    private async _notifyLeave(subject: Thing, without?: Array<Direction>): Promise<void> {
-        return Promise.resolve(undefined);
+    public async notifyLeave(subject: Thing, notifyDirections: Array<Direction>): Promise<void> {
+        const x = subject.blockX
+        const y = subject.blockY
+
+        await Promise.allSettled(
+            notifyDirections.map((direction): PromiseLike<any> => {
+                switch (direction) {
+                    case Direction.LEFT:
+                        if (subject.atLeftEdge() || isNone(this._gameMap[x - 1][y])) return Promise.resolve()
+                        return Promise.allSettled((this._gameMap[x - 1][y] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleLeave(subject, Direction.RIGHT)))
+
+                    case Direction.RIGHT:
+                        if (subject.atRightEdge() || isNone(this._gameMap[x + 1][y])) return Promise.resolve()
+                        return Promise.allSettled((this._gameMap[x + 1][y] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleLeave(subject, Direction.LEFT)))
+
+                    case Direction.TOP:
+                        if (subject.atTopEdge() || isNone(this._gameMap[x][y - 1])) return Promise.resolve()
+                        return Promise.allSettled((this._gameMap[x][y - 1] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleLeave(subject, Direction.DOWN)))
+
+                    case Direction.DOWN:
+                        if (subject.atBottomEdge() || isNone(this._gameMap[x][y + 1])) return Promise.resolve()
+                        return Promise.allSettled((this._gameMap[x][y + 1] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleLeave(subject, Direction.TOP)))
+                }
+            })
+        )
     }
 
     // this function will be called after an instruction has been performed.
@@ -79,62 +168,56 @@ class MapControllerConcrete implements MapController {
         const x = subject.blockX
         const y = subject.blockY
 
-        const exclusionDirectionsOfNotifyBeside: Array<Direction> = []
-        const exclusionDirectionsOfNotifyLeave: Array<Direction> = []
-
         switch (happenedSituation) {
             case MapUpdateSituation.APPEAR:
                 this._placeToPosition(x, y, subject)
-                exclusionDirectionsOfNotifyLeave.push(
-                    Direction.TOP,
-                    Direction.DOWN,
-                    Direction.LEFT,
-                    Direction.RIGHT
-                )
                 break
+
             case MapUpdateSituation.DISAPPEAR:
                 this._removeFromPosition(x, y, subject)
-                exclusionDirectionsOfNotifyBeside.push(
-                    Direction.TOP,
-                    Direction.DOWN,
-                    Direction.LEFT,
-                    Direction.RIGHT
-                )
                 break
+
             case MapUpdateSituation.UP:
                 this._placeToPosition(x, y, subject)
                 this._removeFromPosition(x, y + 1, subject)
-                exclusionDirectionsOfNotifyBeside.push(Direction.DOWN)
-                exclusionDirectionsOfNotifyLeave.push(Direction.TOP)
                 break
+
             case MapUpdateSituation.DOWN:
                 this._placeToPosition(x, y, subject)
                 this._removeFromPosition(x, y - 1, subject)
-                exclusionDirectionsOfNotifyBeside.push(Direction.TOP)
-                exclusionDirectionsOfNotifyLeave.push(Direction.DOWN)
                 break
+
             case MapUpdateSituation.LEFT:
                 this._placeToPosition(x, y, subject)
                 this._removeFromPosition(x + 1, y, subject)
-                exclusionDirectionsOfNotifyBeside.push(Direction.RIGHT)
-                exclusionDirectionsOfNotifyLeave.push(Direction.LEFT)
                 break
+
             case MapUpdateSituation.RIGHT:
                 this._placeToPosition(x, y, subject)
                 this._removeFromPosition(x - 1, y, subject)
-                exclusionDirectionsOfNotifyBeside.push(Direction.LEFT)
-                exclusionDirectionsOfNotifyLeave.push(Direction.RIGHT)
                 break
         }
-
-        await Promise.all([
-            this._notifyBeside(subject, exclusionDirectionsOfNotifyBeside),
-            this._notifyLeave(subject, exclusionDirectionsOfNotifyLeave)
-        ])
     }
 
     public clean(): void {
         this._resetMap()
+    }
+
+    public whoAreThere(x: number, y: number): Option<Array<Readonly<Thing>>> {
+        if (x < 0 || x > this.maxX || y < 0 || y > this.maxY) throw new Error(`Map system error, pos @ x:${x} y:${y} is out of range!`)
+        return this._gameMap[x][y]
+    }
+
+    public whoNearMe(subject: Thing): Neighbor {
+        const x = subject.blockX
+        const y = subject.blockY
+
+        const up = subject.atTopEdge() ? none : this._gameMap[x][y - 1]
+        const down = subject.atBottomEdge() ? none : this._gameMap[x][y + 1]
+        const left = subject.atLeftEdge() ? none : this._gameMap[x - 1][y]
+        const right = subject.atRightEdge() ? none : this._gameMap[x + 1][y]
+
+        return {up, down, left, right}
     }
 }
 
