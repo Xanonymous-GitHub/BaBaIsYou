@@ -104,7 +104,7 @@ class ThingControllerConcrete implements Observer {
         // reverse binding
         this._thing.bindThingController(this)
         this._thing.bindRuleController(this._ruleController)
-        this._thing.bindMapController(this._mapController)
+        this._thing.bindMapController(this._mapController).then()
     }
 
     public async update(subject: Observable, command: Command): Promise<void> {

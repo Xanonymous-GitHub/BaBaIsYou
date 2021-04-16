@@ -1,10 +1,9 @@
 import {Sprite, Texture} from 'pixi.js'
-import {Direction} from '../types/things';
+import {Direction, ThingSetup} from '../types/things';
 import {Factor} from '../types';
-import {ThingSetup} from '../types/things';
 import {ThingController} from '../observer';
 import {RuleController} from '../observer/rule';
-import {MapController} from '../observer/map';
+import {MapController, MapUpdateSituation} from '../observer/map';
 import {getUid} from '../utils/uuid';
 
 export abstract class Thing extends Sprite {
@@ -70,8 +69,9 @@ export abstract class Thing extends Sprite {
         this._ruleController = ruleController
     }
 
-    public bindMapController(mapController: MapController): void {
+    public async bindMapController(mapController: MapController): Promise<void> {
         this._mapController = mapController
+        await this._mapController.update(this, MapUpdateSituation.APPEAR)
     }
 
     public setup(options: Pick<ThingSetup, 'defaultBlockX' | 'defaultBlockY' | 'defaultTowards'>) {
