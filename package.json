@@ -14,7 +14,7 @@
     "vue": "^3.0.11"
   },
   "devDependencies": {
-    "@types/mousetrap": "^1.6.6",
+    "@types/mousetrap": "^1.6.7",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
@@ -27,12 +27,12 @@
     "eslint-plugin-vue": "^7.9.0",
     "fp-ts": "^2.10.2",
     "prettier": "^2.2.1",
-    "sass": "^1.32.8",
+    "sass": "^1.32.10",
     "typescript": "^4.2.4",
     "vite": "^2.1.5",
     "vite-plugin-compress": "^2.0.0",
     "vite-plugin-compression": "^0.2.4",
-    "vite-plugin-html": "^2.0.6",
-    "vite-plugin-windicss": "^0.14.2"
+    "vite-plugin-html": "^2.0.7",
+    "vite-plugin-windicss": "^0.14.6"
   }
 }
