@@ -28,21 +28,46 @@ export interface RuleController {
 
 
 class RuleControllerConcrete implements RuleController {
-    private _ruleMap: Map<ThingType, Array<PropertyType>> // will be deprecated
+    // private _ruleMap: Map<ThingType, Array<PropertyType>> // will be deprecated
     private _featureMap: Map<ThingType, FeatureList>
 
     constructor() {
-        this._ruleMap = new Map(); // will be deprecated
+        // this._ruleMap = new Map(); // will be deprecated
         this._featureMap = new Map();
 
         // set default property
-        // should be changed to save in FeatureList
-        (Object.keys(NounType) as Array<NounType>).map(noun => this._ruleMap.set(noun, [PropertyType.PUSH]));
-        (Object.keys(PropertyType) as Array<PropertyType>).map(property => this._ruleMap.set(property, [PropertyType.PUSH]));
-        (Object.keys(OperatorType) as Array<OperatorType>).map(operator => this._ruleMap.set(operator, [PropertyType.PUSH]));
+        // (Object.keys(NounType) as Array<NounType>).map(noun => this._ruleMap.set(noun, [PropertyType.PUSH]));
+        // (Object.keys(PropertyType) as Array<PropertyType>).map(property => this._ruleMap.set(property, [PropertyType.PUSH]));
+        // (Object.keys(OperatorType) as Array<OperatorType>).map(operator => this._ruleMap.set(operator, [PropertyType.PUSH]));
+        (Object.keys(NounType) as Array<NounType>).map(noun => {
+            const featureCondition = {
+                feature: PropertyType.PUSH,
+                on: [], near: [], facing: []
+            } as FeatureCondition
+            this._featureMap.set(noun, {_is: [featureCondition], _has: [], _make: []} as FeatureList)
+        });
+        (Object.keys(PropertyType) as Array<PropertyType>).map(property => {
+            const featureCondition = {
+                feature: PropertyType.PUSH,
+                on: [], near: [], facing: []
+            } as FeatureCondition
+            this._featureMap.set(property, {_is: [featureCondition], _has: [], _make: []} as FeatureList)
+        });
+        (Object.keys(OperatorType) as Array<OperatorType>).map(operator => {
+            const featureCondition = {
+                feature: PropertyType.PUSH,
+                on: [], near: [], facing: []
+            } as FeatureCondition
+            this._featureMap.set(operator, {_is: [featureCondition], _has: [], _make: []} as FeatureList)
+        });
 
         // DEBUG
-        this._ruleMap.set(CharacterType.BABA, [PropertyType.YOU]) // will be deprecated
+        // this._ruleMap.set(CharacterType.BABA, [PropertyType.YOU]) // will be deprecated
+        const featureCondition = {
+            feature: PropertyType.YOU,
+            on: [], near: [], facing: []
+        } as FeatureCondition
+        this._featureMap.set(CharacterType.BABA, {_is: [featureCondition], _has: [], _make: []} as FeatureList)
 
         const featureConditions = {feature: PropertyType.YOU, on: [], near: [], facing: []}
         const featureList = {_is: [featureConditions], _has: [], _make: []}
