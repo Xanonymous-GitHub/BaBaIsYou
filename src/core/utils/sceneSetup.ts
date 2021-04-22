@@ -20,8 +20,8 @@ export interface SceneSetupJson {
 axios.defaults.baseURL = '/sceneSetups/'
 
 const convertToSceneSetup = (sceneSetupJson: SceneSetupJson): SceneSetup => {
-    const maxBlockX = sceneSetupJson.sceneWidth
-    const maxBlockY = sceneSetupJson.sceneHeight
+    const sceneWidth = sceneSetupJson.sceneWidth
+    const sceneHeight = sceneSetupJson.sceneHeight
     const thingsMap = new Map<{ species: Species, name: string }, Array<ThingSetup>>()
 
     for (const thing of sceneSetupJson.thingsMap) {
@@ -32,8 +32,6 @@ const convertToSceneSetup = (sceneSetupJson: SceneSetupJson): SceneSetup => {
             const setup: ThingSetup = {
                 defaultBlockX: it.defaultBlockX,
                 defaultBlockY: it.defaultBlockY,
-                maxBlockX,
-                maxBlockY,
                 textureName: it.textureName,
                 defaultTowards: it.defaultTowards
             }
@@ -46,6 +44,8 @@ const convertToSceneSetup = (sceneSetupJson: SceneSetupJson): SceneSetup => {
     return {
         id: sceneSetupJson.id,
         name: sceneSetupJson.name,
+        sceneWidth,
+        sceneHeight,
         thingsMap
     }
 }

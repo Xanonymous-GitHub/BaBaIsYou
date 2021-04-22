@@ -32,7 +32,7 @@ store.setMapController(createMapController(store.getAppEdge()))
 // DEBUG
 const setupGame = async () => {
     const TEST_SCENE = await getSceneSetup('level1.json')
-    // console.log(TEST_SCENE)
+    console.log(TEST_SCENE)
 
     stageController.addScene(TEST_SCENE).then(() => {
         store.initDispatchServer()
