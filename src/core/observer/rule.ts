@@ -29,21 +29,16 @@ export interface RuleController {
 
 
 class RuleControllerConcrete implements RuleController {
-    // private _ruleMap: Map<ThingType, Array<PropertyType>> // will be deprecated
     private _featureMap: Map<ThingType, FeatureList>
     private readonly _mapController: MapController
 
     constructor(mapController: MapController) {
-        // this._ruleMap = new Map(); // will be deprecated
         this._featureMap = new Map();
 
         // get map controller instance.
         this._mapController = mapController;
 
         // set default property
-        // (Object.keys(NounType) as Array<NounType>).map(noun => this._ruleMap.set(noun, [PropertyType.PUSH]));
-        // (Object.keys(PropertyType) as Array<PropertyType>).map(property => this._ruleMap.set(property, [PropertyType.PUSH]));
-        // (Object.keys(OperatorType) as Array<OperatorType>).map(operator => this._ruleMap.set(operator, [PropertyType.PUSH]));
         (Object.keys(NounType) as Array<NounType>).map(noun => {
             const featureCondition = {
                 feature: PropertyType.PUSH,
@@ -67,7 +62,6 @@ class RuleControllerConcrete implements RuleController {
         });
 
         // DEBUG
-        // this._ruleMap.set(CharacterType.BABA, [PropertyType.YOU]) // will be deprecated
         const featureCondition = {
             feature: PropertyType.YOU,
             on: [], near: [], facing: []
