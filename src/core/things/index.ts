@@ -5,9 +5,14 @@ import {ThingController} from '../observer';
 import {RuleController} from '../observer/rule';
 import {MapController, MapUpdateSituation} from '../observer/map';
 import {getUid} from '../utils/uuid';
+import {Species} from '../resource';
+
+import characters from './character'
+import {camelize} from '../utils/string';
 
 export abstract class Thing extends Sprite {
     private readonly _id: string
+    private readonly _species: Species
     private _blockX: number // start from 0
     private _blockY: number // start from 0
     private readonly _maxBlockX: number
@@ -18,8 +23,9 @@ export abstract class Thing extends Sprite {
     protected _ruleController!: RuleController
     protected _mapController!: MapController
 
-    protected constructor(
+    constructor(
         name: string,
+        species: Species,
         texture: Texture,
         defaultBlockX: number,
         defaultBlockY: number,
@@ -36,6 +42,9 @@ export abstract class Thing extends Sprite {
 
         // set name
         this.name = name
+
+        // set species
+        this._species = species
 
         // setup default positions.
         this._blockX = defaultBlockX
@@ -110,6 +119,10 @@ export abstract class Thing extends Sprite {
         return this._id
     }
 
+    public get species(): Readonly<Species> {
+        return this._species
+    }
+
     public atRightEdge(): boolean {
         return this.blockX === this._maxBlockX
     }
@@ -177,11 +190,13 @@ export abstract class Thing extends Sprite {
     public abstract handleLeave(visitor: Thing, visitorLeavesFrom: Direction): Promise<void>
 }
 
-abstract class Factory {
-    public abstract createInstance<T>(_factor: Factor<T>): T;
-}
+export class ThingFactory {
+    private _instanceFactor: Factor<Thing>
 
-export class ThingFactory extends Factory {
+    constructor(thingName: string) {
+        this._instanceFactor = characters[camelize(thingName.trim())]
+    }
+
     public createInstance<T>(factor: Factor<T>, ...args: Array<any>): T {
         return new factor(...args)
     }
