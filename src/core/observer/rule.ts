@@ -4,6 +4,7 @@ import {NounType} from '../types/nouns';
 import {OperatorType} from '../types/operators';
 import {ThingType} from '../types';
 import {CharacterType} from '../types/characters';
+import {MapController} from '../observer/map';
 
 export interface FeatureCondition {
     feature: NounType | PropertyType
@@ -30,10 +31,14 @@ export interface RuleController {
 class RuleControllerConcrete implements RuleController {
     // private _ruleMap: Map<ThingType, Array<PropertyType>> // will be deprecated
     private _featureMap: Map<ThingType, FeatureList>
+    private readonly _mapController: MapController
 
-    constructor() {
+    constructor(mapController: MapController) {
         // this._ruleMap = new Map(); // will be deprecated
         this._featureMap = new Map();
+
+        // get map controller instance.
+        this._mapController = mapController;
 
         // set default property
         // (Object.keys(NounType) as Array<NounType>).map(noun => this._ruleMap.set(noun, [PropertyType.PUSH]));
@@ -148,6 +153,6 @@ class RuleControllerConcrete implements RuleController {
     }
 }
 
-export const createRuleController = (): RuleController => {
-    return new RuleControllerConcrete()
+export const createRuleController = (mapController: MapController): RuleController => {
+    return new RuleControllerConcrete(mapController)
 }

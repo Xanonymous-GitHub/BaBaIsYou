@@ -23,11 +23,11 @@ store.addResourceMap(RESOURCES_MAP)
 // init dispatcher.
 store.setDispatchServer(createInstructionDispatchServer(store))
 
-// init rule controller.
-store.setRuleController(createRuleController())
-
 // init map controller.
 store.setMapController(createMapController(store.getAppEdge()))
+
+// init rule controller.
+store.setRuleController(createRuleController(store.getMapController()))
 
 // DEBUG
 const setupGame = async () => {
