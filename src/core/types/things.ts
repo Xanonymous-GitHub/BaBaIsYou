@@ -2,7 +2,8 @@ export enum Direction {
     TOP,
     DOWN,
     RIGHT,
-    LEFT
+    LEFT,
+    UNDEFINED
 }
 
 export interface ThingSetup {

@@ -78,6 +78,8 @@ class MapControllerConcrete implements MapController {
         const y = requester.blockY
 
         switch (direction) {
+            case Direction.UNDEFINED:
+                return false
 
             case Direction.LEFT:
                 if (requester.atLeftEdge()) return false
@@ -116,6 +118,9 @@ class MapControllerConcrete implements MapController {
         await Promise.allSettled(
             notifyDirections.map((direction: Direction): PromiseLike<any> => {
                 switch (direction) {
+                    case Direction.UNDEFINED:
+                        return Promise.resolve()
+
                     case Direction.LEFT:
                         if (subject.atLeftEdge() || isNone(this._gameMap[x - 1][y])) return Promise.resolve()
                         return Promise.allSettled((this._gameMap[x - 1][y] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleBeside(subject, Direction.RIGHT)))
@@ -143,6 +148,9 @@ class MapControllerConcrete implements MapController {
         await Promise.allSettled(
             notifyDirections.map((direction: Direction): PromiseLike<any> => {
                 switch (direction) {
+                    case Direction.UNDEFINED:
+                        return Promise.resolve()
+
                     case Direction.LEFT:
                         if (subject.atLeftEdge() || isNone(this._gameMap[x - 1][y])) return Promise.resolve()
                         return Promise.allSettled((this._gameMap[x - 1][y] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleLeave(subject, Direction.RIGHT)))
@@ -178,23 +186,23 @@ class MapControllerConcrete implements MapController {
                 break
 
             case MapUpdateSituation.UP:
-                this._placeToPosition(x, y, subject)
                 this._removeFromPosition(x, y + 1, subject)
+                this._placeToPosition(x, y, subject)
                 break
 
             case MapUpdateSituation.DOWN:
-                this._placeToPosition(x, y, subject)
                 this._removeFromPosition(x, y - 1, subject)
+                this._placeToPosition(x, y, subject)
                 break
 
             case MapUpdateSituation.LEFT:
-                this._placeToPosition(x, y, subject)
                 this._removeFromPosition(x + 1, y, subject)
+                this._placeToPosition(x, y, subject)
                 break
 
             case MapUpdateSituation.RIGHT:
-                this._placeToPosition(x, y, subject)
                 this._removeFromPosition(x - 1, y, subject)
+                this._placeToPosition(x, y, subject)
                 break
         }
     }
