@@ -84,28 +84,28 @@ class MapControllerConcrete implements MapController {
                 if (isNone(this._gameMap[x - 1][y])) return true
                 return (await Promise.all(
                     (this._gameMap[x - 1][y] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleEncounter(requester, Direction.RIGHT))
-                )).reduce((previousResult, currentResult) => previousResult && currentResult, true)
+                )).reduce((previousResult: boolean, currentResult: boolean) => previousResult && currentResult, true)
 
             case Direction.RIGHT:
                 if (requester.atRightEdge()) return false
                 if (isNone(this._gameMap[x + 1][y])) return true
                 return (await Promise.all(
                     (this._gameMap[x + 1][y] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleEncounter(requester, Direction.LEFT))
-                )).reduce((previousResult, currentResult) => previousResult && currentResult, true)
+                )).reduce((previousResult: boolean, currentResult: boolean) => previousResult && currentResult, true)
 
             case Direction.TOP:
                 if (requester.atTopEdge()) return false
                 if (isNone(this._gameMap[x][y - 1])) return true
                 return (await Promise.all(
                     (this._gameMap[x][y - 1] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleEncounter(requester, Direction.DOWN))
-                )).reduce((previousResult, currentResult) => previousResult && currentResult, true)
+                )).reduce((previousResult: boolean, currentResult: boolean) => previousResult && currentResult, true)
 
             case Direction.DOWN:
                 if (requester.atBottomEdge()) return false
                 if (isNone(this._gameMap[x][y + 1])) return true
                 return (await Promise.all(
                     (this._gameMap[x][y + 1] as Some<Array<Thing>>).value.map(neighbor => neighbor.handleEncounter(requester, Direction.TOP))
-                )).reduce((previousResult, currentResult) => previousResult && currentResult, true)
+                )).reduce((previousResult: boolean, currentResult: boolean) => previousResult && currentResult, true)
         }
     }
 
@@ -114,7 +114,7 @@ class MapControllerConcrete implements MapController {
         const y = subject.blockY
 
         await Promise.allSettled(
-            notifyDirections.map((direction): PromiseLike<any> => {
+            notifyDirections.map((direction: Direction): PromiseLike<any> => {
                 switch (direction) {
                     case Direction.LEFT:
                         if (subject.atLeftEdge() || isNone(this._gameMap[x - 1][y])) return Promise.resolve()
@@ -141,7 +141,7 @@ class MapControllerConcrete implements MapController {
         const y = subject.blockY
 
         await Promise.allSettled(
-            notifyDirections.map((direction): PromiseLike<any> => {
+            notifyDirections.map((direction: Direction): PromiseLike<any> => {
                 switch (direction) {
                     case Direction.LEFT:
                         if (subject.atLeftEdge() || isNone(this._gameMap[x - 1][y])) return Promise.resolve()
