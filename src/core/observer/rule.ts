@@ -27,18 +27,33 @@ export interface RuleController {
     removeFeature: (thing: Thing, operator: OperatorType, featureCondition: FeatureCondition) => void
 }
 
-
 class RuleControllerConcrete implements RuleController {
-    private _featureMap: Map<ThingType, FeatureList>
+    private readonly _featureMap: Map<ThingType, FeatureList>
     private readonly _mapController: MapController
 
     constructor(mapController: MapController) {
         this._featureMap = new Map();
 
-        // get map controller instance.
+        // get map controller instance
         this._mapController = mapController;
 
-        // set default property
+        // set initial rules
+        this._initRules()
+
+        // DEBUG
+        const featureCondition = {
+            feature: PropertyType.YOU,
+            on: [], near: [], facing: []
+        } as FeatureCondition
+        this._featureMap.set(CharacterType.BABA, {_is: [featureCondition], _has: [], _make: []} as FeatureList)
+
+        const featureConditions = {feature: PropertyType.YOU, on: [], near: [], facing: []}
+        const featureList = {_is: [featureConditions], _has: [], _make: []}
+        this._featureMap.set(CharacterType.BABA, featureList)
+    }
+
+    private _initRules(): void {
+        // set default rules
         (Object.keys(NounType) as Array<NounType>).map(noun => {
             const featureCondition = {
                 feature: PropertyType.PUSH,
@@ -60,17 +75,6 @@ class RuleControllerConcrete implements RuleController {
             } as FeatureCondition
             this._featureMap.set(operator, {_is: [featureCondition], _has: [], _make: []} as FeatureList)
         });
-
-        // DEBUG
-        const featureCondition = {
-            feature: PropertyType.YOU,
-            on: [], near: [], facing: []
-        } as FeatureCondition
-        this._featureMap.set(CharacterType.BABA, {_is: [featureCondition], _has: [], _make: []} as FeatureList)
-
-        const featureConditions = {feature: PropertyType.YOU, on: [], near: [], facing: []}
-        const featureList = {_is: [featureConditions], _has: [], _make: []}
-        this._featureMap.set(CharacterType.BABA, featureList)
     }
 
     public $is(requester: Thing, requestedFeature: PropertyType): boolean {
@@ -109,12 +113,15 @@ class RuleControllerConcrete implements RuleController {
             case OperatorType.IS:
                 this._featureMap.get(thingType)!._is.push(featureCondition)
                 break
+
             case OperatorType.HAS:
                 this._featureMap.get(thingType)!._has.push(featureCondition)
                 break
+
             case OperatorType.MAKE:
                 this._featureMap.get(thingType)!._make.push(featureCondition)
                 break
+
             default:
                 throw new Error(`operator ${operator} should be a verb (OperatorType.IS, OperatorType.HAS, OperatorType.MAKE) instead of an adjective`)
         }
@@ -131,16 +138,19 @@ class RuleControllerConcrete implements RuleController {
                 if (removeIndex === -1) throw new Error(`thingType ${thingType} does not contain feature ${featureCondition}`)
                 this._featureMap.get(thingType)!._is.splice(removeIndex, 1)
                 break
+
             case OperatorType.HAS:
                 removeIndex = this._featureMap.get(thingType)!._has.indexOf(featureCondition)
                 if (removeIndex === -1) throw new Error(`thingType ${thingType} does not contain feature ${featureCondition}`)
                 this._featureMap.get(thingType)!._has.splice(removeIndex, 1)
                 break
+
             case OperatorType.MAKE:
                 removeIndex = this._featureMap.get(thingType)!._make.indexOf(featureCondition)
                 if (removeIndex === -1) throw new Error(`thingType ${thingType} does not contain feature ${featureCondition}`)
                 this._featureMap.get(thingType)!._make.splice(removeIndex, 1)
                 break
+
             default:
                 throw new Error(`operator ${operator} should be a verb (OperatorType.IS, OperatorType.HAS, OperatorType.MAKE) instead of an adjective`)
         }
