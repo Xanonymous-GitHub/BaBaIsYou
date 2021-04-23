@@ -7,9 +7,10 @@ import {isNone, none, Option, some} from 'fp-ts/es6/Option';
 import {RuleController} from './rule';
 import {Instruction} from '../instructions';
 import PriorityQueue from '../data-structures/priorityQueue';
-import {Command} from '../store/services/command';
+import {Command, CommandType} from '../store/services/command';
 import {PropertyType} from '../types/properties';
 import {MapController} from '../observer/map';
+import {Direction} from '../types/things';
 
 
 export class InstructionDispatchServerConcrete extends ObservableSubject {
@@ -113,12 +114,21 @@ class ThingControllerConcrete implements Observer {
         if (!isYou) return
 
         // 2. if could, check if there leaves any obstacles to perform this command.
-
-        // B. is the place I will go has any other Thing now?
-        // Yes
-        // send ENCOUNTER request to the neighbor by the Map controller. => accept or reject
-        // No
-        // accept.
+        const iCanEncounter = await this._mapController.canIEncounter(this._thing, ((): Direction => {
+            switch (command.value) {
+                case CommandType.UP:
+                    return Direction.TOP
+                case CommandType.DOWN:
+                    return Direction.DOWN
+                case CommandType.LEFT:
+                    return Direction.LEFT
+                case CommandType.RIGHT:
+                    return Direction.RIGHT
+                default:
+                    return Direction.UNDEFINED
+            }
+        })())
+        if(!iCanEncounter) return
         // 3. if not any obstacles, apply an self instruction to the DispatchServer.
 
         // 4. done.
