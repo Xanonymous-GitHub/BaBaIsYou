@@ -3,9 +3,19 @@ import {RuleController} from '../observer/rule'
 import {SceneSetup} from '../types'
 import {Species} from '../resource'
 import {Direction} from '../types/things'
+import {NounType} from '../types/nouns'
+import {OperatorType} from '../types/operators'
+import {PropertyType} from '../types/properties'
 import {isNone} from 'fp-ts/es6/Option'
 
+interface RulePattern {
+    primaryCharacters: Array<NounType>
+    conditionSettings: Map<OperatorType, Array<NounType>>
+    effectRules: Map<OperatorType, Array<NounType | PropertyType>>
+}
+
 const scanRule = (
+    mapController: MapController,
     startX: number,
     startY: number,
     maxX: number,
@@ -18,10 +28,28 @@ const scanRule = (
 
     let x = startX
     let y = startY
-    while (x < maxX && y < maxY) {
+    let expectAnd = false
+
+    // 1. scan primary characters
+    while (true) {
+        if (x < maxX && y < maxY) return
+        const thingsOnBlock = mapController.whoAreThere(x, y)
+        if (isNone(thingsOnBlock)) return
+
+        if (expectAnd) {
+            // check if current block has AND
+        } else {
+            // check if current block has a NOUN
+        }
+
         if (scanDirection === Direction.RIGHT) x++
-        if (scanDirection === Direction.RIGHT) y++
+        if (scanDirection === Direction.DOWN) y++
+        expectAnd = !expectAnd
     }
+
+    // 2. scan condition settings
+
+    // 3. scan effect rules
 }
 
 const getInitialRules = (ruleController: RuleController, mapController: MapController, sceneSetup: SceneSetup): void => {
@@ -35,8 +63,8 @@ const getInitialRules = (ruleController: RuleController, mapController: MapContr
             for (const thing of thingsOnBlock.value) {
                 const name = thing.name
                 if (name === Species.NOUNS) {
-                    scanRule(x, y, maxX, maxY, Direction.RIGHT)
-                    scanRule(x, y, maxX, maxY, Direction.TOP)
+                    scanRule(mapController, x, y, maxX, maxY, Direction.RIGHT)
+                    scanRule(mapController, x, y, maxX, maxY, Direction.TOP)
                 }
             }
         }
