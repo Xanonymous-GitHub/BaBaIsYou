@@ -53,6 +53,7 @@ class SpriteControllerConcrete extends Controller {
                     const options = thingSetups[currentSetupIndex++]
                     creationTask.setArgs(
                         name,
+                        species,
                         texture,
                         options.defaultBlockX,
                         options.defaultBlockY,

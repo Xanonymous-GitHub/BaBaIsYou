@@ -5,6 +5,7 @@ import {Direction} from '../types/things';
 import {InstructionDispatchServer, createThingController} from '../observer';
 import {RuleController} from '../observer/rule';
 import {MapController} from '../observer/map';
+import {Species} from '../resource';
 
 abstract class SpriteTask<T> implements Task<T> {
     public abstract execute(): Promise<T>;
@@ -12,8 +13,9 @@ abstract class SpriteTask<T> implements Task<T> {
     public abstract setArgs(...args: any[]): void
 }
 
-export class CreateThingTask<T extends Thing> extends SpriteTask<T> {
+export class CreateThingTask extends SpriteTask<Thing> {
     private _name!: string
+    private _species!: Species
     private _texture!: Texture
     private _defaultBlockX!: number
     private _defaultBlockY!: number
@@ -24,6 +26,7 @@ export class CreateThingTask<T extends Thing> extends SpriteTask<T> {
 
     public setArgs(
         name: string,
+        species: Species,
         texture: Texture,
         defaultBlockX: number,
         defaultBlockY: number,
@@ -33,6 +36,7 @@ export class CreateThingTask<T extends Thing> extends SpriteTask<T> {
         defaultTowards?: Direction
     ) {
         this._name = name
+        this._species = species
         this._texture = texture
         this._defaultBlockX = defaultBlockX
         this._defaultBlockY = defaultBlockY
@@ -42,12 +46,10 @@ export class CreateThingTask<T extends Thing> extends SpriteTask<T> {
         this._defaultTowards = defaultTowards
     }
 
-    public async execute(): Promise<T> {
-        return await new Promise<T>((resolve, reject) => {
-            const thing = new ThingFactory()
-                .createInstance<T>(
-                    // @ts-ignore
-                    Thing,
+    public async execute(): Promise<Thing> {
+        return await new Promise<Thing>((resolve, reject) => {
+            const thing = new ThingFactory(this._species, this._name)
+                .createInstance(
                     ...Object
                         .getOwnPropertyNames(this)
                         .map(name => Object.getOwnPropertyDescriptor(this, name)!.value)

@@ -8,6 +8,9 @@ import {getUid} from '../utils/uuid';
 import {Species} from '../resource';
 
 import characters from './character'
+import nouns from './noun';
+import operators from './operator';
+import properties from './property';
 import {camelize} from '../utils/string';
 
 export abstract class Thing extends Sprite {
@@ -191,13 +194,26 @@ export abstract class Thing extends Sprite {
 }
 
 export class ThingFactory {
-    private _instanceFactor: Factor<Thing>
+    private readonly _instanceFactor!: Factor<Thing>
 
-    constructor(thingName: string) {
-        this._instanceFactor = characters[camelize(thingName.trim())]
+    constructor(species: Species, thingName: string) {
+        switch (species) {
+            case Species.CHARACTERS:
+                this._instanceFactor = characters[camelize(thingName.trim())]
+                break
+            case Species.NOUNS:
+                this._instanceFactor = nouns[camelize(thingName.trim())]
+                break
+            case Species.OPERATORS:
+                this._instanceFactor = operators[camelize(thingName.trim())]
+                break
+            case Species.PROPERTIES:
+                this._instanceFactor = properties[camelize(thingName.trim())]
+                break
+        }
     }
 
-    public createInstance<T>(factor: Factor<T>, ...args: Array<any>): T {
-        return new factor(...args)
+    public createInstance(...args: Array<any>): Thing {
+        return new this._instanceFactor(...args)
     }
 }
