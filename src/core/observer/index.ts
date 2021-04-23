@@ -3,9 +3,10 @@ import {Observer} from './observer';
 import {GameStore} from '../store'
 import {getUid} from '../utils/uuid';
 import {Thing} from '../things'
-import {isNone, none, Option, some} from 'fp-ts/es6/Option';
+import {isNone, isSome, none, Option, some} from 'fp-ts/es6/Option';
 import {RuleController} from './rule';
-import {Instruction} from '../instructions';
+import {Instruction, EmptyInstruction} from '../instructions';
+import move from '../instructions/move';
 import PriorityQueue from '../data-structures/priorityQueue';
 import {Command, CommandType} from '../store/services/command';
 import {PropertyType} from '../types/properties';
@@ -67,7 +68,10 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
                     this.setChanged()
                     this.notifyObservers(nextCommand.value)
                         .then(() => {
-                            // start to clean the _pendingInstructions.
+                            let currentInstruction = this._nextInstruction()
+                            while (isSome(currentInstruction)) {
+                                currentInstruction.value.perform().then(() => currentInstruction = this._nextInstruction())
+                            }
                             this._setNotRunning()
                         })
                 }
@@ -108,6 +112,10 @@ class ThingControllerConcrete implements Observer {
         this._thing.bindMapController(this._mapController).then()
     }
 
+    public pushInstruction(instruction: Instruction) {
+        this._dispatchServer.addInstruction(instruction)
+    }
+
     public async update(subject: Observable, command: Command): Promise<void> {
         // 1. when received a command, ask ruleController if self has privilege to execute this command. (am I 'YOU'?)
         const isYou = this._ruleController.$is(this._thing, PropertyType.YOU)
@@ -128,14 +136,28 @@ class ThingControllerConcrete implements Observer {
                     return Direction.UNDEFINED
             }
         })())
-        if(!iCanEncounter) return
+        if (!iCanEncounter) return
+
         // 3. if not any obstacles, apply an self instruction to the DispatchServer.
-
-        // 4. done.
-    }
-
-    public pushInstruction(instruction: Instruction) {
-        this._dispatchServer.addInstruction(instruction)
+        let newInstruction: Instruction
+        switch (command.value) {
+            case CommandType.UP:
+                newInstruction = new move.MoveUpInstruction(this._thing, this._ruleController, this._mapController)
+                break
+            case CommandType.DOWN:
+                newInstruction = new move.MoveDownInstruction(this._thing, this._ruleController, this._mapController)
+                break
+            case CommandType.LEFT:
+                newInstruction = new move.MoveLeftInstruction(this._thing, this._ruleController, this._mapController)
+                break
+            case CommandType.RIGHT:
+                newInstruction = new move.MoveRightInstruction(this._thing, this._ruleController, this._mapController)
+                break
+            default:
+                newInstruction = new EmptyInstruction(this._thing, this._ruleController, this._mapController)
+                break
+        }
+        this.pushInstruction(newInstruction)
     }
 
     public disconnect(): void {

@@ -186,23 +186,23 @@ class MapControllerConcrete implements MapController {
                 break
 
             case MapUpdateSituation.UP:
-                this._placeToPosition(x, y, subject)
                 this._removeFromPosition(x, y + 1, subject)
+                this._placeToPosition(x, y, subject)
                 break
 
             case MapUpdateSituation.DOWN:
-                this._placeToPosition(x, y, subject)
                 this._removeFromPosition(x, y - 1, subject)
+                this._placeToPosition(x, y, subject)
                 break
 
             case MapUpdateSituation.LEFT:
-                this._placeToPosition(x, y, subject)
                 this._removeFromPosition(x + 1, y, subject)
+                this._placeToPosition(x, y, subject)
                 break
 
             case MapUpdateSituation.RIGHT:
-                this._placeToPosition(x, y, subject)
                 this._removeFromPosition(x - 1, y, subject)
+                this._placeToPosition(x, y, subject)
                 break
         }
     }

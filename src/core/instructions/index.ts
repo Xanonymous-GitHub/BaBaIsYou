@@ -16,7 +16,7 @@ export abstract class RawInstruction implements Instruction {
     protected readonly _mapController: MapController
     private _priority?: number
 
-    protected constructor(subject: Thing, ruleController: RuleController, mapController: MapController) {
+    constructor(subject: Thing, ruleController: RuleController, mapController: MapController) {
         this._id = getUid()
         this._subject = subject
         this._ruleController = ruleController
@@ -31,5 +31,11 @@ export abstract class RawInstruction implements Instruction {
 
     public getPriority(): number | undefined {
         return this._priority
+    }
+}
+
+export class EmptyInstruction extends RawInstruction {
+    public async perform() {
+        return
     }
 }
