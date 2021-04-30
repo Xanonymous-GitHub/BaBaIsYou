@@ -17,6 +17,9 @@ const containerController = createContainerController(store, spriteController)
 const stageController = createStageController(store, app.stage, containerController)
 const RESOURCES_MAP = createResourceMap(RESOURCE_ROOT_PATH)
 
+// bind app to screen service.
+store.bindAppToScreenService(app)
+
 // add resource map.
 store.addResourceMap(RESOURCES_MAP)
 
@@ -24,7 +27,7 @@ store.addResourceMap(RESOURCES_MAP)
 store.setDispatchServer(createInstructionDispatchServer(store))
 
 // init map controller.
-store.setMapController(createMapController(store.getAppEdge()))
+store.setMapController(createMapController())
 
 // init rule controller.
 store.setRuleController(createRuleController(store.getMapController()))

@@ -27,17 +27,18 @@ export interface MapController {
     whoAreThere: (x: number, y: number) => Option<Array<Readonly<Thing>>>
     whoNearMe: (subject: Thing) => Neighbor
     clean: () => void
+    changeMapSize: (mapEdge: Edge) => void
 }
 
 class MapControllerConcrete implements MapController {
-    private readonly _gameMap: Array<Array<Option<Array<Thing>>>>
-    private readonly maxX: number
-    private readonly maxY: number
+    private _gameMap: Array<Array<Option<Array<Thing>>>>
+    private maxX: number
+    private maxY: number
 
-    constructor(mapEdge: Edge) {
-        // get map size
-        this.maxX = mapEdge.maxX
-        this.maxY = mapEdge.maxY
+    constructor() {
+        // initial map size is 1 block.
+        this.maxX = 1
+        this.maxY = 1
 
         // construct map from map size
         this._gameMap = new Array<Array<Option<Array<Thing>>>>(this.maxX)
@@ -227,8 +228,20 @@ class MapControllerConcrete implements MapController {
 
         return {up, down, left, right}
     }
+
+    public changeMapSize(mapEdge: Edge) {
+        // get map size
+        this.maxX = mapEdge.maxX
+        this.maxY = mapEdge.maxY
+
+        // construct map from map size
+        this._gameMap = new Array<Array<Option<Array<Thing>>>>(this.maxX)
+        for (let x = 0; x < this.maxX; x++) {
+            this._gameMap[x] = new Array<Option<Array<Thing>>>(this.maxY)
+        }
+    }
 }
 
-export const createMapController = (mapEdge: Edge): MapController => {
-    return new MapControllerConcrete(mapEdge)
+export const createMapController = (): MapController => {
+    return new MapControllerConcrete()
 }
