@@ -1,4 +1,5 @@
 import {Application} from 'pixi.js'
+import {getBlockSize} from '../../utils/screen';
 
 export interface Edge {
     maxX: number,
@@ -8,7 +9,7 @@ export interface Edge {
 export interface ScreenService {
     setAppSize: (width: number, height: number) => void
     getAppEdge: () => Readonly<Edge>
-    bindApp: (app: Application) => void
+    bindAppToScreenService: (app: Application) => void
 }
 
 class ScreenServiceConcrete implements ScreenService {
@@ -22,13 +23,14 @@ class ScreenServiceConcrete implements ScreenService {
     public setAppSize(width: number, height: number): void {
         this._edge.maxX = width - 1
         this._edge.maxY = height - 1
+        const blockSize = getBlockSize()
         this._gameApp.renderer.resize(
-            this._edge.maxX,
-            this._edge.maxY
+            this._edge.maxX * blockSize,
+            this._edge.maxY * blockSize
         )
     }
 
-    public bindApp(app: Application): void {
+    public bindAppToScreenService(app: Application): void {
         this._gameApp = app
         this._edge = {
             maxX: this._gameApp.screen.x,

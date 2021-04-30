@@ -2,11 +2,15 @@ import {Thing} from '../';
 import {Direction} from '../../types/things';
 
 export class Baba extends Thing {
-    public async handleBeside(visitor: Thing, direction: Direction): Promise<void> {
-
+    public handleBeside(visitor: Thing, visitorBeside: Direction): Promise<void> {
+        return Promise.resolve(undefined);
     }
 
-    public async handleEncounter(visitor: Thing, direction: Direction): Promise<boolean> {
-        return true
+    public handleEncounter(visitor: Thing, visitorFrom: Direction): Promise<boolean> {
+        return Promise.resolve(false);
+    }
+
+    public handleLeave(visitor: Thing, visitorLeavesFrom: Direction): Promise<void> {
+        return Promise.resolve(undefined);
     }
 }
