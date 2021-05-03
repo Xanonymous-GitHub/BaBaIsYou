@@ -84,7 +84,7 @@ const scanRule = (
     expectAnd = false
     let expectNoun = false
     let expectAdj = true
-    let currentAdj: Option<OperatorType> = none // ?
+    let currentAdj: Option<OperatorType> = none
     while (true) {
         if (x >= maxX && y >= maxY) return
         const thingsOnBlock = mapController.whoAreThere(x, y)
@@ -206,7 +206,144 @@ const scanRule = (
         if (scanDirection === Direction.DOWN) y++
     }
 
-// 3. scan effect rules
+    // 3. scan effect rules
+    expectAnd = false
+    let expectEffect = false
+    let expectVerb = true
+    let currentVerb: Option<OperatorType> = none
+    while (true) {
+        if (x >= maxX && y >= maxY) return
+        const thingsOnBlock = mapController.whoAreThere(x, y)
+        if (isNone(thingsOnBlock)) return
+
+        let endScan = false
+        if (expectVerb && expectEffect) {
+            for (const thing of thingsOnBlock.value) {
+                const species = thing.species
+                if (species === Species.OPERATORS) {
+                    const name = thing.name as OperatorType
+                    if (verbs.includes(name)) {
+                        currentVerb = some(name)
+                    } else {
+                        endScan = true
+                        break
+                    }
+                } else if (species === Species.PROPERTIES) {
+                    if (isNone(currentVerb)) throw new Error(`verb ${currentVerb} should not be none`)
+                    if (currentVerb.value !== OperatorType.IS) {
+                        endScan = true
+                        break
+                    }
+
+                    const name = thing.name as PropertyType
+                    if (rulePattern.effectRules.has(currentVerb.value)) {
+                        const effect = rulePattern.effectRules.get(currentVerb.value)
+                        if (effect) {
+                            effect.push(name)
+                            rulePattern.effectRules.set(currentVerb.value, effect)
+                        }
+                    } else {
+                        rulePattern.effectRules.set(currentVerb.value, [name])
+                    }
+                } else if (species === Species.NOUNS) {
+                    if (isNone(currentVerb)) throw new Error(`verb ${currentVerb} should not be none`)
+
+                    const name = thing.name as NounType
+                    if (rulePattern.effectRules.has(currentVerb.value)) {
+                        const effect = rulePattern.effectRules.get(currentVerb.value)
+                        if (effect) {
+                            effect.push(name)
+                            rulePattern.effectRules.set(currentVerb.value, effect)
+                        }
+                    } else {
+                        rulePattern.effectRules.set(currentVerb.value, [name])
+                    }
+                } else {
+                    endScan = true
+                    break
+                }
+            }
+        } else if (expectVerb) {
+            for (const thing of thingsOnBlock.value) {
+                const species = thing.species
+                if (species === Species.OPERATORS) {
+                    const name = thing.name as OperatorType
+                    if (verbs.includes(name)) {
+                        currentVerb = some(name)
+                    } else {
+                        endScan = true
+                        break
+                    }
+                } else {
+                    endScan = true
+                    break
+                }
+            }
+
+            expectEffect = true
+            expectVerb = false
+        } else if (expectEffect) {
+            for (const thing of thingsOnBlock.value) {
+                if (isNone(currentVerb)) throw new Error(`verb ${currentVerb} should not be none`)
+                if (!verbs.includes(currentVerb.value)) throw new Error(`currentVerb ${currentVerb} should be an adjective operator`)
+
+                const species = thing.species
+                if (species === Species.PROPERTIES && currentVerb.value === OperatorType.IS) {
+                    const name = thing.name as PropertyType
+                    if (rulePattern.effectRules.has(currentVerb.value)) {
+                        const effect = rulePattern.effectRules.get(currentVerb.value)
+                        if (effect) {
+                            effect.push(name)
+                            rulePattern.effectRules.set(currentVerb.value, effect)
+                        }
+                    } else {
+                        rulePattern.effectRules.set(currentVerb.value, [name])
+                    }
+                } else if (species === Species.NOUNS) {
+                    const name = thing.name as NounType
+                    if (rulePattern.effectRules.has(currentVerb.value)) {
+                        const effect = rulePattern.effectRules.get(currentVerb.value)
+                        if (effect) {
+                            effect.push(name)
+                            rulePattern.effectRules.set(currentVerb.value, effect)
+                        }
+                    } else {
+                        rulePattern.effectRules.set(currentVerb.value, [name])
+                    }
+                } else {
+                    endScan = true
+                    break
+                }
+
+                expectEffect = false
+                expectAnd = true
+            }
+        } else if (expectAnd) {
+            for (const thing of thingsOnBlock.value) {
+                const species = thing.species
+                if (species !== Species.OPERATORS) {
+                    endScan = true
+                    break
+                }
+                const name = thing.name as OperatorType
+                if (name !== OperatorType.AND) {
+                    endScan = true
+                    break
+                }
+            }
+
+            expectAnd = false
+            expectVerb = true
+            expectEffect = true
+        } else return
+
+        if (scanDirection === Direction.RIGHT) x++
+        if (scanDirection === Direction.DOWN) y++
+
+        if (endScan) break
+    }
+
+    // 4. add feature from rule pattern
 }
 
 const getInitialRules = (ruleController: RuleController, mapController: MapController, sceneSetup: SceneSetup): void => {
