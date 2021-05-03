@@ -6,7 +6,7 @@ import {Direction} from '../types/things'
 import {NounType} from '../types/nouns'
 import {OperatorType} from '../types/operators'
 import {PropertyType} from '../types/properties'
-import {isNone, none, some, Option} from 'fp-ts/es6/Option'
+import {isNone, none, Option, some} from 'fp-ts/es6/Option'
 
 interface RulePattern {
     primaryCharacters: Array<NounType>
@@ -82,44 +82,23 @@ const scanRule = (
 
     // 2. scan condition settings
     expectAnd = false
+    let expectNoun = false
     let expectAdj = true
-    let currentAdj: Option<OperatorType> = none
+    let currentAdj: Option<OperatorType> = none // ?
     while (true) {
         if (x >= maxX && y >= maxY) return
         const thingsOnBlock = mapController.whoAreThere(x, y)
         if (isNone(thingsOnBlock)) return
 
-        if (expectAdj) {
-            let containsOperator = false
-            let hasCondition = true
-            for (const thing of thingsOnBlock.value) {
-                const species = thing.species
-                if (species === Species.OPERATORS) {
-                    const name = thing.name as OperatorType
-                    if (adjectives.includes(name)) {
-                        currentAdj = some(name)
-                        containsOperator = true
-                    }
-                    if (verbs.includes(name)) {
-                        containsOperator = true
-                        hasCondition = false
-                    }
-                    if (expectAnd && name === OperatorType.AND) {
-                        containsOperator = true
-                    }
-                }
-            }
-
-            if (!containsOperator) return
-            if (!hasCondition) break
-            expectAnd = false
-        } else {
+        if (expectAdj && expectNoun) {
             let containsNoun = false
+            let containsAdj = false
             for (const thing of thingsOnBlock.value) {
                 const species = thing.species
+
                 if (species === Species.NOUNS) {
                     if (isNone(currentAdj)) throw new Error(`adjective ${currentAdj} should not be none`)
-                    if (adjectives.includes(currentAdj.value)) throw new Error(`currentAdj ${currentAdj} should be an adjective operator`)
+                    if (!adjectives.includes(currentAdj.value)) throw new Error(`currentAdj ${currentAdj} should be an adjective operator`)
 
                     const name = thing.name as NounType
                     if (rulePattern.conditionSettings.has(currentAdj.value)) {
@@ -131,13 +110,95 @@ const scanRule = (
                     } else {
                         rulePattern.conditionSettings.set(currentAdj.value, [name])
                     }
+
                     containsNoun = true
+                    break
+                }
+                if (species === Species.OPERATORS) {
+                    const name = thing.name as OperatorType
+
+                    if (adjectives.includes(name)) {
+                        currentAdj = some(name)
+                        containsAdj = true
+                    } else return
                 }
             }
 
-            if (!containsNoun) return
-            expectAnd = true
+            if (containsNoun) {
+                expectNoun = false
+                expectAdj = false
+                expectAnd = true
+            } else if (containsAdj) {
+                expectNoun = true
+                expectAdj = false
+                expectAnd = false
+            }
+        } else if (expectAdj) {
+            let containsVerb = false
+            for (const thing of thingsOnBlock.value) {
+                const species = thing.species
+
+                if (species === Species.OPERATORS) {
+                    const name = thing.name as OperatorType
+
+                    if (adjectives.includes(name)) {
+                        currentAdj = some(name)
+                    } else if (verbs.includes(name)) {
+                        containsVerb = true
+                        break
+                    } else if (name === OperatorType.AND) {
+                        return
+                    }
+                } else return // NOUNS PROPS are not valid
+            }
+
+            if (containsVerb) break
+            expectAdj = false
+            expectNoun = true
+        } else if (expectNoun) {
+            for (const thing of thingsOnBlock.value) {
+                const species = thing.species
+
+                if (species === Species.NOUNS) {
+                    if (isNone(currentAdj)) throw new Error(`adjective ${currentAdj} should not be none`)
+                    if (!adjectives.includes(currentAdj.value)) throw new Error(`currentAdj ${currentAdj} should be an adjective operator`)
+
+                    const name = thing.name as NounType
+                    if (rulePattern.conditionSettings.has(currentAdj.value)) {
+                        const condition = rulePattern.conditionSettings.get(currentAdj.value)
+                        if (condition) {
+                            condition.push(name)
+                            rulePattern.conditionSettings.set(currentAdj.value, condition)
+                        }
+                    } else {
+                        rulePattern.conditionSettings.set(currentAdj.value, [name])
+                    }
+                } else return
+
+                expectAnd = true
+                expectNoun = false
+            }
+        } else if (expectAnd) {
+            let containsVerb = false
+            for (const thing of thingsOnBlock.value) {
+                const species = thing.species
+
+                if (species === Species.OPERATORS) {
+                    const name = thing.name as OperatorType
+
+                    if (verbs.includes(name)) {
+                        containsVerb = false
+                        break
+                    } else if (name !== OperatorType.AND) return
+                } else return
+            }
+
+            if (containsVerb) break
+            expectAnd = false
             expectAdj = true
+            expectNoun = true
+        } else {
+            throw new Error('scan condition does not exist, unexpected error occurred')
         }
 
         // iterate to next block
@@ -145,7 +206,7 @@ const scanRule = (
         if (scanDirection === Direction.DOWN) y++
     }
 
-    // 3. scan effect rules
+// 3. scan effect rules
 }
 
 const getInitialRules = (ruleController: RuleController, mapController: MapController, sceneSetup: SceneSetup): void => {
