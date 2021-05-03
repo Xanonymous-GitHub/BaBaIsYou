@@ -1,7 +1,8 @@
 import {Texture} from 'pixi.js'
 import {Task} from './'
-import {Thing, ThingFactory} from '../things';
+import {Thing} from '../things';
 import {Direction} from '../types/things';
+import {ThingFactory} from '../things/factory';
 import {InstructionDispatchServer, createThingController} from '../observer';
 import {RuleController} from '../observer/rule';
 import {MapController} from '../observer/map';
@@ -50,9 +51,15 @@ export class CreateThingTask extends SpriteTask<Thing> {
         return await new Promise<Thing>((resolve, reject) => {
             const thing = new ThingFactory(this._species, this._name)
                 .createInstance(
-                    ...Object
-                        .getOwnPropertyNames(this)
-                        .map(name => Object.getOwnPropertyDescriptor(this, name)!.value)
+                    this._name,
+                    this._species,
+                    this._texture,
+                    this._defaultBlockX,
+                    this._defaultBlockY,
+                    this._blockSize,
+                    this._maxBlockX,
+                    this._maxBlockY,
+                    this._defaultTowards
                 )
             if (thing) {
                 resolve(thing)

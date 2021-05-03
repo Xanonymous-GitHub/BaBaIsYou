@@ -1,7 +1,9 @@
 import {Thing} from '../';
 import {Direction} from '../../types/things';
+import {Species} from '../../resource';
+import {Texture} from 'pixi.js';
 
-export class Baba extends Thing {
+class Baba extends Thing {
     public handleBeside(visitor: Thing, visitorBeside: Direction): Promise<void> {
         return Promise.resolve(undefined);
     }
@@ -14,3 +16,15 @@ export class Baba extends Thing {
         return Promise.resolve(undefined);
     }
 }
+
+export const createBaba = (
+    name: string,
+    species: Species,
+    texture: Texture,
+    defaultBlockX: number,
+    defaultBlockY: number,
+    blockSize: number,
+    maxBlockX: number,
+    maxBlockY: number,
+    defaultTowards?: Direction
+) => new Baba(name, species, texture, defaultBlockX, defaultBlockY, blockSize, maxBlockX, maxBlockY, defaultTowards)

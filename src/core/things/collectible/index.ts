@@ -1,6 +1,5 @@
-import {Thing} from '../';
-import {Factor} from '../../types';
+import {ThingCreator} from '../factory';
 
-const collectibles: { [index: string]: Factor<Thing> } = {}
+const collectibles: { [index: string]: ThingCreator } = {}
 
 export default collectibles

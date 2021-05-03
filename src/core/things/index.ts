@@ -1,17 +1,10 @@
 import {Sprite, Texture} from 'pixi.js'
 import {Direction, ThingSetup} from '../types/things';
-import {Factor} from '../types';
 import {ThingController} from '../observer';
 import {RuleController} from '../observer/rule';
 import {MapController, MapUpdateSituation} from '../observer/map';
 import {getUid} from '../utils/uuid';
 import {Species} from '../resource';
-
-import characters from './character'
-import nouns from './noun';
-import operators from './operator';
-import properties from './property';
-import {camelize} from '../utils/string';
 
 export abstract class Thing extends Sprite {
     private readonly _id: string
@@ -193,27 +186,4 @@ export abstract class Thing extends Sprite {
     public abstract handleLeave(visitor: Thing, visitorLeavesFrom: Direction): Promise<void>
 }
 
-export class ThingFactory {
-    private readonly _instanceFactor!: Factor<Thing>
 
-    constructor(species: Species, thingName: string) {
-        switch (species) {
-            case Species.CHARACTERS:
-                this._instanceFactor = characters[camelize(thingName.trim())]
-                break
-            case Species.NOUNS:
-                this._instanceFactor = nouns[camelize(thingName.trim())]
-                break
-            case Species.OPERATORS:
-                this._instanceFactor = operators[camelize(thingName.trim())]
-                break
-            case Species.PROPERTIES:
-                this._instanceFactor = properties[camelize(thingName.trim())]
-                break
-        }
-    }
-
-    public createInstance(...args: Array<any>): Thing {
-        return new this._instanceFactor(...args)
-    }
-}

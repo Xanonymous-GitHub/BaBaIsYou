@@ -1,6 +1,5 @@
-import {Thing} from '../';
-import {Factor} from '../../types';
+import {ThingCreator} from '../factory';
 
-const operators: { [index: string]: Factor<Thing> } = {}
+const operators: { [index: string]: ThingCreator } = {}
 
 export default operators

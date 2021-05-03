@@ -1,6 +1,5 @@
-import {Thing} from '../';
-import {Factor} from '../../types';
+import {ThingCreator} from '../factory';
 
-const properties: { [index: string]: Factor<Thing> } = {}
+const properties: { [index: string]: ThingCreator } = {}
 
 export default properties

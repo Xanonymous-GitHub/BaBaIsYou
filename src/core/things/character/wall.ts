@@ -3,8 +3,10 @@ import {Direction} from '../../types/things';
 import {PropertyType} from '../../types/properties';
 import {EmptyInstruction, Instruction} from '../../instructions';
 import move from '../../instructions/move';
+import {Species} from '../../resource';
+import {Texture} from 'pixi.js';
 
-export class Wall extends Thing {
+class Wall extends Thing {
     public async handleEncounter(visitor: Thing, visitorFrom: Direction): Promise<boolean> {
         // check if self isPush
         const isPush = this._ruleController.$is(this, PropertyType.PUSH)
@@ -60,3 +62,15 @@ export class Wall extends Thing {
 
     }
 }
+
+export const createWall = (
+    name: string,
+    species: Species,
+    texture: Texture,
+    defaultBlockX: number,
+    defaultBlockY: number,
+    blockSize: number,
+    maxBlockX: number,
+    maxBlockY: number,
+    defaultTowards?: Direction
+) => new Wall(name, species, texture, defaultBlockX, defaultBlockY, blockSize, maxBlockX, maxBlockY, defaultTowards)

@@ -1,12 +1,10 @@
-import {Baba} from './baba';
-import {Wall} from './wall';
+import {ThingCreator} from '../factory';
+import {createBaba} from './baba';
+import {createWall} from './wall';
 
-import {Thing} from '../';
-import {Factor} from '../../types';
-
-const characters: { [index: string]: Factor<Thing> } = {
-    Baba,
-    Wall
+const characters: { [index: string]: ThingCreator } = {
+    Baba: createBaba,
+    Wall: createWall
 }
 
 export default characters
