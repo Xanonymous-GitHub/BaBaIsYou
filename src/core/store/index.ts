@@ -10,7 +10,7 @@ import {Species} from '../resource';
 import {InstructionDispatchServer} from '../observer';
 import {RuleController} from '../observer/rule';
 import {MapController} from '../observer/map';
-import {ScreenService} from './services/screen';
+import {Edge, ScreenService} from './services/screen';
 
 const createContainerStore = (containerService: ContainerService) => {
     return {
@@ -61,7 +61,8 @@ const createDispatchServerStore = (dispatchServerService: DispatchServerService)
         setRuleController: (controller: RuleController) => dispatchServerService.setRuleController(controller),
         setMapController: (controller: MapController) => dispatchServerService.setMapController(controller),
         getRuleController: () => dispatchServerService.getRuleController(),
-        getMapController: () => dispatchServerService.getMapController()
+        getMapController: () => dispatchServerService.getMapController(),
+        changeMapSize: (mapEdge: Edge) => dispatchServerService.changeMapSize(mapEdge)
     }
 }
 

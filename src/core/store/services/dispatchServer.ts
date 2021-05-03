@@ -1,6 +1,7 @@
 import {InstructionDispatchServer} from '../../observer';
 import {RuleController} from '../../observer/rule';
 import {MapController} from '../../observer/map';
+import {Edge} from '../services/screen';
 
 export interface DispatchServerService {
     setDispatchServer: (server: InstructionDispatchServer) => void
@@ -11,6 +12,7 @@ export interface DispatchServerService {
     setMapController: (controller: MapController) => void
     getRuleController: () => RuleController
     getMapController: () => MapController
+    changeMapSize: (edge: Edge) => void
 }
 
 class DispatchServerServiceConcrete implements DispatchServerService {
@@ -48,6 +50,10 @@ class DispatchServerServiceConcrete implements DispatchServerService {
 
     public setMapController(mapController: MapController) {
         this._mapController = mapController
+    }
+
+    public changeMapSize(edge: Edge) {
+        this._mapController.changeMapSize(edge)
     }
 }
 

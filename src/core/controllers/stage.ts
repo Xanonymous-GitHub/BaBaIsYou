@@ -17,6 +17,7 @@ class StageControllerConcrete extends Controller {
 
     public async addScene(sceneSetup: SceneSetup) {
         this._store.setAppSize(sceneSetup.sceneWidth, sceneSetup.sceneHeight)
+        this._store.changeMapSize(this._store.getAppEdge())
         const scene = await this._containerController.createScene(sceneSetup)
         const mountTask = new MountContainerToStageAtIndexTask()
         mountTask.setArgs(this._stage, scene, 0)
