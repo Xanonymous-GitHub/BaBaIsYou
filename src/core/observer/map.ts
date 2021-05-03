@@ -239,6 +239,8 @@ class MapControllerConcrete implements MapController {
         for (let x = 0; x < this.maxX; x++) {
             this._gameMap[x] = new Array<Option<Array<Thing>>>(this.maxY)
         }
+
+        this.clean()
     }
 }
 
