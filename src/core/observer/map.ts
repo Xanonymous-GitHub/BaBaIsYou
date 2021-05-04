@@ -37,13 +37,13 @@ class MapControllerConcrete implements MapController {
 
     constructor() {
         // initial map size is 1 block.
-        this.maxX = 1
-        this.maxY = 1
+        this.maxX = 0
+        this.maxY = 0
 
         // construct map from map size
-        this._gameMap = new Array<Array<Option<Array<Thing>>>>(this.maxX)
-        for (let x = 0; x < this.maxX; x++) {
-            this._gameMap[x] = new Array<Option<Array<Thing>>>(this.maxY)
+        this._gameMap = new Array<Array<Option<Array<Thing>>>>(this.maxX + 1)
+        for (let x = 0; x <= this.maxX; x++) {
+            this._gameMap[x] = new Array<Option<Array<Thing>>>(this.maxY + 1)
         }
 
         // init map value
@@ -51,8 +51,8 @@ class MapControllerConcrete implements MapController {
     }
 
     private _resetMap(): void {
-        for (let x = 0; x < this.maxX; x++) {
-            for (let y = 0; y < this.maxY; y++) {
+        for (let x = 0; x <= this.maxX; x++) {
+            for (let y = 0; y <= this.maxY; y++) {
                 this._gameMap[x][y] = none
             }
         }
@@ -235,9 +235,9 @@ class MapControllerConcrete implements MapController {
         this.maxY = mapEdge.maxY
 
         // construct map from map size
-        this._gameMap = new Array<Array<Option<Array<Thing>>>>(this.maxX)
-        for (let x = 0; x < this.maxX; x++) {
-            this._gameMap[x] = new Array<Option<Array<Thing>>>(this.maxY)
+        this._gameMap = new Array<Array<Option<Array<Thing>>>>(this.maxX + 1)
+        for (let x = 0; x <= this.maxX; x++) {
+            this._gameMap[x] = new Array<Option<Array<Thing>>>(this.maxY + 1)
         }
 
         this.clean()

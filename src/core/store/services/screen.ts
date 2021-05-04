@@ -25,8 +25,8 @@ class ScreenServiceConcrete implements ScreenService {
         this._edge.maxY = height - 1
         const blockSize = getBlockSize()
         this._gameApp.renderer.resize(
-            this._edge.maxX * blockSize,
-            this._edge.maxY * blockSize
+            width * blockSize,
+            height * blockSize
         )
     }
 
