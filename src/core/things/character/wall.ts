@@ -5,6 +5,7 @@ import {EmptyInstruction, Instruction} from '../../instructions';
 import move from '../../instructions/move';
 import {Species} from '../../resource';
 import {Texture} from 'pixi.js';
+import {reverseDirection} from '../../utils/direction';
 
 class Wall extends Thing {
     public async handleEncounter(visitor: Thing, visitorFrom: Direction): Promise<boolean> {
@@ -27,21 +28,21 @@ class Wall extends Thing {
                     break
             }
 
-            const canLeave = await this._mapController.canIEncounter(this, visitorFrom)
+            const canLeave = await this._mapController.canIEncounter(this, reverseDirection(visitorFrom))
             if (canLeave) {
                 let newInstruction: Instruction
                 switch (visitorFrom) {
                     case Direction.TOP:
-                        newInstruction = new move.MoveUpInstruction(this, this._ruleController, this._mapController)
-                        break
-                    case Direction.DOWN:
                         newInstruction = new move.MoveDownInstruction(this, this._ruleController, this._mapController)
                         break
+                    case Direction.DOWN:
+                        newInstruction = new move.MoveUpInstruction(this, this._ruleController, this._mapController)
+                        break
                     case Direction.LEFT:
-                        newInstruction = new move.MoveLeftInstruction(this, this._ruleController, this._mapController)
+                        newInstruction = new move.MoveRightInstruction(this, this._ruleController, this._mapController)
                         break
                     case Direction.RIGHT:
-                        newInstruction = new move.MoveRightInstruction(this, this._ruleController, this._mapController)
+                        newInstruction = new move.MoveLeftInstruction(this, this._ruleController, this._mapController)
                         break
                     default:
                         newInstruction = new EmptyInstruction(this, this._ruleController, this._mapController)

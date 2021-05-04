@@ -41,15 +41,13 @@ class RuleControllerConcrete implements RuleController {
         this._initRules()
 
         // DEBUG
-        const featureCondition = {
-            feature: PropertyType.YOU,
-            on: [], near: [], facing: []
-        } as FeatureCondition
-        this._featureMap.set(CharacterType.BABA, {_is: [featureCondition], _has: [], _make: []} as FeatureList)
+        const debugBabaFeatureConditions = {feature: PropertyType.YOU, on: [], near: [], facing: []}
+        const debugBabaFeatureList = {_is: [debugBabaFeatureConditions], _has: [], _make: []}
+        this._featureMap.set(CharacterType.BABA, debugBabaFeatureList)
 
-        const featureConditions = {feature: PropertyType.YOU, on: [], near: [], facing: []}
-        const featureList = {_is: [featureConditions], _has: [], _make: []}
-        this._featureMap.set(CharacterType.BABA, featureList)
+        const debugWallFeatureConditions = {feature: PropertyType.PUSH, on: [], near: [], facing: []}
+        const debugWallFeatureList = {_is: [debugWallFeatureConditions], _has: [], _make: []}
+        this._featureMap.set(CharacterType.WALL, debugWallFeatureList)
     }
 
     private _initRules(): void {
