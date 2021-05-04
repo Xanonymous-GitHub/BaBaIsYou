@@ -70,7 +70,8 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
                         .then(() => {
                             let currentInstruction = this._nextInstruction()
                             while (isSome(currentInstruction)) {
-                                currentInstruction.value.perform().then(() => currentInstruction = this._nextInstruction())
+                                currentInstruction.value.perform().then()
+                                currentInstruction = this._nextInstruction()
                             }
                             this._setNotRunning()
                         })
