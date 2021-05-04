@@ -29,27 +29,26 @@ class Wall extends Thing {
             }
 
             const canLeave = await this._mapController.canIEncounter(this, reverseDirection(visitorFrom))
-            if (canLeave) {
-                let newInstruction: Instruction
-                switch (visitorFrom) {
-                    case Direction.TOP:
-                        newInstruction = new move.MoveDownInstruction(this, this._ruleController, this._mapController)
-                        break
-                    case Direction.DOWN:
-                        newInstruction = new move.MoveUpInstruction(this, this._ruleController, this._mapController)
-                        break
-                    case Direction.LEFT:
-                        newInstruction = new move.MoveRightInstruction(this, this._ruleController, this._mapController)
-                        break
-                    case Direction.RIGHT:
-                        newInstruction = new move.MoveLeftInstruction(this, this._ruleController, this._mapController)
-                        break
-                    default:
-                        newInstruction = new EmptyInstruction(this, this._ruleController, this._mapController)
-                        break
-                }
-                this._thingController.pushInstruction(newInstruction)
+            if (!canLeave) return false
+            let newInstruction: Instruction
+            switch (visitorFrom) {
+                case Direction.TOP:
+                    newInstruction = new move.MoveDownInstruction(this, this._ruleController, this._mapController)
+                    break
+                case Direction.DOWN:
+                    newInstruction = new move.MoveUpInstruction(this, this._ruleController, this._mapController)
+                    break
+                case Direction.LEFT:
+                    newInstruction = new move.MoveRightInstruction(this, this._ruleController, this._mapController)
+                    break
+                case Direction.RIGHT:
+                    newInstruction = new move.MoveLeftInstruction(this, this._ruleController, this._mapController)
+                    break
+                default:
+                    newInstruction = new EmptyInstruction(this, this._ruleController, this._mapController)
+                    break
             }
+            this._thingController.pushInstruction(newInstruction)
         }
         return true
     }
