@@ -393,8 +393,7 @@ const scanRule = (
         if (endScan) break
     }
 
-    const pattern: Option<RulePattern> = some(rulePattern)
-    return pattern
+    return some(rulePattern)
 }
 
 const addRulesFromRulePattern = (ruleController: RuleController, rulePattern: RulePattern): void => {
@@ -422,7 +421,7 @@ const addRulesFromRulePattern = (ruleController: RuleController, rulePattern: Ru
     }
 }
 
-const setInitialRules = (ruleController: RuleController, mapController: MapController, sceneSetup: SceneSetup): void => {
+export const setInitialRules = (ruleController: RuleController, mapController: MapController, sceneSetup: SceneSetup): void => {
     const maxX = sceneSetup.sceneWidth
     const maxY = sceneSetup.sceneHeight
     for (let x = 0; x < maxX; x++) {
