@@ -5,6 +5,7 @@ import {Container} from 'pixi.js'
 import {isNone} from 'fp-ts/es6/Option';
 import {SpriteController} from './sprite';
 import {MountThingsToContainerTask} from '../tasks/container'
+import {setInitialRules} from '../utils/ruleSetup';
 
 class ContainerControllerConcrete extends Controller {
     private readonly _spriteController: SpriteController
@@ -37,6 +38,9 @@ class ContainerControllerConcrete extends Controller {
             this._store.getMapController(),
             things
         )
+
+        // get initial rules.
+        setInitialRules(this._store.getRuleController(), this._store.getMapController(), sceneSetup)
 
         // mount things to the container.
         const mountTask = new MountThingsToContainerTask()
