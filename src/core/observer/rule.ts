@@ -23,8 +23,8 @@ export interface RuleController {
     $is: (requester: Thing, requestedFeature: PropertyType) => boolean
     $has: (requester: Thing, requestedFeature: NounType) => boolean
     $make: (requester: Thing, requestedFeature: NounType) => boolean
-    addFeature: (thing: Thing, operator: OperatorType, featureCondition: FeatureCondition) => void
-    removeFeature: (thing: Thing, operator: OperatorType, featureCondition: FeatureCondition) => void
+    addFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
+    removeFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
 }
 
 class RuleControllerConcrete implements RuleController {
@@ -99,9 +99,7 @@ class RuleControllerConcrete implements RuleController {
         return Boolean(featureConditions && containsProperty)
     }
 
-    public addFeature(thing: Thing, operator: OperatorType, featureCondition: FeatureCondition): void {
-        const thingType = thing.name as ThingType
-
+    public addFeature(thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition): void {
         if (!this._featureMap.has(thingType)) {
             const featureList = {_is: [], _has: [], _make: []} as FeatureList
             this._featureMap.set(thingType, featureList)
@@ -125,9 +123,7 @@ class RuleControllerConcrete implements RuleController {
         }
     }
 
-    public removeFeature(thing: Thing, operator: OperatorType, featureCondition: FeatureCondition): void {
-        const thingType = thing.name as ThingType
-
+    public removeFeature(thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition): void {
         if (!this._featureMap.has(thingType)) throw new Error(`thingType ${thingType} not been recorded yet`)
         let removeIndex = -1
         switch (operator) {
