@@ -6,7 +6,7 @@ import {Direction} from '../types/things'
 import {NounType} from '../types/nouns'
 import {OperatorType} from '../types/operators'
 import {PropertyType} from '../types/properties'
-import {Option, isNone, none, isSome, some} from 'fp-ts/es6/Option'
+import {isNone, isSome, none, Option, some} from 'fp-ts/es6/Option'
 
 interface RulePattern {
     primaryCharacters: Option<Array<NounType>>
@@ -395,39 +395,32 @@ const scanRule = (
 
     const pattern: Option<RulePattern> = some(rulePattern)
     return pattern
-
-    // 4. add feature from rule pattern
-    // if (isNone(rulePattern.primaryCharacters)) return
-    // if (isNone(rulePattern.effectRules)) return
-    //
-    // for (const noun of rulePattern.primaryCharacters.value) {
-    //     // IS HAS MAKE
-    //     for (const verb of verbs) {
-    //         if (isNone(rulePattern.effectRules)) continue
-    //
-    //         for (const feature of rulePattern.effectRules.value.get(verb)) {
-    //             const featureCondition: FeatureCondition = {feature: feature, on: [], near: [], facing: []}
-    //
-    //
-    //
-    //             // dirty code here
-    //             const _on = rulePattern.conditionSettings.get(OperatorType.ON)
-    //             const _near = rulePattern.conditionSettings.get(OperatorType.NEAR)
-    //             const _facing = rulePattern.conditionSettings.get(OperatorType.FACING)
-    //
-    //             featureCondition.on = _on || []
-    //             featureCondition.near = _near || []
-    //             featureCondition.facing = _facing || []
-    //
-    //
-    //         }
-    //     }
-    // }
 }
 
-// const addRulesToController = (ruleController: RuleController, rulePattern: RulePattern) => {
-//
-// }
+const addRulesFromRulePattern = (ruleController: RuleController, rulePattern: RulePattern): void => {
+    if (isNone(rulePattern.primaryCharacters)) return
+    if (isNone(rulePattern.effectRules)) return
+
+    const verbs = [OperatorType.IS, OperatorType.HAS, OperatorType.MAKE]
+    for (const noun of rulePattern.primaryCharacters.value) {
+        for (const verb of verbs) {
+            const features = rulePattern.effectRules.value.get(verb)
+            if (!features) continue
+
+            for (const feature of features) {
+                if (isNone(rulePattern.conditionSettings)) break
+
+                const featureCondition: FeatureCondition = {feature: feature, on: [], near: [], facing: []}
+
+                featureCondition.on = rulePattern.conditionSettings.value.get(OperatorType.ON) || []
+                featureCondition.near = rulePattern.conditionSettings.value.get(OperatorType.NEAR) || []
+                featureCondition.facing = rulePattern.conditionSettings.value.get(OperatorType.FACING) || []
+
+                ruleController.addFeature(noun, verb, featureCondition)
+            }
+        }
+    }
+}
 
 const setInitialRules = (ruleController: RuleController, mapController: MapController, sceneSetup: SceneSetup): void => {
     const maxX = sceneSetup.sceneWidth
@@ -440,8 +433,11 @@ const setInitialRules = (ruleController: RuleController, mapController: MapContr
             for (const thing of thingsOnBlock.value) {
                 // check if thing is noun
                 if (thing.species === Species.NOUNS) {
-                    scanRule(mapController, x, y, maxX, maxY, Direction.RIGHT)
-                    scanRule(mapController, x, y, maxX, maxY, Direction.TOP)
+                    const rulePatternRight = scanRule(mapController, x, y, maxX, maxY, Direction.RIGHT)
+                    if (isSome(rulePatternRight)) addRulesFromRulePattern(ruleController, rulePatternRight.value)
+
+                    const rulePatternDown = scanRule(mapController, x, y, maxX, maxY, Direction.DOWN)
+                    if (isSome(rulePatternDown)) addRulesFromRulePattern(ruleController, rulePatternDown.value)
                 }
             }
         }
