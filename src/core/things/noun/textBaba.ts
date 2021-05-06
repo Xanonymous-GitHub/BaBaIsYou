@@ -2,10 +2,8 @@ import {Thing} from '../';
 import {Direction} from '../../types/things';
 import {Species} from '../../resource';
 import {Texture} from 'pixi.js';
-import {PropertyType} from '../../types/properties';
-import {reverseDirection} from '../../utils/direction';
-import {EmptyInstruction, Instruction} from '../../instructions';
-import move from '../../instructions/move';
+
+import {canBePushed, preparePushActions} from '../actions';
 
 class TextBaba extends Thing {
     public handleBeside(visitor: Thing, visitorBeside: Direction): Promise<void> {
@@ -13,48 +11,8 @@ class TextBaba extends Thing {
     }
 
     public async handleEncounter(visitor: Thing, visitorFrom: Direction): Promise<boolean> {
-        // check if self isPush
-        const isPush = this._ruleController.$is(this, PropertyType.PUSH)
-        console.log(isPush)
-        if (isPush) {
-            // edge detection
-            switch (visitorFrom) {
-                case Direction.DOWN:
-                    if (this.atTopEdge()) return false
-                    break
-                case Direction.TOP:
-                    if (this.atBottomEdge()) return false
-                    break
-                case Direction.RIGHT:
-                    if (this.atLeftEdge()) return false
-                    break
-                case Direction.LEFT:
-                    if (this.atRightEdge()) return false
-                    break
-            }
-
-            const canLeave = await this._mapController.canIEncounter(this, reverseDirection(visitorFrom))
-            if (!canLeave) return false
-            let newInstruction: Instruction
-            switch (visitorFrom) {
-                case Direction.TOP:
-                    newInstruction = new move.MoveDownInstruction(this, this._ruleController, this._mapController)
-                    break
-                case Direction.DOWN:
-                    newInstruction = new move.MoveUpInstruction(this, this._ruleController, this._mapController)
-                    break
-                case Direction.LEFT:
-                    newInstruction = new move.MoveRightInstruction(this, this._ruleController, this._mapController)
-                    break
-                case Direction.RIGHT:
-                    newInstruction = new move.MoveLeftInstruction(this, this._ruleController, this._mapController)
-                    break
-                default:
-                    newInstruction = new EmptyInstruction(this, this._ruleController, this._mapController)
-                    break
-            }
-            this._thingController.pushInstruction(newInstruction)
-        }
+        if (!(await canBePushed(this, this._ruleController, this._mapController, visitorFrom))) return false
+        preparePushActions(this, this._ruleController, this._mapController, this._thingController, visitorFrom)
         return true
     }
 
