@@ -1,14 +1,9 @@
-import {PropertyType} from '../../../types/properties';
 import {Direction} from '../../../types/things';
 import {reverseDirection} from '../../../utils/direction';
 import {Thing} from '../../../things';
-import {RuleController} from '../../../observer/rule';
 import {MapController} from '../../../observer/map';
 
-export const canBePushed = async (subject: Thing, ruleController: RuleController, mapController: MapController, visitorFrom: Direction): Promise<boolean> => {
-    const isPush = ruleController.$is(subject, PropertyType.PUSH)
-    if (!isPush) return false
-
+export const canBePushed = async (subject: Thing, mapController: MapController, visitorFrom: Direction): Promise<boolean> => {
     // edge detection
     switch (visitorFrom) {
         case Direction.DOWN:
