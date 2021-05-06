@@ -75,12 +75,10 @@ class RuleControllerConcrete implements RuleController {
         });
     }
 
-    public $is(requester: Thing, requestedFeature: PropertyType): boolean {
+    public $is(requester: Thing, requestedFeature: PropertyType | NounType): boolean {
         const requesterName = requester.name as NounType
         const featureConditions = this._featureMap.get(requesterName) as FeatureList
         const containsProperty = Boolean(featureConditions._is.find(featureCondition => featureCondition.feature === requestedFeature))
-
-        // NOUN IS NOUN should be processed
 
         return Boolean(featureConditions && containsProperty)
     }

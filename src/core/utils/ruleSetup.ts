@@ -47,7 +47,7 @@ const scanRule = (
         const thingsOnBlock = mapController.whoAreThere(x, y)
         if (isNone(thingsOnBlock)) return none
 
-        console.log(`scanning primary characters in location (${x}, ${y}) `)
+        // console.log(`scanning primary characters in location (${x}, ${y}) `)
 
         if (expectAnd) {
             // check if current block has AND
@@ -99,7 +99,7 @@ const scanRule = (
         const thingsOnBlock = mapController.whoAreThere(x, y)
         if (isNone(thingsOnBlock)) return none
 
-        console.log(`scanning condition settings in location (${x}, ${y}) `)
+        // console.log(`scanning condition settings in location (${x}, ${y}) `)
 
         if (expectAdj && expectNoun) {
             let containsNoun = false
@@ -248,7 +248,7 @@ const scanRule = (
         const thingsOnBlock = mapController.whoAreThere(x, y)
         if (isNone(thingsOnBlock)) break
 
-        console.log(`scanning effect rules in location (${x}, ${y}) `)
+        // console.log(`scanning effect rules in location (${x}, ${y}) `)
 
         let endScan = false
         if (expectVerb && expectEffect) {
@@ -411,21 +411,19 @@ const addRulesFromRulePattern = (ruleController: RuleController, rulePattern: Ru
     const verbs = [OperatorType.IS, OperatorType.HAS, OperatorType.MAKE]
     for (const noun of rulePattern.primaryCharacters.value) {
         const character = convertNounToCharacter(noun)
-        console.log(noun)
-        console.log(character)
 
         for (const verb of verbs) {
             const features = rulePattern.effectRules.value.get(verb)
             if (!features) continue
 
             for (const feature of features) {
-                if (isNone(rulePattern.conditionSettings)) break
-
                 const featureCondition: FeatureCondition = {feature: feature, on: [], near: [], facing: []}
 
-                featureCondition.on = rulePattern.conditionSettings.value.get(OperatorType.ON) || []
-                featureCondition.near = rulePattern.conditionSettings.value.get(OperatorType.NEAR) || []
-                featureCondition.facing = rulePattern.conditionSettings.value.get(OperatorType.FACING) || []
+                if (isSome(rulePattern.conditionSettings)) {
+                    featureCondition.on = rulePattern.conditionSettings.value.get(OperatorType.ON) || []
+                    featureCondition.near = rulePattern.conditionSettings.value.get(OperatorType.NEAR) || []
+                    featureCondition.facing = rulePattern.conditionSettings.value.get(OperatorType.FACING) || []
+                }
 
                 ruleController.addFeature(character, verb, featureCondition)
             }
@@ -444,20 +442,20 @@ export const setInitialRules = (ruleController: RuleController, mapController: M
             for (const thing of thingsOnBlock.value) {
                 // check if thing is noun
                 if (thing.species === Species.NOUNS) {
-                    console.log(`scanning rule at location (${x}, ${y})`)
+                    // console.log(`scanning rule at location (${x}, ${y})`)
 
-                    console.log('scanRule (Direction.RIGHT)')
+                    // console.log('scanRule (Direction.RIGHT)')
                     const rulePatternRight = scanRule(mapController, x, y, maxX, maxY, Direction.RIGHT)
-                    console.log(rulePatternRight)
+                    // console.log(rulePatternRight)
                     if (isSome(rulePatternRight)) addRulesFromRulePattern(ruleController, rulePatternRight.value)
 
-                    console.log('scanRule (Direction.DOWN)')
+                    // console.log('scanRule (Direction.DOWN)')
                     const rulePatternDown = scanRule(mapController, x, y, maxX, maxY, Direction.DOWN)
-                    console.log(rulePatternDown)
+                    // console.log(rulePatternDown)
                     if (isSome(rulePatternDown)) addRulesFromRulePattern(ruleController, rulePatternDown.value)
 
-                    console.log(`end scan at location (${x}, ${y})`)
-                    console.log('====================')
+                    // console.log(`end scan at location (${x}, ${y})`)
+                    // console.log('====================')
                 }
             }
         }
