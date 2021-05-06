@@ -2,9 +2,7 @@ import {Thing} from '../';
 import {Direction} from '../../types/things';
 import {Species} from '../../resource';
 import {Texture} from 'pixi.js';
-
-import {canBePushed, preparePushActions} from '../actions';
-import {PropertyType} from '../../types/properties';
+import {generalHandleEncounterMixin} from '../_mixins/handleEncounter';
 
 class TextWall extends Thing {
     public handleBeside(visitor: Thing, visitorBeside: Direction): Promise<void> {
@@ -12,17 +10,7 @@ class TextWall extends Thing {
     }
 
     public async handleEncounter(visitor: Thing, visitorFrom: Direction): Promise<boolean> {
-        const result = true
-
-        // handle PUSH
-        const isPush = this._ruleController.$is(this, PropertyType.PUSH)
-        if (isPush){
-            if (await canBePushed(this, this._mapController, visitorFrom)) {
-                preparePushActions(this, this._ruleController, this._mapController, this._thingController, visitorFrom)
-            }
-        }
-
-        return result
+        return await generalHandleEncounterMixin(this, visitor, visitorFrom, this._ruleController, this._mapController, this._thingController)
     }
 
     public handleLeave(visitor: Thing, visitorLeavesFrom: Direction): Promise<void> {
