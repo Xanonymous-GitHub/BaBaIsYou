@@ -3,7 +3,6 @@ import {PropertyType} from '../types/properties';
 import {NounType} from '../types/nouns';
 import {OperatorType} from '../types/operators';
 import {ThingType} from '../types';
-import {CharacterType} from '../types/characters';
 import {MapController} from '../observer/map';
 
 export interface FeatureCondition {
@@ -33,39 +32,28 @@ class RuleControllerConcrete implements RuleController {
 
     constructor(mapController: MapController) {
         this._featureMap = new Map();
-
-        // get map controller instance
         this._mapController = mapController;
-
-        // set initial rules
-        this._initRules()
-
-        console.log(this._featureMap)
+        this._giveDefaultRules()
     }
 
-    private _initRules(): void {
-        // set default rules
-        (Object.keys(NounType) as Array<NounType>).map(noun => {
-            const featureCondition = {
+    private _giveDefaultRules(): void {
+        const defaultFeatureList = {
+            _is: [{
                 feature: PropertyType.PUSH,
                 on: [], near: [], facing: []
             } as FeatureCondition
-            this._featureMap.set(noun, {_is: [featureCondition], _has: [], _make: []} as FeatureList)
-        });
-        (Object.keys(PropertyType) as Array<PropertyType>).map(property => {
-            const featureCondition = {
-                feature: PropertyType.PUSH,
-                on: [], near: [], facing: []
-            } as FeatureCondition
-            this._featureMap.set(property, {_is: [featureCondition], _has: [], _make: []} as FeatureList)
-        });
-        (Object.keys(OperatorType) as Array<OperatorType>).map(operator => {
-            const featureCondition = {
-                feature: PropertyType.PUSH,
-                on: [], near: [], facing: []
-            } as FeatureCondition
-            this._featureMap.set(operator, {_is: [featureCondition], _has: [], _make: []} as FeatureList)
-        });
+            ], _has: [], _make: []
+        } as FeatureList
+
+        const thingsWillHaveDefaultRules = [
+            ...(Object.values(NounType) as Array<NounType>),
+            ...(Object.values(PropertyType) as Array<PropertyType>),
+            ...(Object.values(OperatorType) as Array<OperatorType>)
+        ]
+
+        for (const thing of thingsWillHaveDefaultRules) {
+            this._featureMap.set(thing, defaultFeatureList)
+        }
     }
 
     public $is(requester: Thing, requestedFeature: PropertyType | NounType): boolean {
