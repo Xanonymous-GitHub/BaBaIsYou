@@ -1,8 +1,8 @@
 {
   "id": "example_setup",
   "name": "Example Setup",
-  "sceneWidth": 23,
-  "sceneHeight": 17,
+  "sceneWidth": 24,
+  "sceneHeight": 18,
   "thingsMap": [
     {
       "species": "characters",

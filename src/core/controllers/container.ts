@@ -5,7 +5,7 @@ import {Container} from 'pixi.js'
 import {isNone} from 'fp-ts/es6/Option';
 import {SpriteController} from './sprite';
 import {MountThingsToContainerTask} from '../tasks/container'
-import {setInitialRules} from '../utils/ruleSetup';
+import {setInitialRules} from '../utils/ruleScanner';
 
 class ContainerControllerConcrete extends Controller {
     private readonly _spriteController: SpriteController

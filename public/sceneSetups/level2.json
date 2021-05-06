@@ -1,8 +1,8 @@
 {
   "id": "level_2",
   "name": "Level 2",
-  "sceneWidth": 23,
-  "sceneHeight": 17,
+  "sceneWidth": 24,
+  "sceneHeight": 18,
   "thingsMap": [
     {
       "species": "characters",
