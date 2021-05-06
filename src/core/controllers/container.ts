@@ -39,7 +39,7 @@ class ContainerControllerConcrete extends Controller {
             things
         )
 
-        // get initial rules.
+        // set initial rules.
         setInitialRules(this._store.getRuleController(), this._store.getMapController(), sceneSetup)
 
         // mount things to the container.

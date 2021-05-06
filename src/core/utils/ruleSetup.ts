@@ -431,6 +431,10 @@ const addRulesFromRulePattern = (ruleController: RuleController, rulePattern: Ru
     }
 }
 
+const addDefaultRules = (ruleController: RuleController): void => {
+
+}
+
 export const setInitialRules = (ruleController: RuleController, mapController: MapController, sceneSetup: SceneSetup): void => {
     const maxX = sceneSetup.sceneWidth
     const maxY = sceneSetup.sceneHeight
