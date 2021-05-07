@@ -5,6 +5,7 @@ import {RuleController} from '../observer/rule';
 import {MapController, MapUpdateSituation} from '../observer/map';
 import {getUid} from '../utils/uuid';
 import {Species} from '../resource';
+import {none, Option, some} from 'fp-ts/es6/Option';
 
 export abstract class Thing extends Sprite {
     private readonly _id: string
@@ -18,8 +19,8 @@ export abstract class Thing extends Sprite {
     protected _thingController!: ThingController
     protected _ruleController!: RuleController
     protected _mapController!: MapController
-    private _horizontalPatternId!: string
-    private _verticalPatternId!: string
+    private _horizontalPatternId!: Option<string>
+    private _verticalPatternId!: Option<string>
 
     constructor(
         name: string,
@@ -68,8 +69,8 @@ export abstract class Thing extends Sprite {
         this.y = (this._blockY + 0.5) * this._blockSize
 
         // init patter ids (for operators)
-        this._horizontalPatternId = ''
-        this._verticalPatternId = ''
+        this._horizontalPatternId = none
+        this._verticalPatternId = none
     }
 
     public bindThingController(thingController: ThingController): void {
@@ -91,20 +92,20 @@ export abstract class Thing extends Sprite {
         this.towards = options.defaultTowards
     }
 
-    public get horizontalPatternId(): string {
+    public get horizontalPatternId(): Option<string> {
         return this._horizontalPatternId
     }
 
     public setHorizontalPatternId(patternId: string) {
-        this._horizontalPatternId = patternId
+        this._horizontalPatternId = some(patternId)
     }
 
-    public get verticalPatternId(): string {
+    public get verticalPatternId(): Option<string> {
         return this._verticalPatternId
     }
 
     public setVerticalPatternId(patternId: string) {
-        this._verticalPatternId = patternId
+        this._verticalPatternId = some(patternId)
     }
 
     public get blockX(): number {
