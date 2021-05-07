@@ -18,6 +18,8 @@ export abstract class Thing extends Sprite {
     protected _thingController!: ThingController
     protected _ruleController!: RuleController
     protected _mapController!: MapController
+    private _horizontalPatternId!: string
+    private _verticalPatternId!: string
 
     constructor(
         name: string,
@@ -83,6 +85,22 @@ export abstract class Thing extends Sprite {
         this.blockX = options.defaultBlockX
         this.blockY = options.defaultBlockY
         this.towards = options.defaultTowards
+    }
+
+    public get horizontalPatternId(): string {
+        return this._horizontalPatternId
+    }
+
+    public set horizontalPatternId(patternId: string) {
+        this._horizontalPatternId = patternId
+    }
+
+    public get verticalPatternId(): string {
+        return this._horizontalPatternId
+    }
+
+    public set verticalPatternId(patternId: string) {
+        this._horizontalPatternId = patternId
     }
 
     public get blockX(): number {
