@@ -95,7 +95,7 @@ export abstract class Thing extends Sprite {
         return this._horizontalPatternId
     }
 
-    public set horizontalPatternId(patternId: string) {
+    public setHorizontalPatternId(patternId: string) {
         this._horizontalPatternId = patternId
     }
 
@@ -103,7 +103,7 @@ export abstract class Thing extends Sprite {
         return this._verticalPatternId
     }
 
-    public set verticalPatternId(patternId: string) {
+    public setVerticalPatternId(patternId: string) {
         this._verticalPatternId = patternId
     }
 
