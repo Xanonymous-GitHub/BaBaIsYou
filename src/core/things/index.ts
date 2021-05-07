@@ -66,6 +66,10 @@ export abstract class Thing extends Sprite {
         // move to the point
         this.x = (this._blockX + 0.5) * this._blockSize
         this.y = (this._blockY + 0.5) * this._blockSize
+
+        // init patter ids (for operators)
+        this._horizontalPatternId = ''
+        this._verticalPatternId = ''
     }
 
     public bindThingController(thingController: ThingController): void {
@@ -96,11 +100,11 @@ export abstract class Thing extends Sprite {
     }
 
     public get verticalPatternId(): string {
-        return this._horizontalPatternId
+        return this._verticalPatternId
     }
 
     public set verticalPatternId(patternId: string) {
-        this._horizontalPatternId = patternId
+        this._verticalPatternId = patternId
     }
 
     public get blockX(): number {
