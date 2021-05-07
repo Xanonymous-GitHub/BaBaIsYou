@@ -5,7 +5,7 @@ import {OperatorType} from '../types/operators';
 import {ThingType} from '../types';
 import {MapController} from '../observer/map';
 import {RulePattern} from '../utils/ruleScanner';
-import {isNone, none, Option, some} from 'fp-ts/es6/Option';
+// import {isNone, none, Option, some} from 'fp-ts/es6/Option';
 
 export interface FeatureCondition {
     feature: NounType | PropertyType
@@ -26,13 +26,13 @@ export interface RuleController {
     $make: (requester: Thing, requestedFeature: NounType) => boolean
     addFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
     removeFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
-    alignEffect: (patternId: string, effectType: NounType | PropertyType) => void
-    disAlignEffect: (patternId: string, effectType: NounType | PropertyType) => void
+    // alignEffect: (patternId: string, effectType: NounType | PropertyType) => void
+    // disAlignEffect: (patternId: string, effectType: NounType | PropertyType) => void
 }
 
 class RuleControllerConcrete implements RuleController {
     private readonly _features: Map<ThingType, FeatureList>
-    private readonly _patterns: Map<string, Array<RulePattern>>
+    private readonly _patterns: Map<string, RulePattern>
     private readonly _mapController: MapController
 
     constructor(mapController: MapController) {
@@ -66,7 +66,6 @@ class RuleControllerConcrete implements RuleController {
         const requesterName = requester.name as NounType
         const featureConditions = this._features.get(requesterName) as FeatureList
         const containsProperty = Boolean(featureConditions._is.find(featureCondition => featureCondition.feature === requestedFeature))
-
         return Boolean(featureConditions && containsProperty)
     }
 
@@ -135,40 +134,54 @@ class RuleControllerConcrete implements RuleController {
         }
     }
 
-    private static _filterPrimaryNouns(rulePattern: RulePattern): Option<Array<NounType>> {
-        // TODO: filter by conditionSettings
-        return rulePattern.primaryCharacters
-    }
+    // private static _filterPrimaryNouns(rulePattern: RulePattern): Option<Array<NounType>> {
+    //     // TODO: filter by conditionSettings
+    //     return rulePattern.primaryCharacters
+    // }
 
-    private _getEffectedNouns(patternId: string): Option<Array<NounType>> {
-        const patterns = this._patterns.get(patternId)
-        if (!patterns) return none
+    // public alignEffect(patternId: string, effectType: NounType | PropertyType): void {
+    //     const pattern = this._patterns.get(patternId)
+    //     if (!pattern) throw new Error(`patternId ${patternId} is not exist, can't align Effect!`)
+    //
+    //     const effectedNouns = RuleControllerConcrete._filterPrimaryNouns(pattern)
+    //     if (isNone(effectedNouns)) return // TODO remove option type
+    //
+    //     const effectedRules = pattern.effectRules
+    //     if (isNone(effectedRules)) return // TODO remove option type
+    //
+    //     for (const [operator, properties] of effectedRules.value) {
+    //         for (const effectedNoun of effectedNouns.value) {
+    //             for (const property of properties) {
+    //                 this.addFeature(effectedNoun, operator, {
+    //                     feature: property,
+    //                     on: [], near: [], facing: []
+    //                 })
+    //             }
+    //         }
+    //     }
+    // }
 
-        return patterns
-            .map(pattern => RuleControllerConcrete._filterPrimaryNouns(pattern))
-            .reduce((previousNouns, currentNouns) => {
-                if (isNone(previousNouns)) return currentNouns
-                if (isNone(currentNouns)) return previousNouns
-
-                const nounSet = new Set<NounType>()
-                previousNouns.value.map(noun => nounSet.add(noun))
-                currentNouns.value.map(noun => nounSet.add(noun))
-
-                if (nounSet.size === 0) return none
-                return some(Array.from(nounSet))
-            }, none)
-    }
-
-    public alignEffect(patternId: string, effectType: NounType | PropertyType): void {
-        const effectedNouns = this._getEffectedNouns(patternId)
-        if (isNone(effectedNouns)) return
-
-
-    }
-
-    public disAlignEffect(patternId: string, effectType: NounType | PropertyType): void {
-
-    }
+    // public disAlignEffect(patternId: string, effectType: NounType | PropertyType): void {
+    //     const pattern = this._patterns.get(patternId)
+    //     if (!pattern) throw new Error(`patternId ${patternId} is not exist, can't disAlign Effect!`)
+    //
+    //     const effectedNouns = RuleControllerConcrete._filterPrimaryNouns(pattern)
+    //     if (isNone(effectedNouns)) return // TODO remove option type
+    //
+    //     const effectedRules = pattern.effectRules
+    //     if (isNone(effectedRules)) return // TODO remove option type
+    //
+    //     for (const [operator, properties] of effectedRules.value) {
+    //         for (const effectedNoun of effectedNouns.value) {
+    //             for (const property of properties) {
+    //                 this.removeFeature(effectedNoun, operator, {
+    //                     feature: property,
+    //                     on: [], near: [], facing: []
+    //                 })
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 export const createRuleController = (mapController: MapController): RuleController => {
