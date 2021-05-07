@@ -4,6 +4,8 @@ import {NounType} from '../types/nouns';
 import {OperatorType} from '../types/operators';
 import {ThingType} from '../types';
 import {MapController} from '../observer/map';
+import {RulePattern} from '../utils/ruleScanner';
+import {isNone, none, Option, some} from 'fp-ts/es6/Option';
 
 export interface FeatureCondition {
     feature: NounType | PropertyType
@@ -24,14 +26,18 @@ export interface RuleController {
     $make: (requester: Thing, requestedFeature: NounType) => boolean
     addFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
     removeFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
+    alignEffect: (patternId: string, effectType: NounType | PropertyType) => void
+    disAlignEffect: (patternId: string, effectType: NounType | PropertyType) => void
 }
 
 class RuleControllerConcrete implements RuleController {
-    private readonly _featureMap: Map<ThingType, FeatureList>
+    private readonly _features: Map<ThingType, FeatureList>
+    private readonly _patterns: Map<string, Array<RulePattern>>
     private readonly _mapController: MapController
 
     constructor(mapController: MapController) {
-        this._featureMap = new Map();
+        this._features = new Map();
+        this._patterns = new Map();
         this._mapController = mapController;
         this._giveDefaultRules()
     }
@@ -52,13 +58,13 @@ class RuleControllerConcrete implements RuleController {
         ]
 
         for (const thing of thingsWillHaveDefaultRules) {
-            this._featureMap.set(thing, defaultFeatureList)
+            this._features.set(thing, defaultFeatureList)
         }
     }
 
     public $is(requester: Thing, requestedFeature: PropertyType | NounType): boolean {
         const requesterName = requester.name as NounType
-        const featureConditions = this._featureMap.get(requesterName) as FeatureList
+        const featureConditions = this._features.get(requesterName) as FeatureList
         const containsProperty = Boolean(featureConditions._is.find(featureCondition => featureCondition.feature === requestedFeature))
 
         return Boolean(featureConditions && containsProperty)
@@ -66,35 +72,35 @@ class RuleControllerConcrete implements RuleController {
 
     public $has(requester: Thing, requestedFeature: NounType): boolean {
         const requesterName = requester.name as NounType
-        const featureConditions = this._featureMap.get(requesterName) as FeatureList
+        const featureConditions = this._features.get(requesterName) as FeatureList
         const containsProperty = Boolean(featureConditions._has.find(featureCondition => featureCondition.feature === requestedFeature))
         return Boolean(featureConditions && containsProperty)
     }
 
     public $make(requester: Thing, requestedFeature: NounType): boolean {
         const requesterName = requester.name as NounType
-        const featureConditions = this._featureMap.get(requesterName) as FeatureList
+        const featureConditions = this._features.get(requesterName) as FeatureList
         const containsProperty = Boolean(featureConditions._make.find(featureCondition => featureCondition.feature === requestedFeature))
         return Boolean(featureConditions && containsProperty)
     }
 
     public addFeature(thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition): void {
-        if (!this._featureMap.has(thingType)) {
+        if (!this._features.has(thingType)) {
             const featureList = {_is: [], _has: [], _make: []} as FeatureList
-            this._featureMap.set(thingType, featureList)
+            this._features.set(thingType, featureList)
         }
 
         switch (operator) {
             case OperatorType.IS:
-                this._featureMap.get(thingType)!._is.push(featureCondition)
+                this._features.get(thingType)!._is.push(featureCondition)
                 break
 
             case OperatorType.HAS:
-                this._featureMap.get(thingType)!._has.push(featureCondition)
+                this._features.get(thingType)!._has.push(featureCondition)
                 break
 
             case OperatorType.MAKE:
-                this._featureMap.get(thingType)!._make.push(featureCondition)
+                this._features.get(thingType)!._make.push(featureCondition)
                 break
 
             default:
@@ -103,30 +109,65 @@ class RuleControllerConcrete implements RuleController {
     }
 
     public removeFeature(thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition): void {
-        if (!this._featureMap.has(thingType)) throw new Error(`thingType ${thingType} not been recorded yet`)
+        if (!this._features.has(thingType)) throw new Error(`thingType ${thingType} not been recorded yet`)
         let removeIndex = -1
         switch (operator) {
             case OperatorType.IS:
-                removeIndex = this._featureMap.get(thingType)!._is.indexOf(featureCondition)
+                removeIndex = this._features.get(thingType)!._is.indexOf(featureCondition)
                 if (removeIndex === -1) throw new Error(`thingType ${thingType} does not contain feature ${featureCondition}`)
-                this._featureMap.get(thingType)!._is.splice(removeIndex, 1)
+                this._features.get(thingType)!._is.splice(removeIndex, 1)
                 break
 
             case OperatorType.HAS:
-                removeIndex = this._featureMap.get(thingType)!._has.indexOf(featureCondition)
+                removeIndex = this._features.get(thingType)!._has.indexOf(featureCondition)
                 if (removeIndex === -1) throw new Error(`thingType ${thingType} does not contain feature ${featureCondition}`)
-                this._featureMap.get(thingType)!._has.splice(removeIndex, 1)
+                this._features.get(thingType)!._has.splice(removeIndex, 1)
                 break
 
             case OperatorType.MAKE:
-                removeIndex = this._featureMap.get(thingType)!._make.indexOf(featureCondition)
+                removeIndex = this._features.get(thingType)!._make.indexOf(featureCondition)
                 if (removeIndex === -1) throw new Error(`thingType ${thingType} does not contain feature ${featureCondition}`)
-                this._featureMap.get(thingType)!._make.splice(removeIndex, 1)
+                this._features.get(thingType)!._make.splice(removeIndex, 1)
                 break
 
             default:
                 throw new Error(`operator ${operator} should be a verb (OperatorType.IS, OperatorType.HAS, OperatorType.MAKE) instead of an adjective`)
         }
+    }
+
+    private static _filterPrimaryNouns(rulePattern: RulePattern): Option<Array<NounType>> {
+        // TODO: filter by conditionSettings
+        return rulePattern.primaryCharacters
+    }
+
+    private _getEffectedNouns(patternId: string): Option<Array<NounType>> {
+        const patterns = this._patterns.get(patternId)
+        if (!patterns) return none
+
+        return patterns
+            .map(pattern => RuleControllerConcrete._filterPrimaryNouns(pattern))
+            .reduce((previousNouns, currentNouns) => {
+                if (isNone(previousNouns)) return currentNouns
+                if (isNone(currentNouns)) return previousNouns
+
+                const nounSet = new Set<NounType>()
+                previousNouns.value.map(noun => nounSet.add(noun))
+                currentNouns.value.map(noun => nounSet.add(noun))
+
+                if (nounSet.size === 0) return none
+                return some(Array.from(nounSet))
+            }, none)
+    }
+
+    public alignEffect(patternId: string, effectType: NounType | PropertyType): void {
+        const effectedNouns = this._getEffectedNouns(patternId)
+        if (isNone(effectedNouns)) return
+
+
+    }
+
+    public disAlignEffect(patternId: string, effectType: NounType | PropertyType): void {
+
     }
 }
 
