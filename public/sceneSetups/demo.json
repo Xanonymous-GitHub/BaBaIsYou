@@ -709,6 +709,108 @@
           "defaultBlockY": 12,
           "defaultTowards": 0,
           "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 21,
+          "defaultBlockY": 6,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 21,
+          "defaultBlockY": 8,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 21,
+          "defaultBlockY": 9,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 21,
+          "defaultBlockY": 10,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 22,
+          "defaultBlockY": 6,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 22,
+          "defaultBlockY": 10,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 23,
+          "defaultBlockY": 6,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 23,
+          "defaultBlockY": 7,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 23,
+          "defaultBlockY": 9,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 23,
+          "defaultBlockY": 10,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 24,
+          "defaultBlockY": 6,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 24,
+          "defaultBlockY": 10,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 25,
+          "defaultBlockY": 6,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 25,
+          "defaultBlockY": 7,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 25,
+          "defaultBlockY": 8,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 25,
+          "defaultBlockY": 9,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        },
+        {
+          "defaultBlockX": 25,
+          "defaultBlockY": 10,
+          "defaultTowards": 0,
+          "textureName": "WALL"
         }
       ]
     },
@@ -717,8 +819,8 @@
       "name": "Text_BABA",
       "thingSetup": [
         {
-          "defaultBlockX": 8,
-          "defaultBlockY": 8,
+          "defaultBlockX": 6,
+          "defaultBlockY": 9,
           "textureName": "Text_BABA",
           "defaultTowards": 0
         }
@@ -729,8 +831,8 @@
       "name": "Text_WALL",
       "thingSetup": [
         {
-          "defaultBlockX": 7,
-          "defaultBlockY": 12,
+          "defaultBlockX": 5,
+          "defaultBlockY": 21,
           "textureName": "Text_WALL",
           "defaultTowards": 0
         }
@@ -741,339 +843,57 @@
       "name": "Text_FLAG",
       "thingSetup": [
         {
-          "defaultBlockX": 10,
-          "defaultBlockY": 2,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 11,
-          "defaultBlockY": 2,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 12,
-          "defaultBlockY": 2,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 13,
-          "defaultBlockY": 2,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 14,
-          "defaultBlockY": 2,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 15,
-          "defaultBlockY": 2,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 16,
-          "defaultBlockY": 2,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 17,
-          "defaultBlockY": 2,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 10,
-          "defaultBlockY": 3,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 17,
-          "defaultBlockY": 3,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 10,
-          "defaultBlockY": 4,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 17,
-          "defaultBlockY": 4,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 10,
-          "defaultBlockY": 5,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 17,
-          "defaultBlockY": 5,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 6,
-          "defaultBlockY": 6,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 7,
-          "defaultBlockY": 6,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 8,
-          "defaultBlockY": 6,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 9,
-          "defaultBlockY": 6,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 10,
-          "defaultBlockY": 6,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 17,
-          "defaultBlockY": 6,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 6,
-          "defaultBlockY": 7,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 17,
-          "defaultBlockY": 7,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 6,
-          "defaultBlockY": 8,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 17,
-          "defaultBlockY": 8,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 6,
-          "defaultBlockY": 9,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 17,
-          "defaultBlockY": 9,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 6,
-          "defaultBlockY": 10,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 7,
-          "defaultBlockY": 10,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 8,
-          "defaultBlockY": 10,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 9,
-          "defaultBlockY": 10,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 10,
-          "defaultBlockY": 10,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 11,
-          "defaultBlockY": 10,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 12,
-          "defaultBlockY": 10,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 13,
-          "defaultBlockY": 10,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 14,
-          "defaultBlockY": 10,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 15,
-          "defaultBlockY": 10,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 16,
-          "defaultBlockY": 10,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 17,
-          "defaultBlockY": 10,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 10,
-          "defaultBlockY": 11,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 17,
-          "defaultBlockY": 11,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 10,
-          "defaultBlockY": 12,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 17,
-          "defaultBlockY": 12,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 10,
+          "defaultBlockX": 2,
           "defaultBlockY": 13,
           "textureName": "Text_FLAG",
           "defaultTowards": 0
-        },
+        }
+      ]
+    },
+    {
+      "species": "nouns",
+      "name": "Text_CRAB",
+      "thingSetup": [
         {
-          "defaultBlockX": 17,
-          "defaultBlockY": 13,
+          "defaultBlockX": 6,
+          "defaultBlockY": 6,
           "textureName": "Text_FLAG",
           "defaultTowards": 0
-        },
+        }
+      ]
+    },
+    {
+      "species": "nouns",
+      "name": "Text_SKULL",
+      "thingSetup": [
         {
-          "defaultBlockX": 10,
-          "defaultBlockY": 14,
-          "textureName": "Text_FLAG",
+          "defaultBlockX": 5,
+          "defaultBlockY": 2,
+          "textureName": "Text_SKULL",
           "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 17,
-          "defaultBlockY": 14,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 10,
-          "defaultBlockY": 15,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 14,
-          "defaultBlockY": 15,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 15,
-          "defaultBlockY": 15,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 16,
-          "defaultBlockY": 15,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 17,
-          "defaultBlockY": 15,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 10,
-          "defaultBlockY": 16,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 11,
-          "defaultBlockY": 16,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
-        {
-          "defaultBlockX": 12,
-          "defaultBlockY": 16,
-          "textureName": "Text_FLAG",
-          "defaultTowards": 0
-        },
+        }
+      ]
+    },
+    {
+      "species": "nouns",
+      "name": "Text_STAR",
+      "thingSetup": [
         {
           "defaultBlockX": 13,
-          "defaultBlockY": 16,
-          "textureName": "Text_FLAG",
+          "defaultBlockY": 5,
+          "textureName": "Text_STAR",
           "defaultTowards": 0
-        },
+        }
+      ]
+    },
+    {
+      "species": "nouns",
+      "name": "Text_ROCK",
+      "thingSetup": [
         {
-          "defaultBlockX": 14,
-          "defaultBlockY": 16,
-          "textureName": "Text_FLAG",
+          "defaultBlockX": 13,
+          "defaultBlockY": 7,
+          "textureName": "Text_ROCK",
           "defaultTowards": 0
         }
       ]
@@ -1083,20 +903,32 @@
       "name": "Text_IS",
       "thingSetup": [
         {
-          "defaultBlockX": 7,
+          "defaultBlockX": 3,
           "defaultBlockY": 13,
           "textureName": "Text_IS",
           "defaultTowards": 0
         },
         {
-          "defaultBlockX": 12,
-          "defaultBlockY": 4,
+          "defaultBlockX": 6,
+          "defaultBlockY": 2,
           "textureName": "Text_IS",
           "defaultTowards": 0
         },
         {
-          "defaultBlockX": 12,
-          "defaultBlockY": 13,
+          "defaultBlockX": 14,
+          "defaultBlockY": 5,
+          "textureName": "Text_IS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 14,
+          "defaultBlockY": 7,
+          "textureName": "Text_IS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 22,
+          "defaultBlockY": 5,
           "textureName": "Text_IS",
           "defaultTowards": 0
         }
@@ -1107,8 +939,8 @@
       "name": "Text_YOU",
       "thingSetup": [
         {
-          "defaultBlockX": 7,
-          "defaultBlockY": 14,
+          "defaultBlockX": 6,
+          "defaultBlockY": 11,
           "textureName": "Text_YOU",
           "defaultTowards": 0
         }
@@ -1119,8 +951,8 @@
       "name": "Text_WIN",
       "thingSetup": [
         {
-          "defaultBlockX": 15,
-          "defaultBlockY": 6,
+          "defaultBlockX": 4,
+          "defaultBlockY": 13,
           "textureName": "Text_WIN",
           "defaultTowards": 0
         }
@@ -1131,9 +963,45 @@
       "name": "Text_STOP",
       "thingSetup": [
         {
-          "defaultBlockX": 12,
-          "defaultBlockY": 14,
+          "defaultBlockX": 23,
+          "defaultBlockY": 5,
           "textureName": "Text_STOP",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "properties",
+      "name": "Text_DEFEAT",
+      "thingSetup": [
+        {
+          "defaultBlockX": 7,
+          "defaultBlockY": 2,
+          "textureName": "Text_STOP",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "properties",
+      "name": "Text_SINK",
+      "thingSetup": [
+        {
+          "defaultBlockX": 15,
+          "defaultBlockY": 5,
+          "textureName": "Text_SINK",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "properties",
+      "name": "Text_PUSH",
+      "thingSetup": [
+        {
+          "defaultBlockX": 15,
+          "defaultBlockY": 7,
+          "textureName": "Text_SINK",
           "defaultTowards": 0
         }
       ]
