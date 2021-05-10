@@ -4,6 +4,7 @@ import {createSpriteService} from './sprite';
 import {createTextureService} from './texture'
 import {createDispatchServerService} from './dispatchServer';
 import {createScreenService} from './screen';
+import {createScannerService} from './scanner';
 
 export const createServices = () => {
     const containerService = createContainerService()
@@ -12,6 +13,7 @@ export const createServices = () => {
     const textureService = createTextureService()
     const dispatchServerService = createDispatchServerService()
     const screenService = createScreenService()
+    const scannerService = createScannerService()
 
     return {
         containerService,
@@ -19,6 +21,7 @@ export const createServices = () => {
         spriteService,
         textureService,
         dispatchServerService,
-        screenService
+        screenService,
+        scannerService
     }
 }

@@ -5,7 +5,6 @@ import {OperatorType} from '../types/operators';
 import {ThingType} from '../types';
 import {MapController} from '../observer/map';
 import {RulePattern} from '../utils/ruleScanner';
-// import {isNone, none, Option, some} from 'fp-ts/es6/Option';
 
 export interface FeatureCondition {
     feature: NounType | PropertyType
@@ -26,8 +25,7 @@ export interface RuleController {
     $make: (requester: Thing, requestedFeature: NounType) => boolean
     addFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
     removeFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
-    // alignEffect: (patternId: string, effectType: NounType | PropertyType) => void
-    // disAlignEffect: (patternId: string, effectType: NounType | PropertyType) => void
+    refreshAll: () => void
 }
 
 class RuleControllerConcrete implements RuleController {
@@ -39,6 +37,11 @@ class RuleControllerConcrete implements RuleController {
         this._features = new Map();
         this._patterns = new Map();
         this._mapController = mapController;
+        this._giveDefaultRules()
+    }
+
+    public refreshAll() {
+        this._features.clear()
         this._giveDefaultRules()
     }
 
@@ -133,55 +136,6 @@ class RuleControllerConcrete implements RuleController {
                 throw new Error(`operator ${operator} should be a verb (OperatorType.IS, OperatorType.HAS, OperatorType.MAKE) instead of an adjective`)
         }
     }
-
-    // private static _filterPrimaryNouns(rulePattern: RulePattern): Option<Array<NounType>> {
-    //     // TODO: filter by conditionSettings
-    //     return rulePattern.primaryCharacters
-    // }
-
-    // public alignEffect(patternId: string, effectType: NounType | PropertyType): void {
-    //     const pattern = this._patterns.get(patternId)
-    //     if (!pattern) throw new Error(`patternId ${patternId} is not exist, can't align Effect!`)
-    //
-    //     const effectedNouns = RuleControllerConcrete._filterPrimaryNouns(pattern)
-    //     if (isNone(effectedNouns)) return // TODO remove option type
-    //
-    //     const effectedRules = pattern.effectRules
-    //     if (isNone(effectedRules)) return // TODO remove option type
-    //
-    //     for (const [operator, properties] of effectedRules.value) {
-    //         for (const effectedNoun of effectedNouns.value) {
-    //             for (const property of properties) {
-    //                 this.addFeature(effectedNoun, operator, {
-    //                     feature: property,
-    //                     on: [], near: [], facing: []
-    //                 })
-    //             }
-    //         }
-    //     }
-    // }
-
-    // public disAlignEffect(patternId: string, effectType: NounType | PropertyType): void {
-    //     const pattern = this._patterns.get(patternId)
-    //     if (!pattern) throw new Error(`patternId ${patternId} is not exist, can't disAlign Effect!`)
-    //
-    //     const effectedNouns = RuleControllerConcrete._filterPrimaryNouns(pattern)
-    //     if (isNone(effectedNouns)) return // TODO remove option type
-    //
-    //     const effectedRules = pattern.effectRules
-    //     if (isNone(effectedRules)) return // TODO remove option type
-    //
-    //     for (const [operator, properties] of effectedRules.value) {
-    //         for (const effectedNoun of effectedNouns.value) {
-    //             for (const property of properties) {
-    //                 this.removeFeature(effectedNoun, operator, {
-    //                     feature: property,
-    //                     on: [], near: [], facing: []
-    //                 })
-    //             }
-    //         }
-    //     }
-    // }
 }
 
 export const createRuleController = (mapController: MapController): RuleController => {

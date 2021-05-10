@@ -7,6 +7,7 @@ import {createResourceMap} from './resource';
 import {createInstructionDispatchServer} from './observer';
 import {createRuleController} from './observer/rule';
 import {createMapController} from './observer/map';
+import {createRuleScanner} from './utils/ruleScanner';
 import {RESOURCE_ROOT_PATH} from './app/configs';
 import {getSceneSetup} from './utils/sceneSetup';
 
@@ -31,6 +32,9 @@ store.setMapController(createMapController())
 
 // init rule controller.
 store.setRuleController(createRuleController(store.getMapController()))
+
+// init rule scanner.
+store.setScanner(createRuleScanner(store.getRuleController(), store.getMapController()))
 
 // DEBUG
 const setupGame = async () => {

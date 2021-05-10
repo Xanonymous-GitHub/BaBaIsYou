@@ -11,6 +11,8 @@ import {InstructionDispatchServer} from '../observer';
 import {RuleController} from '../observer/rule';
 import {MapController} from '../observer/map';
 import {Edge, ScreenService} from './services/screen';
+import {ScannerService} from './services/scanner';
+import {RuleScanner} from '@/core/utils/ruleScanner';
 
 const createContainerStore = (containerService: ContainerService) => {
     return {
@@ -74,6 +76,13 @@ const createScreenStore = (screenService: ScreenService) => {
     }
 }
 
+const createScannerStore = (scannerService: ScannerService) => {
+    return {
+        setScanner: (scanner: RuleScanner) => scannerService.setScanner(scanner),
+        getScanner: () => scannerService.getScanner()
+    }
+}
+
 export const createGameStore = () => {
     const services = createServices()
 
@@ -83,6 +92,7 @@ export const createGameStore = () => {
     const textureStore = createTextureStore(services.textureService)
     const dispatchServerStore = createDispatchServerStore(services.dispatchServerService)
     const screenStore = createScreenStore(services.screenService)
+    const scannerStore = createScannerStore(services.scannerService)
 
     return {
         ...containerStore,
@@ -90,7 +100,8 @@ export const createGameStore = () => {
         ...spriteStore,
         ...textureStore,
         ...dispatchServerStore,
-        ...screenStore
+        ...screenStore,
+        ...scannerStore
     }
 }
 

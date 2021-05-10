@@ -1,6 +1,6 @@
 import {MapController} from '../observer/map'
 import {FeatureCondition, RuleController} from '../observer/rule'
-import {SceneSetup, ThingType} from '../types'
+import {ThingType} from '../types'
 import {Species} from '../resource'
 import {Direction} from '../types/things'
 import {NounType} from '../types/nouns'
@@ -8,6 +8,7 @@ import {OperatorType} from '../types/operators'
 import {PropertyType} from '../types/properties'
 import {isNone, isSome, none, Option, some} from 'fp-ts/es6/Option'
 import {convertNounToCharacter} from '../utils/typeConverter';
+import {Edge} from '../store/services/screen';
 
 export interface RulePattern {
     primaryCharacters: Option<Array<NounType>>
@@ -18,7 +19,7 @@ export interface RulePattern {
 export interface RuleScanner {
     scanRule: (startX: number, startY: number, maxX: number, maxY: number, scanDirection: Direction) => Option<RulePattern>
     addRulesFromRulePattern: (rulePattern: RulePattern) => void
-    findRulesFromMap: (sceneSetup: SceneSetup) => void
+    findRulesFromMap: (edge: Edge) => void
 }
 
 class RuleScannerConcrete implements RuleScanner {
@@ -444,9 +445,9 @@ class RuleScannerConcrete implements RuleScanner {
         }
     }
 
-    public findRulesFromMap(sceneSetup: SceneSetup): void {
-        const maxX = sceneSetup.sceneWidth
-        const maxY = sceneSetup.sceneHeight
+    public findRulesFromMap(edge: Edge): void {
+        const maxX = edge.maxX + 1
+        const maxY = edge.maxY + 1
         for (let x = 0; x < maxX; x++) {
             for (let y = 0; y < maxY; y++) {
                 const thingsOnBlock = this._mapController.whoAreThere(x, y)
@@ -476,33 +477,6 @@ class RuleScannerConcrete implements RuleScanner {
     }
 }
 
-const addRulesFromRulePattern = (ruleController: RuleController, rulePattern: RulePattern): void => {
-    if (isNone(rulePattern.primaryCharacters)) return
-    if (isNone(rulePattern.effectRules)) return
-
-    const verbs = [OperatorType.IS, OperatorType.HAS, OperatorType.MAKE]
-    for (const noun of rulePattern.primaryCharacters.value) {
-        const character = convertNounToCharacter(noun)
-
-        for (const verb of verbs) {
-            const features = rulePattern.effectRules.value.get(verb)
-            if (!features) continue
-
-            for (const feature of features) {
-                const featureCondition: FeatureCondition = {feature: feature, on: [], near: [], facing: []}
-
-                if (isSome(rulePattern.conditionSettings)) {
-                    featureCondition.on = rulePattern.conditionSettings.value.get(OperatorType.ON) || []
-                    featureCondition.near = rulePattern.conditionSettings.value.get(OperatorType.NEAR) || []
-                    featureCondition.facing = rulePattern.conditionSettings.value.get(OperatorType.FACING) || []
-                }
-
-                ruleController.addFeature(character, verb, featureCondition)
-            }
-        }
-    }
-}
-
-export const createRuleScanner = (ruleController: RuleController, mapController: MapController) => {
+export const createRuleScanner = (ruleController: RuleController, mapController: MapController): RuleScanner => {
     return new RuleScannerConcrete(ruleController, mapController)
 }
