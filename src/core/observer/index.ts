@@ -172,6 +172,10 @@ class ThingControllerConcrete implements Observer {
         this.pushInstruction(newInstruction)
     }
 
+    public stopDispatcher(): void {
+        this._dispatchServer.disableService()
+    }
+
     public disconnect(): void {
         this._dispatchServer.deleteObserver(this)
     }

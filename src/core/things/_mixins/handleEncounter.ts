@@ -1,7 +1,7 @@
 import {Thing} from '../../things';
 import {Direction} from '../../types/things';
 import {PropertyType} from '../../types/properties';
-import {canBePushed, preparePushActions} from '../../things/actions';
+import {canBePushed, preparePushActions, prepareWinActions} from '../../things/actions';
 import {RuleController} from '../../observer/rule';
 import {MapController} from '../../observer/map';
 import {ThingController} from '../../observer';
@@ -18,9 +18,16 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
     if (isPush) {
         if (await canBePushed(subject, mapController, visitorFrom)) {
             preparePushActions(subject, ruleController, mapController, thingController, visitorFrom)
+            return result
         } else {
             return false
         }
+    }
+
+    // handle WIN
+    const isWin = ruleController.$is(subject, PropertyType.WIN)
+    if (isWin) {
+        prepareWinActions(thingController)
     }
 
     return result
