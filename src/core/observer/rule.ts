@@ -5,6 +5,7 @@ import {OperatorType} from '../types/operators';
 import {ThingType} from '../types';
 import {MapController} from '../observer/map';
 import {RulePattern} from '../utils/ruleScanner';
+import {CharacterType} from '@/core/types/characters';
 
 export interface FeatureCondition {
     feature: NounType | PropertyType
@@ -66,22 +67,25 @@ class RuleControllerConcrete implements RuleController {
     }
 
     public $is(requester: Thing, requestedFeature: PropertyType | NounType): boolean {
-        const requesterName = requester.name as NounType
-        const featureConditions = this._features.get(requesterName) as FeatureList
+        const requesterName = requester.name as CharacterType
+        const featureConditions = this._features.get(requesterName)
+        if (!featureConditions) return false
         const containsProperty = Boolean(featureConditions._is.find(featureCondition => featureCondition.feature === requestedFeature))
         return Boolean(featureConditions && containsProperty)
     }
 
     public $has(requester: Thing, requestedFeature: NounType): boolean {
-        const requesterName = requester.name as NounType
-        const featureConditions = this._features.get(requesterName) as FeatureList
+        const requesterName = requester.name as CharacterType
+        const featureConditions = this._features.get(requesterName)
+        if (!featureConditions) return false
         const containsProperty = Boolean(featureConditions._has.find(featureCondition => featureCondition.feature === requestedFeature))
         return Boolean(featureConditions && containsProperty)
     }
 
     public $make(requester: Thing, requestedFeature: NounType): boolean {
-        const requesterName = requester.name as NounType
-        const featureConditions = this._features.get(requesterName) as FeatureList
+        const requesterName = requester.name as CharacterType
+        const featureConditions = this._features.get(requesterName)
+        if (!featureConditions) return false
         const containsProperty = Boolean(featureConditions._make.find(featureCondition => featureCondition.feature === requestedFeature))
         return Boolean(featureConditions && containsProperty)
     }
