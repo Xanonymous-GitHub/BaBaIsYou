@@ -85,7 +85,7 @@ class RuleControllerConcrete implements RuleController {
     public $make(requester: Thing, requestedFeature: NounType): boolean {
         const requesterName = requester.name as CharacterType
         const featureConditions = this._features.get(requesterName)
-        if (!featureConditions) return false
+        if (!featureConditions) return falsef
         const containsProperty = Boolean(featureConditions._make.find(featureCondition => featureCondition.feature === requestedFeature))
         return Boolean(featureConditions && containsProperty)
     }
