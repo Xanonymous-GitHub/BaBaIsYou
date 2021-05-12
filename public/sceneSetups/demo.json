@@ -941,6 +941,18 @@
       ]
     },
     {
+      "species": "operators",
+      "name": "Text_AND",
+      "thingSetup": [
+        {
+          "defaultBlockX": 15,
+          "defaultBlockY": 9,
+          "textureName": "Text_AND",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
       "species": "properties",
       "name": "Text_YOU",
       "thingSetup": [
