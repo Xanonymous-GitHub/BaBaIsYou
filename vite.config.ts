@@ -15,7 +15,7 @@ export default defineConfig({
             safelist: 'prose prose-sm m-auto'
         }),
         compress({
-            brotli: true,
+            brotli: false,
             verbose: true
         }),
         legacy({
