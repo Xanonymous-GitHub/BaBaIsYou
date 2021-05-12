@@ -60,16 +60,15 @@ class RuleScannerConcrete implements RuleScanner {
             if (x >= maxX || y >= maxY) return none
             const thingsOnBlock = this._mapController.whoAreThere(x, y)
             if (isNone(thingsOnBlock)) return none
-
             // console.log(`scanning primary characters in location (${x}, ${y}) `)
 
             if (expectAnd) {
                 // check if current block has AND
-                let containsAnd = true
+                let containsAnd = false
                 for (const thing of thingsOnBlock.value) {
                     const name = thing.name as ThingType
-                    if (name !== OperatorType.AND) {
-                        containsAnd = false
+                    if (name === OperatorType.AND) {
+                        containsAnd = true
                         break
                     }
                 }
