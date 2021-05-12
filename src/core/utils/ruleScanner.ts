@@ -57,7 +57,7 @@ class RuleScannerConcrete implements RuleScanner {
 
         // 1. scan primary characters
         while (true) {
-            if (x > maxX && y > maxY) return none
+            if (x >= maxX || y >= maxY) return none
             const thingsOnBlock = this._mapController.whoAreThere(x, y)
             if (isNone(thingsOnBlock)) return none
 
@@ -109,7 +109,7 @@ class RuleScannerConcrete implements RuleScanner {
         let expectAdj = true
         let currentAdj: Option<OperatorType> = none
         while (true) {
-            if (x > maxX && y > maxY) return none
+            if (x >= maxX || y >= maxY) return none
             const thingsOnBlock = this._mapController.whoAreThere(x, y)
             if (isNone(thingsOnBlock)) return none
 
@@ -258,7 +258,7 @@ class RuleScannerConcrete implements RuleScanner {
         let expectVerb = true
         let currentVerb: Option<OperatorType> = none
         while (true) {
-            if (x > maxX && y > maxY) break
+            if (x >= maxX || y >= maxY) break
             const thingsOnBlock = this._mapController.whoAreThere(x, y)
             if (isNone(thingsOnBlock)) break
 
