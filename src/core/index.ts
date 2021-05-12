@@ -38,7 +38,7 @@ store.setScanner(createRuleScanner(store.getRuleController(), store.getMapContro
 
 // DEBUG
 const setupGame = async () => {
-    const TEST_SCENE = await getSceneSetup('level1.json')
+    const TEST_SCENE = await getSceneSetup('demo.json')
     console.log(TEST_SCENE)
 
     stageController.addScene(TEST_SCENE).then(() => {

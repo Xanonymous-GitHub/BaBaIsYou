@@ -57,8 +57,8 @@
       "name": "FLAG",
       "thingSetup": [
         {
-          "defaultBlockX": 11,
-          "defaultBlockY": 3,
+          "defaultBlockX": 3,
+          "defaultBlockY": 11,
           "defaultTowards": 0,
           "textureName": "FLAG"
         }
@@ -831,8 +831,8 @@
       "name": "Text_WALL",
       "thingSetup": [
         {
-          "defaultBlockX": 5,
-          "defaultBlockY": 21,
+          "defaultBlockX": 21,
+          "defaultBlockY": 5,
           "textureName": "Text_WALL",
           "defaultTowards": 0
         }
@@ -911,6 +911,12 @@
         {
           "defaultBlockX": 6,
           "defaultBlockY": 2,
+          "textureName": "Text_IS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 6,
+          "defaultBlockY": 10,
           "textureName": "Text_IS",
           "defaultTowards": 0
         },
