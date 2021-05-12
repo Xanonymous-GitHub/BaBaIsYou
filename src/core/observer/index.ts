@@ -65,31 +65,29 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
     }
 
     public run() {
-        if (this._isActive) {
-            if (!this._runningCommand) {
-                const nextCommand = this._store.nextCommand()
-                if (!isNone(nextCommand)) {
-                    this._setRunning()
-                    this.setChanged()
-                    this.notifyObservers(nextCommand.value)
-                        .then(() => {
-                            let currentInstruction = this._nextInstruction()
-                            while (isSome(currentInstruction)) {
-                                currentInstruction.value.perform().then()
-                                currentInstruction = this._nextInstruction()
-                            }
-                        })
-                        .then(() => {
-                            if (this._needScanRule) {
-                                this._store.getRuleController().refreshAll()
-                                this._store.getScanner().findRulesFromMap(this._store.getAppEdge())
-                                this._needScanRule = false
-                            }
-                            this._setNotRunning()
-                        })
+        if (!this._isActive || this._runningCommand) return
+        const nextCommand = this._store.nextCommand()
+        if (isNone(nextCommand)) return
+        this._setRunning()
+        this.setChanged()
+        this.notifyObservers(nextCommand.value)
+            .then(() => {
+                let currentInstruction = this._nextInstruction()
+                while (isSome(currentInstruction)) {
+                    currentInstruction.value.perform().then()
+                    currentInstruction = this._nextInstruction()
                 }
-            }
-        }
+            })
+            .then(() => {
+                setTimeout(()=>{
+                    if (this._needScanRule) {
+                        this._store.getRuleController().refreshAll()
+                        this._store.getScanner().findRulesFromMap(this._store.getAppEdge())
+                        this._needScanRule = false
+                    }
+                }, 0)
+                this._setNotRunning()
+            })
     }
 }
 
@@ -170,8 +168,8 @@ class ThingControllerConcrete implements Observer {
                 newInstruction = new EmptyInstruction(this._thing, this._ruleController, this._mapController)
                 break
         }
-        this.pushInstruction(newInstruction)
         this._dispatchServer.needScanRule()
+        this.pushInstruction(newInstruction)
     }
 
     public disconnect(): void {
