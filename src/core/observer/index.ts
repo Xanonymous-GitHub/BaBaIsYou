@@ -19,6 +19,7 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
     private _runningCommand = false
     private _isActive = false
     private _pendingInstructions: PriorityQueue<Instruction>
+    private _needScanRule = false
 
     constructor(store: GameStore) {
         super()
@@ -59,6 +60,10 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
         return some(nextInstruction)
     }
 
+    public needScanRule() {
+        this._needScanRule = true
+    }
+
     public run() {
         if (this._isActive) {
             if (!this._runningCommand) {
@@ -72,6 +77,13 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
                             while (isSome(currentInstruction)) {
                                 currentInstruction.value.perform().then()
                                 currentInstruction = this._nextInstruction()
+                            }
+                        })
+                        .then(() => {
+                            if (this._needScanRule) {
+                                this._store.getRuleController().refreshAll()
+                                this._store.getScanner().findRulesFromMap(this._store.getAppEdge())
+                                this._needScanRule = false
                             }
                             this._setNotRunning()
                         })
@@ -159,6 +171,7 @@ class ThingControllerConcrete implements Observer {
                 break
         }
         this.pushInstruction(newInstruction)
+        this._dispatchServer.needScanRule()
     }
 
     public disconnect(): void {
