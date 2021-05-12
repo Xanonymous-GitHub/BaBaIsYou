@@ -14,7 +14,7 @@ export enum OperatorType {
     MIMIC = 'Text_MIMIC',
     IDLE = 'Text_IDLE',
     POWERED = 'Text_POWERED',
-    without = 'Text_without',
+    WITHOUT = 'Text_WITHOUT',
     ABOVE = 'Text_ABOVE',
     BELOW = 'Text_BELOW',
     FEELING = 'Text_FEELING',
