@@ -79,7 +79,7 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
                 }
             })
             .then(() => {
-                setTimeout(()=>{
+                setTimeout(() => {
                     if (this._needScanRule) {
                         this._store.getRuleController().refreshAll()
                         this._store.getScanner().findRulesFromMap(this._store.getAppEdge())

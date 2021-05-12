@@ -6,18 +6,6 @@
   "thingsMap": [
     {
       "species": "characters",
-      "name": "BABA",
-      "thingSetup": [
-        {
-          "defaultBlockX": 23,
-          "defaultBlockY": 8,
-          "defaultTowards": 0,
-          "textureName": "BABA"
-        }
-      ]
-    },
-    {
-      "species": "characters",
       "name": "STAR",
       "thingSetup": [
         {
@@ -1021,6 +1009,18 @@
           "defaultBlockY": 7,
           "textureName": "Text_SINK",
           "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "characters",
+      "name": "BABA",
+      "thingSetup": [
+        {
+          "defaultBlockX": 23,
+          "defaultBlockY": 8,
+          "defaultTowards": 0,
+          "textureName": "BABA"
         }
       ]
     }
