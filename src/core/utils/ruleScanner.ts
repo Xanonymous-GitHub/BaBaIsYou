@@ -112,7 +112,6 @@ class RuleScannerConcrete implements RuleScanner {
             if (x >= maxX || y >= maxY) return none
             const thingsOnBlock = this._mapController.whoAreThere(x, y)
             if (isNone(thingsOnBlock)) return none
-
             // console.log(`scanning condition settings in location (${x}, ${y}) `)
 
             const addConditionToPattern = (thing: Readonly<Thing>, currentAdj: OperatorType): void => {
@@ -147,7 +146,6 @@ class RuleScannerConcrete implements RuleScanner {
                         expectNoun = false
                         expectAdj = false
                         expectAnd = true
-                        break
                     }
                     if (species === Species.OPERATORS) {
                         const name = thing.name as OperatorType
@@ -163,6 +161,7 @@ class RuleScannerConcrete implements RuleScanner {
                     }
                 }
             } else if (expectAdj) {
+                let containsAdj = false
                 let containsVerb = false
                 for (const thing of thingsOnBlock.value) {
                     const species = thing.species
@@ -173,16 +172,16 @@ class RuleScannerConcrete implements RuleScanner {
 
                         if (adjectives.includes(name)) {
                             currentAdj = some(name)
+                            containsAdj = true
                         } else if (verbs.includes(name)) {
                             containsVerb = true
                             break
                         }
-                    } else {
-                        return none // NOUNS and PROPS are not valid
                     }
                 }
 
                 if (containsVerb) break
+                if (!containsAdj) return none
                 expectAdj = false
                 expectNoun = true
             } else if (expectNoun) {
@@ -223,7 +222,7 @@ class RuleScannerConcrete implements RuleScanner {
                 expectAdj = true
                 expectNoun = true
             } else {
-                throw new Error('unexpected error occurred caused by unexisting scan condition')
+                throw new Error('unexpected error occurred caused by nonexistent scan condition')
             }
 
             // iterate to next block
@@ -240,7 +239,6 @@ class RuleScannerConcrete implements RuleScanner {
             if (x >= maxX || y >= maxY) break
             const thingsOnBlock = this._mapController.whoAreThere(x, y)
             if (isNone(thingsOnBlock)) break
-
             // console.log(`scanning effect rules in location (${x}, ${y}) `)
 
             const addEffectToPattern = (thing: Readonly<Thing>, currentVerb: OperatorType): void => {
@@ -265,52 +263,47 @@ class RuleScannerConcrete implements RuleScanner {
 
             let endScan = false
             if (expectVerb && expectEffect) {
+                let containsVerbOrEffect = false
                 for (const thing of thingsOnBlock.value) {
                     const species = thing.species
                     if (species === Species.OPERATORS) {
                         const name = thing.name as OperatorType
                         if (verbs.includes(name)) {
                             currentVerb = some(name)
-                        } else {
-                            endScan = true
-                            break
+                            containsVerbOrEffect = true
                         }
                     } else if (species === Species.PROPERTIES) {
                         if (isNone(currentVerb)) throw new Error(`verb ${currentVerb} should not be none`)
-                        if (currentVerb.value !== OperatorType.IS) {
-                            endScan = true
-                            break
+                        if (currentVerb.value === OperatorType.IS) {
+                            addEffectToPattern(thing, currentVerb.value)
+                            containsVerbOrEffect = true
                         }
-                        addEffectToPattern(thing, currentVerb.value)
                     } else if (species === Species.NOUNS) {
                         if (isNone(currentVerb)) throw new Error(`verb ${currentVerb} should not be none`)
                         if (!verbs.includes(currentVerb.value)) throw new Error(`currentVerb ${currentVerb} should be a verb operator`)
                         addEffectToPattern(thing, currentVerb.value)
-                    } else {
-                        endScan = true
-                        break
+                        containsVerbOrEffect = true
                     }
                 }
+                if (!containsVerbOrEffect) endScan = true
             } else if (expectVerb) {
+                let containsVerb = false
                 for (const thing of thingsOnBlock.value) {
                     const species = thing.species
                     if (species === Species.OPERATORS) {
                         const name = thing.name as OperatorType
                         if (verbs.includes(name)) {
                             currentVerb = some(name)
-                        } else {
-                            endScan = true
-                            break
+                            containsVerb = true
                         }
-                    } else {
-                        endScan = true
-                        break
                     }
                 }
 
+                if (!containsVerb) return none // pattern will not be valid if does not contain first verb
                 expectEffect = true
                 expectVerb = false
             } else if (expectEffect) {
+                let containsEffect = false
                 for (const thing of thingsOnBlock.value) {
                     if (isNone(currentVerb)) throw new Error(`verb ${currentVerb} should not be none`)
                     if (!verbs.includes(currentVerb.value)) throw new Error(`currentVerb ${currentVerb} should be a verb operator`)
@@ -318,30 +311,25 @@ class RuleScannerConcrete implements RuleScanner {
                     const species = thing.species
                     if (species === Species.PROPERTIES && currentVerb.value === OperatorType.IS) {
                         addEffectToPattern(thing, currentVerb.value)
+                        containsEffect = true
                     } else if (species === Species.NOUNS) {
                         addEffectToPattern(thing, currentVerb.value)
-                    } else {
-                        endScan = true
-                        break
+                        containsEffect = true
                     }
-
-                    expectEffect = false
-                    expectAnd = true
                 }
+
+                if (!containsEffect) endScan = true
+                expectEffect = false
+                expectAnd = true
             } else if (expectAnd) {
+                let containsAnd = false
                 for (const thing of thingsOnBlock.value) {
-                    const species = thing.species
-                    if (species !== Species.OPERATORS) {
-                        endScan = true
-                        break
-                    }
-                    const name = thing.name as OperatorType
-                    if (name !== OperatorType.AND) {
-                        endScan = true
-                        break
+                    if (thing.name === OperatorType.AND) {
+                        containsAnd = true
                     }
                 }
 
+                if (!containsAnd) endScan = true
                 expectAnd = false
                 expectVerb = true
                 expectEffect = true

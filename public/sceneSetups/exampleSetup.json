@@ -195,7 +195,7 @@
       "name": "TILE",
       "thingSetup": [
         {
-          "defaultBlockX": 3,
+          "defaultBlockX": 6,
           "defaultBlockY": 3,
           "textureName": "TILE",
           "defaultTowards": 0
@@ -269,19 +269,19 @@
         {
           "defaultBlockX": 5,
           "defaultBlockY": 11,
-          "textureName": "Text_AND",
+          "textureName": "Text_IS",
           "defaultTowards": 0
         },
         {
           "defaultBlockX": 13,
           "defaultBlockY": 3,
-          "textureName": "Text_AND",
+          "textureName": "Text_IS",
           "defaultTowards": 0
         },
         {
           "defaultBlockX": 13,
           "defaultBlockY": 11,
-          "textureName": "Text_AND",
+          "textureName": "Text_IS",
           "defaultTowards": 0
         }
       ]
