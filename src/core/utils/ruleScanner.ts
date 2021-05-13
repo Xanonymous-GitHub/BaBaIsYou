@@ -9,6 +9,7 @@ import {PropertyType} from '../types/properties'
 import {isNone, isSome, none, Option, some} from 'fp-ts/es6/Option'
 import {convertNounToCharacter} from '../utils/typeConverter';
 import {Edge} from '../store/services/screen';
+import {Thing} from '@/core/things';
 
 export interface RulePattern {
     primaryCharacters: Option<Array<NounType>>
@@ -114,55 +115,52 @@ class RuleScannerConcrete implements RuleScanner {
 
             // console.log(`scanning condition settings in location (${x}, ${y}) `)
 
+            const addConditionToPattern = (thing: Readonly<Thing>, currentAdj: OperatorType): void => {
+                if (!adjectives.includes(currentAdj)) throw new Error(`currentAdj ${currentAdj} was passed in as unacceptable OperatorType`)
+
+                const name = thing.name as NounType
+                if (isNone(rulePattern.conditionSettings)) rulePattern.conditionSettings = some(new Map())
+                if (isSome(rulePattern.conditionSettings)) {
+                    if (rulePattern.conditionSettings.value.has(currentAdj)) {
+                        const condition = rulePattern.conditionSettings.value.get(currentAdj)
+                        if (condition) {
+                            condition.push(name)
+                            rulePattern.conditionSettings.value.set(currentAdj, condition)
+                        }
+                    } else {
+                        rulePattern.conditionSettings.value.set(currentAdj, [name])
+                    }
+                } else {
+                    throw new Error('unexpected error cause by rulePattern.conditionSettings is not a some value')
+                }
+            }
+
             if (expectAdj && expectNoun) {
-                let containsNoun = false
-                let containsAdj = false
                 for (const thing of thingsOnBlock.value) {
                     const species = thing.species
 
                     if (species === Species.NOUNS) {
                         if (isNone(currentAdj)) throw new Error(`adjective ${currentAdj} should not be none`)
                         if (!adjectives.includes(currentAdj.value)) throw new Error(`currentAdj ${currentAdj} should be an adjective operator`)
+                        addConditionToPattern(thing, currentAdj.value)
 
-                        const name = thing.name as NounType
-                        if (isNone(rulePattern.conditionSettings)) rulePattern.conditionSettings = some(new Map())
-                        if (isSome(rulePattern.conditionSettings)) {
-                            if (rulePattern.conditionSettings.value.has(currentAdj.value)) {
-                                const condition = rulePattern.conditionSettings.value.get(currentAdj.value)
-                                if (condition) {
-                                    condition.push(name)
-                                    rulePattern.conditionSettings.value.set(currentAdj.value, condition)
-                                }
-                            } else {
-                                rulePattern.conditionSettings.value.set(currentAdj.value, [name])
-                            }
-                        } else {
-                            throw new Error('unexpected error cause by rulePattern.conditionSettings is not a some value')
-                        }
-
-                        containsNoun = true
+                        expectNoun = false
+                        expectAdj = false
+                        expectAnd = true
                         break
                     }
                     if (species === Species.OPERATORS) {
                         const name = thing.name as OperatorType
-
                         if (adjectives.includes(name)) {
                             currentAdj = some(name)
-                            containsAdj = true
+
+                            expectNoun = true
+                            expectAdj = false
+                            expectAnd = false
                         } else {
                             return none
                         }
                     }
-                }
-
-                if (containsNoun) {
-                    expectNoun = false
-                    expectAdj = false
-                    expectAnd = true
-                } else if (containsAdj) {
-                    expectNoun = true
-                    expectAdj = false
-                    expectAnd = false
                 }
             } else if (expectAdj) {
                 let containsVerb = false
@@ -171,14 +169,13 @@ class RuleScannerConcrete implements RuleScanner {
 
                     if (species === Species.OPERATORS) {
                         const name = thing.name as OperatorType
+                        if (name === OperatorType.AND) return none
 
                         if (adjectives.includes(name)) {
                             currentAdj = some(name)
                         } else if (verbs.includes(name)) {
                             containsVerb = true
                             break
-                        } else if (name === OperatorType.AND) {
-                            return none
                         }
                     } else {
                         return none // NOUNS and PROPS are not valid
@@ -195,23 +192,7 @@ class RuleScannerConcrete implements RuleScanner {
                     if (species === Species.NOUNS) {
                         if (isNone(currentAdj)) throw new Error(`adjective ${currentAdj} should not be none`)
                         if (!adjectives.includes(currentAdj.value)) throw new Error(`currentAdj ${currentAdj} should be an adjective operator`)
-
-                        const name = thing.name as NounType
-                        if (isNone(rulePattern.conditionSettings)) rulePattern.conditionSettings = some(new Map())
-                        if (isSome(rulePattern.conditionSettings)) {
-                            if (rulePattern.conditionSettings.value.has(currentAdj.value)) {
-                                const condition = rulePattern.conditionSettings.value.get(currentAdj.value)
-                                if (condition) {
-                                    condition.push(name)
-                                    rulePattern.conditionSettings.value.set(currentAdj.value, condition)
-                                }
-                            } else {
-                                rulePattern.conditionSettings.value.set(currentAdj.value, [name])
-                            }
-                        } else {
-                            throw new Error('unexpected error cause by rulePattern.conditionSettings is not a some value')
-                        }
-
+                        addConditionToPattern(thing, currentAdj.value)
                     } else {
                         return none
                     }
@@ -227,11 +208,10 @@ class RuleScannerConcrete implements RuleScanner {
                     if (species === Species.OPERATORS) {
                         const name = thing.name as OperatorType
 
+                        if (name !== OperatorType.AND) return none
                         if (verbs.includes(name)) {
                             containsVerb = false
                             break
-                        } else if (name !== OperatorType.AND) {
-                            return none
                         }
                     } else {
                         return none
@@ -263,6 +243,26 @@ class RuleScannerConcrete implements RuleScanner {
 
             // console.log(`scanning effect rules in location (${x}, ${y}) `)
 
+            const addEffectToPattern = (thing: Readonly<Thing>, currentVerb: OperatorType): void => {
+                if (!verbs.includes(currentVerb)) throw new Error(`currentVerb ${currentVerb} was passed in as unacceptable OperatorType`)
+
+                const name = thing.name as (NounType | PropertyType)
+                if (isNone(rulePattern.effectRules)) rulePattern.effectRules = some(new Map())
+                if (isSome(rulePattern.effectRules)) {
+                    if (rulePattern.effectRules.value.has(currentVerb)) {
+                        const effect = rulePattern.effectRules.value.get(currentVerb)
+                        if (effect) {
+                            effect.push(name)
+                            rulePattern.effectRules.value.set(currentVerb, effect)
+                        }
+                    } else {
+                        rulePattern.effectRules.value.set(currentVerb, [name])
+                    }
+                } else {
+                    throw new Error('unexpected error cause by rulePattern.effectRules is not a some value')
+                }
+            }
+
             let endScan = false
             if (expectVerb && expectEffect) {
                 for (const thing of thingsOnBlock.value) {
@@ -281,41 +281,11 @@ class RuleScannerConcrete implements RuleScanner {
                             endScan = true
                             break
                         }
-
-                        const name = thing.name as PropertyType
-                        if (isNone(rulePattern.effectRules)) rulePattern.effectRules = some(new Map())
-                        if (isSome(rulePattern.effectRules)) {
-                            if (rulePattern.effectRules.value.has(currentVerb.value)) {
-                                const effect = rulePattern.effectRules.value.get(currentVerb.value)
-                                if (effect) {
-                                    effect.push(name)
-                                    rulePattern.effectRules.value.set(currentVerb.value, effect)
-                                }
-                            } else {
-                                rulePattern.effectRules.value.set(currentVerb.value, [name])
-                            }
-                        } else {
-                            throw new Error('unexpected error cause by rulePattern.effectRules is not a some value')
-                        }
+                        addEffectToPattern(thing, currentVerb.value)
                     } else if (species === Species.NOUNS) {
                         if (isNone(currentVerb)) throw new Error(`verb ${currentVerb} should not be none`)
                         if (!verbs.includes(currentVerb.value)) throw new Error(`currentVerb ${currentVerb} should be a verb operator`)
-
-                        const name = thing.name as NounType
-                        if (isNone(rulePattern.effectRules)) rulePattern.effectRules = some(new Map())
-                        if (isSome(rulePattern.effectRules)) {
-                            if (rulePattern.effectRules.value.has(currentVerb.value)) {
-                                const effect = rulePattern.effectRules.value.get(currentVerb.value)
-                                if (effect) {
-                                    effect.push(name)
-                                    rulePattern.effectRules.value.set(currentVerb.value, effect)
-                                }
-                            } else {
-                                rulePattern.effectRules.value.set(currentVerb.value, [name])
-                            }
-                        } else {
-                            throw new Error('unexpected error cause by rulePattern.effectRules is not a some value')
-                        }
+                        addEffectToPattern(thing, currentVerb.value)
                     } else {
                         endScan = true
                         break
@@ -347,38 +317,9 @@ class RuleScannerConcrete implements RuleScanner {
 
                     const species = thing.species
                     if (species === Species.PROPERTIES && currentVerb.value === OperatorType.IS) {
-                        const name = thing.name as PropertyType
-                        if (isNone(rulePattern.effectRules)) rulePattern.effectRules = some(new Map())
-                        if (isSome(rulePattern.effectRules)) {
-                            if (rulePattern.effectRules.value.has(currentVerb.value)) {
-                                const effect = rulePattern.effectRules.value.get(currentVerb.value)
-                                if (effect) {
-                                    effect.push(name)
-                                    rulePattern.effectRules.value.set(currentVerb.value, effect)
-                                }
-                            } else {
-                                rulePattern.effectRules.value.set(currentVerb.value, [name])
-                            }
-                        } else {
-                            throw new Error('unexpected error cause by rulePattern.effectRules is not a some value')
-                        }
-
+                        addEffectToPattern(thing, currentVerb.value)
                     } else if (species === Species.NOUNS) {
-                        const name = thing.name as NounType
-                        if (isNone(rulePattern.effectRules)) rulePattern.effectRules = some(new Map())
-                        if (isSome(rulePattern.effectRules)) {
-                            if (rulePattern.effectRules.value.has(currentVerb.value)) {
-                                const effect = rulePattern.effectRules.value.get(currentVerb.value)
-                                if (effect) {
-                                    effect.push(name)
-                                    rulePattern.effectRules.value.set(currentVerb.value, effect)
-                                }
-                            } else {
-                                rulePattern.effectRules.value.set(currentVerb.value, [name])
-                            }
-                        } else {
-                            throw new Error('unexpected error cause by rulePattern.effectRules is not a some value')
-                        }
+                        addEffectToPattern(thing, currentVerb.value)
                     } else {
                         endScan = true
                         break
