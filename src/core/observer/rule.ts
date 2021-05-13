@@ -5,7 +5,9 @@ import {OperatorType} from '../types/operators';
 import {ThingType} from '../types';
 import {MapController} from '../observer/map';
 import {RulePattern} from '../utils/ruleScanner';
-import {CharacterType} from '@/core/types/characters';
+import {CharacterType} from '../types/characters';
+import {Species} from '../resource';
+import {none, Option, some} from 'fp-ts/es6/Option';
 
 export interface FeatureCondition {
     feature: NounType | PropertyType
@@ -24,6 +26,7 @@ export interface RuleController {
     $is: (requester: Thing, requestedFeature: PropertyType) => boolean
     $has: (requester: Thing, requestedFeature: NounType) => boolean
     $make: (requester: Thing, requestedFeature: NounType) => boolean
+    getFeaturesOfThing: (thing: Thing, operator: OperatorType) => Option<Array<Readonly<FeatureCondition>>>
     addFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
     removeFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
     refreshAll: () => void
@@ -89,6 +92,30 @@ class RuleControllerConcrete implements RuleController {
         const containsProperty = Boolean(featureConditions._make.find(featureCondition => featureCondition.feature === requestedFeature))
         return Boolean(featureConditions && containsProperty)
     }
+
+    public getFeaturesOfThing(thing: Thing, operator: OperatorType): Option<Array<Readonly<FeatureCondition>>> {
+        if (thing.species !== Species.CHARACTERS) {
+            throw new Error('[MY FAULT] Feature "getFeaturesOfThings" for Text-type things are not implemented yet')
+        }
+
+        const name = thing.name as CharacterType
+        if (!this._features.has(name)) return none
+
+        const featureList = this._features.get(name)
+        if (!featureList) throw new Error(`Thing ${name} in featureList has unexpected undefined value`)
+
+        switch (operator) {
+            case OperatorType.IS:
+                return some(featureList._is)
+            case OperatorType.HAS:
+                return some(featureList._has)
+            case OperatorType.MAKE:
+                return some(featureList._make)
+            default:
+                throw new Error(`operator ${operator} should be a verb (OperatorType.IS, OperatorType.HAS, OperatorType.MAKE) instead of an adjective`)
+        }
+    }
+
 
     public addFeature(thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition): void {
         if (!this._features.has(thingType)) {
