@@ -1,7 +1,7 @@
-import {InstructionDispatchServer} from '../../observer';
-import {RuleController} from '../../observer/rule';
-import {MapController} from '../../observer/map';
-import {Edge} from '../services/screen';
+import {InstructionDispatchServer} from '@/core/observer';
+import {RuleController} from '@/core/observer/rule';
+import {MapController} from '@/core/observer/map';
+import {Edge} from '@/core/store/services/screen';
 
 export interface DispatchServerService {
     setDispatchServer: (server: InstructionDispatchServer) => void

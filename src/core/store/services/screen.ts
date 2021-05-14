@@ -1,5 +1,5 @@
 import {Application} from 'pixi.js'
-import {getBlockSize} from '../../utils/screen';
+import {getBlockSize} from '@/core/utils/screen';
 
 export interface Edge {
     maxX: number,

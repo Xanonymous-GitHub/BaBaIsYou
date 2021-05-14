@@ -1,6 +1,6 @@
-import PriorityQueue from '../../data-structures/priorityQueue';
-import {MAX_COMMAND_AMOUNT, COMMAND_MIN_INTERVAL} from '../../app/configs';
-import {debounce} from '../../utils/debouncer';
+import PriorityQueue from '@/core/data-structures/priorityQueue';
+import {MAX_COMMAND_AMOUNT, COMMAND_MIN_INTERVAL} from '@/core/app/configs';
+import {debounce} from '@/core/utils/debouncer';
 import mousetrap from 'mousetrap'
 import {none, Option, some} from 'fp-ts/es6/Option';
 

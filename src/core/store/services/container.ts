@@ -1,5 +1,5 @@
 import {Container} from 'pixi.js'
-import {getUid} from '../../utils/uuid';
+import {getUid} from '@/core/utils/uuid';
 import {none, Option, some} from 'fp-ts/es6/Option';
 
 

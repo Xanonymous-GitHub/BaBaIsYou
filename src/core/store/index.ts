@@ -1,22 +1,22 @@
-import {createServices} from './services';
-import {ContainerService} from './services/container'
-import {CommandService, Command} from './services/command'
-import {SpriteService} from './services/sprite'
-import {TextureService} from './services/texture'
-import {DispatchServerService} from './services/dispatchServer';
+import {createServices} from '@/core/store/services';
+import {ContainerService} from '@/core/store/services/container'
+import {CommandService, Command} from '@/core/store/services/command'
+import {SpriteService} from '@/core/store/services/sprite'
+import {TextureService} from '@/core/store/services/texture'
+import {DispatchServerService} from '@/core/store/services/dispatchServer';
 import {Application, Container, Sprite} from 'pixi.js';
-import {ResourceMap} from '../resource';
-import {Species} from '../resource';
-import {InstructionDispatchServer} from '../observer';
-import {RuleController} from '../observer/rule';
-import {MapController} from '../observer/map';
-import {Edge, ScreenService} from './services/screen';
-import {ScannerService} from './services/scanner';
-import {RuleScanner} from '../utils/ruleScanner';
-import {BuilderService} from './services/builder';
-import {StageController} from '../builders/stage';
-import {ContainerController} from '../builders/container';
-import {SpriteController} from '../builders/sprite';
+import {ResourceMap} from '@/core/resource';
+import {Species} from '@/core/resource';
+import {InstructionDispatchServer} from '@/core/observer';
+import {RuleController} from '@/core/observer/rule';
+import {MapController} from '@/core/observer/map';
+import {Edge, ScreenService} from '@/core/store/services/screen';
+import {ScannerService} from '@/core/store/services/scanner';
+import {RuleScanner} from '@/core/utils/ruleScanner';
+import {BuilderService} from '@/core/store/services/builder';
+import {StageController} from '@/core/builders/stage';
+import {ContainerController} from '@/core/builders/container';
+import {SpriteController} from '@/core/builders/sprite';
 
 const createContainerStore = (containerService: ContainerService) => {
     return {
