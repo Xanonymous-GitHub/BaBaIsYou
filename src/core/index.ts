@@ -16,6 +16,11 @@ const store = createGameStore()
 const spriteController = createSpriteController(store)
 const containerController = createContainerController(store, spriteController)
 const stageController = createStageController(store, app.stage, containerController)
+
+store.setStageBuilder(stageController)
+store.setContainerBuilder(containerController)
+store.setSpriteBuilder(spriteController)
+
 const RESOURCES_MAP = createResourceMap(RESOURCE_ROOT_PATH)
 
 // bind app to screen service.
@@ -39,11 +44,12 @@ store.setScanner(createRuleScanner(store.getRuleController(), store.getMapContro
 // DEBUG
 const setupGame = async () => {
     const TEST_SCENE = await getSceneSetup('demo.json')
-    console.log(TEST_SCENE)
 
-    stageController.addScene(TEST_SCENE).then(() => {
+    stageController.addGameScene(TEST_SCENE).then(() => {
         store.initDispatchServer()
     })
+
+    // stageController.addWinScene().then()
 
     app.ticker.add(() => {
         store.getDispatchServer().run()
