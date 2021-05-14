@@ -5,6 +5,7 @@ import {Container} from 'pixi.js'
 import {isNone} from 'fp-ts/es6/Option';
 import {SpriteController} from './sprite';
 import {MountThingsToContainerTask} from '../tasks/container'
+import {createWinScreen} from '../components/winScreen';
 
 class ContainerControllerConcrete extends Controller {
     private readonly _spriteController: SpriteController
@@ -14,7 +15,7 @@ class ContainerControllerConcrete extends Controller {
         this._spriteController = spriteController
     }
 
-    public async createScene(sceneSetup: SceneSetup): Promise<Readonly<Container>> {
+    public async createGameScene(sceneSetup: SceneSetup): Promise<Readonly<Container>> {
         // find if there has any empty container.
         const emptyContainerOption = this._store.getEmptyContainer()
         let sceneContainer!: Readonly<Container>
@@ -47,6 +48,17 @@ class ContainerControllerConcrete extends Controller {
         await mountTask.execute()
 
         return sceneContainer
+    }
+
+    public async createWinScene(): Promise<Readonly<Container>> {
+        let winScene!: Readonly<Container>
+        if (!this._store.hasContainerByName('win-scene')) {
+            winScene = createWinScreen(this._store.getAppEdge())
+        } else {
+            winScene = this._store.getContainerByName('win-scene')
+        }
+
+        return winScene
     }
 }
 

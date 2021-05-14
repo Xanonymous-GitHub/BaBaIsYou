@@ -31,11 +31,11 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
         return result
     }
 
-    const isDefeat = ruleController.$is(subject, PropertyType.DEFEAT)
-    if (isDefeat) {
-        prepareDefeatActions(visitor, ruleController, thingController)
-        return result
-    }
+    // const isDefeat = ruleController.$is(subject, PropertyType.DEFEAT)
+    // if (isDefeat) {
+    //     prepareDefeatActions(visitor, ruleController, thingController)
+    //     return result
+    // }
 
     return result
 }

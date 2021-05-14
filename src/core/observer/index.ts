@@ -64,6 +64,10 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
         this._needScanRule = true
     }
 
+    public win() {
+        setTimeout(() => this._store.getStageBuilder().addWinScene(), 0)
+    }
+
     public run() {
         if (!this._isActive || this._runningCommand) return
         const nextCommand = this._store.nextCommand()
@@ -174,6 +178,10 @@ class ThingControllerConcrete implements Observer {
 
     public stopDispatcher(): void {
         this._dispatchServer.disableService()
+        setTimeout(
+            () => alert('WIN!!!!!!'), 0
+        )
+        // this._dispatchServer.win()
     }
 
     public disconnect(): void {

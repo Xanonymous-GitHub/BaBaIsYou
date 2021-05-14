@@ -12,7 +12,11 @@ import {RuleController} from '../observer/rule';
 import {MapController} from '../observer/map';
 import {Edge, ScreenService} from './services/screen';
 import {ScannerService} from './services/scanner';
-import {RuleScanner} from '@/core/utils/ruleScanner';
+import {RuleScanner} from '../utils/ruleScanner';
+import {BuilderService} from './services/builder';
+import {StageController} from '../builders/stage';
+import {ContainerController} from '../builders/container';
+import {SpriteController} from '../builders/sprite';
 
 const createContainerStore = (containerService: ContainerService) => {
     return {
@@ -83,6 +87,17 @@ const createScannerStore = (scannerService: ScannerService) => {
     }
 }
 
+const createBuilderStore = (builderService: BuilderService) => {
+    return {
+        setStageBuilder: (stageBuilder: StageController) => builderService.setStageBuilder(stageBuilder),
+        setContainerBuilder: (containerBuilder: ContainerController) => builderService.setContainerBuilder(containerBuilder),
+        setSpriteBuilder: (spriteBuilder: SpriteController) => builderService.setSpriteBuilder(spriteBuilder),
+        getStageBuilder: () => builderService.getStageBuilder(),
+        getContainerBuilder: () => builderService.getContainerBuilder(),
+        getSpriteBuilder: () => builderService.getSpriteBuilder()
+    }
+}
+
 export const createGameStore = () => {
     const services = createServices()
 
@@ -93,6 +108,7 @@ export const createGameStore = () => {
     const dispatchServerStore = createDispatchServerStore(services.dispatchServerService)
     const screenStore = createScreenStore(services.screenService)
     const scannerStore = createScannerStore(services.scannerService)
+    const builderStore = createBuilderStore(services.builderService)
 
     return {
         ...containerStore,
@@ -101,7 +117,8 @@ export const createGameStore = () => {
         ...textureStore,
         ...dispatchServerStore,
         ...screenStore,
-        ...scannerStore
+        ...scannerStore,
+        ...builderStore
     }
 }
 

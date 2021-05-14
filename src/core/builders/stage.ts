@@ -15,12 +15,20 @@ class StageControllerConcrete extends Controller {
         this._containerController = containerController
     }
 
-    public async addScene(sceneSetup: SceneSetup) {
+    public async addGameScene(sceneSetup: SceneSetup) {
         this._store.setAppSize(sceneSetup.sceneWidth, sceneSetup.sceneHeight)
         this._store.changeMapSize(this._store.getAppEdge())
-        const scene = await this._containerController.createScene(sceneSetup)
+        const scene = await this._containerController.createGameScene(sceneSetup)
         const mountTask = new MountContainerToStageAtIndexTask()
         mountTask.setArgs(this._stage, scene, 0)
+        await mountTask.execute()
+    }
+
+    public async addWinScene(){
+        const scene = await this._containerController.createWinScene()
+        const mountTask = new MountContainerToStageAtIndexTask()
+        mountTask.setArgs(this._stage, scene, 0)
+        console.log(scene)
         await mountTask.execute()
     }
 
