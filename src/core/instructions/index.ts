@@ -1,7 +1,7 @@
 import {Thing} from '../things';
-import {getUid} from '../utils/uuid';
-import {RuleController} from '../observer/rule';
-import {MapController} from '../observer/map';
+import {getUid} from '@/core/utils/uuid';
+import {RuleController} from '@/core/observer/rule';
+import {MapController} from '@/core/observer/map';
 
 export interface Instruction {
     perform: () => Promise<void>

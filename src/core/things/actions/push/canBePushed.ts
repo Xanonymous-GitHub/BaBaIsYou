@@ -1,7 +1,7 @@
-import {Direction} from '../../../types/things';
-import {reverseDirection} from '../../../utils/direction';
-import {Thing} from '../../../things';
-import {MapController} from '../../../observer/map';
+import {Direction} from '@/core/types/things';
+import {reverseDirection} from '@/core/utils/direction';
+import {Thing} from '@/core/things';
+import {MapController} from '@/core/observer/map';
 
 export const canBePushed = async (subject: Thing, mapController: MapController, visitorFrom: Direction): Promise<boolean> => {
     // edge detection

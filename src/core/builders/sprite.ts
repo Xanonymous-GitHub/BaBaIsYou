@@ -1,14 +1,14 @@
 import {Controller} from './';
-import {GameStore} from '../store';
-import {CreateThingTask, connectThingControllerTask} from '../tasks/sprite';
+import {GameStore} from '@/core/store';
+import {CreateThingTask, connectThingControllerTask} from '@/core/tasks/sprite';
 import {isNone} from 'fp-ts/es6/Option';
-import {ThingSetup} from '../types/things';
-import {Thing} from '../things';
-import {getBlockSize} from '../utils/screen';
-import {Species} from '../resource';
-import {InstructionDispatchServer} from '../observer';
-import {RuleController} from '../observer/rule';
-import {MapController} from '../observer/map';
+import {ThingSetup} from '@/core/types/things';
+import {Thing} from '@/core/things';
+import {getBlockSize} from '@/core/utils/screen';
+import {Species} from '@/core/resource';
+import {InstructionDispatchServer} from '@/core/observer';
+import {RuleController} from '@/core/observer/rule';
+import {MapController} from '@/core/observer/map';
 
 class SpriteControllerConcrete extends Controller {
     constructor(store: GameStore) {

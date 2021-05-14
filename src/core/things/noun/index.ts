@@ -1,4 +1,4 @@
-import {ThingCreator} from '../factory';
+import {ThingCreator} from '@/core/things/factory';
 import {createTextBaba} from './textBaba';
 import {createTextWall} from './textWall';
 import {createTextFlag} from './textFlag';

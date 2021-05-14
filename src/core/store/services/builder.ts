@@ -1,6 +1,6 @@
-import {StageController} from '@/core/builders/stage';
-import {ContainerController} from '@/core/builders/container';
-import {SpriteController} from '@/core/builders/sprite';
+import {StageController} from '../../builders/stage';
+import {ContainerController} from '../../builders/container';
+import {SpriteController} from '../../builders/sprite';
 
 export interface BuilderService {
     setStageBuilder: (stageBuilder: StageController) => void

@@ -1,4 +1,4 @@
-import {Direction} from '../types/things';
+import {Direction} from '@/core/types/things';
 
 export const reverseDirection = (originDirection: Direction): Direction => {
     if (originDirection === Direction.UNDEFINED) return originDirection

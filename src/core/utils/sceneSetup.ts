@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {SceneSetup} from '../types';
-import {Species} from '../resource';
-import {ThingSetup} from '../types/things';
+import {SceneSetup} from '@/core/types';
+import {Species} from '@/core/resource';
+import {ThingSetup} from '@/core/types/things';
 
 export interface ThingsMapJson {
     readonly species: Species

@@ -1,12 +1,12 @@
 import {Texture} from 'pixi.js'
 import {Task} from './'
-import {Thing} from '../things';
-import {Direction} from '../types/things';
-import {ThingFactory} from '../things/factory';
-import {InstructionDispatchServer, createThingController} from '../observer';
-import {RuleController} from '../observer/rule';
-import {MapController} from '../observer/map';
-import {Species} from '../resource';
+import {Thing} from '@/core/things';
+import {Direction} from '@/core/types/things';
+import {ThingFactory} from '@/core/things/factory';
+import {InstructionDispatchServer, createThingController} from '@/core/observer';
+import {RuleController} from '@/core/observer/rule';
+import {MapController} from '@/core/observer/map';
+import {Species} from '@/core/resource';
 
 abstract class SpriteTask<T> implements Task<T> {
     public abstract execute(): Promise<T>;

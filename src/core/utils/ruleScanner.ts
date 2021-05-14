@@ -1,14 +1,14 @@
-import {MapController} from '../observer/map'
-import {FeatureCondition, RuleController} from '../observer/rule'
-import {ThingType} from '../types'
-import {Species} from '../resource'
-import {Direction} from '../types/things'
-import {NounType} from '../types/nouns'
-import {OperatorType} from '../types/operators'
-import {PropertyType} from '../types/properties'
+import {MapController} from '@/core/observer/map'
+import {FeatureCondition, RuleController} from '@/core/observer/rule'
+import {ThingType} from '@/core/types'
+import {Species} from '@/core/resource'
+import {Direction} from '@/core/types/things'
+import {NounType} from '@/core/types/nouns'
+import {OperatorType} from '@/core/types/operators'
+import {PropertyType} from '@/core/types/properties'
 import {isNone, isSome, none, Option, some} from 'fp-ts/es6/Option'
-import {convertNounToCharacter} from '../utils/typeConverter';
-import {Edge} from '../store/services/screen';
+import {convertNounToCharacter} from '@/core/utils/typeConverter';
+import {Edge} from '@/core/store/services/screen';
 import {Thing} from '@/core/things';
 
 export interface RulePattern {

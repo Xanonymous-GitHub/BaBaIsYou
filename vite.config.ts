@@ -5,8 +5,14 @@ import {minifyHtml} from 'vite-plugin-html';
 import legacy from '@vitejs/plugin-legacy'
 import WindiCSS from 'vite-plugin-windicss'
 import viteCompression from 'vite-plugin-compression'
+import {join} from 'path'
 
 export default defineConfig({
+    resolve: {
+        alias: {
+            '@': `${join(__dirname, 'src')}`
+        }
+    },
     plugins: [
         vue({
             isProduction: true

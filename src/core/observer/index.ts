@@ -1,17 +1,17 @@
 import {Observable, ObservableSubject} from './observable';
 import {Observer} from './observer';
-import {GameStore} from '../store'
-import {getUid} from '../utils/uuid';
-import {Thing} from '../things'
+import {GameStore} from '@/core/store'
+import {getUid} from '@/core/utils/uuid';
+import {Thing} from '@/core/things'
 import {isNone, isSome, none, Option, some} from 'fp-ts/es6/Option';
 import {RuleController} from './rule';
-import {Instruction, EmptyInstruction} from '../instructions';
-import move from '../instructions/move';
-import PriorityQueue from '../data-structures/priorityQueue';
-import {Command, CommandType} from '../store/services/command';
-import {PropertyType} from '../types/properties';
-import {MapController} from '../observer/map';
-import {Direction} from '../types/things';
+import {Instruction, EmptyInstruction} from '@/core/instructions';
+import move from '@/core/instructions/move';
+import PriorityQueue from '@/core/data-structures/priorityQueue';
+import {Command, CommandType} from '@/core/store/services/command';
+import {PropertyType} from '@/core/types/properties';
+import {MapController} from '@/core/observer/map';
+import {Direction} from '@/core/types/things';
 
 
 export class InstructionDispatchServerConcrete extends ObservableSubject {

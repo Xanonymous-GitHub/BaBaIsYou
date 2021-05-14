@@ -1,9 +1,9 @@
-import {ThingSetup} from './things';
-import {Species} from '../resource';
-import {CharacterType} from './characters';
-import {NounType} from './nouns';
-import {PropertyType} from './properties';
-import {OperatorType} from './operators';
+import {ThingSetup} from '@/core/types/things';
+import {Species} from '@/core/resource';
+import {CharacterType} from '@/core/types/characters';
+import {NounType} from '@/core/types/nouns';
+import {PropertyType} from '@/core/types/properties';
+import {OperatorType} from '@/core/types/operators';
 
 export type ThingType = CharacterType | PropertyType | NounType | OperatorType
 

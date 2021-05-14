@@ -1,9 +1,9 @@
 import {Container} from 'pixi.js'
-import {SceneSetup} from '../types';
+import {SceneSetup} from '@/core/types';
 import {ContainerController} from './container';
-import {GameStore} from '../store';
+import {GameStore} from '@/core/store';
 import {Controller} from './';
-import {MountContainerToStageAtIndexTask} from '../tasks/stage'
+import {MountContainerToStageAtIndexTask} from '@/core/tasks/stage'
 
 class StageControllerConcrete extends Controller {
     private readonly _stage: Container

@@ -1,10 +1,10 @@
-import {Thing} from '../../things';
-import {Direction} from '../../types/things';
-import {PropertyType} from '../../types/properties';
-import {canBePushed, prepareDefeatActions, preparePushActions, prepareWinActions} from '../../things/actions';
-import {RuleController} from '../../observer/rule';
-import {MapController} from '../../observer/map';
-import {ThingController} from '../../observer';
+import {Thing} from '@/core/things';
+import {Direction} from '@/core/types/things';
+import {PropertyType} from '@/core/types/properties';
+import {canBePushed, prepareDefeatActions, preparePushActions, prepareWinActions} from '@/core/things/actions';
+import {RuleController} from '@/core/observer/rule';
+import {MapController} from '@/core/observer/map';
+import {ThingController} from '@/core/observer';
 
 export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing, visitorFrom: Direction, ruleController: RuleController, mapController: MapController, thingController: ThingController): Promise<boolean> => {
     const result = true

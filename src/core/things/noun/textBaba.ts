@@ -1,8 +1,8 @@
-import {Thing} from '../';
-import {Direction} from '../../types/things';
-import {Species} from '../../resource';
+import {Thing} from '@/core/things';
+import {Direction} from '@/core/types/things';
+import {Species} from '@/core/resource';
 import {Texture} from 'pixi.js';
-import {generalHandleEncounterMixin} from '../_mixins/handleEncounter';
+import {generalHandleEncounterMixin} from '@/core/things/_mixins/handleEncounter';
 
 class TextBaba extends Thing {
     public handleBeside(visitor: Thing, visitorBeside: Direction): Promise<void> {

@@ -1,10 +1,10 @@
-import {EmptyInstruction, Instruction} from '../../../instructions';
-import {Direction} from '../../../types/things';
-import move from '../../../instructions/move';
-import {Thing} from '../../../things';
-import {RuleController} from '../../../observer/rule';
-import {MapController} from '../../../observer/map';
-import {ThingController} from '../../../observer';
+import {EmptyInstruction, Instruction} from '@/core/instructions';
+import {Direction} from '@/core/types/things';
+import move from '@/core/instructions/move';
+import {Thing} from '@/core/things';
+import {RuleController} from '@/core/observer/rule';
+import {MapController} from '@/core/observer/map';
+import {ThingController} from '@/core/observer';
 
 export const preparePushActions = (subject: Thing, ruleController: RuleController, mapController: MapController, thingController: ThingController, visitorFrom: Direction): void => {
     let newInstruction: Instruction

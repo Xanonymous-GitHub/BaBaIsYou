@@ -1,6 +1,6 @@
 import {RawInstruction} from './';
-import {Direction} from '../types/things';
-import {MapUpdateSituation} from '../observer/map';
+import {Direction} from '@/core/types/things';
+import {MapUpdateSituation} from '@/core/observer/map';
 
 export class MoveUpInstruction extends RawInstruction {
     public async perform() {

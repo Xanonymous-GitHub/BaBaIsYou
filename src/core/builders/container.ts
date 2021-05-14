@@ -1,11 +1,11 @@
-import {GameStore} from '../store';
+import {GameStore} from '@/core/store';
 import {Controller} from './';
-import {SceneSetup} from '../types';
+import {SceneSetup} from '@/core/types';
 import {Container} from 'pixi.js'
 import {isNone} from 'fp-ts/es6/Option';
 import {SpriteController} from './sprite';
-import {MountThingsToContainerTask} from '../tasks/container'
-import {createWinScreen} from '../components/winScreen';
+import {MountThingsToContainerTask} from '@/core/tasks/container'
+import {createWinScreen} from '@/core/components/winScreen';
 
 class ContainerControllerConcrete extends Controller {
     private readonly _spriteController: SpriteController

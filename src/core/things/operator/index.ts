@@ -1,4 +1,4 @@
-import {ThingCreator} from '../factory';
+import {ThingCreator} from '@/core/things/factory';
 import {createTextIs} from './textIs';
 import {createTextAnd} from './textAnd';
 

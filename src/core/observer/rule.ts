@@ -1,12 +1,12 @@
-import {Thing} from '../things';
-import {PropertyType} from '../types/properties';
-import {NounType} from '../types/nouns';
-import {OperatorType} from '../types/operators';
-import {ThingType} from '../types';
-import {MapController} from '../observer/map';
-import {RulePattern} from '../utils/ruleScanner';
+import {Thing} from '@/core/things';
+import {PropertyType} from '@/core/types/properties';
+import {NounType} from '@/core/types/nouns';
+import {OperatorType} from '@/core/types/operators';
+import {ThingType} from '@/core/types';
+import {MapController} from '@/core/observer/map';
+import {RulePattern} from '@/core/utils/ruleScanner';
 import {CharacterType} from '../types/characters';
-import {Species} from '../resource';
+import {Species} from '@/core/resource';
 import {none, Option, some} from 'fp-ts/es6/Option';
 
 export interface FeatureCondition {

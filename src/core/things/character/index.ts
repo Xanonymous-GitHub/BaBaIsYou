@@ -1,4 +1,4 @@
-import {ThingCreator} from '../factory';
+import {ThingCreator} from '@/core/things/factory';
 import {createBaba} from './baba';
 import {createWall} from './wall';
 import {createFlag} from './flag';

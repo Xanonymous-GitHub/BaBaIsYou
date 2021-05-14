@@ -1,4 +1,4 @@
-import {defaultAppHeight, defaultAppWidth} from '../app/configs';
+import {defaultAppHeight, defaultAppWidth} from '@/core/app/configs';
 
 export const getBlockSize = (): number => {
     return 40 // TODO add block size detection in RWD system.

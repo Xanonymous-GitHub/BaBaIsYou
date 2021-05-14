@@ -1,6 +1,6 @@
-import {Direction} from '../types/things';
-import {Thing} from '../things';
-import {Edge} from '../store/services/screen';
+import {Direction} from '@/core/types/things';
+import {Thing} from '@/core/things';
+import {Edge} from '@/core/store/services/screen';
 import {isNone, isSome, none, Option, Some, some} from 'fp-ts/es6/Option';
 
 export enum MapUpdateSituation {

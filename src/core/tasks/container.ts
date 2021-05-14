@@ -1,6 +1,6 @@
 import {Container} from 'pixi.js'
 import {Task} from './'
-import {Thing} from '../things'
+import {Thing} from '@/core/things'
 
 abstract class ContainerTask<T> implements Task<T> {
     public abstract execute(): Promise<T>;

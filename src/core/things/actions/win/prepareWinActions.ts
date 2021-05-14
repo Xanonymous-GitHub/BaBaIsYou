@@ -1,5 +1,4 @@
-// import {Thing} from '../../../things';
-import {ThingController} from '../../../observer';
+import {ThingController} from '@/core/observer';
 
 export const prepareWinActions = (thingController: ThingController) => {
     thingController.stopDispatcher()
