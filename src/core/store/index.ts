@@ -14,9 +14,9 @@ import {Edge, ScreenService} from '@/core/store/services/screen';
 import {ScannerService} from '@/core/store/services/scanner';
 import {RuleScanner} from '@/core/utils/ruleScanner';
 import {BuilderService} from '@/core/store/services/builder';
-import {StageController} from '@/core/builders/stage';
-import {ContainerController} from '@/core/builders/container';
-import {SpriteController} from '@/core/builders/sprite';
+import {StageControllerConcrete} from '@/core/builders/stage';
+import {ContainerControllerConcrete} from '@/core/builders/container';
+import {SpriteControllerConcrete} from '@/core/builders/sprite';
 
 const createContainerStore = (containerService: ContainerService) => {
     return {
@@ -89,9 +89,9 @@ const createScannerStore = (scannerService: ScannerService) => {
 
 const createBuilderStore = (builderService: BuilderService) => {
     return {
-        setStageBuilder: (stageBuilder: StageController) => builderService.setStageBuilder(stageBuilder),
-        setContainerBuilder: (containerBuilder: ContainerController) => builderService.setContainerBuilder(containerBuilder),
-        setSpriteBuilder: (spriteBuilder: SpriteController) => builderService.setSpriteBuilder(spriteBuilder),
+        setStageBuilder: (stageBuilder: StageControllerConcrete) => builderService.setStageBuilder(stageBuilder),
+        setContainerBuilder: (containerBuilder: ContainerControllerConcrete) => builderService.setContainerBuilder(containerBuilder),
+        setSpriteBuilder: (spriteBuilder: SpriteControllerConcrete) => builderService.setSpriteBuilder(spriteBuilder),
         getStageBuilder: () => builderService.getStageBuilder(),
         getContainerBuilder: () => builderService.getContainerBuilder(),
         getSpriteBuilder: () => builderService.getSpriteBuilder()

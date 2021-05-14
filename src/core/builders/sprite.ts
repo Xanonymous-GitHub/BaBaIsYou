@@ -10,7 +10,7 @@ import {InstructionDispatchServer} from '@/core/observer';
 import {RuleController} from '@/core/observer/rule';
 import {MapController} from '@/core/observer/map';
 
-class SpriteControllerConcrete extends Controller {
+export class SpriteControllerConcrete extends Controller {
     constructor(store: GameStore) {
         super(store)
     }

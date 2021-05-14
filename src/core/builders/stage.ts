@@ -5,7 +5,7 @@ import {GameStore} from '@/core/store';
 import {Controller} from './';
 import {MountContainerToStageAtIndexTask} from '@/core/tasks/stage'
 
-class StageControllerConcrete extends Controller {
+export class StageControllerConcrete extends Controller {
     private readonly _stage: Container
     private readonly _containerController: ContainerController
 

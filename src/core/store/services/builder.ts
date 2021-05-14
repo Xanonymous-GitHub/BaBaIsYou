@@ -1,42 +1,42 @@
-import {StageController} from '@/core/builders/stage';
-import {ContainerController} from '@/core/builders/container';
-import {SpriteController} from '@/core/builders/sprite';
+import {StageControllerConcrete} from '@/core/builders/stage';
+import {ContainerControllerConcrete} from '@/core/builders/container';
+import {SpriteControllerConcrete} from '@/core/builders/sprite';
 
 export interface BuilderService {
-    setStageBuilder: (stageBuilder: StageController) => void
-    setContainerBuilder: (containerBuilder: ContainerController) => void
-    setSpriteBuilder: (spriteBuilder: SpriteController) => void
-    getStageBuilder: () => StageController,
-    getContainerBuilder: () => ContainerController,
-    getSpriteBuilder: () => SpriteController
+    setStageBuilder: (stageBuilder: StageControllerConcrete) => void
+    setContainerBuilder: (containerBuilder: ContainerControllerConcrete) => void
+    setSpriteBuilder: (spriteBuilder: SpriteControllerConcrete) => void
+    getStageBuilder: () => StageControllerConcrete,
+    getContainerBuilder: () => ContainerControllerConcrete,
+    getSpriteBuilder: () => SpriteControllerConcrete
 }
 
 class BuilderServiceConcrete implements BuilderService {
-    private _stageBuilder!: StageController
-    private _containerBuilder!: ContainerController
-    private _spriteBuilder!: SpriteController
+    private _stageBuilder!: StageControllerConcrete
+    private _containerBuilder!: ContainerControllerConcrete
+    private _spriteBuilder!: SpriteControllerConcrete
 
-    public getContainerBuilder(): ContainerController {
+    public getContainerBuilder(): ContainerControllerConcrete {
         return this._containerBuilder;
     }
 
-    public getSpriteBuilder(): SpriteController {
+    public getSpriteBuilder(): SpriteControllerConcrete {
         return this._spriteBuilder;
     }
 
-    public getStageBuilder(): StageController {
+    public getStageBuilder(): StageControllerConcrete {
         return this._stageBuilder;
     }
 
-    public setContainerBuilder(containerBuilder: ContainerController): void {
+    public setContainerBuilder(containerBuilder: ContainerControllerConcrete): void {
         this._containerBuilder = containerBuilder;
     }
 
-    public setSpriteBuilder(spriteBuilder: SpriteController): void {
+    public setSpriteBuilder(spriteBuilder: SpriteControllerConcrete): void {
         this._spriteBuilder = spriteBuilder
     }
 
-    public setStageBuilder(stageBuilder: StageController): void {
+    public setStageBuilder(stageBuilder: StageControllerConcrete): void {
         this._stageBuilder = stageBuilder
     }
 }

@@ -7,7 +7,7 @@ import {SpriteController} from './sprite';
 import {MountThingsToContainerTask} from '@/core/tasks/container'
 import {createWinScreen} from '@/core/components/winScreen';
 
-class ContainerControllerConcrete extends Controller {
+export class ContainerControllerConcrete extends Controller {
     private readonly _spriteController: SpriteController
 
     constructor(store: GameStore, spriteController: SpriteController) {
