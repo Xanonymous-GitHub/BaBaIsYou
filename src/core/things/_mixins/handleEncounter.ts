@@ -1,7 +1,13 @@
 import {Thing} from '@/core/things';
 import {Direction} from '@/core/types/things';
 import {PropertyType} from '@/core/types/properties';
-import {canBePushed, prepareDefeatActions, preparePushActions, prepareWinActions} from '@/core/things/actions';
+import {
+    canBePushed,
+    prepareDefeatActions,
+    preparePushActions,
+    prepareSinkActions,
+    prepareWinActions
+} from '@/core/things/actions';
 import {RuleController} from '@/core/observer/rule';
 import {MapController} from '@/core/observer/map';
 import {ThingController} from '@/core/observer';
@@ -24,18 +30,25 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
         }
     }
 
-    // handle WIN & DEFEAT
+    // handle WIN
     const isWin = ruleController.$is(subject, PropertyType.WIN)
     if (isWin) {
         prepareWinActions(thingController)
         return result
     }
 
-    // const isDefeat = ruleController.$is(subject, PropertyType.DEFEAT)
-    // if (isDefeat) {
-    //     prepareDefeatActions(visitor, ruleController, thingController)
-    //     return result
-    // }
+    // handle DEFEAT
+    const isDefeat = ruleController.$is(subject, PropertyType.DEFEAT)
+    if (isDefeat) {
+        prepareDefeatActions(visitor, ruleController, thingController, mapController)
+        return result
+    }
 
+    // handle SINK
+    const isSink = ruleController.$is(subject, PropertyType.SINK)
+    if (isSink) {
+        prepareSinkActions(visitor, ruleController, thingController, mapController)
+        return result
+    }
     return result
 }
