@@ -47,7 +47,7 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
     // handle SINK
     const isSink = ruleController.$is(subject, PropertyType.SINK)
     if (isSink) {
-        prepareSinkActions(visitor, ruleController, thingController, mapController)
+        prepareSinkActions(subject, visitor, ruleController, thingController, mapController)
         return result
     }
     return result
