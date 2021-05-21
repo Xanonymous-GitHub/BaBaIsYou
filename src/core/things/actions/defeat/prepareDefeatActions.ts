@@ -4,12 +4,12 @@ import {RuleController} from '@/core/observer/rule';
 import {PropertyType} from '@/core/types/properties';
 import {MapController, MapUpdateSituation} from '@/core/observer/map';
 
-export const prepareDefeatActions = (visitor: Thing, ruleController: RuleController, thingController: ThingController, mapController: MapController) => {
+export const prepareDefeatActions = async (visitor: Thing, ruleController: RuleController, thingController: ThingController, mapController: MapController) => {
     if (ruleController.$is(visitor, PropertyType.YOU)) {
         thingController.stopDispatcher()
 
         // remove visitor from map
-        mapController.update(visitor, MapUpdateSituation.DISAPPEAR)
+        await mapController.update(visitor, MapUpdateSituation.DISAPPEAR)
 
         // DEBUG
         console.log('you die!')

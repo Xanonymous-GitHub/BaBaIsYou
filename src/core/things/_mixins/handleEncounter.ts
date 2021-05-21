@@ -40,14 +40,14 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
     // handle DEFEAT
     const isDefeat = ruleController.$is(subject, PropertyType.DEFEAT)
     if (isDefeat) {
-        prepareDefeatActions(visitor, ruleController, thingController, mapController)
+        await prepareDefeatActions(visitor, ruleController, thingController, mapController)
         return result
     }
 
     // handle SINK
     const isSink = ruleController.$is(subject, PropertyType.SINK)
     if (isSink) {
-        prepareSinkActions(subject, visitor, ruleController, thingController, mapController)
+        await prepareSinkActions(subject, visitor, ruleController, thingController, mapController)
         return result
     }
     return result
