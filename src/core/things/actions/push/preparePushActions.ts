@@ -25,5 +25,7 @@ export const preparePushActions = (subject: Thing, ruleController: RuleControlle
             newInstruction = new EmptyInstruction(subject, ruleController, mapController)
             break
     }
-    thingController.pushInstruction(newInstruction)
+    // thingController.pushInstruction(newInstruction)
+    thingController.addNewInstruction(newInstruction)
+    thingController.pushInstructions()
 }

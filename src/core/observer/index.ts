@@ -49,9 +49,11 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
         return instructionPriority
     }
 
-    public addInstruction(instruction: Instruction): void {
-        const priority = InstructionDispatchServerConcrete._judgementInstructionPriority(instruction)
-        this._pendingInstructions.add(instruction, priority)
+    public addInstructions(instructions: Array<Instruction>): void {
+        for (const instruction of instructions) {
+            const priority = InstructionDispatchServerConcrete._judgementInstructionPriority(instruction)
+            this._pendingInstructions.add(instruction, priority)
+        }
     }
 
     private _nextInstruction(): Option<Readonly<Instruction>> {
@@ -98,7 +100,8 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
 export type InstructionDispatchServer = InstructionDispatchServerConcrete
 
 class ThingControllerConcrete implements Observer {
-    public observeId: string;
+    public observeId: string
+    private _instructions: Array<Instruction>
     private readonly _dispatchServer: InstructionDispatchServer
     private readonly _ruleController: RuleController
     private readonly _mapController: MapController
@@ -107,6 +110,9 @@ class ThingControllerConcrete implements Observer {
     constructor(dispatchServer: InstructionDispatchServer, ruleController: RuleController, mapController: MapController, thing: Thing) {
         // generate observerId (uuid) for the Thing.
         this.observeId = getUid()
+
+        // init instructions array
+        this._instructions = []
 
         // save the Observable target and register self in for command notifications.
         this._dispatchServer = dispatchServer
@@ -127,8 +133,17 @@ class ThingControllerConcrete implements Observer {
         this._thing.bindMapController(this._mapController).then()
     }
 
-    public pushInstruction(instruction: Instruction) {
-        this._dispatchServer.addInstruction(instruction)
+    public clearInstructions() {
+        this._instructions = []
+    }
+
+    public addNewInstruction(instruction: Instruction) {
+        this._instructions.push(instruction)
+    }
+
+    public pushInstructions() {
+        this._dispatchServer.addInstructions(this._instructions)
+        this.clearInstructions()
     }
 
     public async update(subject: Observable, command: Command): Promise<void> {
@@ -172,8 +187,12 @@ class ThingControllerConcrete implements Observer {
                 newInstruction = new EmptyInstruction(this._thing, this._ruleController, this._mapController)
                 break
         }
+
         this._dispatchServer.needScanRule()
-        this.pushInstruction(newInstruction)
+        // this.pushInstruction(newInstruction)
+
+        this.addNewInstruction(newInstruction)
+        this.pushInstructions()
     }
 
     public stopDispatcher(): void {
