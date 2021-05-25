@@ -15,15 +15,17 @@ export class ContainerControllerConcrete extends Controller {
         this._spriteController = spriteController
     }
 
-    public async createGameScene(sceneSetup: SceneSetup): Promise<Readonly<Container>> {
+    public async createEmptyScene(): Promise<Readonly<Container>> {
         // find if there has any empty container.
         const emptyContainerOption = this._store.getEmptyContainer()
-        let sceneContainer!: Readonly<Container>
         if (isNone(emptyContainerOption)) {
-            sceneContainer = new Container()
-        } else {
-            sceneContainer = emptyContainerOption.value
+            return new Container()
         }
+        return emptyContainerOption.value
+    }
+
+    public async createGameScene(sceneSetup: SceneSetup): Promise<Readonly<Container>> {
+        const  sceneContainer = await this.createEmptyScene()
 
         // // give name to this container.
         // sceneContainer

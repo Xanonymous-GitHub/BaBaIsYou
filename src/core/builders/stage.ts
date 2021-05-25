@@ -12,6 +12,7 @@ export class StageControllerConcrete extends Controller {
     constructor(store: GameStore, stage: Container, containerController: ContainerController) {
         super(store)
         this._stage = stage
+        this._stage.sortableChildren = true
         this._containerController = containerController
     }
 
@@ -28,8 +29,8 @@ export class StageControllerConcrete extends Controller {
         const scene = await this._containerController.createWinScene()
         const mountTask = new MountContainerToStageAtIndexTask()
         mountTask.setArgs(this._stage, scene, 0)
-        console.log(scene)
         await mountTask.execute()
+        console.log(this._stage)
     }
 
     public async removeScene() {

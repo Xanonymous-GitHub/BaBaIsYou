@@ -20,6 +20,7 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
     private _isActive = false
     private _pendingInstructions: PriorityQueue<Instruction>
     private _needScanRule = false
+    private _win = false
 
     constructor(store: GameStore) {
         super()
@@ -64,8 +65,12 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
         this._needScanRule = true
     }
 
+    private async addWinScene() {
+        await this._store.getStageBuilder().addWinScene()
+    }
+
     public win() {
-        setTimeout(() => this._store.getStageBuilder().addWinScene(), 0)
+        this._win = true
     }
 
     public run() {
@@ -92,6 +97,11 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
                 }, 0)
                 this._setNotRunning()
             })
+        if (this._win) {
+            this.addWinScene().then(
+                () => this.disableService()
+            )
+        }
     }
 }
 
@@ -178,10 +188,10 @@ class ThingControllerConcrete implements Observer {
 
     public stopDispatcher(): void {
         this._dispatchServer.disableService()
-        setTimeout(
-            () => alert('WIN!!!!!!'), 0
-        )
-        // this._dispatchServer.win()
+    }
+
+    public win(): void {
+        this._dispatchServer.win()
     }
 
     public disconnect(): void {

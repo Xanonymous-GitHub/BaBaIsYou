@@ -1,7 +1,7 @@
 import {ThingController} from '@/core/observer';
 
 export const prepareWinActions = (thingController: ThingController) => {
-    thingController.stopDispatcher()
+    thingController.win()
 
     // DEBUG
     console.log('you win')
