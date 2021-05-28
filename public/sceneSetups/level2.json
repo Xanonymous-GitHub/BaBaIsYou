@@ -78,6 +78,18 @@
     },
     {
       "species": "characters",
+      "name": "WALL",
+      "thingSetup": [
+        {
+          "defaultBlockX": 15,
+          "defaultBlockY": 13,
+          "defaultTowards": 0,
+          "textureName": "WALL"
+        }
+      ]
+    },
+    {
+      "species": "characters",
       "name": "FLAG",
       "thingSetup": [
         {
@@ -511,18 +523,6 @@
           "defaultBlockY": 14,
           "textureName": "Text_STOP",
           "defaultTowards": 0
-        }
-      ]
-    },
-    {
-      "species": "characters",
-      "name": "WALL",
-      "thingSetup": [
-        {
-          "defaultBlockX": 15,
-          "defaultBlockY": 13,
-          "defaultTowards": 0,
-          "textureName": "WALL"
         }
       ]
     }

@@ -6,18 +6,6 @@
   "thingsMap": [
     {
       "species": "characters",
-      "name": "FLAG",
-      "thingSetup": [
-        {
-          "defaultBlockX": 11,
-          "defaultBlockY": 8,
-          "textureName": "FLAG",
-          "defaultTowards": 0
-        }
-      ]
-    },
-    {
-      "species": "characters",
       "name": "TILE",
       "thingSetup": [
         {
@@ -449,6 +437,30 @@
       ]
     },
     {
+      "species": "characters",
+      "name": "FLAG",
+      "thingSetup": [
+        {
+          "defaultBlockX": 11,
+          "defaultBlockY": 8,
+          "textureName": "FLAG",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "characters",
+      "name": "BABA",
+      "thingSetup": [
+        {
+          "defaultBlockX": 14,
+          "defaultBlockY": 13,
+          "defaultTowards": 2,
+          "textureName": "BABA"
+        }
+      ]
+    },
+    {
       "species": "nouns",
       "name": "Text_BABA",
       "thingSetup": [
@@ -541,18 +553,6 @@
           "defaultBlockY": 14,
           "textureName": "Text_STOP",
           "defaultTowards": 0
-        }
-      ]
-    },
-    {
-      "species": "characters",
-      "name": "BABA",
-      "thingSetup": [
-        {
-          "defaultBlockX": 14,
-          "defaultBlockY": 13,
-          "defaultTowards": 2,
-          "textureName": "BABA"
         }
       ]
     }
