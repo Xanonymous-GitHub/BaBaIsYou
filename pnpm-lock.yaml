@@ -686,7 +686,7 @@ packages:
       '@antfu/utils': 0.1.6
       debug: 4.3.2
       fast-glob: 3.2.5
-      jiti: 1.9.2
+      jiti: 1.10.1
       magic-string: 0.25.7
       micromatch: 4.0.4
       windicss: 3.0.12
@@ -2428,8 +2428,8 @@ packages:
       minimatch: 3.0.4
     dev: true
 
-  /jiti/1.9.2:
-    resolution: {integrity: sha512-wymUBR/YGGVNVRAxX52yvFoZdUAYKEGjk0sYrz6gXLCvMblnRvJAmDUnMvQiH4tUHDBtbKHnZ4GT3R+m3Hc39A==}
+  /jiti/1.10.1:
+    resolution: {integrity: sha512-qux9juDtAC8HlZxAk/fku73ak4TWNLigRFTNzFShE/kw4bXVFsVu538vLXAxvNyPszXgpX4YxkXfwTYEi+zf5A==}
     hasBin: true
     dev: true
 
@@ -3384,8 +3384,8 @@ packages:
       glob: 7.1.7
     dev: true
 
-  /rollup/2.50.2:
-    resolution: {integrity: sha512-Ra5JkxSiZPZZFnvE68KWtlrLnZGg5LNaV1n1esq4ch69P7ReeoRVlrTuL/k+L/GJfcowA5An0BEhEq2Hfzwl6w==}
+  /rollup/2.50.3:
+    resolution: {integrity: sha512-58KiHnaCzZn6F5yRMjHe7WTZuFj6r4iJVJz5UwvKD6f/xfTy2IdtbR2AVHN6cyfK1tBy//hJ66ebXy6Y1h7HlQ==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
@@ -4007,7 +4007,7 @@ packages:
       esbuild: 0.11.23
       postcss: 8.3.0
       resolve: 1.20.0
-      rollup: 2.50.2
+      rollup: 2.50.3
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
