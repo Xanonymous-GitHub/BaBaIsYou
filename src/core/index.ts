@@ -43,7 +43,7 @@ store.setScanner(createRuleScanner(store.getRuleController(), store.getMapContro
 
 // DEBUG
 const setupGame = async () => {
-    const TEST_SCENE = await getSceneSetup('level2.json')
+    const TEST_SCENE = await getSceneSetup('level3.json')
 
     stageController.addGameScene(TEST_SCENE).then(() => {
         store.initDispatchServer()

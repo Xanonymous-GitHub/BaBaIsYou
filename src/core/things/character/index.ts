@@ -10,6 +10,8 @@ import {createJelly} from './jelly';
 import {createAlgae} from './algae';
 import {createTile} from './tile';
 import {createGrass} from './grass';
+import {createWater} from './water';
+
 
 const characters: { [index: string]: ThingCreator } = {
     Baba: createBaba,
@@ -22,7 +24,8 @@ const characters: { [index: string]: ThingCreator } = {
     Jelly: createJelly,
     Algae: createAlgae,
     Tile: createTile,
-    Grass: createGrass
+    Grass: createGrass,
+    Water: createWater
 }
 
 export default characters

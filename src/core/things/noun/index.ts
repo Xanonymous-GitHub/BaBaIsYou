@@ -6,6 +6,7 @@ import {createTextCrab} from './textCrab';
 import {createTextSkull} from './textSkull';
 import {createTextStar} from './textStar';
 import {createTextRock} from './textRock';
+import {createTextWater} from './textWater';
 
 const nouns: { [index: string]: ThingCreator } = {
     TextBaba: createTextBaba,
@@ -14,7 +15,8 @@ const nouns: { [index: string]: ThingCreator } = {
     TextCrab: createTextCrab,
     TextSkull: createTextSkull,
     TextStar: createTextStar,
-    TextRock: createTextRock
+    TextRock: createTextRock,
+    TextWater: createTextWater
 }
 
 export default nouns
