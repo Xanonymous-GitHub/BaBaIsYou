@@ -31,7 +31,7 @@ class TextureServiceConcrete implements TextureService {
     }
 
     public async loadResourcesByName(species: Species, names: Array<string>): Promise<void> {
-        if (!this._resourceMap.has(species)) throw new Error(`species ${species} not exsit`)
+        if (!this._resourceMap.has(species)) throw new Error(`species ${species} not exist`)
         const resourcesToLoad = this._resourceMap.get(species)!.filter(resource => names.includes(resource.name) && !this._loadedResources.includes(resource.name))
         const loader = Loader.shared
         await new Promise<void>((resolve, reject) => {
