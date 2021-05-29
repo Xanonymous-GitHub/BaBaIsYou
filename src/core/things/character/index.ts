@@ -11,7 +11,7 @@ import {createAlgae} from './algae';
 import {createTile} from './tile';
 import {createGrass} from './grass';
 import {createWater} from './water';
-
+import {createLava} from './lava';
 
 const characters: { [index: string]: ThingCreator } = {
     Baba: createBaba,
@@ -25,7 +25,8 @@ const characters: { [index: string]: ThingCreator } = {
     Algae: createAlgae,
     Tile: createTile,
     Grass: createGrass,
-    Water: createWater
+    Water: createWater,
+    Lava: createLava
 }
 
 export default characters
