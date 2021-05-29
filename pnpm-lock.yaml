@@ -17,6 +17,7 @@ specifiers:
   mousetrap: ^1.6.5
   pixi.js: ^6.0.4
   prettier: ^2.3.0
+  rxjs: ^7.1.0
   sass: ^1.34.0
   typescript: ^4.3.2
   uuid: ^8.3.2
@@ -31,6 +32,7 @@ dependencies:
   axios: 0.21.1
   mousetrap: 1.6.5
   pixi.js: 6.0.4
+  rxjs: 7.1.0
   uuid: 8.3.2
   vue: 3.0.11
 
@@ -3398,6 +3400,12 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
+  /rxjs/7.1.0:
+    resolution: {integrity: sha512-gCFO5iHIbRPwznl6hAYuwNFld8W4S2shtSJIqG27ReWXo9IWrCyEICxUA+6vJHwSR/OakoenC4QsDxq50tzYmw==}
+    dependencies:
+      tslib: 2.1.0
+    dev: false
+
   /safe-buffer/5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
     dev: true
@@ -3806,6 +3814,10 @@ packages:
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
+
+  /tslib/2.1.0:
+    resolution: {integrity: sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==}
+    dev: false
 
   /tslib/2.2.0:
     resolution: {integrity: sha512-gS9GVHRU+RGn5KQM2rllAlR3dU6m7AcpJKdtH8gFvQiC4Otgk98XnmMU+nZenHt/+VhnBPWwgrJsyrdcw6i23w==}
