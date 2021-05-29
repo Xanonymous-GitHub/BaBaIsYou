@@ -61,4 +61,6 @@ const setupGame = async () => {
 
 setupGame().then()
 
-export const appView = app.view
+const appView = app.view
+
+export default new Promise($export => $export(appView))

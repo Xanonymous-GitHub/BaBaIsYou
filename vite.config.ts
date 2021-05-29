@@ -17,13 +17,7 @@ export default defineConfig({
         vue({
             isProduction: true
         }),
-        WindiCSS({
-            safelist: 'prose prose-sm m-auto'
-        }),
-        compress({
-            brotli: false,
-            verbose: true
-        }),
+        WindiCSS(),
         legacy({
             targets: ['defaults', 'dead', '> 1%', 'ie 10', 'ie 6', 'ie 7', 'ie 8', 'ie 9', 'ie 11', 'since 2002', 'unreleased versions']
         }),
@@ -43,6 +37,10 @@ export default defineConfig({
         }),
         viteCompression({
             algorithm: 'gzip'
+        }),
+        compress({
+            brotli: false,
+            verbose: true
         })
     ],
     build: {
@@ -57,6 +55,18 @@ export default defineConfig({
             keep_classnames: false,
             keep_fnames: false,
             compress: true
+        },
+        chunkSizeWarningLimit: 100000,
+        rollupOptions: {
+            output: {
+                preferConst: true,
+                freeze: true,
+                manualChunks(id) {
+                    if (id.includes('core')) {
+                        return 'core';
+                    }
+                }
+            }
         }
     },
     esbuild: {

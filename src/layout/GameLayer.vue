@@ -17,16 +17,16 @@
 
 <script lang="ts">
 import {defineComponent, onMounted, ref} from 'vue'
-import {appView} from '../core'
 
 export default defineComponent({
   name: 'GameLayer',
   setup() {
     const gameLayer = ref<HTMLElement>({} as HTMLElement)
 
-    onMounted(() => {
+    onMounted(async () => {
+      const GameAppView = await (async () => await (await import('@/core')).default)() as unknown as HTMLCanvasElement
       gameLayer.value.appendChild(
-        appView
+          GameAppView
       )
     })
 
