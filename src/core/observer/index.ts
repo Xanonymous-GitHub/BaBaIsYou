@@ -8,10 +8,10 @@ import {RuleController} from './rule';
 import {Instruction, EmptyInstruction} from '@/core/instructions';
 import move from '@/core/instructions/move';
 import PriorityQueue from '@/core/data-structures/priorityQueue';
-import {Command, CommandType} from '@/core/store/services/command';
 import {PropertyType} from '@/core/types/properties';
 import {MapController} from '@/core/observer/map';
 import {Direction} from '@/core/types/things';
+import {Command, CommandType} from '@/core/store/types';
 
 
 export class InstructionDispatchServerConcrete extends ObservableSubject {

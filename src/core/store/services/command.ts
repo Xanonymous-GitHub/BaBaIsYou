@@ -1,31 +1,15 @@
 import PriorityQueue from '@/core/data-structures/priorityQueue';
-import {MAX_COMMAND_AMOUNT, COMMAND_MIN_INTERVAL} from '@/core/app/configs';
+import {COMMAND_MIN_INTERVAL, MAX_COMMAND_AMOUNT} from '@/core/app/configs';
 import {debounce} from '@/core/utils/debouncer';
 import mousetrap from 'mousetrap'
-import {none, Option, some} from 'fp-ts/es6/Option';
+import {isSome, none, Option, some} from 'fp-ts/es6/Option';
+import {Service} from './';
+import {Channel, createChannel} from '@/core/store/channel';
+import {Command, CommandPackage, CommandType} from '@/core/store/types';
 
-export enum CommandType {
-    UP = 'up',
-    DOWN = 'down',
-    LEFT = 'left',
-    RIGHT = 'right',
-    ESC = 'esc',
-}
-
-export interface Command {
-    readonly value: CommandType
-}
-
-export interface CommandPackage {
-    priority: number,
-    command: Command
-}
-
-export interface CommandService {
-    nextCommand: () => Option<Readonly<Command>>
-    addCommand: (command: Command) => void
-    clearCommand: () => void
+export interface CommandService extends Service {
     initCommandWatchService: () => void
+    commandChannel: Channel<Command>
 }
 
 const commandPackages: Array<CommandPackage> = [
@@ -71,8 +55,20 @@ const createCommandPrioritiesMap = (): Map<Command, number> => {
 }
 
 class CommandServiceConcrete implements CommandService {
-    private readonly _commandPackages: PriorityQueue<CommandPackage> = new PriorityQueue<CommandPackage>()
-    private readonly _commandPrioritiesMap: Map<Command, number> = createCommandPrioritiesMap()
+    private _commandPackages!: PriorityQueue<CommandPackage>
+    private _commandPrioritiesMap!: Map<Command, number>
+    private _runningCommand!: boolean
+    private _isActive!: boolean
+
+    public commandChannel!: Channel<Command>
+
+    public async init(): Promise<void> {
+        this._commandPackages = new PriorityQueue<CommandPackage>()
+        this._commandPrioritiesMap = createCommandPrioritiesMap()
+        this._runningCommand = false
+        this._isActive = false
+        this.commandChannel = createChannel<Command>()
+    }
 
     private _judgementCommandPriority(command: Command): number {
         const priority = this._commandPrioritiesMap.get(command)
@@ -85,7 +81,7 @@ class CommandServiceConcrete implements CommandService {
         return this._commandPackages.size()
     }
 
-    public addCommand(command: Command): void {
+    private _addCommand(command: Command): void {
         if (this._size < MAX_COMMAND_AMOUNT) {
             debounce(() => {
                 const priority = this._judgementCommandPriority(command)
@@ -93,15 +89,16 @@ class CommandServiceConcrete implements CommandService {
                     command,
                     priority
                 }, priority)
+                this._digestCommand().then()
             }, COMMAND_MIN_INTERVAL)()
         }
     }
 
-    public clearCommand(): void {
+    private _clearCommand(): void {
         this._commandPackages.clear()
     }
 
-    public nextCommand(): Option<Readonly<Command>> {
+    private _nextCommand(): Option<Readonly<Command>> {
         const commandPackage = this._commandPackages.poll()
         if (!commandPackage) return none
         return some(commandPackage.command)
@@ -109,8 +106,19 @@ class CommandServiceConcrete implements CommandService {
 
     public initCommandWatchService(): void {
         for (const commandPackage of commandPackages) {
-            mousetrap.bind(commandPackage.command.value, () => this.addCommand(commandPackage.command))
+            mousetrap.bind(commandPackage.command.value, () => this._addCommand(commandPackage.command))
         }
+    }
+
+    private async _digestCommand(): Promise<void> {
+        if (!this._isActive || this._runningCommand) return
+        this._runningCommand = true
+        let nextCommand = this._nextCommand()
+        while (isSome(nextCommand)) {
+            await this.commandChannel.send(nextCommand.value)
+            nextCommand = this._nextCommand()
+        }
+        this._runningCommand = false
     }
 }
 

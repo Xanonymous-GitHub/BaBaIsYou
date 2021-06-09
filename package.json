@@ -30,10 +30,10 @@
     "prettier": "^2.3.1",
     "sass": "^1.34.1",
     "typescript": "^4.3.2",
-    "vite": "^2.3.6",
+    "vite": "^2.3.7",
     "vite-plugin-compress": "^2.1.0",
     "vite-plugin-compression": "^0.2.5",
     "vite-plugin-html": "^2.0.7",
-    "vite-plugin-windicss": "^1.0.2"
+    "vite-plugin-windicss": "^1.0.3"
   }
 }

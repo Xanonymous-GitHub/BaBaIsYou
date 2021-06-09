@@ -1,9 +1,9 @@
 import {createServices} from '@/core/store/services';
 import {ContainerService} from '@/core/store/services/container'
-import {CommandService, Command} from '@/core/store/services/command'
+import {CommandService} from '@/core/store/services/command'
 import {SpriteService} from '@/core/store/services/sprite'
 import {TextureService} from '@/core/store/services/texture'
-import {DispatchServerService} from '@/core/store/services/dispatchServer';
+import {DispatchServerService} from '@/core/store/services/instruction';
 import {Application, Container, Sprite} from 'pixi.js';
 import {ResourceMap} from '@/core/resource';
 import {Species} from '@/core/resource';
@@ -17,6 +17,7 @@ import {BuilderService} from '@/core/store/services/builder';
 import {StageControllerConcrete} from '@/core/builders/stage';
 import {ContainerControllerConcrete} from '@/core/builders/container';
 import {SpriteControllerConcrete} from '@/core/builders/sprite';
+import {Command} from '@/core/store/types';
 
 const createContainerStore = (containerService: ContainerService) => {
     return {

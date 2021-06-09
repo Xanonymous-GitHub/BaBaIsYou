@@ -2,10 +2,14 @@ import {createContainerService} from './container'
 import {createCommandService} from './command';
 import {createSpriteService} from './sprite';
 import {createTextureService} from './texture'
-import {createDispatchServerService} from './dispatchServer';
+import {createDispatchServerService} from './instruction';
 import {createScreenService} from './screen';
 import {createScannerService} from './scanner';
 import {createBuilderService} from './builder';
+
+export interface Service {
+    init: (...args: Array<any>) => Promise<void>
+}
 
 export const createServices = () => {
     const containerService = createContainerService()
