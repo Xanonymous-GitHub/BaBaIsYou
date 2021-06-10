@@ -36,7 +36,7 @@ const createCommandStore = (commandService: CommandService) => {
         nextCommand: () => commandService.nextCommand(),
         addCommand: (command: Command) => commandService.addCommand(command),
         clearCommand: () => commandService.clearCommand(),
-        initCommandWatchService: () => commandService.initCommandWatchService()
+        initCommandWatchService: () => commandService.startCommandWatchService()
     }
 }
 

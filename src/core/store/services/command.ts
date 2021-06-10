@@ -8,7 +8,8 @@ import {Channel, createChannel} from '@/core/store/channel';
 import {Command, CommandPackage, CommandType} from '@/core/store/types';
 
 export interface CommandService extends Service {
-    initCommandWatchService: () => void
+    startCommandWatchService: () => void
+    stopCommandWatchService: () => void
     commandChannel: Channel<Command>
 }
 
@@ -104,10 +105,15 @@ class CommandServiceConcrete implements CommandService {
         return some(commandPackage.command)
     }
 
-    public initCommandWatchService(): void {
+    public startCommandWatchService(): void {
         for (const commandPackage of commandPackages) {
             mousetrap.bind(commandPackage.command.value, () => this._addCommand(commandPackage.command))
         }
+    }
+
+    public stopCommandWatchService(): void {
+        this._isActive = false
+        this._clearCommand()
     }
 
     private async _digestCommand(): Promise<void> {

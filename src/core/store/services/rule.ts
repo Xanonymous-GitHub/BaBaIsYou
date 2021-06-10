@@ -8,7 +8,7 @@ import {CharacterType} from '@/core/types/characters';
 import {Species} from '@/core/resource';
 import {Service} from './';
 import {Channel, createChannel} from '@/core/store/channel';
-import {Command, CommandTargets, FeatureCondition, FeatureList} from '@/core/store/types';
+import {Command, ExecutorTypes, FeatureCondition, FeatureList} from '@/core/store/types';
 
 export interface RuleService extends Service {
     $is: (target: ThingType, requestedFeature: PropertyType) => boolean
@@ -20,19 +20,19 @@ export interface RuleService extends Service {
     removeFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
     refreshAll: () => void
     commandChannel: Channel<Command>
-    commandTargetChannel: Channel<CommandTargets>
+    ExecutorTypeChannel: Channel<ExecutorTypes>
 }
 
 class RuleServiceConcrete implements RuleService {
     private _features!: Map<ThingType, FeatureList>
 
     public commandChannel!: Channel<Command> // communicate with command service
-    public commandTargetChannel!: Channel<CommandTargets> // communicate with map service
+    public ExecutorTypeChannel!: Channel<ExecutorTypes> // communicate with map service
 
     public async init(): Promise<void> {
         this.commandChannel = createChannel<Command>()
         this.commandChannel.setHandler(this._handleCommand)
-        this.commandTargetChannel = createChannel<CommandTargets>()
+        this.ExecutorTypeChannel = createChannel<ExecutorTypes>()
         this._features = new Map();
         this._giveDefaultRules()
     }
@@ -171,13 +171,19 @@ class RuleServiceConcrete implements RuleService {
 
     private async _handleCommand(command: Command): Promise<void> {
         // find who can execute this command, You, You2.
-        const targets = [
+        const targets = new Set<ThingType>()
+
+        const searchResults = [
             ...this.getThingTypesFromProperty(PropertyType.YOU),
             ...this.getThingTypesFromProperty(PropertyType.YOU2)
         ]
 
+        for (const type of searchResults) {
+            targets.add(type)
+        }
+
         // send command-and-targets pack to map service.
-        await this.commandTargetChannel.send({
+        await this.ExecutorTypeChannel.send({
             command,
             targets
         })

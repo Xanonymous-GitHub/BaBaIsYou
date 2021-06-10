@@ -1,6 +1,8 @@
 import {NounType} from '@/core/types/nouns';
 import {PropertyType} from '@/core/types/properties';
 import {ThingType} from '@/core/types';
+import {Option} from 'fp-ts/es6/Option';
+import {Thing} from '@/core/things';
 
 export enum CommandType {
     UP = 'up',
@@ -32,7 +34,23 @@ export interface FeatureList {
     _make: Array<FeatureCondition>
 }
 
-export interface CommandTargets {
+export interface ExecutorTypes {
     command: Command
-    targets: Array<ThingType>
+    targets: Set<ThingType>
+}
+
+export interface Neighbor {
+    up: Option<Array<Readonly<Thing>>>
+    down: Option<Array<Readonly<Thing>>>
+    left: Option<Array<Readonly<Thing>>>
+    right: Option<Array<Readonly<Thing>>>
+}
+
+export enum MapUpdateSituation {
+    UP = 'up',
+    DOWN = 'down',
+    RIGHT = 'right',
+    LEFT = 'left',
+    APPEAR = 'appear',
+    DISAPPEAR = 'disappear'
 }

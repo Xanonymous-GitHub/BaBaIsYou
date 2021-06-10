@@ -3,22 +3,9 @@ import {Direction} from '@/core/types/things';
 import {isNone, isSome, none, Option, Some, some} from 'fp-ts/es6/Option';
 import {Edge} from '@/core/store/services/screen';
 import {Service} from './';
-
-export interface Neighbor {
-    up: Option<Array<Readonly<Thing>>>
-    down: Option<Array<Readonly<Thing>>>
-    left: Option<Array<Readonly<Thing>>>
-    right: Option<Array<Readonly<Thing>>>
-}
-
-export enum MapUpdateSituation {
-    UP = 'up',
-    DOWN = 'down',
-    RIGHT = 'right',
-    LEFT = 'left',
-    APPEAR = 'appear',
-    DISAPPEAR = 'disappear'
-}
+import {Channel, createChannel} from '@/core/store/channel';
+import {ExecutorTypes, MapUpdateSituation, Neighbor} from '@/core/store/types';
+import {ThingType} from '@/core/types';
 
 export interface MapService extends Service {
     canIEncounter: (subject: Thing, direction: Direction) => Promise<boolean>
@@ -29,12 +16,15 @@ export interface MapService extends Service {
     whoNearMe: (subject: Thing) => Neighbor
     cleanMap: () => void
     changeMapSize: (mapEdge: Edge) => void
+    commandTargetChannel: Channel<ExecutorTypes>
 }
 
 class MapServiceConcrete implements MapService {
     private _gameMap!: Array<Array<Option<Array<Thing>>>>
     private maxX!: number
     private maxY!: number
+
+    public commandTargetChannel!: Channel<ExecutorTypes> // communicate with rule service
 
     private _resetMap(): void {
         for (let x = 0; x <= this.maxX; x++) {
@@ -61,6 +51,9 @@ class MapServiceConcrete implements MapService {
     }
 
     public async init(): Promise<void> {
+        this.commandTargetChannel = createChannel<ExecutorTypes>()
+        this.commandTargetChannel.setHandler(this._handleCommandTargets)
+
         // initial map size is 1 block.
         this.maxX = 0
         this.maxY = 0
@@ -73,6 +66,43 @@ class MapServiceConcrete implements MapService {
 
         // init map value
         this._resetMap()
+    }
+
+    private async _handleCommandTargets(executorTypes: ExecutorTypes): Promise<void> {
+        const targetTypes = [...executorTypes.targets]
+
+        const executorMap = new Map<ThingType, Array<Thing>>()
+
+        // Find the things to execute this command.
+        for (let x = 0; x <= this.maxX; x++) {
+            for (let y = 0; y <= this.maxY; y++) {
+                if (isNone(this._gameMap[x][y])) continue
+                for (const thing of (this._gameMap[x][y] as Some<Array<Thing>>).value) {
+                    // we set the name of a thing is equal to its Type (enum).
+                    const thingType = targetTypes.find(type => type === thing.name)
+                    if (!thingType) continue
+
+                    // save this Thing to the map.
+                    const executors = executorMap.get(thingType)
+                    if (executors) {
+                        executorMap.set(thingType, [
+                            ...executors,
+                            thing
+                        ])
+                    }
+                    executorMap.set(thingType, [thing])
+                }
+            }
+        }
+
+        // execute each command for every thing we found on game-map.
+        for (const [executorType, executors] of executorMap) {
+            for (const executor of executors){
+                // ask rule service to get the highest-priority property of this Thing.
+                // The property object start handle encounter.
+            }
+        }
+
     }
 
     public async canIEncounter(requester: Thing, direction: Direction): Promise<boolean> {
