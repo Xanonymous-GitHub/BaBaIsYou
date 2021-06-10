@@ -14,7 +14,8 @@
     "downlevelIteration": true,
     "baseUrl": ".",
     "types": [
-      "vite/client"
+      "vite/client",
+      "node"
     ],
     "paths": {
       "@/*": [

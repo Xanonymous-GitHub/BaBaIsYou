@@ -1,15 +1,15 @@
-import {createGameApp} from './app';
-import {createGameStore} from './store';
-import {createStageController} from './builders/stage'
-import {createContainerController} from './builders/container'
-import {createSpriteController} from './builders/sprite'
-import {createResourceMap} from './resource';
-import {createInstructionDispatchServer} from './observer';
-import {createRuleController} from './observer/rule';
-import {createMapController} from './observer/map';
-import {createRuleScanner} from './utils/ruleScanner';
-import {RESOURCE_ROOT_PATH} from './app/configs';
-import {getSceneSetup} from './utils/sceneSetup';
+import { createGameApp } from './app'
+import { createGameStore } from './store'
+import { createStageController } from './builders/stage'
+import { createContainerController } from './builders/container'
+import { createSpriteController } from './builders/sprite'
+import { createResourceMap } from './resource'
+import { createInstructionDispatchServer } from './observer'
+import { createRuleController } from './observer/rule'
+import { createMapController } from './observer/map'
+import { createRuleScanner } from './utils/ruleScanner'
+import { RESOURCE_ROOT_PATH } from './app/configs'
+import { getSceneSetup } from './utils/sceneSetup'
 
 const app = createGameApp()
 const store = createGameStore()
@@ -43,20 +43,20 @@ store.setScanner(createRuleScanner(store.getRuleController(), store.getMapContro
 
 // DEBUG
 const setupGame = async () => {
-    const TEST_SCENE = await getSceneSetup('level5.json')
+  const TEST_SCENE = await getSceneSetup('level5.json')
 
-    stageController.addGameScene(TEST_SCENE).then(() => {
-        store.initDispatchServer()
-    })
+  stageController.addGameScene(TEST_SCENE).then(() => {
+    store.initDispatchServer()
+  })
 
-    // stageController.addWinScene().then()
+  // stageController.addWinScene().then()
 
-    app.ticker.add(() => {
-        store.getDispatchServer().run()
-    })
+  app.ticker.add(() => {
+    store.getDispatchServer().run()
+  })
 
-    // start listen keyboard event
-    store.initCommandWatchService()
+  // start listen keyboard event
+  store.initCommandWatchService()
 }
 
 setupGame().then()

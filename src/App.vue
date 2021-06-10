@@ -1,17 +1,14 @@
 <template>
-  <GameLayer/>
+  <router-view v-slot='{ Component, route }'>
+    <main :id='route.name'>
+      <transition name='fade' mode='out-in'>
+        <keep-alive>
+          <component :is='Component' />
+        </keep-alive>
+      </transition>
+    </main>
+  </router-view>
 </template>
 
-<script lang="ts">
-import {defineComponent, defineAsyncComponent} from 'vue'
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    GameLayer: defineAsyncComponent(() => import('./layout/GameLayer.vue'))
-  }
-})
+<script setup lang='ts'>
 </script>
-
-<style lang="scss">
-</style>
