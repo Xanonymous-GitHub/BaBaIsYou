@@ -1,10 +1,8 @@
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
-import compress from 'vite-plugin-compress'
 import {minifyHtml} from 'vite-plugin-html';
 import legacy from '@vitejs/plugin-legacy'
 import WindiCSS from 'vite-plugin-windicss'
-import viteCompression from 'vite-plugin-compression'
 import {join} from 'path'
 
 export default defineConfig({
@@ -30,17 +28,6 @@ export default defineConfig({
             removeAttributeQuotes: true,
             removeComments: true,
             removeEmptyAttributes: true
-        }),
-        viteCompression({
-            algorithm: 'brotliCompress',
-            ext: '.br'
-        }),
-        viteCompression({
-            algorithm: 'gzip'
-        }),
-        compress({
-            brotli: false,
-            verbose: true
         })
     ],
     build: {
