@@ -1,80 +1,80 @@
-import {Container, DisplayObject} from 'pixi.js';
-import {Task} from './'
+import { Container, DisplayObject } from 'pixi.js'
+import { Task } from './'
 
 abstract class StageTask<T> implements Task<T> {
-    protected _stage!: Readonly<Container>
-    protected _container!: Readonly<Container>
+  protected _stage!: Readonly<Container>
+  protected _container!: Readonly<Container>
 
-    public abstract execute(): Promise<T>;
+  public abstract execute(): Promise<T>;
 
-    public abstract setArgs(...args: any[]): void
+  public abstract setArgs(...args: any[]): void
 }
 
 
 export class MountContainerToStageTask extends StageTask<void> {
-    public setArgs(stage: Readonly<Container>, container: Readonly<Container>): void {
-        this._stage = stage
-        this._container = container
-    }
+  public setArgs(stage: Readonly<Container>, container: Readonly<Container>): void {
+    this._stage = stage
+    this._container = container
+  }
 
-    public async execute(): Promise<void> {
-        await new Promise<void>(resolve => {
-            this._stage.addChild(this._container as Container)
-            resolve()
-        })
-    }
+  public async execute(): Promise<void> {
+    await new Promise<void>(resolve => {
+      this._stage.addChild(this._container as Container)
+      resolve()
+    })
+  }
 }
 
 export class UnmountContainerFromStageTask extends StageTask<Readonly<Container>> {
-    public setArgs(stage: Readonly<Container>, container: Readonly<Container>): void {
-        this._stage = stage
-        this._container = container
-    }
+  public setArgs(stage: Readonly<Container>, container: Readonly<Container>): void {
+    this._stage = stage
+    this._container = container
+  }
 
-    public async execute(): Promise<Readonly<Container>> {
-        return await new Promise<Readonly<Container>>((resolve, reject) => {
-            const unmountContainerFromStage = this._stage.removeChild(this._container as Container)
-            if (unmountContainerFromStage) {
-                resolve(unmountContainerFromStage)
-            }
-            reject(unmountContainerFromStage)
-        })
-    }
+  public async execute(): Promise<Readonly<Container>> {
+    return await new Promise<Readonly<Container>>((resolve, reject) => {
+      const unmountContainerFromStage = this._stage.removeChild(this._container as Container)
+      if (unmountContainerFromStage) {
+        resolve(unmountContainerFromStage)
+      }
+      reject(unmountContainerFromStage)
+    })
+  }
 }
 
 export class MountContainerToStageAtIndexTask extends StageTask<void> {
-    protected _mountAtIndex!: number
+  protected _mountAtIndex!: number
 
-    public setArgs(stage: Readonly<Container>, container: Readonly<Container>, mountAtIndex: number): void {
-        this._stage = stage
-        this._container = container
-        this._mountAtIndex = mountAtIndex
-    }
+  public setArgs(stage: Readonly<Container>, container: Readonly<Container>, mountAtIndex: number): void {
+    this._stage = stage
+    this._container = container
+    this._mountAtIndex = mountAtIndex
+  }
 
-    public async execute(): Promise<void> {
-        await new Promise<void>(resolve => {
-            this._stage.addChildAt(this._container as Container, this._mountAtIndex)
-            resolve()
-        })
-    }
+  public async execute(): Promise<void> {
+    await new Promise<void>(resolve => {
+      this._stage.addChildAt(this._container as Container, this._mountAtIndex)
+      resolve()
+    })
+  }
 }
 
 export class UnmountContainerFromStageAtIndexTask extends StageTask<DisplayObject> {
-    protected _unmountAtIndex!: number
+  protected _unmountAtIndex!: number
 
-    public setArgs(stage: Readonly<Container>, container: Readonly<Container>, unmountAtIndex: number): void {
-        this._stage = stage
-        this._container = container
-        this._unmountAtIndex = unmountAtIndex
-    }
+  public setArgs(stage: Readonly<Container>, container: Readonly<Container>, unmountAtIndex: number): void {
+    this._stage = stage
+    this._container = container
+    this._unmountAtIndex = unmountAtIndex
+  }
 
-    public async execute(): Promise<DisplayObject> {
-        return await new Promise<DisplayObject>((resolve, reject) => {
-            const unmountContainerFromStage = this._stage.removeChildAt(this._unmountAtIndex)
-            if (unmountContainerFromStage) {
-                resolve(unmountContainerFromStage)
-            }
-            reject(unmountContainerFromStage)
-        })
-    }
+  public async execute(): Promise<DisplayObject> {
+    return await new Promise<DisplayObject>((resolve, reject) => {
+      const unmountContainerFromStage = this._stage.removeChildAt(this._unmountAtIndex)
+      if (unmountContainerFromStage) {
+        resolve(unmountContainerFromStage)
+      }
+      reject(unmountContainerFromStage)
+    })
+  }
 }

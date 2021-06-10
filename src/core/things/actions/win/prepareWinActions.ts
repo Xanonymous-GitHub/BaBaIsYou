@@ -1,8 +1,8 @@
-import {ThingController} from '@/core/observer';
+import { ThingController } from '@/core/observer'
 
 export const prepareWinActions = (thingController: ThingController) => {
-    thingController.win()
+  thingController.win()
 
-    // DEBUG
-    console.log('you win')
+  // DEBUG
+  console.log('you win')
 }

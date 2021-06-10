@@ -1,3 +1,3 @@
-import {SceneSetup} from './';
+import { SceneSetup } from './'
 
 export type LevelSceneSetup = SceneSetup

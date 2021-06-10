@@ -1,4 +1,4 @@
-import {ThingCreator} from '@/core/things/factory';
+import { ThingCreator } from '@/core/things/factory'
 
 const collectibles: { [index: string]: ThingCreator } = {}
 

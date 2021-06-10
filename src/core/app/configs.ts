@@ -1,5 +1,5 @@
-import {IApplicationOptions} from 'pixi.js'
-import {getBlockSize} from '@/core/utils/screen';
+import { IApplicationOptions } from 'pixi.js'
+import { getBlockSize } from '@/core/utils/screen'
 
 const blockSize = getBlockSize()
 
@@ -16,12 +16,12 @@ export const defaultAppWidth = 33 * blockSize
 export const defaultAppHeight = 18 * blockSize
 
 export const appOptions = {
-    powerPreference: 'low-power', // when use production build, this should be set to 'high-performance'.
-    width: defaultAppWidth,
-    height: defaultAppHeight,
-    autoDensity: true,
-    preserveDrawingBuffer: true,
-    antialias: true
+  powerPreference: 'low-power', // when use production build, this should be set to 'high-performance'.
+  width: defaultAppWidth,
+  height: defaultAppHeight,
+  autoDensity: true,
+  preserveDrawingBuffer: true,
+  antialias: true
 } as IApplicationOptions
 
 export const MAX_COMMAND_AMOUNT = 8

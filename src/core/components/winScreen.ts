@@ -1,19 +1,19 @@
-import {Graphics, Container} from 'pixi.js'
-import {Edge} from '@/core/store/services/screen';
-import {getBlockSize} from '@/core/utils/screen';
+import { Graphics, Container } from 'pixi.js'
+import { Edge } from '@/core/store/services/screen'
+import { getBlockSize } from '@/core/utils/screen'
 
 export const createWinScreen = (edge: Edge): Container => {
-    const blockSize = getBlockSize()
-    const width = (edge.maxX + 1) * blockSize
-    const height = (edge.maxY + 1) * blockSize
+  const blockSize = getBlockSize()
+  const width = (edge.maxX + 1) * blockSize
+  const height = (edge.maxY + 1) * blockSize
 
-    const graphics = new Graphics()
-    graphics.beginFill(0xFFFFFF, 0.5)
-    graphics.drawRect(0, 0, width, height)
-    graphics.endFill()
+  const graphics = new Graphics()
+  graphics.beginFill(0xFFFFFF, 0.5)
+  graphics.drawRect(0, 0, width, height)
+  graphics.endFill()
 
-    const screen = new Container()
-    screen.addChildAt(graphics, 0)
+  const screen = new Container()
+  screen.addChildAt(graphics, 0)
 
-    return screen
+  return screen
 }

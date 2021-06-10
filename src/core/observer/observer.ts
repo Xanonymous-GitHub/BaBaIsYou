@@ -1,6 +1,6 @@
-import {Observable} from './observable';
+import { Observable } from './observable'
 
 export interface Observer {
-    update: (subject: Observable, ...args: any[]) => Promise<void>
-    observeId: string
+  update: (subject: Observable, ...args: any[]) => Promise<void>
+  observeId: string
 }
