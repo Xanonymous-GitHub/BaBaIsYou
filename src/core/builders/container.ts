@@ -1,5 +1,5 @@
 import { GameStore } from '@/core/store'
-import { Controller } from './'
+import { Builder } from './'
 import { SceneSetup } from '@/core/types'
 import { Container } from 'pixi.js'
 import { isNone } from 'fp-ts/es6/Option'
@@ -7,7 +7,7 @@ import { SpriteController } from './sprite'
 import { MountThingsToContainerTask } from '@/core/tasks/container'
 import { createWinScreen } from '@/core/components/winScreen'
 
-export class ContainerControllerConcrete extends Controller {
+export class ContainerBuilderConcrete extends Builder {
   private readonly _spriteController: SpriteController
 
   constructor(store: GameStore, spriteController: SpriteController) {
@@ -64,8 +64,8 @@ export class ContainerControllerConcrete extends Controller {
   }
 }
 
-export const createContainerController = (store: GameStore, spriteController: SpriteController) => {
-  return new ContainerControllerConcrete(store, spriteController)
+export const createContainerBuilder = (store: GameStore, spriteController: SpriteController) => {
+  return new ContainerBuilderConcrete(store, spriteController)
 }
 
-export type ContainerController = ReturnType<typeof createContainerController>
+export type ContainerController = ReturnType<typeof createContainerBuilder>

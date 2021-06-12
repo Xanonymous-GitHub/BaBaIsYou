@@ -1,8 +1,8 @@
 import { createGameApp } from './app'
 import { createGameStore } from './store'
-import { createStageController } from './builders/stage'
-import { createContainerController } from './builders/container'
-import { createSpriteController } from './builders/sprite'
+import { createStageBuilder } from './builders/stage'
+import { createContainerBuilder } from './builders/container'
+import { createSpriteBuilder } from './builders/sprite'
 import { createResourceMap } from './resource'
 import { createInstructionDispatchServer } from './observer'
 import { createRuleController } from './observer/rule'
@@ -13,9 +13,9 @@ import { getSceneSetup } from './utils/sceneSetup'
 
 const app = createGameApp()
 const store = createGameStore()
-const spriteController = createSpriteController(store)
-const containerController = createContainerController(store, spriteController)
-const stageController = createStageController(store, app.stage, containerController)
+const spriteController = createSpriteBuilder(store)
+const containerController = createContainerBuilder(store, spriteController)
+const stageController = createStageBuilder(store, app.stage, containerController)
 
 store.setStageBuilder(stageController)
 store.setContainerBuilder(containerController)

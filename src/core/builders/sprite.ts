@@ -1,4 +1,4 @@
-import { Controller } from './'
+import { Builder } from './'
 import { GameStore } from '@/core/store'
 import { CreateThingTask, connectThingControllerTask } from '@/core/tasks/sprite'
 import { isNone } from 'fp-ts/es6/Option'
@@ -10,7 +10,7 @@ import { InstructionDispatchServer } from '@/core/observer'
 import { RuleController } from '@/core/observer/rule'
 import { MapController } from '@/core/observer/map'
 
-export class SpriteControllerConcrete extends Controller {
+export class SpriteBuilderConcrete extends Builder {
   constructor(store: GameStore) {
     super(store)
   }
@@ -83,8 +83,8 @@ export class SpriteControllerConcrete extends Controller {
   }
 }
 
-export const createSpriteController = (store: GameStore) => {
-  return new SpriteControllerConcrete(store)
+export const createSpriteBuilder = (store: GameStore) => {
+  return new SpriteBuilderConcrete(store)
 }
 
-export type SpriteController = ReturnType<typeof createSpriteController>
+export type SpriteController = ReturnType<typeof createSpriteBuilder>

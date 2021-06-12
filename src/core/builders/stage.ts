@@ -2,10 +2,10 @@ import { Container } from 'pixi.js'
 import { SceneSetup } from '@/core/types'
 import { ContainerController } from './container'
 import { GameStore } from '@/core/store'
-import { Controller } from './'
+import { Builder } from './'
 import { MountContainerToStageAtIndexTask } from '@/core/tasks/stage'
 
-export class StageControllerConcrete extends Controller {
+export class StageBuilderConcrete extends Builder {
   private readonly _stage: Container
   private readonly _containerController: ContainerController
 
@@ -49,8 +49,8 @@ export class StageControllerConcrete extends Controller {
   }
 }
 
-export const createStageController = (store: GameStore, stage: Container, containerController: ContainerController) => {
-  return new StageControllerConcrete(store, stage, containerController)
+export const createStageBuilder = (store: GameStore, stage: Container, containerController: ContainerController) => {
+  return new StageBuilderConcrete(store, stage, containerController)
 }
 
-export type StageController = ReturnType<typeof createStageController>
+export type StageController = ReturnType<typeof createStageBuilder>
