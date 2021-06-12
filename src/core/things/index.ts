@@ -5,8 +5,7 @@ import { Species } from '@/core/resource'
 import { generalHandleEncounterMixin } from '@/core/things/_mixins/handleEncounter'
 import { ThingController } from '@/core/controllers/thing'
 import { Tween, update, Easing } from '@tweenjs/tween.js'
-
-const moveDurationMillisecond = 80
+import { THING_MOVE_DURATION } from '@/core/app/configs'
 
 export class Thing extends Sprite {
   private readonly _id: string
@@ -90,7 +89,7 @@ export class Thing extends Sprite {
       update(time)
     }
 
-    new Tween(currentX).to(finalX, moveDurationMillisecond)
+    new Tween(currentX).to(finalX, THING_MOVE_DURATION)
       .onUpdate(() => this.x = currentX.x)
       .easing(Easing.Quadratic.Out)
       .start()
@@ -112,7 +111,7 @@ export class Thing extends Sprite {
       update(time)
     }
 
-    new Tween(currentY).to(finalY, moveDurationMillisecond)
+    new Tween(currentY).to(finalY, THING_MOVE_DURATION)
       .easing(Easing.Quadratic.Out)
       .onUpdate(() => this.y = currentY.y)
       .start()
