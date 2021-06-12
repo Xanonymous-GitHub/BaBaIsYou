@@ -2,9 +2,11 @@ import { Sprite, Texture } from 'pixi.js'
 import { Direction, ThingSetup } from '@/core/types/things'
 import { getUid } from '@/core/utils/uuid'
 import { Species } from '@/core/resource'
-import { none, Option } from 'fp-ts/es6/Option'
 import { generalHandleEncounterMixin } from '@/core/things/_mixins/handleEncounter'
 import { ThingController } from '@/core/controllers/thing'
+import { Tween, update, Easing } from '@tweenjs/tween.js'
+
+const moveDurationMillisecond = 80
 
 export class Thing extends Sprite {
   private readonly _id: string
@@ -16,8 +18,6 @@ export class Thing extends Sprite {
   private readonly _blockSize: number
   private _towards: Direction
   public thingController!: ThingController
-  private _horizontalPatternId!: Option<string>
-  private _verticalPatternId!: Option<string>
 
   constructor(
     name: string,
@@ -64,10 +64,6 @@ export class Thing extends Sprite {
     // move to the point
     this.x = (this._blockX + 0.5) * this._blockSize
     this.y = (this._blockY + 0.5) * this._blockSize
-
-    // init patter ids (for operators)
-    this._horizontalPatternId = none
-    this._verticalPatternId = none
   }
 
   public bindThingController(thingController: ThingController): void {
@@ -86,7 +82,20 @@ export class Thing extends Sprite {
 
   public set blockX(x: number) {
     this._blockX = x
-    this.x = (x + 0.5) * this._blockSize
+    const currentX = { x: this.x }
+    const finalX = { x: (x + 0.5) * this._blockSize }
+
+    const animate = (time: number) => {
+      requestAnimationFrame(animate)
+      update(time)
+    }
+
+    new Tween(currentX).to(finalX, moveDurationMillisecond)
+      .onUpdate(() => this.x = currentX.x)
+      .easing(Easing.Quadratic.Out)
+      .start()
+
+    requestAnimationFrame(animate)
   }
 
   public get blockY(): number {
@@ -95,7 +104,20 @@ export class Thing extends Sprite {
 
   public set blockY(y: number) {
     this._blockY = y
-    this.y = (y + 0.5) * this._blockSize
+    const currentY = { y: this.y }
+    const finalY = { y: (y + 0.5) * this._blockSize }
+
+    const animate = (time: number) => {
+      requestAnimationFrame(animate)
+      update(time)
+    }
+
+    new Tween(currentY).to(finalY, moveDurationMillisecond)
+      .easing(Easing.Quadratic.Out)
+      .onUpdate(() => this.y = currentY.y)
+      .start()
+
+    requestAnimationFrame(animate)
   }
 
   public set towards(side: Direction) {

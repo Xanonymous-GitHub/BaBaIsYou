@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@tweenjs/tween.js': ^18.6.4
   '@types/mousetrap': ^1.6.8
   '@types/uuid': ^8.3.0
   '@typescript-eslint/eslint-plugin': ^4.26.1
@@ -28,6 +29,7 @@ specifiers:
   vue-router: ^4.0.8
 
 dependencies:
+  '@tweenjs/tween.js': 18.6.4
   axios: 0.21.1
   mousetrap: 1.6.5
   pixi.js: 6.0.4
@@ -445,6 +447,10 @@ packages:
     resolution: {integrity: sha512-ONhaKPIufzzrlNbqtWFFd+jlnemX6lJAgq9ZeiZtS7I1PIf/la7CW4m83rTXRnVnsMbW2k56pGYu7AUFJD9Pow==}
     engines: {node: '>=4'}
     dev: true
+
+  /@tweenjs/tween.js/18.6.4:
+    resolution: {integrity: sha512-lB9lMjuqjtuJrx7/kOkqQBtllspPIN+96OvTCeJ2j5FEzinoAXTdAMFnDAQT1KVPRlnYfBrqxtqP66vDM40xxQ==}
+    dev: false
 
   /@types/earcut/2.1.1:
     resolution: {integrity: sha512-w8oigUCDjElRHRRrMvn/spybSMyX8MTkKA5Dv+tS1IE/TgmNZPqUYtvYBXGY8cieSE66gm+szeK+bnbxC2xHTQ==}
