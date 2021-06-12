@@ -3,6 +3,8 @@ import { MAX_COMMAND_AMOUNT, COMMAND_MIN_INTERVAL } from '@/core/app/configs'
 import { debounce } from '@/core/utils/debouncer'
 import mousetrap from 'mousetrap'
 import { none, Option, some } from 'fp-ts/es6/Option'
+import { ObservableSubject } from '@/core/observer/observable'
+import { Observer } from '@/core/observer/observer'
 
 export enum CommandType {
   UP = 'up',
@@ -26,6 +28,7 @@ export interface CommandService {
   addCommand: (command: Command) => void
   clearCommand: () => void
   initCommandWatchService: () => void
+  connectDispatchListener: (listener: Observer) => void
 }
 
 const commandPackages: Array<CommandPackage> = [
@@ -73,6 +76,7 @@ const createCommandPrioritiesMap = (): Map<Command, number> => {
 class CommandServiceConcrete implements CommandService {
   private readonly _commandPackages: PriorityQueue<CommandPackage> = new PriorityQueue<CommandPackage>()
   private readonly _commandPrioritiesMap: Map<Command, number> = createCommandPrioritiesMap()
+  private readonly _dispatchNotifier: ObservableSubject = new ObservableSubject()
 
   private _judgementCommandPriority(command: Command): number {
     const priority = this._commandPrioritiesMap.get(command)
@@ -93,8 +97,14 @@ class CommandServiceConcrete implements CommandService {
           command,
           priority
         }, priority)
+        this._dispatchNotifier.setChanged()
+        this._dispatchNotifier.notifyObservers().then()
       }, COMMAND_MIN_INTERVAL)()
     }
+  }
+
+  public connectDispatchListener(listener: Observer): void {
+    this._dispatchNotifier.addObserver(listener)
   }
 
   public clearCommand(): void {

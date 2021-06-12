@@ -3,6 +3,8 @@ import { GameStore } from '@/core/store'
 import { isNone, isSome, none, Option, some } from 'fp-ts/es6/Option'
 import { Instruction } from '@/core/instructions'
 import PriorityQueue from '@/core/data-structures/priorityQueue'
+import { Observer } from '@/core/observer/observer'
+import { getUid } from '@/core/utils/uuid'
 
 
 export class InstructionDispatchServerConcrete extends ObservableSubject {
@@ -13,10 +15,18 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
   private _needScanRule = false
   private _win = false
 
+  public commandListener: Observer
+
   constructor(store: GameStore) {
     super()
     this._store = store
     this._pendingInstructions = new PriorityQueue<Instruction>()
+    this.commandListener = {
+      observeId: getUid(),
+      update: async () => {
+        await this.run()
+      }
+    }
   }
 
   private _setRunning() {
@@ -66,34 +76,27 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
     this._win = true
   }
 
-  public run() {
+  public async run() {
     if (!this._isActive || this._runningCommand) return
     const nextCommand = this._store.nextCommand()
     if (isNone(nextCommand)) return
     this._setRunning()
     this.setChanged()
-    this.notifyObservers(nextCommand.value)
-      .then(() => {
-        let currentInstruction = this._nextInstruction()
-        while (isSome(currentInstruction)) {
-          currentInstruction.value.perform().then()
-          currentInstruction = this._nextInstruction()
-        }
-      })
-      .then(() => {
-        setTimeout(() => {
-          if (this._needScanRule) {
-            this._store.getRuleController().refreshAll()
-            this._store.getScanner().findRulesFromMap(this._store.getAppEdge())
-            this._needScanRule = false
-          }
-        }, 0)
-        this._setNotRunning()
-      })
+    await this.notifyObservers(nextCommand.value)
+    let currentInstruction = this._nextInstruction()
+    while (isSome(currentInstruction)) {
+      await currentInstruction.value.perform()
+      currentInstruction = this._nextInstruction()
+    }
+    if (this._needScanRule) {
+      this._store.getRuleController().refreshAll()
+      this._store.getScanner().findRulesFromMap(this._store.getAppEdge())
+      this._needScanRule = false
+    }
+    this._setNotRunning()
     if (this._win) {
-      this.addWinScene().then(
-        () => this.disableService()
-      )
+      await this.addWinScene()
+      this.disableService()
     }
   }
 }

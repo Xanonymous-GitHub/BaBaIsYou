@@ -30,7 +30,6 @@ export class StageBuilderConcrete extends Builder {
     const mountTask = new MountContainerToStageAtIndexTask()
     mountTask.setArgs(this._stage, scene, 0)
     await mountTask.execute()
-    console.log(this._stage)
   }
 
   public async removeScene() {

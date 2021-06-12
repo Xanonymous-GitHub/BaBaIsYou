@@ -1,17 +1,13 @@
 import { Thing } from '@/core/things'
-import { RuleController } from '@/core/controllers/rule'
 import { PropertyType } from '@/core/types/properties'
-import { MapController, MapUpdateSituation } from '@/core/controllers/map'
 import { ThingController } from '@/core/controllers/thing'
+import { DisappearInstruction } from '@/core/instructions/existence'
 
-export const prepareDefeatActions = async (visitor: Thing, ruleController: RuleController, thingController: ThingController, mapController: MapController) => {
-  if (ruleController.$is(visitor, PropertyType.YOU)) {
-    thingController.stopDispatcher()
-
-    // remove visitor from map
-    await mapController.update(visitor, MapUpdateSituation.DISAPPEAR)
-
-    // DEBUG
-    console.log('you die!')
+export const prepareDefeatActions = async (visitor: Thing, thingController: ThingController) => {
+  if (thingController.store.getRuleController().$is(visitor, PropertyType.YOU)) {
+    const removeInstruction = new DisappearInstruction(visitor, thingController.store)
+    removeInstruction.setPriority(9999999990001)
+    thingController.addNewInstruction(removeInstruction)
+    thingController.pushInstructions()
   }
 }

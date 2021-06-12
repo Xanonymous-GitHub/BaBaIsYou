@@ -18,9 +18,6 @@ export abstract class RawInstruction implements Instruction {
     this._id = getUid()
     this._subject = subject
     this._store = store
-    console.log('A')
-    console.log(this._store)
-    console.log('B')
   }
 
   public abstract perform(): Promise<void>

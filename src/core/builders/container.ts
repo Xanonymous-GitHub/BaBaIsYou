@@ -4,11 +4,13 @@ import { SceneSetup } from '@/core/types'
 import { Container } from 'pixi.js'
 import { isNone } from 'fp-ts/es6/Option'
 import { SpriteController } from './sprite'
-import { MountThingsToContainerTask } from '@/core/tasks/container'
+import { MountThingsToContainerTask, UnMountThingFromContainerTask } from '@/core/tasks/container'
 import { createWinScreen } from '@/core/components/winScreen'
+import { Thing } from '@/core/things'
 
 export class ContainerBuilderConcrete extends Builder {
   private readonly _spriteController: SpriteController
+  private _gameScene: Readonly<Container> = new Container()
 
   constructor(store: GameStore, spriteController: SpriteController) {
     super(store)
@@ -26,10 +28,6 @@ export class ContainerBuilderConcrete extends Builder {
 
   public async createGameScene(sceneSetup: SceneSetup): Promise<Readonly<Container>> {
     const sceneContainer = await this.createEmptyScene()
-
-    // // give name to this container.
-    // sceneContainer
-
     // call sprite controller to make all elements that needed.
     const things = await (this._spriteController.getThings(sceneSetup.thingsMap))
 
@@ -49,6 +47,8 @@ export class ContainerBuilderConcrete extends Builder {
     mountTask.setArgs(sceneContainer, things)
     await mountTask.execute()
 
+    this._gameScene = sceneContainer
+
     return sceneContainer
   }
 
@@ -61,6 +61,12 @@ export class ContainerBuilderConcrete extends Builder {
     }
 
     return winScene
+  }
+
+  public async removeThingFromGameScene(target: Thing) {
+    const removeTask = new UnMountThingFromContainerTask()
+    removeTask.setArgs(target, this._gameScene)
+    await removeTask.execute()
   }
 }
 

@@ -32,6 +32,9 @@ store.addResourceMap(RESOURCES_MAP)
 // init dispatcher.
 store.setDispatchServer(createInstructionDispatchServer(store))
 
+// connect dispatcher.
+store.connectDispatchListener(store.getDispatchServer().commandListener)
+
 // init map controller.
 store.setMapController(createMapController())
 
@@ -43,16 +46,10 @@ store.setScanner(createRuleScanner(store.getRuleController(), store.getMapContro
 
 // DEBUG
 const setupGame = async () => {
-  const TEST_SCENE = await getSceneSetup('level6.json')
+  const TEST_SCENE = await getSceneSetup('demo.json')
 
   stageController.addGameScene(TEST_SCENE).then(() => {
     store.initDispatchServer()
-  })
-
-  // stageController.addWinScene().then()
-
-  app.ticker.add(() => {
-    store.getDispatchServer().run()
   })
 
   // start listen keyboard event

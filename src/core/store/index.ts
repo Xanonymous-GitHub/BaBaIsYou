@@ -17,6 +17,7 @@ import { BuilderService } from '@/core/store/services/builder'
 import { StageBuilderConcrete } from '@/core/builders/stage'
 import { ContainerBuilderConcrete } from '@/core/builders/container'
 import { SpriteBuilderConcrete } from '@/core/builders/sprite'
+import { Observer } from '@/core/observer/observer'
 
 const createContainerStore = (containerService: ContainerService) => {
   return {
@@ -27,15 +28,6 @@ const createContainerStore = (containerService: ContainerService) => {
     hasContainerById: (id: string) => containerService.hasContainerById(id),
     hasContainerByName: (name: string) => containerService.hasContainerByName(name),
     hasAnyContainer: () => containerService.hasAnyContainer()
-  }
-}
-
-const createCommandStore = (commandService: CommandService) => {
-  return {
-    nextCommand: () => commandService.nextCommand(),
-    addCommand: (command: Command) => commandService.addCommand(command),
-    clearCommand: () => commandService.clearCommand(),
-    initCommandWatchService: () => commandService.initCommandWatchService()
   }
 }
 
@@ -58,17 +50,27 @@ const createTextureStore = (textureService: TextureService) => {
   }
 }
 
-const createDispatchServerStore = (dispatchServerService: ControllerService) => {
+const createControllerStore = (ControllerService: ControllerService) => {
   return {
-    setDispatchServer: (server: InstructionDispatchServer) => dispatchServerService.setDispatchServer(server),
-    getDispatchServer: () => dispatchServerService.getDispatchServer(),
-    initDispatchServer: () => dispatchServerService.initDispatchServer(),
-    disposeDispatchServer: () => dispatchServerService.disposeDispatchServer(),
-    setRuleController: (controller: RuleController) => dispatchServerService.setRuleController(controller),
-    setMapController: (controller: MapController) => dispatchServerService.setMapController(controller),
-    getRuleController: () => dispatchServerService.getRuleController(),
-    getMapController: () => dispatchServerService.getMapController(),
-    changeMapSize: (mapEdge: Edge) => dispatchServerService.changeMapSize(mapEdge)
+    setDispatchServer: (server: InstructionDispatchServer) => ControllerService.setDispatchServer(server),
+    getDispatchServer: () => ControllerService.getDispatchServer(),
+    initDispatchServer: () => ControllerService.initDispatchServer(),
+    disposeDispatchServer: () => ControllerService.disposeDispatchServer(),
+    setRuleController: (controller: RuleController) => ControllerService.setRuleController(controller),
+    setMapController: (controller: MapController) => ControllerService.setMapController(controller),
+    getRuleController: () => ControllerService.getRuleController(),
+    getMapController: () => ControllerService.getMapController(),
+    changeMapSize: (mapEdge: Edge) => ControllerService.changeMapSize(mapEdge)
+  }
+}
+
+const createCommandStore = (commandService: CommandService) => {
+  return {
+    nextCommand: () => commandService.nextCommand(),
+    addCommand: (command: Command) => commandService.addCommand(command),
+    clearCommand: () => commandService.clearCommand(),
+    initCommandWatchService: () => commandService.initCommandWatchService(),
+    connectDispatchListener: (listener: Observer) => commandService.connectDispatchListener(listener)
   }
 }
 
@@ -102,10 +104,10 @@ export const createGameStore = () => {
   const services = createServices()
 
   const containerStore = createContainerStore(services.containerService)
-  const commandStore = createCommandStore(services.commandService)
   const spriteStore = createSpriteStore(services.spriteService)
   const textureStore = createTextureStore(services.textureService)
-  const dispatchServerStore = createDispatchServerStore(services.controllerService)
+  const controllerStore = createControllerStore(services.controllerService)
+  const commandStore = createCommandStore(services.commandService)
   const screenStore = createScreenStore(services.screenService)
   const scannerStore = createScannerStore(services.scannerService)
   const builderStore = createBuilderStore(services.builderService)
@@ -115,7 +117,7 @@ export const createGameStore = () => {
     ...commandStore,
     ...spriteStore,
     ...textureStore,
-    ...dispatchServerStore,
+    ...controllerStore,
     ...screenStore,
     ...scannerStore,
     ...builderStore

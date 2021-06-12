@@ -1,4 +1,4 @@
-import { Container } from 'pixi.js'
+import { Container, Sprite } from 'pixi.js'
 import { Task } from './'
 import { Thing } from '@/core/things'
 
@@ -25,17 +25,20 @@ export class MountThingsToContainerTask extends ContainerTask<Readonly<Container
   }
 }
 
-export class UnMountThingsFromContainerTask extends ContainerTask<Array<Thing>> {
+export class UnMountThingFromContainerTask extends ContainerTask<Thing> {
   private _container!: Readonly<Container>
+  private _target!: Sprite
 
-  public setArgs(container: Readonly<Container>): void {
+  public setArgs(target: Sprite, container: Readonly<Container>): void {
     this._container = container
+    this._target = target
   }
 
-  public async execute(): Promise<Array<Thing>> {
-    return await new Promise<Array<Thing>>(resolve => {
-      const things = this._container.removeChildren() as Array<Thing>
-      resolve(things)
+  public async execute(): Promise<Thing> {
+    return await new Promise<Thing>(resolve => {
+      const targetIndex = this._container.getChildIndex(this._target)
+      const thing = this._container.removeChildAt(targetIndex) as Thing
+      resolve(thing)
     })
   }
 }

@@ -15,7 +15,7 @@ export class Thing extends Sprite {
   private readonly _maxBlockY: number
   private readonly _blockSize: number
   private _towards: Direction
-  protected _thingController!: ThingController
+  public thingController!: ThingController
   private _horizontalPatternId!: Option<string>
   private _verticalPatternId!: Option<string>
 
@@ -71,7 +71,7 @@ export class Thing extends Sprite {
   }
 
   public bindThingController(thingController: ThingController): void {
-    this._thingController = thingController
+    this.thingController = thingController
   }
 
   public setup(options: Pick<ThingSetup, 'defaultBlockX' | 'defaultBlockY' | 'defaultTowards'>) {
@@ -179,7 +179,7 @@ export class Thing extends Sprite {
   }
 
   public async handleEncounter(visitor: Thing, visitorFrom: Direction): Promise<boolean> {
-    return await generalHandleEncounterMixin(this, visitor, visitorFrom, this._thingController)
+    return await generalHandleEncounterMixin(this, visitor, visitorFrom, this.thingController)
   }
 
   public handleLeave(visitor: Thing, visitorLeavesFrom: Direction): Promise<void> {
