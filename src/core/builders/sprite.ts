@@ -77,7 +77,7 @@ export class SpriteBuilderConcrete extends Builder {
   public async connectThingsToThingController(dispatchServer: InstructionDispatchServer, ruleController: RuleController, mapController: MapController, things: Array<Thing>): Promise<void> {
     const bindingTask = new connectThingControllerTask()
     for (const thing of things) {
-      bindingTask.setArgs(dispatchServer, ruleController, mapController, thing)
+      bindingTask.setArgs(this._store, thing)
       await bindingTask.execute()
     }
   }

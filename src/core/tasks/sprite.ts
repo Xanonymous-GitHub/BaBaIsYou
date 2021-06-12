@@ -3,10 +3,9 @@ import { Task } from './'
 import { Thing } from '@/core/things'
 import { Direction } from '@/core/types/things'
 import { ThingFactory } from '@/core/things/factory'
-import { InstructionDispatchServer, createThingController } from '@/core/observer'
-import { RuleController } from '@/core/observer/rule'
-import { MapController } from '@/core/observer/map'
+import { createThingController } from '@/core/observer'
 import { Species } from '@/core/resource'
+import { GameStore } from '@/core/store'
 
 abstract class SpriteTask<T> implements Task<T> {
   public abstract execute(): Promise<T>;
@@ -70,24 +69,18 @@ export class CreateThingTask extends SpriteTask<Thing> {
 }
 
 export class connectThingControllerTask extends SpriteTask<void> {
-  private _dispatchServer!: InstructionDispatchServer
-  private _ruleController!: RuleController
-  private _mapController!: MapController
+  private _store!: GameStore
   private _thing!: Thing
 
-  public setArgs(dispatchServer: InstructionDispatchServer, ruleController: RuleController, mapController: MapController, thing: Thing): void {
-    this._dispatchServer = dispatchServer
-    this._ruleController = ruleController
-    this._mapController = mapController
+  public setArgs(_store: GameStore, thing: Thing): void {
+    this._store = _store
     this._thing = thing
   }
 
   public async execute(): Promise<void> {
     return await new Promise<void>(resolve => {
       createThingController(
-        this._dispatchServer,
-        this._ruleController,
-        this._mapController,
+        this._store,
         this._thing
       )
       resolve()

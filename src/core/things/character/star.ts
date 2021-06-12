@@ -10,7 +10,7 @@ class Star extends Thing {
   }
 
   public async handleEncounter(visitor: Thing, visitorFrom: Direction): Promise<boolean> {
-    return await generalHandleEncounterMixin(this, visitor, visitorFrom, this._ruleController, this._mapController, this._thingController)
+    return await generalHandleEncounterMixin(this, visitor, visitorFrom, this._thingController)
   }
 
   public async handleLeave(visitor: Thing, visitorLeavesFrom: Direction): Promise<void> {

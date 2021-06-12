@@ -1,7 +1,6 @@
 import { Thing } from '../things'
 import { getUid } from '@/core/utils/uuid'
-import { RuleController } from '@/core/observer/rule'
-import { MapController } from '@/core/observer/map'
+import { GameStore } from '@/core/store'
 
 export interface Instruction {
   perform: () => Promise<void>
@@ -12,15 +11,16 @@ export interface Instruction {
 export abstract class RawInstruction implements Instruction {
   private readonly _id: string
   protected readonly _subject: Thing
-  protected readonly _ruleController: RuleController
-  protected readonly _mapController: MapController
+  protected readonly _store: GameStore
   private _priority?: number
 
-  constructor(subject: Thing, ruleController: RuleController, mapController: MapController) {
+  constructor(subject: Thing, store: GameStore) {
     this._id = getUid()
     this._subject = subject
-    this._ruleController = ruleController
-    this._mapController = mapController
+    this._store = store
+    console.log('A')
+    console.log(this._store)
+    console.log('B')
   }
 
   public abstract perform(): Promise<void>

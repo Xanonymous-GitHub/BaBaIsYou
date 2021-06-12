@@ -1,11 +1,9 @@
 import { Sprite, Texture } from 'pixi.js'
 import { Direction, ThingSetup } from '@/core/types/things'
 import { ThingController } from '@/core/observer'
-import { RuleController } from '@/core/observer/rule'
-import { MapController, MapUpdateSituation } from '@/core/observer/map'
 import { getUid } from '@/core/utils/uuid'
 import { Species } from '@/core/resource'
-import { none, Option, some } from 'fp-ts/es6/Option'
+import { none, Option } from 'fp-ts/es6/Option'
 
 export abstract class Thing extends Sprite {
   private readonly _id: string
@@ -17,8 +15,8 @@ export abstract class Thing extends Sprite {
   private readonly _blockSize: number
   private _towards: Direction
   protected _thingController!: ThingController
-  protected _ruleController!: RuleController
-  protected _mapController!: MapController
+  // protected _ruleController!: RuleController
+  // protected _mapController!: MapController
   private _horizontalPatternId!: Option<string>
   private _verticalPatternId!: Option<string>
 
@@ -77,35 +75,10 @@ export abstract class Thing extends Sprite {
     this._thingController = thingController
   }
 
-  public bindRuleController(ruleController: RuleController): void {
-    this._ruleController = ruleController
-  }
-
-  public async bindMapController(mapController: MapController): Promise<void> {
-    this._mapController = mapController
-    await this._mapController.update(this, MapUpdateSituation.APPEAR)
-  }
-
   public setup(options: Pick<ThingSetup, 'defaultBlockX' | 'defaultBlockY' | 'defaultTowards'>) {
     this.blockX = options.defaultBlockX
     this.blockY = options.defaultBlockY
     this.towards = options.defaultTowards
-  }
-
-  public get horizontalPatternId(): Option<string> {
-    return this._horizontalPatternId
-  }
-
-  public setHorizontalPatternId(patternId: string) {
-    this._horizontalPatternId = some(patternId)
-  }
-
-  public get verticalPatternId(): Option<string> {
-    return this._verticalPatternId
-  }
-
-  public setVerticalPatternId(patternId: string) {
-    this._verticalPatternId = some(patternId)
   }
 
   public get blockX(): number {
@@ -208,5 +181,3 @@ export abstract class Thing extends Sprite {
 
   public abstract handleLeave(visitor: Thing, visitorLeavesFrom: Direction): Promise<void>
 }
-
-
