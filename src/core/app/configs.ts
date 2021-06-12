@@ -16,7 +16,7 @@ export const defaultAppWidth = 33 * blockSize
 export const defaultAppHeight = 18 * blockSize
 
 export const appOptions = {
-  powerPreference: 'low-power', // when use production build, this should be set to 'high-performance'.
+  powerPreference: 'high-performance',
   width: defaultAppWidth,
   height: defaultAppHeight,
   autoDensity: true,
