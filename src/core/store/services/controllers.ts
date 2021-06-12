@@ -1,9 +1,9 @@
-import { InstructionDispatchServer } from '@/core/observer'
-import { RuleController } from '@/core/observer/rule'
-import { MapController } from '@/core/observer/map'
+import { InstructionDispatchServer } from '@/core/controllers/dispatcher'
+import { RuleController } from '@/core/controllers/rule'
+import { MapController } from '@/core/controllers/map'
 import { Edge } from '@/core/store/services/screen'
 
-export interface DispatchServerService {
+export interface ControllerService {
   setDispatchServer: (server: InstructionDispatchServer) => void
   getDispatchServer: () => InstructionDispatchServer
   initDispatchServer: () => void
@@ -15,7 +15,7 @@ export interface DispatchServerService {
   changeMapSize: (edge: Edge) => void
 }
 
-class DispatchServerServiceConcrete implements DispatchServerService {
+class ControllerServiceConcrete implements ControllerService {
   private _dispatchServer!: InstructionDispatchServer
   private _ruleController!: RuleController
   private _mapController!: MapController
@@ -57,6 +57,6 @@ class DispatchServerServiceConcrete implements DispatchServerService {
   }
 }
 
-export const createDispatchServerService = (): DispatchServerService => {
-  return new DispatchServerServiceConcrete()
+export const createControllerService = (): ControllerService => {
+  return new ControllerServiceConcrete()
 }

@@ -2,7 +2,7 @@ import { createContainerService } from './container'
 import { createCommandService } from './command'
 import { createSpriteService } from './sprite'
 import { createTextureService } from './texture'
-import { createDispatchServerService } from './dispatchServer'
+import { createControllerService } from './controllers'
 import { createScreenService } from './screen'
 import { createScannerService } from './scanner'
 import { createBuilderService } from './builder'
@@ -12,7 +12,7 @@ export const createServices = () => {
   const commandService = createCommandService()
   const spriteService = createSpriteService()
   const textureService = createTextureService()
-  const dispatchServerService = createDispatchServerService()
+  const controllerService = createControllerService()
   const screenService = createScreenService()
   const scannerService = createScannerService()
   const builderService = createBuilderService()
@@ -22,7 +22,7 @@ export const createServices = () => {
     commandService,
     spriteService,
     textureService,
-    dispatchServerService,
+    controllerService,
     screenService,
     scannerService,
     builderService

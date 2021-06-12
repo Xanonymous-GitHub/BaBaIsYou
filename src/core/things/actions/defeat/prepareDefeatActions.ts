@@ -1,8 +1,8 @@
 import { Thing } from '@/core/things'
-import { ThingController } from '@/core/observer'
-import { RuleController } from '@/core/observer/rule'
+import { RuleController } from '@/core/controllers/rule'
 import { PropertyType } from '@/core/types/properties'
-import { MapController, MapUpdateSituation } from '@/core/observer/map'
+import { MapController, MapUpdateSituation } from '@/core/controllers/map'
+import { ThingController } from '@/core/controllers/thing'
 
 export const prepareDefeatActions = async (visitor: Thing, ruleController: RuleController, thingController: ThingController, mapController: MapController) => {
   if (ruleController.$is(visitor, PropertyType.YOU)) {

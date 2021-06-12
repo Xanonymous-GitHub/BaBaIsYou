@@ -1,5 +1,5 @@
-import { MapController } from '@/core/observer/map'
-import { FeatureCondition, RuleController } from '@/core/observer/rule'
+import { MapController } from '@/core/controllers/map'
+import { FeatureCondition, RuleController } from '@/core/controllers/rule'
 import { ThingType } from '@/core/types'
 import { Species } from '@/core/resource'
 import { Direction } from '@/core/types/things'

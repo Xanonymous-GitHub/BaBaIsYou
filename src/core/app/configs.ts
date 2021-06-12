@@ -1,5 +1,5 @@
 import { IApplicationOptions } from 'pixi.js'
-import { getBlockSize } from '@/core/utils/screen'
+import { getBlockSize } from '@/core/app/screen'
 
 const blockSize = getBlockSize()
 

@@ -1,10 +1,10 @@
 import { Sprite, Texture } from 'pixi.js'
 import { Direction, ThingSetup } from '@/core/types/things'
-import { ThingController } from '@/core/observer'
 import { getUid } from '@/core/utils/uuid'
 import { Species } from '@/core/resource'
 import { none, Option } from 'fp-ts/es6/Option'
 import { generalHandleEncounterMixin } from '@/core/things/_mixins/handleEncounter'
+import { ThingController } from '@/core/controllers/thing'
 
 export class Thing extends Sprite {
   private readonly _id: string

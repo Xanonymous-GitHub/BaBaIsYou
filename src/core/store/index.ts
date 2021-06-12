@@ -3,16 +3,16 @@ import { ContainerService } from '@/core/store/services/container'
 import { CommandService, Command } from '@/core/store/services/command'
 import { SpriteService } from '@/core/store/services/sprite'
 import { TextureService } from '@/core/store/services/texture'
-import { DispatchServerService } from '@/core/store/services/dispatchServer'
+import { ControllerService } from '@/core/store/services/controllers'
 import { Application, Container, Sprite } from 'pixi.js'
 import { ResourceMap } from '@/core/resource'
 import { Species } from '@/core/resource'
-import { InstructionDispatchServer } from '@/core/observer'
-import { RuleController } from '@/core/observer/rule'
-import { MapController } from '@/core/observer/map'
+import { InstructionDispatchServer } from '@/core/controllers/dispatcher'
+import { RuleController } from '@/core/controllers/rule'
+import { MapController } from '@/core/controllers/map'
 import { Edge, ScreenService } from '@/core/store/services/screen'
 import { ScannerService } from '@/core/store/services/scanner'
-import { RuleScanner } from '@/core/utils/ruleScanner'
+import { RuleScanner } from '@/core/controllers/tools/ruleScanner'
 import { BuilderService } from '@/core/store/services/builder'
 import { StageBuilderConcrete } from '@/core/builders/stage'
 import { ContainerBuilderConcrete } from '@/core/builders/container'
@@ -58,7 +58,7 @@ const createTextureStore = (textureService: TextureService) => {
   }
 }
 
-const createDispatchServerStore = (dispatchServerService: DispatchServerService) => {
+const createDispatchServerStore = (dispatchServerService: ControllerService) => {
   return {
     setDispatchServer: (server: InstructionDispatchServer) => dispatchServerService.setDispatchServer(server),
     getDispatchServer: () => dispatchServerService.getDispatchServer(),
@@ -105,7 +105,7 @@ export const createGameStore = () => {
   const commandStore = createCommandStore(services.commandService)
   const spriteStore = createSpriteStore(services.spriteService)
   const textureStore = createTextureStore(services.textureService)
-  const dispatchServerStore = createDispatchServerStore(services.dispatchServerService)
+  const dispatchServerStore = createDispatchServerStore(services.controllerService)
   const screenStore = createScreenStore(services.screenService)
   const scannerStore = createScannerStore(services.scannerService)
   const builderStore = createBuilderStore(services.builderService)

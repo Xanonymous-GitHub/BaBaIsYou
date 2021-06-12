@@ -4,11 +4,11 @@ import { CreateThingTask, connectThingControllerTask } from '@/core/tasks/sprite
 import { isNone } from 'fp-ts/es6/Option'
 import { ThingSetup } from '@/core/types/things'
 import { Thing } from '@/core/things'
-import { getBlockSize } from '@/core/utils/screen'
+import { getBlockSize } from '@/core/app/screen'
 import { Species } from '@/core/resource'
-import { InstructionDispatchServer } from '@/core/observer'
-import { RuleController } from '@/core/observer/rule'
-import { MapController } from '@/core/observer/map'
+import { InstructionDispatchServer } from '@/core/controllers/dispatcher'
+import { RuleController } from '@/core/controllers/rule'
+import { MapController } from '@/core/controllers/map'
 
 export class SpriteBuilderConcrete extends Builder {
   constructor(store: GameStore) {

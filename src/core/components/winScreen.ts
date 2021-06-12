@@ -1,6 +1,6 @@
 import { Graphics, Container } from 'pixi.js'
 import { Edge } from '@/core/store/services/screen'
-import { getBlockSize } from '@/core/utils/screen'
+import { getBlockSize } from '@/core/app/screen'
 
 export const createWinScreen = (edge: Edge): Container => {
   const blockSize = getBlockSize()

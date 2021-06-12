@@ -3,9 +3,9 @@ import { Task } from './'
 import { Thing } from '@/core/things'
 import { Direction } from '@/core/types/things'
 import { ThingFactory } from '@/core/things/factory'
-import { createThingController } from '@/core/observer'
 import { Species } from '@/core/resource'
 import { GameStore } from '@/core/store'
+import { createThingController } from '@/core/controllers/thing'
 
 abstract class SpriteTask<T> implements Task<T> {
   public abstract execute(): Promise<T>;

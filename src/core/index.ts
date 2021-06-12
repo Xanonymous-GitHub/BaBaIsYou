@@ -4,12 +4,12 @@ import { createStageBuilder } from './builders/stage'
 import { createContainerBuilder } from './builders/container'
 import { createSpriteBuilder } from './builders/sprite'
 import { createResourceMap } from './resource'
-import { createInstructionDispatchServer } from './observer'
-import { createRuleController } from './observer/rule'
-import { createMapController } from './observer/map'
-import { createRuleScanner } from './utils/ruleScanner'
+import { createInstructionDispatchServer } from './controllers/dispatcher'
+import { createRuleController } from './controllers/rule'
+import { createMapController } from './controllers/map'
+import { createRuleScanner } from './controllers/tools/ruleScanner'
 import { RESOURCE_ROOT_PATH } from './app/configs'
-import { getSceneSetup } from './utils/sceneSetup'
+import { getSceneSetup } from './resource/sceneSetup'
 
 const app = createGameApp()
 const store = createGameStore()

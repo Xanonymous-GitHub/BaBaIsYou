@@ -8,7 +8,7 @@ import {
   prepareSinkActions,
   prepareWinActions
 } from '@/core/things/actions'
-import { ThingController } from '@/core/observer'
+import { ThingController } from '@/core/controllers/thing'
 
 export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing, visitorFrom: Direction, thingController: ThingController): Promise<boolean> => {
   const result = true
