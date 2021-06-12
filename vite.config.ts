@@ -6,8 +6,6 @@ import WindiCSS from 'vite-plugin-windicss'
 import compress from 'vite-plugin-compress'
 import { join } from 'path'
 
-const obfuscator = require('rollup-plugin-obfuscator')
-
 export default defineConfig({
   resolve: {
     alias: {
@@ -60,19 +58,7 @@ export default defineConfig({
             return 'core'
           }
         }
-      },
-      plugins: [
-        obfuscator({
-          globalOptions: {
-            log: false,
-            selfDefending: true,
-            disableConsoleOutput: true,
-            stringArray: true,
-            stringArrayEncoding: ['rc4'],
-            stringArrayIndexShift: true
-          }
-        })
-      ]
+      }
     }
   },
   esbuild: {
