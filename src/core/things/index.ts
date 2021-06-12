@@ -4,8 +4,9 @@ import { ThingController } from '@/core/observer'
 import { getUid } from '@/core/utils/uuid'
 import { Species } from '@/core/resource'
 import { none, Option } from 'fp-ts/es6/Option'
+import { generalHandleEncounterMixin } from '@/core/things/_mixins/handleEncounter'
 
-export abstract class Thing extends Sprite {
+export class Thing extends Sprite {
   private readonly _id: string
   private readonly _species: Species
   private _blockX: number // start from 0
@@ -15,8 +16,6 @@ export abstract class Thing extends Sprite {
   private readonly _blockSize: number
   private _towards: Direction
   protected _thingController!: ThingController
-  // protected _ruleController!: RuleController
-  // protected _mapController!: MapController
   private _horizontalPatternId!: Option<string>
   private _verticalPatternId!: Option<string>
 
@@ -175,9 +174,15 @@ export abstract class Thing extends Sprite {
     })
   }
 
-  public abstract handleEncounter(visitor: Thing, visitorFrom: Direction): Promise<boolean>
+  public handleBeside(visitor: Thing, visitorBeside: Direction): Promise<void> {
+    return Promise.resolve(undefined)
+  }
 
-  public abstract handleBeside(visitor: Thing, visitorBeside: Direction): Promise<void>
+  public async handleEncounter(visitor: Thing, visitorFrom: Direction): Promise<boolean> {
+    return await generalHandleEncounterMixin(this, visitor, visitorFrom, this._thingController)
+  }
 
-  public abstract handleLeave(visitor: Thing, visitorLeavesFrom: Direction): Promise<void>
+  public handleLeave(visitor: Thing, visitorLeavesFrom: Direction): Promise<void> {
+    return Promise.resolve(undefined)
+  }
 }
