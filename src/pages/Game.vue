@@ -12,6 +12,11 @@
          game-layer
          self-center'
     />
+    <WinText v-if='showWinText' class='
+      inline-block
+      absolute
+      abs-center'
+    />
   </div>
 </template>
 
@@ -19,11 +24,16 @@
   import { onMounted, ref } from 'vue'
   import GamePack from '@/core'
   import { GameResult } from '@/core/types'
+  import WinText from '@/components/WinText.vue'
 
   const gameLayer = ref<HTMLElement>({} as HTMLElement)
+  const showWinText = ref(false)
 
   const gameOver = async (result: GameResult) => {
-    console.log(result)
+    if (result === GameResult.WIN) {
+      showWinText.value = true
+      await new Promise() // DEBUG
+    }
   }
 
   const startGame = async () => {
@@ -47,5 +57,11 @@
     max-height: min-content;
     min-height: max-content;
     height: min-content;
+  }
+
+  .abs-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 </style>

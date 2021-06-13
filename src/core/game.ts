@@ -36,10 +36,10 @@ export const setGameOverOutsideHandler = (outsideHandler: (gameResult: GameResul
     // wait a little time to perform an import event feeling. (?
     await new Promise<void>(resolve => setTimeout(() => resolve(), 300))
 
-    // remove container on stage.
-    await stageBuilder.removeScene()
-
     // call outside layer.
     await outsideHandler(gameResult)
+
+    // remove container on stage.
+    await stageBuilder.removeScene()
   }
 }
