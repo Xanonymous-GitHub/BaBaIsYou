@@ -1,5 +1,5 @@
 import { Container, DisplayObject } from 'pixi.js'
-import { Task } from './'
+import { Task } from './index'
 
 abstract class StageTask<T> implements Task<T> {
   protected _stage!: Readonly<Container>
@@ -25,19 +25,15 @@ export class MountContainerToStageTask extends StageTask<void> {
   }
 }
 
-export class UnmountContainerFromStageTask extends StageTask<Readonly<Container>> {
+export class UnmountContainerFromStageTask extends StageTask<void> {
   public setArgs(stage: Readonly<Container>, container: Readonly<Container>): void {
     this._stage = stage
     this._container = container
   }
 
-  public async execute(): Promise<Readonly<Container>> {
-    return await new Promise<Readonly<Container>>((resolve, reject) => {
-      const unmountContainerFromStage = this._stage.removeChild(this._container as Container)
-      if (unmountContainerFromStage) {
-        resolve(unmountContainerFromStage)
-      }
-      reject(unmountContainerFromStage)
+  public async execute(): Promise<void> {
+    return await new Promise<void>(() => {
+      this._stage.removeChild(this._container as Container)
     })
   }
 }

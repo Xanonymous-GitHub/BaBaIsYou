@@ -1,5 +1,5 @@
 import { Texture } from 'pixi.js'
-import { Task } from './'
+import { Task } from './index'
 import { Thing } from '@/core/things'
 import { Direction } from '@/core/types/things'
 import { ThingFactory } from '@/core/things/factory'

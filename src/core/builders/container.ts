@@ -4,17 +4,17 @@ import { SceneSetup } from '@/core/types'
 import { Container } from 'pixi.js'
 import { isNone } from 'fp-ts/es6/Option'
 import { SpriteController } from './sprite'
-import { MountThingsToContainerTask, UnMountThingFromContainerTask } from '@/core/tasks/container'
+import { MountThingsToContainerTask, UnMountThingFromContainerTask } from '@/core/builders/tasks/container'
 import { createWinScreen } from '@/core/components/winScreen'
 import { Thing } from '@/core/things'
 
 export class ContainerBuilderConcrete extends Builder {
   private readonly _spriteController: SpriteController
-  private _gameScene: Readonly<Container> = new Container()
+  public gameScene: Readonly<Container> = new Container()
 
-  constructor(store: GameStore, spriteController: SpriteController) {
+  constructor(store: GameStore) {
     super(store)
-    this._spriteController = spriteController
+    this._spriteController = store.getSpriteBuilder()
   }
 
   public async createEmptyScene(): Promise<Readonly<Container>> {
@@ -47,7 +47,7 @@ export class ContainerBuilderConcrete extends Builder {
     mountTask.setArgs(sceneContainer, things)
     await mountTask.execute()
 
-    this._gameScene = sceneContainer
+    this.gameScene = sceneContainer
 
     return sceneContainer
   }
@@ -65,13 +65,13 @@ export class ContainerBuilderConcrete extends Builder {
 
   public async removeThingFromGameScene(target: Thing) {
     const removeTask = new UnMountThingFromContainerTask()
-    removeTask.setArgs(target, this._gameScene)
+    removeTask.setArgs(target, this.gameScene)
     await removeTask.execute()
   }
 }
 
-export const createContainerBuilder = (store: GameStore, spriteController: SpriteController) => {
-  return new ContainerBuilderConcrete(store, spriteController)
+export const createContainerBuilder = (store: GameStore) => {
+  return new ContainerBuilderConcrete(store)
 }
 
-export type ContainerController = ReturnType<typeof createContainerBuilder>
+export type ContainerBuilder = ReturnType<typeof createContainerBuilder>

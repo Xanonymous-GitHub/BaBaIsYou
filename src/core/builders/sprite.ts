@@ -1,6 +1,6 @@
 import { Builder } from './'
 import { GameStore } from '@/core/store'
-import { CreateThingTask, connectThingControllerTask } from '@/core/tasks/sprite'
+import { CreateThingTask, connectThingControllerTask } from '@/core/builders/tasks/sprite'
 import { isNone } from 'fp-ts/es6/Option'
 import { ThingSetup } from '@/core/types/things'
 import { Thing } from '@/core/things'

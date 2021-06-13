@@ -17,3 +17,15 @@ export interface SceneSetup {
   readonly sceneHeight: number
   readonly thingsMap: Map<{ species: Species, name: string }, Array<ThingSetup>>
 }
+
+export enum GameResult {
+  WIN = 'WIN',
+  LEAVE = 'LEAVE',
+  RESTART = 'RESTART'
+}
+
+export interface GameCore {
+  gameView: HTMLCanvasElement
+  startLevel: (setupFileName: string) => Promise<void>
+  // onOver: (handler: (gameResult: GameResult) => Promise<void>) => Promise<void>
+}

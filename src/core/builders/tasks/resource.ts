@@ -1,4 +1,4 @@
-import { Task } from './'
+import { Task } from './index'
 
 abstract class Resource<T> implements Task<T> {
   public abstract execute(): Promise<T>;

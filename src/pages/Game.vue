@@ -17,15 +17,22 @@
 
 <script setup lang='ts'>
   import { onMounted, ref } from 'vue'
-  import Game from '@/core'
+  import GamePack from '@/core'
 
   const gameLayer = ref<HTMLElement>({} as HTMLElement)
 
-  onMounted(async () => {
-    const GameAppView = await (async () => await Game)() as unknown as HTMLCanvasElement
+  const startGame = async () => {
+    const game = await (async () => await GamePack)()
+
+    await game.startLevel('demo.json')
+
     gameLayer.value.appendChild(
-      GameAppView
+      game.gameView
     )
+  }
+
+  onMounted(async () => {
+    await startGame()
   })
 </script>
 

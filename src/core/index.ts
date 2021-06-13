@@ -9,55 +9,42 @@ import { createRuleController } from './controllers/rule'
 import { createMapController } from './controllers/map'
 import { createRuleScanner } from './controllers/tools/ruleScanner'
 import { RESOURCE_ROOT_PATH } from './app/configs'
-import { getSceneSetup } from './resource/sceneSetup'
+import { GameCore } from '@/core/types'
+import { startLevel } from '@/core/game'
 
 const app = createGameApp()
-const store = createGameStore()
-const spriteController = createSpriteBuilder(store)
-const containerController = createContainerBuilder(store, spriteController)
-const stageController = createStageBuilder(store, app.stage, containerController)
+export const store = createGameStore()
 
-store.setStageBuilder(stageController)
-store.setContainerBuilder(containerController)
-store.setSpriteBuilder(spriteController)
-
-const RESOURCES_MAP = createResourceMap(RESOURCE_ROOT_PATH)
-
-// bind app to screen service.
 store.bindAppToScreenService(app)
 
-// add resource map.
+const spriteController = createSpriteBuilder(store)
+store.setSpriteBuilder(spriteController)
+
+const containerController = createContainerBuilder(store)
+store.setContainerBuilder(containerController)
+
+const stageController = createStageBuilder(store, app.stage)
+store.setStageBuilder(stageController)
+
+const RESOURCES_MAP = createResourceMap(RESOURCE_ROOT_PATH)
 store.addResourceMap(RESOURCES_MAP)
 
-// init dispatcher.
-store.setDispatchServer(createInstructionDispatchServer(store))
+const dispatcher = createInstructionDispatchServer(store)
+store.setDispatchServer(dispatcher)
+store.connectDispatchListener(dispatcher.commandListener)
 
-// connect dispatcher.
-store.connectDispatchListener(store.getDispatchServer().commandListener)
+const mapController = createMapController()
+store.setMapController(mapController)
 
-// init map controller.
-store.setMapController(createMapController())
+const ruleController = createRuleController(mapController)
+store.setRuleController(ruleController)
 
-// init rule controller.
-store.setRuleController(createRuleController(store.getMapController()))
+const scanner = createRuleScanner(ruleController, mapController)
+store.setScanner(scanner)
 
-// init rule scanner.
-store.setScanner(createRuleScanner(store.getRuleController(), store.getMapController()))
-
-// DEBUG
-const setupGame = async () => {
-  const TEST_SCENE = await getSceneSetup('demo.json')
-
-  stageController.addGameScene(TEST_SCENE).then(() => {
-    store.initDispatchServer()
-  })
-
-  // start listen keyboard event
-  store.initCommandWatchService()
+const gameCore: GameCore = {
+  gameView: app.view,
+  startLevel
 }
 
-setupGame().then()
-
-const appView = app.view
-
-export default new Promise($export => $export(appView))
+export default new Promise<GameCore>($export => $export(gameCore))
