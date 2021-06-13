@@ -13,7 +13,7 @@ specifiers:
   eslint: ^7.28.0
   eslint-config-prettier: ^8.3.0
   eslint-plugin-prettier: ^3.4.0
-  eslint-plugin-vue: ^7.11.0
+  eslint-plugin-vue: ^7.11.1
   fp-ts: ^2.10.5
   mousetrap: ^1.6.5
   pixi.js: ^6.0.4
@@ -48,7 +48,7 @@ devDependencies:
   eslint: 7.28.0
   eslint-config-prettier: 8.3.0_eslint@7.28.0
   eslint-plugin-prettier: 3.4.0_441ef98f5280b4c825fe505e43fc5698
-  eslint-plugin-vue: 7.11.0_eslint@7.28.0
+  eslint-plugin-vue: 7.11.1_eslint@7.28.0
   fp-ts: 2.10.5
   prettier: 2.3.1
   sass: 1.34.1
@@ -1536,8 +1536,8 @@ packages:
       prettier-linter-helpers: 1.0.0
     dev: true
 
-  /eslint-plugin-vue/7.11.0_eslint@7.28.0:
-    resolution: {integrity: sha512-Qwo8wilqnOXnG9B5auEiTstyaHefyhHd5lEhhxemwXoWsAxIW2yppzuVudowC5n+qn1nMLNV9TANkTthBK7Waw==}
+  /eslint-plugin-vue/7.11.1_eslint@7.28.0:
+    resolution: {integrity: sha512-lbw3vkEAGqYjqd1HpPFWHXtYaS8mILTJ5KOpJfRxO3Fo7o0wCf1zD7vSOasbm6nTA9xIgvZQ4VcyGIzQXxznHw==}
     engines: {node: '>=8.10'}
     peerDependencies:
       eslint: ^6.2.0 || ^7.0.0
