@@ -78,7 +78,8 @@ const createScreenStore = (screenService: ScreenService) => {
   return {
     setAppSize: (width: number, height: number) => screenService.setAppSize(width, height),
     getAppEdge: () => screenService.getAppEdge(),
-    bindAppToScreenService: (app: Application) => screenService.bindAppToScreenService(app)
+    bindAppToScreenService: (app: Application) => screenService.bindAppToScreenService(app),
+    getScreenSize: () => screenService.getScreenSize()
   }
 }
 
