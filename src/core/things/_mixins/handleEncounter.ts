@@ -13,10 +13,7 @@ import { ThingController } from '@/core/controllers/thing'
 export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing, visitorFrom: Direction, thingController: ThingController): Promise<boolean> => {
   const result = true
   const ruleController = thingController.store.getRuleController()
-
-  // DEBUG
-  console.log('Encounter subject = ' + subject.name)
-  console.log('Encounter visitor = ' + visitor.name)
+  const mapController = thingController.store.getMapController()
 
   // get YOU property status
   const subjectIsYou = ruleController.$is(subject, PropertyType.YOU)
@@ -42,10 +39,11 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
   // handle PUSH
   const isPush = ruleController.$is(subject, PropertyType.PUSH)
   if (isPush) {
-    if (await canBePushed(subject, thingController.store.getMapController(), visitorFrom)) {
+    if (await canBePushed(subject, mapController, visitorFrom)) {
       preparePushActions(subject, visitorFrom, thingController)
       return result
     }
+    return false
   }
 
   // handle SINK
@@ -64,11 +62,9 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
   if (subjectIsFloat === visitorIsFloat) {
     if (subjectIsDefeat && visitorIsYou) {
       await prepareDefeatActions(visitor, thingController)
-      return result
     }
     if (visitorIsDefeat && subjectIsYou) {
       await prepareDefeatActions(subject, thingController)
-      return result
     }
   }
 

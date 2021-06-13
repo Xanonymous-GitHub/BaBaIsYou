@@ -1,7 +1,4 @@
 import { Thing } from '@/core/things'
-import { RuleController } from '@/core/controllers/rule'
-import { PropertyType } from '@/core/types/properties'
-import { MapController, MapUpdateSituation } from '@/core/controllers/map'
 import { ThingController } from '@/core/controllers/thing'
 import { DisappearInstruction } from '@/core/instructions/existence'
 

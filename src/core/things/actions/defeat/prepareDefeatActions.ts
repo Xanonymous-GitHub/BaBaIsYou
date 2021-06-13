@@ -1,5 +1,4 @@
 import { Thing } from '@/core/things'
-import { PropertyType } from '@/core/types/properties'
 import { ThingController } from '@/core/controllers/thing'
 import { DisappearInstruction } from '@/core/instructions/existence'
 
@@ -8,5 +7,4 @@ export const prepareDefeatActions = async (destroyed: Thing, thingController: Th
   removeInstruction.setPriority(9999999990001)
   thingController.addNewInstruction(removeInstruction)
   thingController.pushInstructions()
-
 }
