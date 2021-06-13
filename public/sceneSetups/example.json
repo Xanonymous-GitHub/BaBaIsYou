@@ -1,6 +1,6 @@
 {
-  "id": "example_setup",
-  "name": "Example Setup",
+  "id": "example",
+  "name": "Example",
   "sceneWidth": 19,
   "sceneHeight": 15,
   "thingsMap": [

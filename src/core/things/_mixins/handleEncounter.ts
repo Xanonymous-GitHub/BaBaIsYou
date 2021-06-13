@@ -12,41 +12,66 @@ import { ThingController } from '@/core/controllers/thing'
 
 export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing, visitorFrom: Direction, thingController: ThingController): Promise<boolean> => {
   const result = true
+  const ruleController = thingController.store.getRuleController()
+
+  // DEBUG
+  console.log('Encounter subject = ' + subject.name)
+  console.log('Encounter visitor = ' + visitor.name)
+
+  // get YOU property status
+  const subjectIsYou = ruleController.$is(subject, PropertyType.YOU)
+  const visitorIsYou = ruleController.$is(visitor, PropertyType.YOU)
+
+  // get FLOAT property status
+  const subjectIsFloat = ruleController.$is(subject, PropertyType.FLOAT)
+  const visitorIsFloat = ruleController.$is(visitor, PropertyType.FLOAT)
 
   // handle STOP
-  const isStop = thingController.store.getRuleController().$is(subject, PropertyType.STOP)
+  const isStop = ruleController.$is(subject, PropertyType.STOP)
   if (isStop) return false
 
+  // handle WIN
+  const isWin = ruleController.$is(subject, PropertyType.WIN)
+  if (isWin) {
+    if (subjectIsFloat === visitorIsFloat) {
+      prepareWinActions(thingController)
+      return result
+    }
+  }
+
   // handle PUSH
-  const isPush = thingController.store.getRuleController().$is(subject, PropertyType.PUSH)
+  const isPush = ruleController.$is(subject, PropertyType.PUSH)
   if (isPush) {
     if (await canBePushed(subject, thingController.store.getMapController(), visitorFrom)) {
       preparePushActions(subject, visitorFrom, thingController)
       return result
-    } else {
-      return false
     }
   }
 
-  // handle WIN
-  const isWin = thingController.store.getRuleController().$is(subject, PropertyType.WIN)
-  if (isWin) {
-    prepareWinActions(thingController)
-    return result
+  // handle SINK
+  const subjectIsSink = ruleController.$is(subject, PropertyType.SINK)
+  const visitorIsSink = ruleController.$is(visitor, PropertyType.SINK)
+  if (subjectIsFloat === visitorIsFloat) {
+    if (subjectIsSink || visitorIsSink) {
+      await prepareSinkActions(subject, visitor, thingController)
+      return result
+    }
   }
 
   // handle DEFEAT
-  const isDefeat = thingController.store.getRuleController().$is(subject, PropertyType.DEFEAT)
-  if (isDefeat) {
-    await prepareDefeatActions(visitor, thingController)
-    return result
+  const subjectIsDefeat = ruleController.$is(subject, PropertyType.DEFEAT)
+  const visitorIsDefeat = ruleController.$is(visitor, PropertyType.DEFEAT)
+  if (subjectIsFloat === visitorIsFloat) {
+    if (subjectIsDefeat && visitorIsYou) {
+      await prepareDefeatActions(visitor, thingController)
+      return result
+    }
+    if (visitorIsDefeat && subjectIsYou) {
+      await prepareDefeatActions(subject, thingController)
+      return result
+    }
   }
 
-  // handle SINK
-  const isSink = thingController.store.getRuleController().$is(subject, PropertyType.SINK)
-  if (isSink) {
-    await prepareSinkActions(subject, visitor, thingController)
-    return result
-  }
+  // encounter empty block
   return result
 }
