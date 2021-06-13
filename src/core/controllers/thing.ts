@@ -54,7 +54,9 @@ class ThingControllerConcrete implements Observer {
 
   public async update(subject: Observable, command: Command): Promise<void> {
     // 1. when received a command, ask ruleController if self has privilege to execute this command. (am I 'YOU'?)
-    const isYou = this.store.getRuleController().$is(this._thing, PropertyType.YOU)
+    const isYou =
+      this.store.getRuleController().$is(this._thing, PropertyType.YOU) ||
+      this.store.getRuleController().$is(this._thing, PropertyType.YOU2)
     if (!isYou) return
 
     // 2. if could, check if there leaves any obstacles to perform this command.
