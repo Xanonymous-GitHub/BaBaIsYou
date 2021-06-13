@@ -84,17 +84,19 @@ export class Thing extends Sprite {
     const currentX = { x: this.x }
     const finalX = { x: (x + 0.5) * this._blockSize }
 
+    let animationId = 0
     const animate = (time: number) => {
-      requestAnimationFrame(animate)
+      animationId = requestAnimationFrame(animate)
       update(time)
     }
+
+    animationId = requestAnimationFrame(animate)
 
     new Tween(currentX).to(finalX, THING_MOVE_DURATION)
       .onUpdate(() => this.x = currentX.x)
       .easing(Easing.Quadratic.Out)
+      .onComplete(() => cancelAnimationFrame(animationId))
       .start()
-
-    requestAnimationFrame(animate)
   }
 
   public get blockY(): number {
@@ -106,17 +108,19 @@ export class Thing extends Sprite {
     const currentY = { y: this.y }
     const finalY = { y: (y + 0.5) * this._blockSize }
 
+    let animationId = 0
     const animate = (time: number) => {
-      requestAnimationFrame(animate)
+      animationId = requestAnimationFrame(animate)
       update(time)
     }
+
+    animationId = requestAnimationFrame(animate)
 
     new Tween(currentY).to(finalY, THING_MOVE_DURATION)
       .easing(Easing.Quadratic.Out)
       .onUpdate(() => this.y = currentY.y)
+      .onComplete(() => cancelAnimationFrame(animationId))
       .start()
-
-    requestAnimationFrame(animate)
   }
 
   public set towards(side: Direction) {
