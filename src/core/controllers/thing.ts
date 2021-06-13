@@ -104,10 +104,6 @@ class ThingControllerConcrete implements Observer {
     this.store.getDispatchServer().disableService()
   }
 
-  public win(): void {
-    this.store.getDispatchServer().win()
-  }
-
   public disconnect(): void {
     this.store.getDispatchServer().deleteObserver(this)
   }

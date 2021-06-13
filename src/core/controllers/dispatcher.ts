@@ -13,7 +13,6 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
   private _isActive = false
   private _pendingInstructions: PriorityQueue<Instruction>
   private _needScanRule = false
-  private _win = false
 
   public commandListener: Observer
 
@@ -68,14 +67,6 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
     this._needScanRule = true
   }
 
-  private async addWinScene() {
-    await this._store.getStageBuilder().addWinScene()
-  }
-
-  public win() {
-    this._win = true
-  }
-
   public async run() {
     if (!this._isActive || this._runningCommand) return
     const nextCommand = this._store.nextCommand()
@@ -94,10 +85,6 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
       this._needScanRule = false
     }
     this._setNotRunning()
-    if (this._win) {
-      await this.addWinScene()
-      this.disableService()
-    }
   }
 }
 

@@ -10,7 +10,7 @@ import { createMapController } from './controllers/map'
 import { createRuleScanner } from './controllers/tools/ruleScanner'
 import { RESOURCE_ROOT_PATH } from './app/configs'
 import { GameCore } from '@/core/types'
-import { startLevel } from '@/core/game'
+import { startLevel, setGameOverOutsideHandler } from '@/core/game'
 
 const app = createGameApp()
 export const store = createGameStore()
@@ -44,7 +44,8 @@ store.setScanner(scanner)
 
 const gameCore: GameCore = {
   gameView: app.view,
-  startLevel
+  startLevel,
+  setGameOverOutsideHandler
 }
 
 export default new Promise<GameCore>($export => $export(gameCore))

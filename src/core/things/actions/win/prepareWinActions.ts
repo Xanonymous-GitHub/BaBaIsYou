@@ -1,8 +1,11 @@
 import { ThingController } from '@/core/controllers/thing'
+import { CongratulationInstruction } from '@/core/instructions/gameOver'
+import { Thing } from '@/core/things'
 
-export const prepareWinActions = (thingController: ThingController) => {
-  thingController.win()
+export const prepareWinActions = (subject: Thing, thingController: ThingController) => {
+  const winInstruction = new CongratulationInstruction(subject, thingController.store)
+  winInstruction.setPriority(9999999999999)
 
-  // DEBUG
-  console.log('you win')
+  thingController.addNewInstruction(winInstruction)
+  thingController.pushInstructions()
 }

@@ -32,8 +32,9 @@ export class UnmountContainerFromStageTask extends StageTask<void> {
   }
 
   public async execute(): Promise<void> {
-    return await new Promise<void>(() => {
+    return await new Promise<void>(resolve => {
       this._stage.removeChild(this._container as Container)
+      resolve()
     })
   }
 }

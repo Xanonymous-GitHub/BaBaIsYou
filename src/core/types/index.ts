@@ -27,5 +27,5 @@ export enum GameResult {
 export interface GameCore {
   gameView: HTMLCanvasElement
   startLevel: (setupFileName: string) => Promise<void>
-  // onOver: (handler: (gameResult: GameResult) => Promise<void>) => Promise<void>
+  setGameOverOutsideHandler: (handler: (gameResult: GameResult) => Promise<void>) => void
 }

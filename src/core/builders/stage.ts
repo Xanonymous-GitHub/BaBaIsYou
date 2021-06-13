@@ -25,14 +25,6 @@ export class StageBuilderConcrete extends Builder {
     await mountTask.execute()
   }
 
-  public async addWinScene() {
-    // to be removed.
-    const scene = await this._containerBuilder.createWinScene()
-    const mountTask = new MountContainerToStageAtIndexTask()
-    mountTask.setArgs(this._stage, scene, 0)
-    await mountTask.execute()
-  }
-
   public async removeScene() {
     const targetScene = this._containerBuilder.gameScene
     const unMountTask = new UnmountContainerFromStageTask()

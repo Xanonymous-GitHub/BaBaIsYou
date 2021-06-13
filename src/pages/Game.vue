@@ -18,13 +18,19 @@
 <script setup lang='ts'>
   import { onMounted, ref } from 'vue'
   import GamePack from '@/core'
+  import { GameResult } from '@/core/types'
 
   const gameLayer = ref<HTMLElement>({} as HTMLElement)
+
+  const gameOver = async (result: GameResult) => {
+    console.log(result)
+  }
 
   const startGame = async () => {
     const game = await (async () => await GamePack)()
 
-    await game.startLevel('demo.json')
+    await game.setGameOverOutsideHandler(gameOver)
+    await game.startLevel('example.json')
 
     gameLayer.value.appendChild(
       game.gameView

@@ -5,7 +5,6 @@ import { Container } from 'pixi.js'
 import { isNone } from 'fp-ts/es6/Option'
 import { SpriteController } from './sprite'
 import { MountThingsToContainerTask, UnMountThingFromContainerTask } from '@/core/builders/tasks/container'
-import { createWinScreen } from '@/core/components/winScreen'
 import { Thing } from '@/core/things'
 
 export class ContainerBuilderConcrete extends Builder {
@@ -50,17 +49,6 @@ export class ContainerBuilderConcrete extends Builder {
     this.gameScene = sceneContainer
 
     return sceneContainer
-  }
-
-  public async createWinScene(): Promise<Readonly<Container>> {
-    let winScene!: Readonly<Container>
-    if (!this._store.hasContainerByName('win-scene')) {
-      winScene = createWinScreen(this._store.getAppEdge())
-    } else {
-      winScene = this._store.getContainerByName('win-scene')
-    }
-
-    return winScene
   }
 
   public async removeThingFromGameScene(target: Thing) {

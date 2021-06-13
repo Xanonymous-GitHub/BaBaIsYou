@@ -31,7 +31,7 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
   const isWin = ruleController.$is(subject, PropertyType.WIN)
   if (isWin) {
     if (subjectIsFloat === visitorIsFloat) {
-      prepareWinActions(thingController)
+      prepareWinActions(subject, thingController)
       return result
     }
   }
