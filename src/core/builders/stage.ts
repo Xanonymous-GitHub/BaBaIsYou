@@ -1,55 +1,40 @@
 import { Container } from 'pixi.js'
 import { SceneSetup } from '@/core/types'
-import { ContainerController } from './container'
+import { ContainerBuilder } from './container'
 import { GameStore } from '@/core/store'
 import { Builder } from './'
-import { MountContainerToStageAtIndexTask } from '@/core/tasks/stage'
+import { MountContainerToStageAtIndexTask, UnmountContainerFromStageTask } from '@/core/builders/tasks/stage'
 
 export class StageBuilderConcrete extends Builder {
   private readonly _stage: Container
-  private readonly _containerController: ContainerController
+  private readonly _containerBuilder: ContainerBuilder
 
-  constructor(store: GameStore, stage: Container, containerController: ContainerController) {
+  constructor(store: GameStore, stage: Container) {
     super(store)
     this._stage = stage
     this._stage.sortableChildren = true
-    this._containerController = containerController
+    this._containerBuilder = store.getContainerBuilder()
   }
 
   public async addGameScene(sceneSetup: SceneSetup) {
     this._store.setAppSize(sceneSetup.sceneWidth, sceneSetup.sceneHeight)
     this._store.changeMapSize(this._store.getAppEdge())
-    const scene = await this._containerController.createGameScene(sceneSetup)
-    const mountTask = new MountContainerToStageAtIndexTask()
-    mountTask.setArgs(this._stage, scene, 0)
-    await mountTask.execute()
-  }
-
-  public async addWinScene() {
-    const scene = await this._containerController.createWinScene()
+    const scene = await this._containerBuilder.createGameScene(sceneSetup)
     const mountTask = new MountContainerToStageAtIndexTask()
     mountTask.setArgs(this._stage, scene, 0)
     await mountTask.execute()
   }
 
   public async removeScene() {
-    // 1. check if the scene is already mounted on the stage.
-    // 2. check the index of the loading scene.
-    // 3. unmount the loading scene.
-    // 4. save the scene to store for future operations.
-  }
-
-  public async showScene() {
-
-  }
-
-  public async hideScene() {
-
+    const targetScene = this._containerBuilder.gameScene
+    const unMountTask = new UnmountContainerFromStageTask()
+    unMountTask.setArgs(this._stage, targetScene)
+    await unMountTask.execute()
   }
 }
 
-export const createStageBuilder = (store: GameStore, stage: Container, containerController: ContainerController) => {
-  return new StageBuilderConcrete(store, stage, containerController)
+export const createStageBuilder = (store: GameStore, stage: Container) => {
+  return new StageBuilderConcrete(store, stage)
 }
 
-export type StageController = ReturnType<typeof createStageBuilder>
+export type StageBuilder = ReturnType<typeof createStageBuilder>

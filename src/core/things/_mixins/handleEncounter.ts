@@ -16,8 +16,8 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
   const mapController = thingController.store.getMapController()
 
   // get YOU property status
-  const subjectIsYou = ruleController.$is(subject, PropertyType.YOU)
-  const visitorIsYou = ruleController.$is(visitor, PropertyType.YOU)
+  const subjectIsYou = ruleController.$is(subject, PropertyType.YOU) || ruleController.$is(subject, PropertyType.YOU2)
+  const visitorIsYou = ruleController.$is(visitor, PropertyType.YOU) || ruleController.$is(visitor, PropertyType.YOU2)
 
   // get FLOAT property status
   const subjectIsFloat = ruleController.$is(subject, PropertyType.FLOAT)
@@ -29,9 +29,9 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
 
   // handle WIN
   const isWin = ruleController.$is(subject, PropertyType.WIN)
-  if (isWin) {
+  if (isWin && visitorIsYou) {
     if (subjectIsFloat === visitorIsFloat) {
-      prepareWinActions(thingController)
+      prepareWinActions(subject, thingController)
       return result
     }
   }
