@@ -1,4 +1,3 @@
-import { GameStore } from '@/core/store'
 import { Thing } from '@/core/things'
 import { Observer } from '@/core/observer/observer'
 import { EmptyInstruction, Instruction } from '@/core/instructions'
@@ -9,25 +8,22 @@ import { Command, CommandType } from '@/core/store/services/command'
 import { PropertyType } from '@/core/types/properties'
 import { Direction } from '@/core/types/things'
 import move from '@/core/instructions/move'
+import { store } from '@/core'
 
 class ThingControllerConcrete implements Observer {
   public observeId: string
   private _instructions: Array<Instruction>
-  public readonly store: GameStore
   private readonly _thing: Thing
 
-  constructor(store: GameStore, thing: Thing) {
+  constructor(thing: Thing) {
     // generate observerId (uuid) for the Thing.
     this.observeId = getUid()
 
     // init instructions array
     this._instructions = []
 
-    // get store reference
-    this.store = store
-
     // save the Observable target and register self in for command notifications.
-    this.store.getDispatchServer().addObserver(this)
+    store.getDispatchServer().addObserver(this)
 
     // store the thing
     this._thing = thing
@@ -36,7 +32,7 @@ class ThingControllerConcrete implements Observer {
     this._thing.bindThingController(this)
 
     // put thing to map
-    this.store.getMapController().update(this._thing, MapUpdateSituation.APPEAR).then()
+    store.getMapController().update(this._thing, MapUpdateSituation.APPEAR).then()
   }
 
   public clearInstructions() {
@@ -48,19 +44,19 @@ class ThingControllerConcrete implements Observer {
   }
 
   public pushInstructions() {
-    this.store.getDispatchServer().addInstructions(this._instructions)
+    store.getDispatchServer().addInstructions(this._instructions)
     this.clearInstructions()
   }
 
   public async update(subject: Observable, command: Command): Promise<void> {
     // 1. when received a command, ask ruleController if self has privilege to execute this command. (am I 'YOU'?)
     const isYou =
-      this.store.getRuleController().$is(this._thing, PropertyType.YOU) ||
-      this.store.getRuleController().$is(this._thing, PropertyType.YOU2)
+      store.getRuleController().$is(this._thing, PropertyType.YOU) ||
+      store.getRuleController().$is(this._thing, PropertyType.YOU2)
     if (!isYou) return
 
     // 2. if could, check if there leaves any obstacles to perform this command.
-    const iCanEncounter = await this.store.getMapController().canIEncounter(this._thing, ((): Direction => {
+    const iCanEncounter = await store.getMapController().canIEncounter(this._thing, ((): Direction => {
       switch (command.value) {
         case CommandType.UP:
           return Direction.TOP
@@ -80,38 +76,38 @@ class ThingControllerConcrete implements Observer {
     let newInstruction: Instruction
     switch (command.value) {
       case CommandType.UP:
-        newInstruction = new move.MoveUpInstruction(this._thing, this.store)
+        newInstruction = new move.MoveUpInstruction(this._thing)
         break
       case CommandType.DOWN:
-        newInstruction = new move.MoveDownInstruction(this._thing, this.store)
+        newInstruction = new move.MoveDownInstruction(this._thing)
         break
       case CommandType.LEFT:
-        newInstruction = new move.MoveLeftInstruction(this._thing, this.store)
+        newInstruction = new move.MoveLeftInstruction(this._thing)
         break
       case CommandType.RIGHT:
-        newInstruction = new move.MoveRightInstruction(this._thing, this.store)
+        newInstruction = new move.MoveRightInstruction(this._thing)
         break
       default:
-        newInstruction = new EmptyInstruction(this._thing, this.store)
+        newInstruction = new EmptyInstruction(this._thing)
         break
     }
 
-    this.store.getDispatchServer().needScanRule()
+    store.getDispatchServer().needScanRule()
 
     this.addNewInstruction(newInstruction)
     this.pushInstructions()
   }
 
   public stopDispatcher(): void {
-    this.store.getDispatchServer().disableService()
+    store.getDispatchServer().disableService()
   }
 
   public disconnect(): void {
-    this.store.getDispatchServer().deleteObserver(this)
+    store.getDispatchServer().deleteObserver(this)
   }
 }
 
-export const createThingController = (store: GameStore, thing: Thing) => {
-  return new ThingControllerConcrete(store, thing)
+export const createThingController = (thing: Thing) => {
+  return new ThingControllerConcrete(thing)
 }
 export type ThingController = ReturnType<typeof createThingController>

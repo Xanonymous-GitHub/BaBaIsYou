@@ -1,14 +1,13 @@
 import { ObservableSubject } from '../observer/observable'
-import { GameStore } from '@/core/store'
 import { isNone, isSome, none, Option, some } from 'fp-ts/es6/Option'
 import { Instruction } from '@/core/instructions'
 import PriorityQueue from '@/core/data-structures/priorityQueue'
 import { Observer } from '@/core/observer/observer'
 import { getUid } from '@/core/utils/uuid'
+import { store } from '@/core'
 
 
 export class InstructionDispatchServerConcrete extends ObservableSubject {
-  private _store: GameStore
   private _runningCommand = false
   private _isActive = false
   private _pendingInstructions: PriorityQueue<Instruction>
@@ -16,9 +15,8 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
 
   public commandListener: Observer
 
-  constructor(store: GameStore) {
+  constructor() {
     super()
-    this._store = store
     this._pendingInstructions = new PriorityQueue<Instruction>()
     this.commandListener = {
       observeId: getUid(),
@@ -69,7 +67,7 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
 
   public async run() {
     if (!this._isActive || this._runningCommand) return
-    const nextCommand = this._store.nextCommand()
+    const nextCommand = store.nextCommand()
     if (isNone(nextCommand)) return
     this._setRunning()
     this.setChanged()
@@ -80,9 +78,9 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
       currentInstruction = this._nextInstruction()
     }
     if (this._needScanRule) {
-      this._store.getRuleController().refreshAll()
-      this._store.getScanner().findRulesFromMap(this._store.getAppEdge())
-      this._store.getRuleController().processImmediateChanges()
+      store.getRuleController().refreshAll()
+      store.getScanner().findRulesFromMap(store.getAppEdge())
+      store.getRuleController().processImmediateChanges()
       this._needScanRule = false
     }
     this._setNotRunning()
@@ -91,7 +89,7 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
 
 export type InstructionDispatchServer = InstructionDispatchServerConcrete
 
-export const createInstructionDispatchServer = (store: GameStore) => {
-  return new InstructionDispatchServerConcrete(store)
+export const createInstructionDispatchServer = () => {
+  return new InstructionDispatchServerConcrete()
 }
 

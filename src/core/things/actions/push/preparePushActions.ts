@@ -8,19 +8,19 @@ export const preparePushActions = (subject: Thing, visitorFrom: Direction, thing
   let newInstruction: Instruction
   switch (visitorFrom) {
     case Direction.TOP:
-      newInstruction = new move.MoveDownInstruction(subject, thingController.store)
+      newInstruction = new move.MoveDownInstruction(subject)
       break
     case Direction.DOWN:
-      newInstruction = new move.MoveUpInstruction(subject, thingController.store)
+      newInstruction = new move.MoveUpInstruction(subject)
       break
     case Direction.LEFT:
-      newInstruction = new move.MoveRightInstruction(subject, thingController.store)
+      newInstruction = new move.MoveRightInstruction(subject)
       break
     case Direction.RIGHT:
-      newInstruction = new move.MoveLeftInstruction(subject, thingController.store)
+      newInstruction = new move.MoveLeftInstruction(subject)
       break
     default:
-      newInstruction = new EmptyInstruction(subject, thingController.store)
+      newInstruction = new EmptyInstruction(subject)
       break
   }
   // thingController.pushInstruction(newInstruction)

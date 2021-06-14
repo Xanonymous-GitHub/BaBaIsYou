@@ -9,11 +9,12 @@ import {
   prepareWinActions
 } from '@/core/things/actions'
 import { ThingController } from '@/core/controllers/thing'
+import { store } from '@/core'
 
 export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing, visitorFrom: Direction, thingController: ThingController): Promise<boolean> => {
   const result = true
-  const ruleController = thingController.store.getRuleController()
-  const mapController = thingController.store.getMapController()
+  const ruleController = store.getRuleController()
+  const mapController = store.getMapController()
 
   // get YOU property status
   const subjectIsYou = ruleController.$is(subject, PropertyType.YOU) || ruleController.$is(subject, PropertyType.YOU2)

@@ -1,6 +1,5 @@
 import { Thing } from '../things'
 import { getUid } from '@/core/utils/uuid'
-import { GameStore } from '@/core/store'
 
 export interface Instruction {
   perform: () => Promise<void>
@@ -11,13 +10,11 @@ export interface Instruction {
 export abstract class RawInstruction implements Instruction {
   private readonly _id: string
   protected readonly _subject: Thing
-  protected readonly _store: GameStore
   private _priority?: number
 
-  constructor(subject: Thing, store: GameStore) {
+  constructor(subject: Thing) {
     this._id = getUid()
     this._subject = subject
-    this._store = store
   }
 
   public abstract perform(): Promise<void>

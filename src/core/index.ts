@@ -17,19 +17,19 @@ export const store = createGameStore()
 
 store.bindAppToScreenService(app)
 
-const spriteController = createSpriteBuilder(store)
+const spriteController = createSpriteBuilder()
 store.setSpriteBuilder(spriteController)
 
-const containerController = createContainerBuilder(store)
+const containerController = createContainerBuilder()
 store.setContainerBuilder(containerController)
 
-const stageController = createStageBuilder(store, app.stage)
+const stageController = createStageBuilder(app.stage)
 store.setStageBuilder(stageController)
 
 const RESOURCES_MAP = createResourceMap(RESOURCE_ROOT_PATH)
 store.addResourceMap(RESOURCES_MAP)
 
-const dispatcher = createInstructionDispatchServer(store)
+const dispatcher = createInstructionDispatchServer()
 store.setDispatchServer(dispatcher)
 store.connectDispatchListener(dispatcher.commandListener)
 

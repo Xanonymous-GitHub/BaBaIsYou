@@ -1,24 +1,22 @@
-import { GameStore } from '@/core/store'
-import { Builder } from './'
 import { SceneSetup } from '@/core/types'
 import { Container } from 'pixi.js'
 import { isNone } from 'fp-ts/es6/Option'
 import { SpriteController } from './sprite'
 import { MountThingsToContainerTask, UnMountThingFromContainerTask } from '@/core/builders/tasks/container'
 import { Thing } from '@/core/things'
+import { store } from '@/core'
 
-export class ContainerBuilderConcrete extends Builder {
+export class ContainerBuilderConcrete {
   private readonly _spriteController: SpriteController
   public gameScene: Readonly<Container> = new Container()
 
-  constructor(store: GameStore) {
-    super(store)
+  constructor() {
     this._spriteController = store.getSpriteBuilder()
   }
 
   public async createEmptyScene(): Promise<Readonly<Container>> {
     // find if there has any empty container.
-    const emptyContainerOption = this._store.getEmptyContainer()
+    const emptyContainerOption = store.getEmptyContainer()
     if (isNone(emptyContainerOption)) {
       return new Container()
     }
@@ -32,14 +30,14 @@ export class ContainerBuilderConcrete extends Builder {
 
     // bind receiver to receive commands.
     await this._spriteController.connectThingsToThingController(
-      this._store.getDispatchServer(),
-      this._store.getRuleController(),
-      this._store.getMapController(),
+      store.getDispatchServer(),
+      store.getRuleController(),
+      store.getMapController(),
       things
     )
 
     // set initial rules.
-    this._store.getScanner().findRulesFromMap(this._store.getAppEdge())
+    store.getScanner().findRulesFromMap(store.getAppEdge())
 
     // mount things to the container.
     const mountTask = new MountThingsToContainerTask()
@@ -58,8 +56,8 @@ export class ContainerBuilderConcrete extends Builder {
   }
 }
 
-export const createContainerBuilder = (store: GameStore) => {
-  return new ContainerBuilderConcrete(store)
+export const createContainerBuilder = () => {
+  return new ContainerBuilderConcrete()
 }
 
 export type ContainerBuilder = ReturnType<typeof createContainerBuilder>

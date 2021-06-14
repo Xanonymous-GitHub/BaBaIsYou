@@ -1,5 +1,3 @@
-import { Builder } from './'
-import { GameStore } from '@/core/store'
 import { CreateThingTask, connectThingControllerTask } from '@/core/builders/tasks/sprite'
 import { isNone } from 'fp-ts/es6/Option'
 import { ThingSetup } from '@/core/types/things'
@@ -9,12 +7,9 @@ import { Species } from '@/core/resource'
 import { InstructionDispatchServer } from '@/core/controllers/dispatcher'
 import { RuleController } from '@/core/controllers/rule'
 import { MapController } from '@/core/controllers/map'
+import { store } from '@/core'
 
-export class SpriteBuilderConcrete extends Builder {
-  constructor(store: GameStore) {
-    super(store)
-  }
-
+export class SpriteBuilderConcrete {
   public async getThings(thingSetupsMap: Map<{ species: Species, name: string }, Array<ThingSetup>>): Promise<Array<Thing>> {
     const wrappedThings: Array<Thing> = []
     for (const [{ species, name }, thingSetups] of thingSetupsMap) {
@@ -23,8 +18,8 @@ export class SpriteBuilderConcrete extends Builder {
       if (!thingAmountWeNeed) break
 
       // get existing Things from store. Because we specified the name, the sprite here must be a Thing.
-      const thingAmountInStore = this._store.getSpriteAmountByName(name)
-      const thingsOption = this._store.getSpritesByName(name, Math.min(thingAmountInStore, thingAmountWeNeed))
+      const thingAmountInStore = store.getSpriteAmountByName(name)
+      const thingsOption = store.getSpritesByName(name, Math.min(thingAmountInStore, thingAmountWeNeed))
       let things: Array<Thing> = []
       if (!isNone(thingsOption)) things = thingsOption.value as Array<Thing>
 
@@ -40,15 +35,15 @@ export class SpriteBuilderConcrete extends Builder {
         const spriteAmountToCreate = thingAmountWeNeed - thingAmountInStore
 
         // load the texture of this Thing
-        await this._store.loadResourcesByName(species, [name])
-        const textureOption = this._store.getTextureByName(name)
+        await store.loadResourcesByName(species, [name])
+        const textureOption = store.getTextureByName(name)
         if (isNone(textureOption)) throw new Error(`texture ${name} not load`)
         const texture = textureOption.value
 
         // call creation task to create Things and setup.
         const creationTask = new CreateThingTask()
         const blockSize = getBlockSize()
-        const { maxX, maxY } = this._store.getAppEdge()
+        const { maxX, maxY } = store.getAppEdge()
         for (let i = 0; i < spriteAmountToCreate; i++) {
           const options = thingSetups[currentSetupIndex++]
           creationTask.setArgs(
@@ -77,14 +72,14 @@ export class SpriteBuilderConcrete extends Builder {
   public async connectThingsToThingController(dispatchServer: InstructionDispatchServer, ruleController: RuleController, mapController: MapController, things: Array<Thing>): Promise<void> {
     const bindingTask = new connectThingControllerTask()
     for (const thing of things) {
-      bindingTask.setArgs(this._store, thing)
+      bindingTask.setArgs(thing)
       await bindingTask.execute()
     }
   }
 }
 
-export const createSpriteBuilder = (store: GameStore) => {
-  return new SpriteBuilderConcrete(store)
+export const createSpriteBuilder = () => {
+  return new SpriteBuilderConcrete()
 }
 
 export type SpriteController = ReturnType<typeof createSpriteBuilder>

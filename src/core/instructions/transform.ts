@@ -1,6 +1,7 @@
 import { RawInstruction } from '@/core/instructions/index'
 import { ThingType } from '@/core/types'
 import { none, Option, some, isNone, isSome } from 'fp-ts/es6/Option'
+import { store } from '@/core'
 
 export class TransformInstruction extends RawInstruction {
   private _newNames: Option<Array<ThingType>> = none
@@ -26,7 +27,7 @@ export class TransformInstruction extends RawInstruction {
     this._subject.name = this._newNames.value[0]
 
     // change subject texture
-    const newTexture = this._store.getTextureByName(this._newNames.value[0])
+    const newTexture = store.getTextureByName(this._newNames.value[0])
     if (isNone(newTexture)) throw new Error(`texture with name ${this._newNames.value[0]} does not exist`)
     this._subject.texture = newTexture.value
   }

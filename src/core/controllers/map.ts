@@ -224,7 +224,7 @@ class MapControllerConcrete implements MapController {
           if (!conditions) continue
 
           // push transform instructions
-          const transformInstruction = new TransformInstruction(thing, thing.thingController.store)
+          const transformInstruction = new TransformInstruction(thing)
           for (const condition of conditions) {
             console.log(thing.name)
             console.log(condition)

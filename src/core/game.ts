@@ -1,4 +1,4 @@
-import { store } from '@/core/index'
+import { store } from '@/core'
 import { getSceneSetup } from '@/core/resource/sceneSetup'
 import { GameResult } from '@/core/types'
 

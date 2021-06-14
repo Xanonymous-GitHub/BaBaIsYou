@@ -7,19 +7,9 @@ export const convertNounToCharacter = (noun: NounType): CharacterType => {
 }
 
 export const isCharacter = (thingType: ThingType): boolean => {
-  for (const name of Object.values(CharacterType)) {
-    if (name === thingType) {
-      return true
-    }
-  }
-  return false
+  return Object.values(CharacterType).includes(thingType as CharacterType)
 }
 
 export const isNoun = (thingType: ThingType): boolean => {
-  for (const name of Object.values(NounType)) {
-    if (name === thingType) {
-      return true
-    }
-  }
-  return false
+  return Object.values(NounType).includes(thingType as NounType)
 }

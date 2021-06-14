@@ -1,24 +1,22 @@
 import { Container } from 'pixi.js'
 import { SceneSetup } from '@/core/types'
 import { ContainerBuilder } from './container'
-import { GameStore } from '@/core/store'
-import { Builder } from './'
 import { MountContainerToStageAtIndexTask, UnmountContainerFromStageTask } from '@/core/builders/tasks/stage'
+import { store } from '@/core'
 
-export class StageBuilderConcrete extends Builder {
+export class StageBuilderConcrete {
   private readonly _stage: Container
   private readonly _containerBuilder: ContainerBuilder
 
-  constructor(store: GameStore, stage: Container) {
-    super(store)
+  constructor(stage: Container) {
     this._stage = stage
     this._stage.sortableChildren = true
     this._containerBuilder = store.getContainerBuilder()
   }
 
   public async addGameScene(sceneSetup: SceneSetup) {
-    this._store.setAppSize(sceneSetup.sceneWidth, sceneSetup.sceneHeight)
-    this._store.changeMapSize(this._store.getAppEdge())
+    store.setAppSize(sceneSetup.sceneWidth, sceneSetup.sceneHeight)
+    store.changeMapSize(store.getAppEdge())
     const scene = await this._containerBuilder.createGameScene(sceneSetup)
     const mountTask = new MountContainerToStageAtIndexTask()
     mountTask.setArgs(this._stage, scene, 0)
@@ -33,8 +31,8 @@ export class StageBuilderConcrete extends Builder {
   }
 }
 
-export const createStageBuilder = (store: GameStore, stage: Container) => {
-  return new StageBuilderConcrete(store, stage)
+export const createStageBuilder = (stage: Container) => {
+  return new StageBuilderConcrete(stage)
 }
 
 export type StageBuilder = ReturnType<typeof createStageBuilder>
