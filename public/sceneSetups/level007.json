@@ -1,8 +1,8 @@
 {
-  "id": "level7",
-  "name": "Level 7",
-  "sceneWidth": "24",
-  "sceneHeight": "14",
+  "id": "level007",
+  "name": "Level 0-7",
+  "sceneWidth": 24,
+  "sceneHeight": 14,
   "thingsMap": [
     {
       "species": "characters",
