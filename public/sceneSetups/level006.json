@@ -1,8 +1,8 @@
 {
-  "id": "level6",
-  "name": "Level 6",
-  "sceneWidth": "24",
-  "sceneHeight": "14",
+  "id": "level006",
+  "name": "Level 0-6",
+  "sceneWidth": 24,
+  "sceneHeight": 14,
   "thingsMap": [
     {
       "species": "characters",
