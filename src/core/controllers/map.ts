@@ -2,6 +2,9 @@ import { Direction } from '@/core/types/things'
 import { Thing } from '@/core/things'
 import { Edge } from '@/core/store/services/screen'
 import { isNone, isSome, none, Option, Some, some } from 'fp-ts/es6/Option'
+import { ThingType } from '@/core/types'
+import { FeatureCondition } from '@/core/controllers/rule'
+import { TransformInstruction } from '@/core/instructions/transform'
 
 export enum MapUpdateSituation {
   UP = 'up',
@@ -26,6 +29,7 @@ export interface MapController {
   notifyLeave: (subject: Thing, notifyDirections: Array<Direction>) => Promise<void>
   whoAreThere: (x: number, y: number) => Option<Array<Readonly<Thing>>>
   whoNearMe: (subject: Thing) => Neighbor
+  appendTransformInstructions: (changeFeatures: Map<ThingType, Array<FeatureCondition>>) => Promise<void>
   clean: () => void
   changeMapSize: (mapEdge: Edge) => void
 }
@@ -205,6 +209,31 @@ class MapControllerConcrete implements MapController {
         this._removeFromPosition(x - 1, y, subject)
         this._placeToPosition(x, y, subject)
         break
+    }
+  }
+
+  public async appendTransformInstructions(changeFeatures: Map<ThingType, Array<FeatureCondition>>): Promise<void> {
+    for (let x = 0; x <= this.maxX; x++) {
+      for (let y = 0; y <= this.maxY; y++) {
+        const block = this._gameMap[x][y]
+        if (isNone(block)) continue
+
+        for (const thing of block.value) {
+          // get conditions of thing
+          const conditions = changeFeatures.get(thing.name as ThingType)
+          if (!conditions) continue
+
+          // push transform instructions
+          const transformInstruction = new TransformInstruction(thing, thing.thingController.store)
+          for (const condition of conditions) {
+            console.log(thing.name)
+            console.log(condition)
+            transformInstruction.addTransformName(condition.feature)
+          }
+          transformInstruction.setPriority(9999999990001)
+          thing.thingController.pushInstructions()
+        }
+      }
     }
   }
 

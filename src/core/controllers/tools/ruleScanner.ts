@@ -7,7 +7,7 @@ import { NounType } from '@/core/types/nouns'
 import { OperatorType } from '@/core/types/operators'
 import { PropertyType } from '@/core/types/properties'
 import { isNone, isSome, none, Option, some } from 'fp-ts/es6/Option'
-import { convertNounToCharacter } from '@/core/utils/typeConverter'
+import { convertNounToCharacter } from '@/core/utils/thingType'
 import { Edge } from '@/core/store/services/screen'
 import { Thing } from '@/core/things'
 

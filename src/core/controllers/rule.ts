@@ -8,6 +8,7 @@ import { RulePattern } from '@/core/controllers/tools/ruleScanner'
 import { CharacterType } from '../types/characters'
 import { Species } from '@/core/resource'
 import { none, Option, some } from 'fp-ts/es6/Option'
+import { isNoun } from '@/core/utils/thingType'
 
 export interface FeatureCondition {
   feature: NounType | PropertyType
@@ -26,6 +27,7 @@ export interface RuleController {
   $is: (requester: Thing, requestedFeature: PropertyType) => boolean
   $has: (requester: Thing, requestedFeature: NounType) => boolean
   $make: (requester: Thing, requestedFeature: NounType) => boolean
+  processImmediateChanges: () => void
   getFeaturesOfThing: (thing: Thing, operator: OperatorType) => Option<Array<Readonly<FeatureCondition>>>
   addFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
   removeFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
@@ -67,6 +69,20 @@ class RuleControllerConcrete implements RuleController {
     for (const thing of thingsWillHaveDefaultRules) {
       this._features.set(thing, defaultFeatureList)
     }
+  }
+
+  public async processImmediateChanges(): Promise<void> {
+    // save only [Noun Is Noun] features
+    const changeFeatures = new Map<ThingType, Array<FeatureCondition>>()
+
+    // filter features to changeFeatures
+    this._features.forEach((featureList, thingType) => {
+      const newFeature = featureList._is.filter(condition => isNoun(condition.feature))
+      changeFeatures.set(thingType, newFeature)
+    })
+
+    // call mapController to add transform instructions
+    await this._mapController.appendTransformInstructions(changeFeatures)
   }
 
   public $is(requester: Thing, requestedFeature: PropertyType | NounType): boolean {
