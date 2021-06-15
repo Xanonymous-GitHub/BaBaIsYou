@@ -40,7 +40,7 @@
     const game = await (async () => await GamePack)()
 
     await game.setGameOverOutsideHandler(gameOver)
-    await game.startLevel('level102.json')
+    await game.startLevel('level005.json')
 
     gameLayer.value.appendChild(
       game.gameView
