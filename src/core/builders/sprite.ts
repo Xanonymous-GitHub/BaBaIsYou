@@ -1,16 +1,15 @@
 import { CreateThingTask, connectThingControllerTask } from '@/core/builders/tasks/sprite'
 import { isNone } from 'fp-ts/es6/Option'
-import { ThingSetup } from '@/core/types/things'
 import { Thing } from '@/core/things'
 import { getBlockSize } from '@/core/app/screen'
-import { Species } from '@/core/resource'
 import { InstructionDispatchServer } from '@/core/controllers/dispatcher'
 import { RuleController } from '@/core/controllers/rule'
 import { MapController } from '@/core/controllers/map'
 import { store } from '@/core'
+import { ThingSetupMap } from '@/core/types'
 
 export class SpriteBuilderConcrete {
-  public async getThings(thingSetupsMap: Map<{ species: Species, name: string }, Array<ThingSetup>>): Promise<Array<Thing>> {
+  public async getThings(thingSetupsMap: ThingSetupMap): Promise<Array<Thing>> {
     const wrappedThings: Array<Thing> = []
     for (const [{ species, name }, thingSetups] of thingSetupsMap) {
       // check we surely need some Things.

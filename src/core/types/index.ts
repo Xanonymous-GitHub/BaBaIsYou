@@ -9,13 +9,15 @@ export type ThingType = CharacterType | PropertyType | NounType | OperatorType
 
 export type Factor<T> = new(...args: Array<any>) => T;
 
+export type ThingSetupMap = Map<{ species: Species, name: string }, Array<ThingSetup>>
+
 
 export interface SceneSetup {
   readonly id: string
   readonly name: string
   readonly sceneWidth: number
   readonly sceneHeight: number
-  readonly thingsMap: Map<{ species: Species, name: string }, Array<ThingSetup>>
+  readonly thingsMap: ThingSetupMap
 }
 
 export enum GameResult {

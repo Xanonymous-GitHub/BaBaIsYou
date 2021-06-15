@@ -4,6 +4,8 @@ import { none, Option, some, isNone, isSome } from 'fp-ts/es6/Option'
 import { store } from '@/core'
 import { convertNounToCharacter, getSpeciesByThingType } from '@/core/utils/thingType'
 import { NounType } from '@/core/types/nouns'
+import { sleep } from '@/core/utils/time'
+import { THING_MOVE_DURATION } from '@/core/app/configs'
 
 export class TransformInstruction extends RawInstruction {
   private _thingTypes: Option<Array<ThingType>> = none
@@ -22,6 +24,9 @@ export class TransformInstruction extends RawInstruction {
 
     // cannot change 1 thing to multiple things yet, so we ignore instruction
     if (this._thingTypes.value.length > 1) return
+
+    // wait YOU finish move animations.
+    await sleep(THING_MOVE_DURATION)
 
     // change subject name
     const thingType = convertNounToCharacter(this._thingTypes.value[0] as NounType)

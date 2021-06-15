@@ -77,14 +77,13 @@ class RuleControllerConcrete implements RuleController {
     const changeFeatures = new Map<ThingType, Array<FeatureCondition>>()
 
     // filter features to changeFeatures
-    this._features.forEach((featureList, thingType) => {
+    this._features.forEach((featureList: FeatureList, thingType: ThingType) => {
       const newFeature = featureList._is.filter(condition => isNoun(condition.feature))
       changeFeatures.set(thingType, newFeature)
     })
 
     // call mapController to add transform instructions
     await this._mapController.appendTransformInstructions(changeFeatures)
-    await store.getDispatchServer().run()
   }
 
   public $is(requester: Thing, requestedFeature: PropertyType | NounType): boolean {

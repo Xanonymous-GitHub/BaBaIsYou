@@ -232,7 +232,6 @@ class MapControllerConcrete implements MapController {
           transformInstruction.setPriority(9999999990002)
           thing.thingController.addNewInstruction(transformInstruction)
           thing.thingController.pushInstructions()
-          // console.log('transform instructions pushed')
         }
       }
     }

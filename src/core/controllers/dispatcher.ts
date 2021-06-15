@@ -5,6 +5,8 @@ import PriorityQueue from '@/core/data-structures/priorityQueue'
 import { Observer } from '@/core/observer/observer'
 import { getUid } from '@/core/utils/uuid'
 import { store } from '@/core'
+import { sleep } from '@/core/utils/time'
+import { THING_MOVE_DURATION } from '@/core/app/configs'
 
 
 export class InstructionDispatchServerConcrete extends ObservableSubject {
@@ -21,7 +23,7 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
     this.commandListener = {
       observeId: getUid(),
       update: async () => {
-        await this.run()
+        await this._run()
       }
     }
   }
@@ -65,24 +67,29 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
     this._needScanRule = true
   }
 
-  public async run() {
+  private async _executeInstructions() {
+    let currentInstruction = this._nextInstruction()
+    while (isSome(currentInstruction)) {
+      await currentInstruction.value.perform()
+      currentInstruction = this._nextInstruction()
+    }
+  }
+
+  private async _run() {
     if (!this._isActive || this._runningCommand) return
     const nextCommand = store.nextCommand()
     if (isNone(nextCommand)) return
     this._setRunning()
     this.setChanged()
     await this.notifyObservers(nextCommand.value)
-    let currentInstruction = this._nextInstruction()
-    while (isSome(currentInstruction)) {
-      await currentInstruction.value.perform()
-      currentInstruction = this._nextInstruction()
-    }
+    await this._executeInstructions()
     if (this._needScanRule) {
       store.getRuleController().refreshAll()
       store.getScanner().findRulesFromMap(store.getAppEdge())
       await store.getRuleController().processImmediateChanges()
       this._needScanRule = false
     }
+    await this._executeInstructions()
     this._setNotRunning()
   }
 }

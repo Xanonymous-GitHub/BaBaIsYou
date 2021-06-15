@@ -1,6 +1,7 @@
 import { store } from '@/core'
 import { getSceneSetup } from '@/core/resource/sceneSetup'
 import { GameResult } from '@/core/types'
+import { sleep } from '@/core/utils/time'
 
 export const startLevel = async (setupFileName: string) => {
   const stageBuilder = store.getStageBuilder()
@@ -34,7 +35,7 @@ export const setGameOverOutsideHandler = (outsideHandler: (gameResult: GameResul
     store.disposeDispatchServer()
 
     // wait a little time to perform an import event feeling. (?
-    await new Promise<void>(resolve => setTimeout(() => resolve(), 300))
+    await sleep(300)
 
     // call outside layer.
     await outsideHandler(gameResult)
