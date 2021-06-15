@@ -9,6 +9,7 @@ import { CharacterType } from '../types/characters'
 import { Species } from '@/core/resource'
 import { none, Option, some } from 'fp-ts/es6/Option'
 import { isNoun } from '@/core/utils/thingType'
+import { store } from '@/core'
 
 export interface FeatureCondition {
   feature: NounType | PropertyType
@@ -27,7 +28,7 @@ export interface RuleController {
   $is: (requester: Thing, requestedFeature: PropertyType) => boolean
   $has: (requester: Thing, requestedFeature: NounType) => boolean
   $make: (requester: Thing, requestedFeature: NounType) => boolean
-  processImmediateChanges: () => void
+  processImmediateChanges: () => Promise<void>
   getFeaturesOfThing: (thing: Thing, operator: OperatorType) => Option<Array<Readonly<FeatureCondition>>>
   addFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
   removeFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
@@ -83,6 +84,7 @@ class RuleControllerConcrete implements RuleController {
 
     // call mapController to add transform instructions
     await this._mapController.appendTransformInstructions(changeFeatures)
+    await store.getDispatchServer().run()
   }
 
   public $is(requester: Thing, requestedFeature: PropertyType | NounType): boolean {
