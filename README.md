@@ -21,7 +21,6 @@ and go to project root, run `pnpm install`
 - host project after build: `pnpm run serve`
    
 ## Tasks
-[DEBUG] fix `TransformInstruction` (NOUN IS NOUN)
 [URGENT] 全圖掃描後偵測地圖上是否有 YOU
 [URGENT] SceneSetups
 [URGENT] `handleEncounter` Properties (HOT, MELT)
