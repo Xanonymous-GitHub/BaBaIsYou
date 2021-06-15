@@ -80,7 +80,7 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
     if (this._needScanRule) {
       store.getRuleController().refreshAll()
       store.getScanner().findRulesFromMap(store.getAppEdge())
-      store.getRuleController().processImmediateChanges()
+      await store.getRuleController().processImmediateChanges()
       this._needScanRule = false
     }
     this._setNotRunning()

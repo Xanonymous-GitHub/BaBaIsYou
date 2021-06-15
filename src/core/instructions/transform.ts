@@ -2,33 +2,36 @@ import { RawInstruction } from '@/core/instructions/index'
 import { ThingType } from '@/core/types'
 import { none, Option, some, isNone, isSome } from 'fp-ts/es6/Option'
 import { store } from '@/core'
+import { convertNounToCharacter, getSpeciesByThingType } from '@/core/utils/thingType'
+import { NounType } from '@/core/types/nouns'
 
 export class TransformInstruction extends RawInstruction {
-  private _newNames: Option<Array<ThingType>> = none
+  private _thingTypes: Option<Array<ThingType>> = none
 
   public addTransformName(name: ThingType): void {
-    if (isSome(this._newNames)) {
-      this._newNames.value.push(name)
+    if (isSome(this._thingTypes)) {
+      this._thingTypes.value.push(name)
     } else {
-      this._newNames = some([name])
+      this._thingTypes = some([name])
     }
   }
 
   public async perform() {
-    console.log('perform transform instruction')
-
     // ignore if instructions does not contain new names
-    if (isNone(this._newNames)) return
+    if (isNone(this._thingTypes)) return
 
     // cannot change 1 thing to multiple things yet, so we ignore instruction
-    if (this._newNames.value.length > 1) return
+    if (this._thingTypes.value.length > 1) return
 
     // change subject name
-    this._subject.name = this._newNames.value[0]
+    const thingType = convertNounToCharacter(this._thingTypes.value[0] as NounType)
+    this._subject.name = thingType as string
 
     // change subject texture
-    const newTexture = store.getTextureByName(this._newNames.value[0])
-    if (isNone(newTexture)) throw new Error(`texture with name ${this._newNames.value[0]} does not exist`)
-    this._subject.texture = newTexture.value
+    const species = getSpeciesByThingType(thingType)
+    await store.loadResourcesByName(species, [this._subject.name])
+    const textureOption = store.getTextureByName(this._subject.name)
+    if (isNone(textureOption)) throw new Error(`texture with name ${this._thingTypes.value[0]} does not exist`)
+    this._subject.texture = textureOption.value
   }
 }

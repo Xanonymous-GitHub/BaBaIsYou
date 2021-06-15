@@ -222,16 +222,17 @@ class MapControllerConcrete implements MapController {
           // get conditions of thing
           const conditions = changeFeatures.get(thing.name as ThingType)
           if (!conditions) continue
+          if (conditions.length === 0) continue
 
           // push transform instructions
           const transformInstruction = new TransformInstruction(thing)
           for (const condition of conditions) {
-            console.log(thing.name)
-            console.log(condition)
             transformInstruction.addTransformName(condition.feature)
           }
-          transformInstruction.setPriority(9999999990001)
+          transformInstruction.setPriority(9999999990002)
+          thing.thingController.addNewInstruction(transformInstruction)
           thing.thingController.pushInstructions()
+          // console.log('transform instructions pushed')
         }
       }
     }
