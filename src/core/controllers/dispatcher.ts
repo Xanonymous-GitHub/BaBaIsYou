@@ -5,8 +5,6 @@ import PriorityQueue from '@/core/data-structures/priorityQueue'
 import { Observer } from '@/core/observer/observer'
 import { getUid } from '@/core/utils/uuid'
 import { store } from '@/core'
-import { sleep } from '@/core/utils/time'
-import { THING_MOVE_DURATION } from '@/core/app/configs'
 
 
 export class InstructionDispatchServerConcrete extends ObservableSubject {
