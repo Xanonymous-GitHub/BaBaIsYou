@@ -13,7 +13,7 @@
     "pixi.js": "^6.0.4",
     "uuid": "^8.3.2",
     "vue": "^3.1.1",
-    "vue-router": "^4.0.8"
+    "vue-router": "^4.0.9"
   },
   "devDependencies": {
     "@types/mousetrap": "^1.6.8",
@@ -29,8 +29,8 @@
     "eslint-plugin-vue": "^7.11.1",
     "fp-ts": "^2.10.5",
     "prettier": "^2.3.1",
-    "sass": "^1.35.0",
-    "typescript": "^4.3.2",
+    "sass": "^1.35.1",
+    "typescript": "^4.3.3",
     "vite": "^2.3.7",
     "vite-plugin-compress": "^2.1.0",
     "vite-plugin-html": "^2.0.7",
