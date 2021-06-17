@@ -9,6 +9,15 @@ const routes: Array<RouteRecordRaw> = [
         '@/pages/Home.vue'
         )
   },
+
+  {
+    path: '/',
+    name: 'Level',
+    component: () =>
+      import(
+        '@/pages/Level.vue'
+        )
+  },
   {
     path: '/',
     name: 'Game',

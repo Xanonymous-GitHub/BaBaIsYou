@@ -7,7 +7,7 @@
       <img :src='babaBackgroundUrl' alt='' loading='lazy' class='w-full'>
     </header>
     <div class='w-30 sm:w-40 relative top-15/100 mx-auto'>
-      <router-link :to='{name: "Game"}'>
+      <router-link :to='{name: "Level"}'>
         <button type='button'
                 class='my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '>
           Start

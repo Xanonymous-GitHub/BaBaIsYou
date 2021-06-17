@@ -37,10 +37,13 @@
   }
 
   const startGame = async () => {
+    const setupFileName = localStorage.getItem('setupFileName')
+    if (!setupFileName) return
+
     const game = await (async () => await GamePack)()
 
     await game.setGameOverOutsideHandler(gameOver)
-    await game.startLevel('level107.json')
+    await game.startLevel(setupFileName.trim())
 
     gameLayer.value.appendChild(
       game.gameView
