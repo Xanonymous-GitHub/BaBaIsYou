@@ -3,7 +3,6 @@ import vue from '@vitejs/plugin-vue'
 import { minifyHtml } from 'vite-plugin-html'
 import legacy from '@vitejs/plugin-legacy'
 import WindiCSS from 'vite-plugin-windicss'
-import compress from 'vite-plugin-compress'
 import { join } from 'path'
 
 export default defineConfig({
@@ -29,10 +28,6 @@ export default defineConfig({
       removeAttributeQuotes: true,
       removeComments: true,
       removeEmptyAttributes: true
-    }),
-    compress({
-      brotli: false,
-      verbose: true
     })
   ],
   build: {

@@ -1,12 +1,12 @@
 <template>
   <div id='game-layer'
        class='
+       transform-gpu
         flex
         h-screen
         justify-center
         relative
-        dark:bg-gray-900
-        bg-white'>
+        bg-gray-900'>
     <div ref='gameLayer'
          class='
          game-layer
