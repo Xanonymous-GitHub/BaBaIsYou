@@ -2,9 +2,6 @@ import { CreateThingTask, connectThingControllerTask } from '@/core/builders/tas
 import { isNone } from 'fp-ts/es6/Option'
 import type { Thing } from '@/core/things'
 import { getBlockSize } from '@/core/app/screen'
-import type { InstructionDispatchServer } from '@/core/controllers/dispatcher'
-import type { RuleController } from '@/core/controllers/rule'
-import type { MapController } from '@/core/controllers/map'
 import { store } from '@/core'
 import type { ThingSetupMap } from '@/core/types'
 
@@ -68,7 +65,7 @@ export class SpriteBuilderConcrete {
     return wrappedThings
   }
 
-  public async connectThingsToThingController(dispatchServer: InstructionDispatchServer, ruleController: RuleController, mapController: MapController, things: Array<Thing>): Promise<void> {
+  public async connectThingsToThingController(things: Array<Thing>): Promise<void> {
     const bindingTask = new connectThingControllerTask()
     for (const thing of things) {
       bindingTask.setArgs(thing)

@@ -29,7 +29,7 @@ export abstract class RawInstruction implements Instruction {
 }
 
 export class EmptyInstruction extends RawInstruction {
-  public async perform() {
+  public override async perform() {
     return
   }
 }

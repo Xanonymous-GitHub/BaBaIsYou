@@ -19,7 +19,7 @@ export class TransformInstruction extends RawInstruction {
     }
   }
 
-  public async perform() {
+  public override async perform() {
     // ignore if instructions does not contain new names
     if (isNone(this._thingTypes)) return
 

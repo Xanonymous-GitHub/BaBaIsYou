@@ -5,7 +5,7 @@ import { store } from '@/core'
 import { sleep } from '@/core/utils/time'
 
 export class DisappearInstruction extends RawInstruction {
-  public async perform() {
+  public override async perform() {
     // wait until the subject has already encountered.
     await sleep(THING_MOVE_DURATION)
 

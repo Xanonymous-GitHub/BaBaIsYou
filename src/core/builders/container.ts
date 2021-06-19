@@ -29,12 +29,7 @@ export class ContainerBuilderConcrete {
     const things = await (this._spriteController.getThings(sceneSetup.thingsMap))
 
     // bind receiver to receive commands.
-    await this._spriteController.connectThingsToThingController(
-      store.getDispatchServer(),
-      store.getRuleController(),
-      store.getMapController(),
-      things
-    )
+    await this._spriteController.connectThingsToThingController(things)
 
     // set initial rules.
     store.getScanner().findRulesFromMap(store.getAppEdge())

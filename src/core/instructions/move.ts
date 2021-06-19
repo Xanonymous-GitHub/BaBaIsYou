@@ -4,7 +4,7 @@ import { MapUpdateSituation } from '@/core/controllers/map'
 import { store } from '@/core'
 
 export class MoveUpInstruction extends RawInstruction {
-  public async perform() {
+  public override async perform() {
     await store.getMapController().notifyLeave(this._subject, [
       Direction.LEFT,
       Direction.RIGHT,
@@ -21,7 +21,7 @@ export class MoveUpInstruction extends RawInstruction {
 }
 
 export class MoveDownInstruction extends RawInstruction {
-  public async perform() {
+  public override async perform() {
     await store.getMapController().notifyLeave(this._subject, [
       Direction.LEFT,
       Direction.RIGHT,
@@ -38,7 +38,7 @@ export class MoveDownInstruction extends RawInstruction {
 }
 
 export class MoveLeftInstruction extends RawInstruction {
-  public async perform() {
+  public override async perform() {
     await store.getMapController().notifyLeave(this._subject, [
       Direction.TOP,
       Direction.DOWN,
@@ -55,7 +55,7 @@ export class MoveLeftInstruction extends RawInstruction {
 }
 
 export class MoveRightInstruction extends RawInstruction {
-  public async perform() {
+  public override async perform() {
     await store.getMapController().notifyLeave(this._subject, [
       Direction.TOP,
       Direction.DOWN,
