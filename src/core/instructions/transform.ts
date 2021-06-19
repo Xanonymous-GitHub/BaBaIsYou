@@ -1,9 +1,10 @@
 import { RawInstruction } from '@/core/instructions/index'
-import { ThingType } from '@/core/types'
-import { none, Option, some, isNone, isSome } from 'fp-ts/es6/Option'
+import type { ThingType } from '@/core/types'
+import { none, some, isNone, isSome } from 'fp-ts/es6/Option'
+import type { Option } from 'fp-ts/es6/Option'
 import { store } from '@/core'
 import { convertNounToCharacter, getSpeciesByThingType } from '@/core/utils/thingType'
-import { NounType } from '@/core/types/nouns'
+import type { NounType } from '@/core/types/nouns'
 import { sleep } from '@/core/utils/time'
 import { THING_MOVE_DURATION } from '@/core/app/configs'
 

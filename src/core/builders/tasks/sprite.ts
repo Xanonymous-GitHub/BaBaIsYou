@@ -1,9 +1,9 @@
-import { Texture } from 'pixi.js'
-import { Task } from './index'
-import { Thing } from '@/core/things'
-import { Direction } from '@/core/types/things'
+import type { Texture } from 'pixi.js'
+import type { Task } from './index'
+import type { Thing } from '@/core/things'
+import type { Direction } from '@/core/types/things'
 import { ThingFactory } from '@/core/things/factory'
-import { Species } from '@/core/resource'
+import type { Species } from '@/core/resource'
 import { createThingController } from '@/core/controllers/thing'
 
 abstract class SpriteTask<T> implements Task<T> {

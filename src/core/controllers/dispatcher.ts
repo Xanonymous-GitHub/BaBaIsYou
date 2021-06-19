@@ -1,8 +1,9 @@
 import { ObservableSubject } from '../observer/observable'
-import { isNone, isSome, none, Option, some } from 'fp-ts/es6/Option'
-import { Instruction } from '@/core/instructions'
+import { isNone, isSome, none, some } from 'fp-ts/es6/Option'
+import type { Option } from 'fp-ts/es6/Option'
+import type { Instruction } from '@/core/instructions'
 import PriorityQueue from '@/core/data-structures/priorityQueue'
-import { Observer } from '@/core/observer/observer'
+import type { Observer } from '@/core/observer/observer'
 import { getUid } from '@/core/utils/uuid'
 import { store } from '@/core'
 

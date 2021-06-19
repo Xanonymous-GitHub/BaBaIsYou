@@ -1,6 +1,6 @@
-import { ThingController } from '@/core/controllers/thing'
+import type { ThingController } from '@/core/controllers/thing'
 import { CongratulationInstruction } from '@/core/instructions/gameOver'
-import { Thing } from '@/core/things'
+import type { Thing } from '@/core/things'
 
 export const prepareWinActions = (subject: Thing, thingController: ThingController) => {
   const winInstruction = new CongratulationInstruction(subject)

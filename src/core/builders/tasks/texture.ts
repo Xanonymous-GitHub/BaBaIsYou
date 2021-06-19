@@ -1,5 +1,5 @@
 import { Texture } from 'pixi.js'
-import { Task } from './index'
+import type { Task } from './index'
 
 abstract class TextureTask<T> implements Task<T> {
   public abstract execute(): Promise<T>;

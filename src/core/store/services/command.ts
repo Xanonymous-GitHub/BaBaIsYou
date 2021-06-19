@@ -2,9 +2,10 @@ import PriorityQueue from '@/core/data-structures/priorityQueue'
 import { MAX_COMMAND_AMOUNT, COMMAND_MIN_INTERVAL } from '@/core/app/configs'
 import { debounce } from '@/core/utils/debouncer'
 import mousetrap from 'mousetrap'
-import { none, Option, some } from 'fp-ts/es6/Option'
+import { none, some } from 'fp-ts/es6/Option'
+import type { Option } from 'fp-ts/es6/Option'
 import { ObservableSubject } from '@/core/observer/observable'
-import { Observer } from '@/core/observer/observer'
+import type { Observer } from '@/core/observer/observer'
 
 export enum CommandType {
   UP = 'up',

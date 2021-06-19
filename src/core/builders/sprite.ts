@@ -1,12 +1,12 @@
 import { CreateThingTask, connectThingControllerTask } from '@/core/builders/tasks/sprite'
 import { isNone } from 'fp-ts/es6/Option'
-import { Thing } from '@/core/things'
+import type { Thing } from '@/core/things'
 import { getBlockSize } from '@/core/app/screen'
-import { InstructionDispatchServer } from '@/core/controllers/dispatcher'
-import { RuleController } from '@/core/controllers/rule'
-import { MapController } from '@/core/controllers/map'
+import type { InstructionDispatchServer } from '@/core/controllers/dispatcher'
+import type { RuleController } from '@/core/controllers/rule'
+import type { MapController } from '@/core/controllers/map'
 import { store } from '@/core'
-import { ThingSetupMap } from '@/core/types'
+import type { ThingSetupMap } from '@/core/types'
 
 export class SpriteBuilderConcrete {
   public async getThings(thingSetupsMap: ThingSetupMap): Promise<Array<Thing>> {

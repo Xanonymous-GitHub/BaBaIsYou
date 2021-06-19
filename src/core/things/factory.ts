@@ -1,6 +1,6 @@
-import { Species } from '@/core/resource'
-import { Texture } from 'pixi.js'
-import { Direction } from '@/core/types/things'
+import type { Species } from '@/core/resource'
+import type { Texture } from 'pixi.js'
+import type { Direction } from '@/core/types/things'
 import { Thing } from './'
 
 export class ThingFactory {

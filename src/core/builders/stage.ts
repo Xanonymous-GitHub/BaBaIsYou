@@ -1,6 +1,6 @@
-import { Container } from 'pixi.js'
-import { SceneSetup } from '@/core/types'
-import { ContainerBuilder } from './container'
+import type { Container } from 'pixi.js'
+import type { SceneSetup } from '@/core/types'
+import type { ContainerBuilder } from './container'
 import { MountContainerToStageAtIndexTask, UnmountContainerFromStageTask } from '@/core/builders/tasks/stage'
 import { store } from '@/core'
 

@@ -1,5 +1,5 @@
-import { Container, DisplayObject } from 'pixi.js'
-import { Task } from './index'
+import type { Container, DisplayObject } from 'pixi.js'
+import type { Task } from './index'
 
 abstract class StageTask<T> implements Task<T> {
   protected _stage!: Readonly<Container>

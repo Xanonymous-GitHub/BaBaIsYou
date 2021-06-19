@@ -1,6 +1,6 @@
 import { store } from '@/core'
 import { getSceneSetup } from '@/core/resource/sceneSetup'
-import { GameResult } from '@/core/types'
+import type { GameResult } from '@/core/types'
 import { sleep } from '@/core/utils/time'
 
 export const startLevel = async (setupFileName: string) => {

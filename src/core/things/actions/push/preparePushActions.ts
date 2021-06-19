@@ -1,8 +1,9 @@
-import { EmptyInstruction, Instruction } from '@/core/instructions'
+import { EmptyInstruction } from '@/core/instructions'
+import type { Instruction } from '@/core/instructions'
 import { Direction } from '@/core/types/things'
 import move from '@/core/instructions/move'
-import { Thing } from '@/core/things'
-import { ThingController } from '@/core/controllers/thing'
+import type { Thing } from '@/core/things'
+import type { ThingController } from '@/core/controllers/thing'
 
 export const preparePushActions = (subject: Thing, visitorFrom: Direction, thingController: ThingController): void => {
   let newInstruction: Instruction

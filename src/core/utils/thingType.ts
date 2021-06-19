@@ -1,9 +1,9 @@
 import { CharacterType } from '@/core/types/characters'
 import { Species } from '@/core/resource'
 import { NounType } from '@/core/types/nouns'
-import { ThingType } from '@/core/types'
 import { OperatorType } from '@/core/types/operators'
 import { PropertyType } from '@/core/types/properties'
+import type { ThingType } from '@/core/types'
 
 export const convertNounToCharacter = (noun: NounType): CharacterType => {
   return noun.substr(5) as CharacterType

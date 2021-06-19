@@ -1,4 +1,4 @@
-import { Observable } from './observable'
+import type { Observable } from './observable'
 
 export interface Observer {
   update: (subject: Observable, ...args: any[]) => Promise<void>

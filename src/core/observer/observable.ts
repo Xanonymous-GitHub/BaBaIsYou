@@ -1,4 +1,4 @@
-import { Observer } from './observer'
+import type { Observer } from './observer'
 
 export interface Observable {
   addObserver: (observer: Observer) => void

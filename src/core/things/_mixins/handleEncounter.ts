@@ -1,5 +1,5 @@
-import { Thing } from '@/core/things'
-import { Direction } from '@/core/types/things'
+import type { Thing } from '@/core/things'
+import type { Direction } from '@/core/types/things'
 import { PropertyType } from '@/core/types/properties'
 import {
   canBePushed,
@@ -8,7 +8,7 @@ import {
   prepareSingleDestroyActions,
   prepareMutualDestroyActions
 } from '@/core/things/actions'
-import { ThingController } from '@/core/controllers/thing'
+import type { ThingController } from '@/core/controllers/thing'
 import { store } from '@/core'
 
 export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing, visitorFrom: Direction, thingController: ThingController): Promise<boolean> => {

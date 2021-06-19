@@ -1,7 +1,7 @@
-import { InstructionDispatchServer } from '@/core/controllers/dispatcher'
-import { RuleController } from '@/core/controllers/rule'
-import { MapController } from '@/core/controllers/map'
-import { Edge } from '@/core/store/services/screen'
+import type { InstructionDispatchServer } from '@/core/controllers/dispatcher'
+import type { RuleController } from '@/core/controllers/rule'
+import type { MapController } from '@/core/controllers/map'
+import type { Edge } from '@/core/store/services/screen'
 
 export interface ControllerService {
   setDispatchServer: (server: InstructionDispatchServer) => void

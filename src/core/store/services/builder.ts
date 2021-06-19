@@ -1,6 +1,6 @@
-import { StageBuilderConcrete } from '@/core/builders/stage'
-import { ContainerBuilderConcrete } from '@/core/builders/container'
-import { SpriteBuilderConcrete } from '@/core/builders/sprite'
+import type { StageBuilderConcrete } from '@/core/builders/stage'
+import type { ContainerBuilderConcrete } from '@/core/builders/container'
+import type { SpriteBuilderConcrete } from '@/core/builders/sprite'
 
 export interface BuilderService {
   setStageBuilder: (stageBuilder: StageBuilderConcrete) => void

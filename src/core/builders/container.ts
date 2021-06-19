@@ -1,9 +1,9 @@
-import { SceneSetup } from '@/core/types'
+import type { SceneSetup } from '@/core/types'
 import { Container } from 'pixi.js'
 import { isNone } from 'fp-ts/es6/Option'
-import { SpriteController } from './sprite'
+import type { SpriteController } from './sprite'
 import { MountThingsToContainerTask, UnMountThingFromContainerTask } from '@/core/builders/tasks/container'
-import { Thing } from '@/core/things'
+import type { Thing } from '@/core/things'
 import { store } from '@/core'
 
 export class ContainerBuilderConcrete {

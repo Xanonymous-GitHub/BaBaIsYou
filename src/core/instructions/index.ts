@@ -1,4 +1,4 @@
-import { Thing } from '../things'
+import type { Thing } from '../things'
 import { getUid } from '@/core/utils/uuid'
 
 export interface Instruction {

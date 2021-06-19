@@ -1,5 +1,5 @@
-import { Thing } from '@/core/things'
-import { ThingController } from '@/core/controllers/thing'
+import type { Thing } from '@/core/things'
+import type { ThingController } from '@/core/controllers/thing'
 import { DisappearInstruction } from '@/core/instructions/existence'
 
 export const prepareDefeatActions = async (destroyed: Thing, thingController: ThingController) => {

@@ -9,8 +9,8 @@ import { createRuleController } from './controllers/rule'
 import { createMapController } from './controllers/map'
 import { createRuleScanner } from './controllers/tools/ruleScanner'
 import { RESOURCE_ROOT_PATH } from './app/configs'
-import { GameCore } from '@/core/types'
 import { startLevel, setGameOverOutsideHandler } from '@/core/game'
+import type { GameCore } from '@/core/types'
 
 const app = createGameApp()
 export const store = createGameStore()

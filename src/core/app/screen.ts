@@ -1,5 +1,5 @@
 import { defaultAppHeight, defaultAppWidth } from '@/core/app/configs'
-import { Edge, ScreenSize } from '@/core/store/services/screen'
+import type { Edge, ScreenSize } from '@/core/store/services/screen'
 
 let appEdgeX = 0, appEdgeY = 0, screenWidth = 0, screenHeight = 0, blockSize = 0
 const stageEdgePercentage = 5 // unit: % in single side.

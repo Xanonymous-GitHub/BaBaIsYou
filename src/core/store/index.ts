@@ -1,23 +1,23 @@
 import { createServices } from '@/core/store/services'
-import { ContainerService } from '@/core/store/services/container'
-import { CommandService, Command } from '@/core/store/services/command'
-import { SpriteService } from '@/core/store/services/sprite'
-import { TextureService } from '@/core/store/services/texture'
-import { ControllerService } from '@/core/store/services/controllers'
-import { Application, Container, Sprite } from 'pixi.js'
-import { ResourceMap } from '@/core/resource'
-import { Species } from '@/core/resource'
-import { InstructionDispatchServer } from '@/core/controllers/dispatcher'
-import { RuleController } from '@/core/controllers/rule'
-import { MapController } from '@/core/controllers/map'
-import { Edge, ScreenService } from '@/core/store/services/screen'
-import { ScannerService } from '@/core/store/services/scanner'
-import { RuleScanner } from '@/core/controllers/tools/ruleScanner'
-import { BuilderService } from '@/core/store/services/builder'
-import { StageBuilderConcrete } from '@/core/builders/stage'
-import { ContainerBuilderConcrete } from '@/core/builders/container'
-import { SpriteBuilderConcrete } from '@/core/builders/sprite'
-import { Observer } from '@/core/observer/observer'
+import type { ContainerService } from '@/core/store/services/container'
+import type { CommandService, Command } from '@/core/store/services/command'
+import type { SpriteService } from '@/core/store/services/sprite'
+import type { TextureService } from '@/core/store/services/texture'
+import type { ControllerService } from '@/core/store/services/controllers'
+import type { Application, Container, Sprite } from 'pixi.js'
+import type { ResourceMap } from '@/core/resource'
+import type { Species } from '@/core/resource'
+import type { InstructionDispatchServer } from '@/core/controllers/dispatcher'
+import type { RuleController } from '@/core/controllers/rule'
+import type { MapController } from '@/core/controllers/map'
+import type { Edge, ScreenService } from '@/core/store/services/screen'
+import type { ScannerService } from '@/core/store/services/scanner'
+import type { RuleScanner } from '@/core/controllers/tools/ruleScanner'
+import type { BuilderService } from '@/core/store/services/builder'
+import type { StageBuilderConcrete } from '@/core/builders/stage'
+import type { ContainerBuilderConcrete } from '@/core/builders/container'
+import type { SpriteBuilderConcrete } from '@/core/builders/sprite'
+import type { Observer } from '@/core/observer/observer'
 
 const createContainerStore = (containerService: ContainerService) => {
   return {
@@ -124,5 +124,3 @@ export const createGameStore = () => {
     ...builderStore
   }
 }
-
-export type GameStore = ReturnType<typeof createGameStore>

@@ -1,6 +1,7 @@
-import { Container } from 'pixi.js'
+import type { Container } from 'pixi.js'
 import { getUid } from '@/core/utils/uuid'
-import { none, Option, some } from 'fp-ts/es6/Option'
+import { none, some } from 'fp-ts/es6/Option'
+import type { Option } from 'fp-ts/es6/Option'
 
 
 export interface ContainerPackage {

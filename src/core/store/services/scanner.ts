@@ -1,4 +1,4 @@
-import { RuleScanner } from '@/core/controllers/tools/ruleScanner'
+import type { RuleScanner } from '@/core/controllers/tools/ruleScanner'
 
 export interface ScannerService {
   setScanner: (scanner: RuleScanner) => void

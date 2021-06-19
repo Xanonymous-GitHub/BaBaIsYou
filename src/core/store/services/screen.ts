@@ -1,4 +1,4 @@
-import { Application } from 'pixi.js'
+import type { Application } from 'pixi.js'
 import { getBlockSize } from '@/core/app/screen'
 
 export interface Edge {

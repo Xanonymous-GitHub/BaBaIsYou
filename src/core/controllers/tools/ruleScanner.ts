@@ -1,15 +1,16 @@
-import { MapController } from '@/core/controllers/map'
-import { FeatureCondition, RuleController } from '@/core/controllers/rule'
-import { ThingType } from '@/core/types'
+import type { MapController } from '@/core/controllers/map'
+import type { FeatureCondition, RuleController } from '@/core/controllers/rule'
+import type { ThingType } from '@/core/types'
 import { Species } from '@/core/resource'
 import { Direction } from '@/core/types/things'
 import { NounType } from '@/core/types/nouns'
 import { OperatorType } from '@/core/types/operators'
 import { PropertyType } from '@/core/types/properties'
-import { isNone, isSome, none, Option, some } from 'fp-ts/es6/Option'
+import { isNone, isSome, none, some } from 'fp-ts/es6/Option'
+import type { Option } from 'fp-ts/es6/Option'
 import { convertNounToCharacter } from '@/core/utils/thingType'
-import { Edge } from '@/core/store/services/screen'
-import { Thing } from '@/core/things'
+import type { Edge } from '@/core/store/services/screen'
+import type { Thing } from '@/core/things'
 
 export interface RulePattern {
   primaryCharacters: Option<Array<NounType>>

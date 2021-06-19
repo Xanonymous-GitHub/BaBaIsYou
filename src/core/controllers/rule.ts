@@ -1,15 +1,15 @@
-import { Thing } from '@/core/things'
+import type { Thing } from '@/core/things'
 import { PropertyType } from '@/core/types/properties'
 import { NounType } from '@/core/types/nouns'
 import { OperatorType } from '@/core/types/operators'
-import { ThingType } from '@/core/types'
-import { MapController } from '@/core/controllers/map'
-import { RulePattern } from '@/core/controllers/tools/ruleScanner'
-import { CharacterType } from '../types/characters'
+import type { ThingType } from '@/core/types'
+import type { MapController } from '@/core/controllers/map'
+import type { RulePattern } from '@/core/controllers/tools/ruleScanner'
+import type { CharacterType } from '../types/characters'
 import { Species } from '@/core/resource'
-import { none, Option, some } from 'fp-ts/es6/Option'
+import { none, some } from 'fp-ts/es6/Option'
+import type { Option } from 'fp-ts/es6/Option'
 import { isNoun } from '@/core/utils/thingType'
-import { store } from '@/core'
 
 export interface FeatureCondition {
   feature: NounType | PropertyType

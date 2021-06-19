@@ -1,9 +1,10 @@
 import { Direction } from '@/core/types/things'
-import { Thing } from '@/core/things'
-import { Edge } from '@/core/store/services/screen'
-import { isNone, isSome, none, Option, Some, some } from 'fp-ts/es6/Option'
-import { ThingType } from '@/core/types'
-import { FeatureCondition } from '@/core/controllers/rule'
+import type { Thing } from '@/core/things'
+import type { Edge } from '@/core/store/services/screen'
+import { isNone, isSome, none, some } from 'fp-ts/es6/Option'
+import type { Option, Some } from 'fp-ts/es6/Option'
+import type { ThingType } from '@/core/types'
+import type { FeatureCondition } from '@/core/controllers/rule'
 import { TransformInstruction } from '@/core/instructions/transform'
 
 export enum MapUpdateSituation {

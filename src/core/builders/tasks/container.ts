@@ -1,6 +1,6 @@
-import { Container, Sprite } from 'pixi.js'
-import { Task } from './index'
-import { Thing } from '@/core/things'
+import type { Container, Sprite } from 'pixi.js'
+import type { Task } from './index'
+import type { Thing } from '@/core/things'
 
 abstract class ContainerTask<T> implements Task<T> {
   public abstract execute(): Promise<T>;

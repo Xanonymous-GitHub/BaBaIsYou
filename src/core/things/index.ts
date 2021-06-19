@@ -1,11 +1,12 @@
-import { Sprite, Texture } from 'pixi.js'
-import { Direction, ThingSetup } from '@/core/types/things'
+import { Sprite } from 'pixi.js'
+import type { Texture } from 'pixi.js'
+import type { Direction, ThingSetup } from '@/core/types/things'
 import { getUid } from '@/core/utils/uuid'
-import { Species } from '@/core/resource'
+import type { Species } from '@/core/resource'
 import { generalHandleEncounterMixin } from '@/core/things/_mixins/handleEncounter'
-import { ThingController } from '@/core/controllers/thing'
 import { Tween, update, Easing } from '@tweenjs/tween.js'
 import { THING_MOVE_DURATION } from '@/core/app/configs'
+import type { ThingController } from '@/core/controllers/thing'
 
 export class Thing extends Sprite {
   private readonly _id: string

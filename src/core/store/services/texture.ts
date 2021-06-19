@@ -1,7 +1,9 @@
-import { Loader, Texture } from 'pixi.js'
-import { ResourceMap } from '@/core/resource'
-import { none, Option, some } from 'fp-ts/es6/Option'
-import { Species } from '@/core/resource'
+import { Loader } from 'pixi.js'
+import type { Texture } from 'pixi.js'
+import type { ResourceMap } from '@/core/resource'
+import { none, some } from 'fp-ts/es6/Option'
+import type { Option } from 'fp-ts/es6/Option'
+import type { Species } from '@/core/resource'
 
 export interface TextureService {
   addResourceMap: (resourceMap: ResourceMap) => void
