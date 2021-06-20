@@ -27,9 +27,16 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
   const isSameFloatStatus = Boolean(subjectIsFloat === visitorIsFloat)
 
   // handle WIN
-  const isWin = ruleController.$is(subject, PropertyType.WIN)
-  if (isWin && visitorIsYou) {
-    if (subjectIsFloat === visitorIsFloat) {
+  const subjectIsWin = ruleController.$is(subject, PropertyType.WIN)
+  const visitorIsWin = ruleController.$is(visitor, PropertyType.WIN)
+
+  if ((subjectIsYou && subjectIsWin) || (visitorIsYou && visitorIsWin)) {
+    prepareWinActions(subject, thingController)
+    return result
+  }
+
+  if (subjectIsFloat === visitorIsFloat) {
+    if ((subjectIsWin && visitorIsYou) || (visitorIsWin && subjectIsYou)) {
       prepareWinActions(subject, thingController)
       return result
     }
@@ -80,10 +87,10 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
   }
 
   // handle DEFEAT
-  if (isSameFloatStatus) {
-    const subjectIsDefeat = ruleController.$is(subject, PropertyType.DEFEAT)
-    const visitorIsDefeat = ruleController.$is(visitor, PropertyType.DEFEAT)
+  const subjectIsDefeat = ruleController.$is(subject, PropertyType.DEFEAT)
+  const visitorIsDefeat = ruleController.$is(visitor, PropertyType.DEFEAT)
 
+  if (isSameFloatStatus) {
     if (subjectIsDefeat && visitorIsYou) {
       await prepareSingleDestroyActions(visitor, thingController)
       return result
@@ -95,23 +102,19 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
   }
 
   // handle HOT and MELT
-  if (isSameFloatStatus) {
-    const subjectIsHot = ruleController.$is(subject, PropertyType.HOT)
-    const visitorIsHot = ruleController.$is(visitor, PropertyType.HOT)
+  const subjectIsHot = ruleController.$is(subject, PropertyType.HOT)
+  const visitorIsHot = ruleController.$is(visitor, PropertyType.HOT)
+  const subjectIsMelt = ruleController.$is(subject, PropertyType.MELT)
+  const visitorIsMelt = ruleController.$is(visitor, PropertyType.MELT)
 
-    if (subjectIsHot) {
-      const visitorIsMelt = ruleController.$is(visitor, PropertyType.MELT)
-      if (visitorIsMelt) {
-        await prepareSingleDestroyActions(visitor, thingController)
-        return result
-      }
+  if (isSameFloatStatus) {
+    if (subjectIsHot && visitorIsMelt) {
+      await prepareSingleDestroyActions(visitor, thingController)
+      return result
     }
-    if (visitorIsHot) {
-      const subjectIsMelt = ruleController.$is(subject, PropertyType.MELT)
-      if (subjectIsMelt) {
-        await prepareSingleDestroyActions(subject, thingController)
-        return result
-      }
+    if (visitorIsHot && subjectIsMelt) {
+      await prepareSingleDestroyActions(subject, thingController)
+      return result
     }
   }
 
