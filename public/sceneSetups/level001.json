@@ -6,6 +6,90 @@
   "thingsMap": [
     {
       "species": "characters",
+      "name": "GRASS",
+      "thingSetup": [
+        {
+          "defaultBlockX": 1,
+          "defaultBlockY": 8,
+          "textureName": "GRASS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 2,
+          "defaultBlockY": 9,
+          "textureName": "GRASS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 2,
+          "defaultBlockY": 15,
+          "textureName": "GRASS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 7,
+          "defaultBlockY": 1,
+          "textureName": "GRASS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 17,
+          "defaultBlockY": 3,
+          "textureName": "GRASS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 18,
+          "defaultBlockY": 4,
+          "textureName": "GRASS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 19,
+          "defaultBlockY": 16,
+          "textureName": "GRASS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 20,
+          "defaultBlockY": 7,
+          "textureName": "GRASS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 20,
+          "defaultBlockY": 7,
+          "textureName": "GRASS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 20,
+          "defaultBlockY": 13,
+          "textureName": "GRASS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 21,
+          "defaultBlockY": 12,
+          "textureName": "GRASS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 21,
+          "defaultBlockY": 13,
+          "textureName": "GRASS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 22,
+          "defaultBlockY": 2,
+          "textureName": "GRASS",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "characters",
       "name": "TILE",
       "thingSetup": [
         {

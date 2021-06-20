@@ -6,6 +6,102 @@
   "thingsMap": [
     {
       "species": "characters",
+      "name": "TILE",
+      "thingSetup": [
+        {
+          "defaultBlockX": 1,
+          "defaultBlockY": 9,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 2,
+          "defaultBlockY": 2,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 2,
+          "defaultBlockY": 9,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 4,
+          "defaultBlockY": 14,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 5,
+          "defaultBlockY": 3,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 5,
+          "defaultBlockY": 4,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 5,
+          "defaultBlockY": 16,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 8,
+          "defaultBlockY": 1,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 18,
+          "defaultBlockY": 3,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 18,
+          "defaultBlockY": 15,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 18,
+          "defaultBlockY": 16,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 19,
+          "defaultBlockY": 4,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 19,
+          "defaultBlockY": 15,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 21,
+          "defaultBlockY": 9,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 22,
+          "defaultBlockY": 2,
+          "textureName": "TILE",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "characters",
       "name": "GRASS",
       "thingSetup": [
         {
