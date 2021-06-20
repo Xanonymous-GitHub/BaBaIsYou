@@ -49,6 +49,10 @@ const gameLevels: Array<Level> = [
     setupFileName: 'level1a.json'
   },
   {
+    name: '1-B',
+    setupFileName: 'level1b.json'
+  },
+  {
     name: '2-2',
     setupFileName: 'level202.json'
   },
