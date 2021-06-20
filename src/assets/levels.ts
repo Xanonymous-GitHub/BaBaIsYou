@@ -5,48 +5,56 @@ export interface Level {
 
 const gameLevels: Array<Level> = [
   {
-    name: '001',
+    name: '0-1',
     setupFileName: 'level001.json'
   },
   {
-    name: '002',
+    name: '0-2',
     setupFileName: 'level002.json'
   },
   {
-    name: '003',
+    name: '0-3',
     setupFileName: 'level003.json'
   },
   {
-    name: '004',
+    name: '0-4',
     setupFileName: 'level004.json'
   },
   {
-    name: '005',
+    name: '0-5',
     setupFileName: 'level005.json'
   },
   {
-    name: '006',
+    name: '0-6',
     setupFileName: 'level006.json'
   },
   {
-    name: '007',
+    name: '0-7',
     setupFileName: 'level007.json'
   },
   {
-    name: '102',
+    name: '1-2',
     setupFileName: 'level102.json'
   },
   {
-    name: '104',
+    name: '1-4',
     setupFileName: 'level104.json'
   },
   {
-    name: '107',
+    name: '1-7',
     setupFileName: 'level107.json'
   },
   {
-    name: '202',
+    name: '2-2',
     setupFileName: 'level202.json'
+  },
+  {
+    name: '2-8',
+    setupFileName: 'level208.json'
+  },
+  {
+    name: '2-12',
+    setupFileName: 'level212.json'
   }
 ]
 
