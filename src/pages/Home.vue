@@ -43,8 +43,4 @@
     background-repeat: no-repeat;
     top: 5%;
   }
-
-  .animation-bg {
-
-  }
 </style>
