@@ -14,14 +14,14 @@
     "pixi.js": "^6.0.4",
     "uuid": "^8.3.2",
     "vue": "^3.1.1",
-    "vue-router": "^4.0.9"
+    "vue-router": "^4.0.10"
   },
   "devDependencies": {
     "@types/mousetrap": "^1.6.8",
     "@types/uuid": "^8.3.0",
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
-    "@typescript-eslint/parser": "^4.27.0",
-    "@vitejs/plugin-legacy": "^1.4.1",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "@vitejs/plugin-legacy": "^1.4.2",
     "@vitejs/plugin-vue": "^1.2.3",
     "@vue/compiler-sfc": "^3.1.1",
     "eslint": "^7.29.0",
@@ -35,7 +35,7 @@
     "vite": "^2.3.8",
     "vite-plugin-compress": "^2.1.0",
     "vite-plugin-html": "^2.0.7",
-    "vite-plugin-windicss": "^1.0.4",
+    "vite-plugin-windicss": "^1.1.0",
     "windicss-analysis": "^0.2.0"
   }
 }
