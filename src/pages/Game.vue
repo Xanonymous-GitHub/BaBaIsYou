@@ -2,6 +2,8 @@
   <Menu v-if='showMenu' :key='"menu"+menuKey'
         @resume='handleEsc'
         @restart='restartGame'
+        @to-menu='toMenu'
+        @to-home='toHome'
   />
   <div id='game-layer'
        class='
@@ -25,16 +27,18 @@
 </template>
 
 <script setup lang='ts'>
-  import { ref, defineAsyncComponent } from 'vue'
+  import { defineAsyncComponent, ref } from 'vue'
   import { tryOnMounted } from '@vueuse/core'
   import GamePack from '@/core'
-  import { GameResult } from '@/core/types'
   import type { GameCore } from '@/core/types'
-  import mousetrap from 'mousetrap'
+  import { GameResult } from '@/core/types'
   import type { ExtendedKeyboardEvent } from 'mousetrap'
+  import mousetrap from 'mousetrap'
   import { useGlobalState } from '@/store'
+  import { useRouter } from 'vue-router'
 
   const globalState = useGlobalState()
+  const router = useRouter()
 
   const gameLayer = ref<HTMLElement>({} as HTMLElement)
 
@@ -97,6 +101,14 @@
   const restartGame = () => {
     handleEsc()
     startNewGame()
+  }
+
+  const toMenu = async () => {
+    await router.replace({ name: 'Level' })
+  }
+
+  const toHome = async () => {
+    await router.replace({ name: 'Home' })
   }
 
   mousetrap.bind('esc', handleEsc)

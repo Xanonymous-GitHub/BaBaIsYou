@@ -88,10 +88,14 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
       store.getRuleController().refreshAll()
       store.getScanner().findRulesFromMap(store.getAppEdge())
       await store.getRuleController().processImmediateChanges()
-      await store.getRuleController().checkYouExistsInLevel()
       this._needScanRule = false
     }
+
     await this._executeInstructions()
+    const existYou = await store.getRuleController().checkYouExistsInLevel()
+    if (!existYou) {
+      console.log(12312313)
+    }
     this._setNotRunning()
   }
 }

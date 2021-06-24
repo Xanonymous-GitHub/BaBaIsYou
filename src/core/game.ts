@@ -45,7 +45,7 @@ export const startLevel = async (setupFileName: string) => {
   store.initCommandWatchService()
 }
 
-export let gameOver: ((gameResult: GameResult) => Promise<void>) | undefined
+export let gameOver: (gameResult: GameResult) => Promise<void>
 
 export const setGameOverOutsideHandler = (outsideHandler: (gameResult: GameResult) => Promise<void>) => {
   gameOver = async (gameResult: GameResult) => {
