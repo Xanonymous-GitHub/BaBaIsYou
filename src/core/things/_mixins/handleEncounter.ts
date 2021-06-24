@@ -16,9 +16,6 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
   const ruleController = store.getRuleController()
   const mapController = store.getMapController()
 
-  console.log('subject = ' + subject.name)
-  console.log('visitor = ' + visitor.name)
-
   // get YOU property status
   const subjectIsYou = ruleController.$is(subject, PropertyType.YOU) || ruleController.$is(subject, PropertyType.YOU2)
   const visitorIsYou = ruleController.$is(visitor, PropertyType.YOU) || ruleController.$is(visitor, PropertyType.YOU2)
@@ -35,7 +32,6 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
 
   // handle PUSH
   const subjectIsPush = ruleController.$is(subject, PropertyType.PUSH)
-  console.log('subject is push = ' + subjectIsPush)
   if (subjectIsPush) {
     if (await canBePushed(subject, mapController, visitorFrom)) {
       preparePushActions(subject, visitorFrom, thingController)
@@ -82,13 +78,11 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
 
   // handle STOP
   const subjectIsStop = subjectIsWeak ? false : ruleController.$is(subject, PropertyType.STOP)
-  console.log('subject is stop = ' + subjectIsStop)
   if (subjectIsStop) return false
 
   // handle WIN
   if (isSameFloatStatus && !subjectIsStop && !subjectIsPush) {
     if ((subjectIsYou && subjectIsWin) || (visitorIsYou && visitorIsWin)) {
-      console.log('win')
       prepareWinActions(subject, thingController)
       return result
     }
