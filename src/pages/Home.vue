@@ -1,6 +1,6 @@
 <template>
   <div class='bg-[#080808] h-full'>
-    <div class='absolute bg-white h-full w-full opacity-70 animation-bg'
+    <div class='absolute bg-white h-full w-full opacity-70'
          :style="{backgroundImage:`url('${animationBg}')`}"
     />
     <header class='w-10/12 sm:w-9/12 lg:w-8/12 xl:w-7/12 2xl:w-6/12 h-auto relative header-img mx-auto'>

@@ -5,6 +5,7 @@
         @to-menu='toMenu'
         @to-home='toHome'
   />
+  <NoYouAlertBar v-if='showNoYouAlertBar' :key='"alertBar"+alertBarKey' />
   <div id='game-layer'
        class='
        transform-gpu
@@ -32,18 +33,23 @@
   import { useGlobalState } from '@/store'
   import { useRouter } from 'vue-router'
   import { MenuType } from '@/types'
+  import '@/assets/scss/shared/abscenter.scss'
 
   const globalState = useGlobalState()
   const router = useRouter()
 
   const gameLayer = ref<HTMLElement>({} as HTMLElement)
 
-  const showWinText = ref(false)
   const showMenu = ref(false)
+  const showNoYouAlertBar = ref(false)
+
   const menuKey = ref(0)
+  const alertBarKey = ref(0)
+
   const menuType = ref(MenuType.GENERAL)
 
   const Menu = defineAsyncComponent(() => import('@/components/Menu.vue'))
+  const NoYouAlertBar = defineAsyncComponent(() => import('@/components/NoYouAlertBar.vue'))
 
   let game: GameCore
 
@@ -83,6 +89,7 @@
     const setupFileName = globalState.value.currentLevel.setupFileName
     if (!setupFileName) return
     await game.startLevel(setupFileName.trim())
+    showNoYouAlertBar.value = false
     mousetrap.bind('esc', handleEsc)
     mousetrap.bind('r', handleR)
   }
@@ -102,7 +109,10 @@
   }
 
   const handleYouGone = async (existYou: boolean) => {
-    console.log(existYou)
+    if (!existYou) {
+      alertBarKey.value++
+    }
+    showNoYouAlertBar.value = !existYou
   }
 
   const prepareGame = () => {
@@ -139,11 +149,5 @@
     max-height: min-content;
     min-height: max-content;
     height: min-content;
-  }
-
-  .abs-center {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
   }
 </style>

@@ -96,8 +96,10 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
     await this._executeInstructions()
     const existYou = await store.getRuleController().checkYouExistsInLevel()
     if (existYou !== this._existYou) {
-      await youGone(existYou)
       this._existYou = existYou
+      setTimeout(() => {
+        youGone(this._existYou)
+      }, 2000)
     }
     this._setNotRunning()
   }
