@@ -15,6 +15,8 @@ export const startLevel = async (setupFileName: string) => {
     store.disposeDispatchServer()
   }
 
+  await store.loadResources('/things/game_sprites.json')
+
   const mapController = createMapController()
   store.setMapController(mapController)
 

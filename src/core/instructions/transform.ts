@@ -49,10 +49,7 @@ export class TransformInstruction extends RawInstruction {
 
     // change subject texture
     const species = getSpeciesByThingType(thingType)
-    await store.loadResourcesByName(species, [this._subject.name])
-    const textureOption = store.getTextureByName(this._subject.name)
-    if (isNone(textureOption)) throw new Error(`texture with name ${this._thingTypes.value[0]} does not exist`)
-    this._subject.texture = textureOption.value
+    this._subject.textures = store.getAnimationTextures(species, this._subject.name)
   }
 
   public override async unperform() {

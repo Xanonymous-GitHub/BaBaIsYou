@@ -31,10 +31,7 @@ export class SpriteBuilderConcrete {
         const spriteAmountToCreate = thingAmountWeNeed - thingAmountInStore
 
         // load the texture of this Thing
-        await store.loadResourcesByName(species, [name])
-        const textureOption = store.getTextureByName(name)
-        if (isNone(textureOption)) throw new Error(`texture ${name} not load`)
-        const texture = textureOption.value
+        const textures = store.getAnimationTextures(species, name)
 
         // call creation task to create Things and setup.
         const creationTask = new CreateThingTask()
@@ -45,7 +42,7 @@ export class SpriteBuilderConcrete {
           creationTask.setArgs(
             name,
             species,
-            texture,
+            textures,
             options.defaultBlockX,
             options.defaultBlockY,
             blockSize,

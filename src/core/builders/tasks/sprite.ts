@@ -1,4 +1,4 @@
-import type { Texture } from 'pixi.js'
+import type { Texture, Resource } from 'pixi.js'
 import type { Task } from './index'
 import type { Thing } from '@/core/things'
 import type { Direction } from '@/core/types/things'
@@ -15,7 +15,7 @@ abstract class SpriteTask<T> implements Task<T> {
 export class CreateThingTask extends SpriteTask<Thing> {
   private _name!: string
   private _species!: Species
-  private _texture!: Texture
+  private _textures!: Array<Texture<Resource>>
   private _defaultBlockX!: number
   private _defaultBlockY!: number
   private _blockSize!: number
@@ -26,7 +26,7 @@ export class CreateThingTask extends SpriteTask<Thing> {
   public setArgs(
     name: string,
     species: Species,
-    texture: Texture,
+    textures: Array<Texture<Resource>>,
     defaultBlockX: number,
     defaultBlockY: number,
     blockSize: number,
@@ -36,7 +36,7 @@ export class CreateThingTask extends SpriteTask<Thing> {
   ) {
     this._name = name
     this._species = species
-    this._texture = texture
+    this._textures = textures
     this._defaultBlockX = defaultBlockX
     this._defaultBlockY = defaultBlockY
     this._blockSize = blockSize
@@ -51,7 +51,7 @@ export class CreateThingTask extends SpriteTask<Thing> {
         .createInstance(
           this._name,
           this._species,
-          this._texture,
+          this._textures,
           this._defaultBlockX,
           this._defaultBlockY,
           this._blockSize,

@@ -3,8 +3,6 @@ import { createGameStore } from './store'
 import { createStageBuilder } from './builders/stage'
 import { createContainerBuilder } from './builders/container'
 import { createSpriteBuilder } from './builders/sprite'
-import { createResourceMap } from './resource'
-import { RESOURCE_ROOT_PATH } from './app/configs'
 import { startLevel, setGameOverOutsideHandler, setYouGoneOutsideHandler, pause, resume } from '@/core/game'
 import type { GameCore } from '@/core/types'
 
@@ -21,9 +19,6 @@ store.setContainerBuilder(containerController)
 
 const stageController = createStageBuilder(app.stage)
 store.setStageBuilder(stageController)
-
-const RESOURCES_MAP = createResourceMap(RESOURCE_ROOT_PATH)
-store.addResourceMap(RESOURCES_MAP)
 
 const gameCore: GameCore = {
   gameView: app.view,

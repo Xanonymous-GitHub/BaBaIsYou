@@ -1,52 +1,42 @@
 import { Loader } from 'pixi.js'
-import type { Texture } from 'pixi.js'
-import type { ResourceMap } from '@/core/resource'
-import { none, some } from 'fp-ts/es6/Option'
-import type { Option } from 'fp-ts/es6/Option'
+import type { Texture, Spritesheet, Resource } from 'pixi.js'
 import type { Species } from '@/core/resource'
 
 export interface TextureService {
-  addResourceMap: (resourceMap: ResourceMap) => void
-  loadResourcesByName: (species: Species, names: Array<string>) => Promise<void>
+  loadResources: (resourcesLocation: string) => Promise<void>
   getLoadingProgress: () => number
-  getTextureByName: (name: string) => Option<Texture>
+  getAnimationTextures: (species: Species, name: string) => Array<Texture<Resource>>
 }
 
 class TextureServiceConcrete implements TextureService {
-  private _resourceMap!: ResourceMap
-  private _loadedResources: Array<string> = []
+  private _resourcesSheet!: Spritesheet
   private _loadingProgress = 0
 
-  public addResourceMap(resourceMap: ResourceMap): void {
-    this._resourceMap = resourceMap
+  private _prepareLoadedResources(resourcesLocation: string) {
+    const sheet = Loader.shared.resources[resourcesLocation.trim()].spritesheet
+    if (!sheet) throw new Error('Could not get game resources!')
+    this._resourcesSheet = sheet
+  }
+
+  public loadResources(resourcesLocation: string): Promise<void> {
+    if (this._resourcesSheet) return Promise.resolve()
+    return new Promise<void>(resolve => {
+      Loader.shared.add(resourcesLocation.trim())
+        .load(() => {
+          this._prepareLoadedResources(resourcesLocation)
+          resolve()
+        })
+    })
   }
 
   public getLoadingProgress(): number {
     return this._loadingProgress
   }
 
-  public getTextureByName(name: string): Option<Texture> {
-    // @ts-ignore
-    const texture = Loader.shared.resources[name].texture
-    if (!texture) return none
-    return some(texture)
-  }
-
-  public async loadResourcesByName(species: Species, names: Array<string>): Promise<void> {
-    if (!this._resourceMap.has(species)) throw new Error(`species ${species} not exist`)
-    const resourcesToLoad = this._resourceMap.get(species)!.filter(resource => names.includes(resource.name) && !this._loadedResources.includes(resource.name))
-    const loader = Loader.shared
-    await new Promise<void>((resolve, reject) => {
-      loader.add(resourcesToLoad)
-      loader.onProgress.add((_loader: Loader) => this._loadingProgress = _loader.progress)
-      loader.onError.add(() => reject())
-      loader.load(() => {
-        for (const resourceToLoad of resourcesToLoad) {
-          this._loadedResources.push(resourceToLoad.name)
-        }
-        resolve()
-      })
-    })
+  public getAnimationTextures(species: Species, name: string): Array<Texture<Resource>> {
+    const textures = this._resourcesSheet.animations[`${species}/${name}`]
+    if (!textures) throw new Error(`Could not found the resource of ${species}/${name} !`)
+    return textures
   }
 }
 

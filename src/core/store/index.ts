@@ -5,7 +5,6 @@ import type { SpriteService } from '@/core/store/services/sprite'
 import type { TextureService } from '@/core/store/services/texture'
 import type { ControllerService } from '@/core/store/services/controllers'
 import type { Application, Container, Sprite } from 'pixi.js'
-import type { ResourceMap } from '@/core/resource'
 import type { Species } from '@/core/resource'
 import type { InstructionDispatchServer } from '@/core/controllers/dispatcher'
 import type { RuleController } from '@/core/controllers/rule'
@@ -43,10 +42,9 @@ const createSpriteStore = (spriteService: SpriteService) => {
 
 const createTextureStore = (textureService: TextureService) => {
   return {
-    addResourceMap: (resourceMap: ResourceMap) => textureService.addResourceMap(resourceMap),
-    loadResourcesByName: (species: Species, names: Array<string>) => textureService.loadResourcesByName(species, names),
-    getLoadingProgress: () => textureService.getLoadingProgress(),
-    getTextureByName: (name: string) => textureService.getTextureByName(name)
+    loadResources: (resourcesLocation: string) => textureService.loadResources(resourcesLocation),
+    getAnimationTextures: (species: Species, name: string) => textureService.getAnimationTextures(species, name),
+    getLoadingProgress: () => textureService.getLoadingProgress()
   }
 }
 

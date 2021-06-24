@@ -2,6 +2,7 @@ import type { Species } from '@/core/resource'
 import type { Texture } from 'pixi.js'
 import type { Direction } from '@/core/types/things'
 import { Thing } from './'
+import type { Resource } from 'pixi.js'
 
 export class ThingFactory {
   private readonly _species: Species
@@ -15,7 +16,7 @@ export class ThingFactory {
   public createInstance(
     name: string,
     species: Species,
-    texture: Texture,
+    textures: Array<Texture<Resource>>,
     defaultBlockX: number,
     defaultBlockY: number,
     blockSize: number,
@@ -23,6 +24,6 @@ export class ThingFactory {
     maxBlockY: number,
     defaultTowards?: Direction
   ): Thing {
-    return new Thing(name, species, texture, defaultBlockX, defaultBlockY, blockSize, maxBlockX, maxBlockY, defaultTowards)
+    return new Thing(name, species, textures, defaultBlockX, defaultBlockY, blockSize, maxBlockX, maxBlockY, defaultTowards)
   }
 }

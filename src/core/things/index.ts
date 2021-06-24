@@ -1,5 +1,5 @@
-import type { Texture } from 'pixi.js'
-import { Sprite } from 'pixi.js'
+import type { Texture, Resource } from 'pixi.js'
+import { AnimatedSprite } from 'pixi.js'
 import type { ThingSetup } from '@/core/types/things'
 import { Direction } from '@/core/types/things'
 import { getUid } from '@/core/utils/uuid'
@@ -9,7 +9,7 @@ import { Easing, Tween, update } from '@tweenjs/tween.js'
 import { THING_MOVE_DURATION } from '@/core/app/configs'
 import type { ThingController } from '@/core/controllers/thing'
 
-export class Thing extends Sprite {
+export class Thing extends AnimatedSprite {
   private readonly _id: string
   private readonly _species: Species
   private _blockX: number // start from 0
@@ -23,7 +23,7 @@ export class Thing extends Sprite {
   constructor(
     name: string,
     species: Species,
-    texture: Texture,
+    textures: Array<Texture<Resource>>,
     defaultBlockX: number,
     defaultBlockY: number,
     blockSize: number,
@@ -32,7 +32,7 @@ export class Thing extends Sprite {
     defaultTowards?: Direction
   ) {
     // provide the texture to the sprite.
-    super(texture)
+    super(textures)
 
     // set uid
     this._id = getUid()
@@ -65,6 +65,9 @@ export class Thing extends Sprite {
     // move to the point
     this.x = (this._blockX + 0.5) * this._blockSize
     this.y = (this._blockY + 0.5) * this._blockSize
+
+    super.animationSpeed = 0.08
+    super.play()
   }
 
   public bindThingController(thingController: ThingController): void {
