@@ -23,7 +23,6 @@ and go to project root, run `pnpm install`
 ## Tasks
 [URGENT] 全圖掃描後偵測地圖上是否有 YOU
 [URGENT] SceneSetups
-[URGENT] `handleEncounter` Properties (HOT, MELT)
 [OPTIONAL] Implement `handleOverlap` 偵測同位置的 Thing 是否因為 Rule 改變狀態
 [OPTIONAL] 背景音樂、音效
 [OPTIONAL] Thing load GIF
