@@ -5,71 +5,71 @@ export interface Level {
 
 const gameLevels: Array<Level> = [
   {
-    name: '0-1',
+    name: 'Where Do I Go?',
     setupFileName: 'level001.json'
   },
   {
-    name: '0-2',
+    name: 'Now What Is This?',
     setupFileName: 'level002.json'
   },
   {
-    name: '0-3',
+    name: 'Out Of Reach',
     setupFileName: 'level003.json'
   },
   {
-    name: '0-4',
+    name: 'Still Out Of Reach',
     setupFileName: 'level004.json'
   },
   {
-    name: '0-5',
+    name: 'Volcano',
     setupFileName: 'level005.json'
   },
   {
-    name: '0-6',
+    name: 'Off Limits',
     setupFileName: 'level006.json'
   },
   {
-    name: '0-7',
+    name: 'Grass Yard',
     setupFileName: 'level007.json'
   },
   {
-    name: '1-2',
+    name: 'Turns',
     setupFileName: 'level102.json'
   },
   {
-    name: '1-4',
+    name: 'Pillar Yard',
     setupFileName: 'level104.json'
   },
   {
-    name: '1-7',
+    name: 'Novice Locksmith',
     setupFileName: 'level107.json'
   },
   {
-    name: '1-A',
+    name: 'Submerged Ruins',
     setupFileName: 'level1a.json'
   },
   {
-    name: '1-B',
+    name: 'Sunken Temple',
     setupFileName: 'level1b.json'
   },
   {
-    name: '2-2',
+    name: 'Warm River',
     setupFileName: 'level202.json'
   },
   {
-    name: '2-8',
+    name: 'Tiny Pond',
     setupFileName: 'level208.json'
   },
   {
-    name: '2-9',
+    name: 'Catch The Thief!',
     setupFileName: 'level209.json'
   },
   {
-    name: '2-12',
+    name: 'Evaporating River',
     setupFileName: 'level212.json'
   },
   {
-    name: '3-1',
+    name: 'Fragility',
     setupFileName: 'level301.json'
   }
 ]
