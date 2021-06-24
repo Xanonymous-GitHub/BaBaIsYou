@@ -52,6 +52,7 @@
   const NoYouAlertBar = defineAsyncComponent(() => import('@/components/NoYouAlertBar.vue'))
 
   let game: GameCore
+  const audio = document.createElement('audio')
 
   const gamePause = () => {
     game.pause()
@@ -85,6 +86,12 @@
     showMenu.value = true
   }
 
+  const setAudioSrc = (filename: string) => {
+    const pathPrefix = '/music/'
+    audio.src = pathPrefix + filename
+    audio.loop = true
+  }
+
   const startNewGame = async () => {
     const setupFileName = globalState.value.currentLevel.setupFileName
     if (!setupFileName) return
@@ -92,6 +99,8 @@
     showNoYouAlertBar.value = false
     mousetrap.bind('esc', handleEsc)
     mousetrap.bind('r', handleR)
+    setAudioSrc(globalState.value.currentLevel.backgroundMusic)
+    if (audio.paused) await audio.play()
   }
 
   const gameOver = async (result: GameResult) => {
@@ -101,6 +110,7 @@
         menuKey.value++
         mousetrap.unbind(['esc', 'r'])
         showMenu.value = true
+        await audio.pause()
         break
       case GameResult.RESTART:
         await startNewGame()
@@ -109,6 +119,7 @@
   }
 
   const handleYouGone = async (existYou: boolean) => {
+    audio.pause()
     if (!existYou) {
       alertBarKey.value++
     }
@@ -130,6 +141,7 @@
   }
 
   const toMenu = async () => {
+    audio.pause()
     await router.replace({ name: 'Level' })
   }
 
