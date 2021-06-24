@@ -1,29 +1,30 @@
 # BaBa Is You
 <img src="https://i.imgur.com/44OJbB0.gif">
 
-## Links (this will be removed after project release)
-- [Official Wiki](https://babaiswiki.fandom.com)
-- [Course Gitlab](https://css-gitlab.csie.ntut.edu.tw/109000000/oopl2020s)
-- [PixiJS](https://www.pixijs.com)
-- [SpriteSheet Tool](https://www.leshylabs.com/apps/sstool/)
+### [Play Now](https://baba.ntut.club/)
 
-### WARNING: this project is still in development, not stable and not clean.
+## Announcement
+This is a reimplementation of a desktop game [Baba Is You](https://hempuli.com/baba/) which is **only used for educational purposes**.
+If you want the play the origin version of Baba Is You, please purchase it [here](https://store.steampowered.com/app/736260/Baba_Is_You/). 
 
-## Project operations
-In this project, we use vite 2 and yarn to build and manage dependencies.
+## Introduction
+Baba Is You is a puzzle game where the rules you have to follow are present as physical objects in the game world. 
+By manipulating the rules, you can change how the game works, repurpose things you find in the levels and cause surprising interactions!
 
-before start, please install yarn in your device by this command: `npm i -g pnpm`
+## How to Play
+In each level, you can see several objects and words on the game map. 
+You can use the arrow keys to control the movement of certain objects, find the associated word to the object that you can control, and you will see it makes a `BABA IS YOU` pattern.
+Next, find the object that is connected with the words `IS WIN` to end the game.
+Try to move blocks to use various patterns to solve every level!
 
-and go to project root, run `pnpm install`
+To know more about the rules, check out [Baba Is You Wiki](https://babaiswiki.fandom.com/wiki/Baba_Is_You_Wiki).
+(This project is just a clone version of Baba Is You, there might be some effects that are not equivalent to the original game.)
 
-- run project in dev mode: `pnpm run dev`
-- build project for production: `pnpm run build`
-- host project after build: `pnpm run serve`
-   
-## Tasks
-[URGENT] 全圖掃描後偵測地圖上是否有 YOU
-[URGENT] SceneSetups
-[OPTIONAL] Implement `handleOverlap` 偵測同位置的 Thing 是否因為 Rule 改變狀態
-[OPTIONAL] 背景音樂、音效
-[OPTIONAL] Thing load GIF
-[URGENT] Pack into GameFramework
+## Controls
+`ESC`: Menu
+`R`: Restart level
+Arrow keys: Move up/down/left/right
+
+## About us
+Hi! We are students from National Taipei University of Technology with a strong passion in programming.
+Check out our profiles if you like our projects!
