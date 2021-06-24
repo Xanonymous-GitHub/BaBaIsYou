@@ -56,10 +56,14 @@ export class TransformInstruction extends RawInstruction {
   }
 
   public override async unperform() {
-    // unperform subject name
-    this._subject.name = this._originalName
+    // wait move instructions to finish
+    await sleep(THING_MOVE_DURATION)
 
     // unperform subject texture
     this._subject.texture = this._originalTexture
+
+    // unperform subject name
+    this._subject.name = this._originalName
+
   }
 }
