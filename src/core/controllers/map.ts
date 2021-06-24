@@ -40,6 +40,7 @@ export interface MapController {
   whoNearMe: (subject: Thing) => Neighbor
   appendTransformInstructions: (changeFeatures: Map<ThingType, Array<FeatureCondition>>) => Promise<void>
   processMoveInstructions: (moveFeatures: Map<ThingType, Array<FeatureCondition>>) => Promise<void>
+  checkYouExistsInMap: (youThings: Array<ThingType>) => Promise<boolean>
   clean: () => void
   changeMapSize: (mapEdge: Edge) => void
 }
@@ -309,6 +310,22 @@ class MapControllerConcrete implements MapController {
         }
       }
     }
+  }
+
+  public async checkYouExistsInMap(youThings: Array<ThingType>): Promise<boolean> {
+    for (let x = 0; x <= this.maxX; x++) {
+      for (let y = 0; y <= this.maxY; y++) {
+        const block = this._gameMap[x][y]
+        if (isNone(block)) continue
+
+        for (const thing of block.value) {
+          if (youThings.includes(thing.name as ThingType)) {
+            return true
+          }
+        }
+      }
+    }
+    return false
   }
 
   public clean(): void {

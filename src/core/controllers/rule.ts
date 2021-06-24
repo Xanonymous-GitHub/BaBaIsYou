@@ -29,6 +29,7 @@ export interface RuleController {
   $has: (requester: Thing, requestedFeature: NounType) => boolean
   $make: (requester: Thing, requestedFeature: NounType) => boolean
   processImmediateChanges: () => Promise<void>
+  checkYouExistsInLevel: () => Promise<boolean>
   getFeaturesOfThing: (thing: Thing, operator: OperatorType) => Option<Array<Readonly<FeatureCondition>>>
   addFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
   removeFeature: (thingType: ThingType, operator: OperatorType, featureCondition: FeatureCondition) => void
@@ -97,6 +98,22 @@ class RuleControllerConcrete implements RuleController {
     })
     await this._mapController.processMoveInstructions(moveFeatures)
   }
+
+  public async checkYouExistsInLevel(): Promise<boolean> {
+    const youThings: Array<ThingType> = []
+    this._features.forEach((featureList: FeatureList, thingType: ThingType) => {
+      for (const condition of featureList._is) {
+        if (condition.feature === PropertyType.YOU) {
+          youThings.push(thingType)
+          break
+        }
+      }
+    })
+
+    if (youThings.length === 0) return false
+    return await this._mapController.checkYouExistsInMap(youThings)
+  }
+
 
   public $is(requester: Thing, requestedFeature: PropertyType | NounType): boolean {
     const requesterName = requester.name as CharacterType

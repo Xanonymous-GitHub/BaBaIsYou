@@ -78,14 +78,17 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
     const nextCommand = store.nextCommand()
     if (!this._isActive || this._runningCommand) return
     if (isNone(nextCommand)) return
+
     this._setRunning()
     this.setChanged()
     await this.notifyObservers(nextCommand.value)
     await this._executeInstructions()
+
     if (this._needScanRule) {
       store.getRuleController().refreshAll()
       store.getScanner().findRulesFromMap(store.getAppEdge())
       await store.getRuleController().processImmediateChanges()
+      const mapExistsYou = await store.getRuleController().checkYouExistsInLevel()
       this._needScanRule = false
     }
     await this._executeInstructions()
