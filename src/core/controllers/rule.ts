@@ -7,8 +7,8 @@ import type { MapController } from '@/core/controllers/map'
 import type { RulePattern } from '@/core/controllers/tools/ruleScanner'
 import type { CharacterType } from '../types/characters'
 import { Species } from '@/core/resource'
-import { none, some } from 'fp-ts/es6/Option'
 import type { Option } from 'fp-ts/es6/Option'
+import { none, some } from 'fp-ts/es6/Option'
 import { isNoun } from '@/core/utils/thingType'
 
 export interface FeatureCondition {
@@ -73,17 +73,29 @@ class RuleControllerConcrete implements RuleController {
   }
 
   public async processImmediateChanges(): Promise<void> {
-    // save only [Noun Is Noun] features
+    // process change features
     const changeFeatures = new Map<ThingType, Array<FeatureCondition>>()
-
-    // filter features to changeFeatures
     this._features.forEach((featureList: FeatureList, thingType: ThingType) => {
       const newFeature = featureList._is.filter(condition => isNoun(condition.feature))
       changeFeatures.set(thingType, newFeature)
     })
-
-    // call mapController to add transform instructions
     await this._mapController.appendTransformInstructions(changeFeatures)
+
+    // process breakpoint movements
+    const moveFeatures = new Map<ThingType, Array<FeatureCondition>>()
+    this._features.forEach((featureList, thingType: ThingType) => {
+      const newFeature = featureList._is.filter(condition => {
+        switch (condition.feature) {
+          case PropertyType.MOVE:
+          case PropertyType.TELE:
+            return true
+          default:
+            return false
+        }
+      })
+      moveFeatures.set(thingType, newFeature)
+    })
+    await this._mapController.processMoveInstructions(moveFeatures)
   }
 
   public $is(requester: Thing, requestedFeature: PropertyType | NounType): boolean {

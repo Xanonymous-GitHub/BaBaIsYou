@@ -203,6 +203,18 @@
       ]
     },
     {
+      "species": "characters",
+      "name": "SKULL",
+      "thingSetup": [
+        {
+          "defaultBlockX": 1,
+          "defaultBlockY": 13,
+          "defaultTowards": 0,
+          "textureName": "SKULL"
+        }
+      ]
+    },
+    {
       "species": "nouns",
       "name": "Text_BABA",
       "thingSetup": [
@@ -247,11 +259,17 @@
           "defaultBlockY": 11,
           "textureName": "Text_ROCK",
           "defaultTowards": 0
-        },
+        }
+      ]
+    },
+    {
+      "species": "nouns",
+      "name": "Text_SKULL",
+      "thingSetup": [
         {
-          "defaultBlockX": 2,
-          "defaultBlockY": 3,
-          "textureName": "Text_ROCK",
+          "defaultBlockX": 16,
+          "defaultBlockY": 7,
+          "textureName": "Text_SKULL",
           "defaultTowards": 0
         }
       ]
@@ -281,6 +299,12 @@
         {
           "defaultBlockX": 13,
           "defaultBlockY": 11,
+          "textureName": "Text_IS",
+          "defaultTowards": 0
+        },
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 8,
           "textureName": "Text_IS",
           "defaultTowards": 0
         }
@@ -341,6 +365,18 @@
         {
           "defaultBlockX": 14,
           "defaultBlockY": 11,
+          "textureName": "Text_PUSH",
+          "defaultTowards": 0
+        }
+      ]
+    },
+    {
+      "species": "properties",
+      "name": "Text_MOVE",
+      "thingSetup": [
+        {
+          "defaultBlockX": 16,
+          "defaultBlockY": 9,
           "textureName": "Text_PUSH",
           "defaultTowards": 0
         }

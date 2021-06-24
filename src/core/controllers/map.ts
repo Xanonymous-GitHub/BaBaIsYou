@@ -6,6 +6,14 @@ import type { Option, Some } from 'fp-ts/es6/Option'
 import type { ThingType } from '@/core/types'
 import type { FeatureCondition } from '@/core/controllers/rule'
 import { TransformInstruction } from '@/core/instructions/transform'
+import { PropertyType } from '@/core/types/properties'
+import {
+  MoveDownInstruction,
+  MoveLeftInstruction,
+  MoveRightInstruction,
+  MoveUpInstruction
+} from '@/core/instructions/move'
+import { EmptyInstruction } from '@/core/instructions'
 
 export enum MapUpdateSituation {
   UP = 'up',
@@ -31,6 +39,7 @@ export interface MapController {
   whoAreThere: (x: number, y: number) => Option<Array<Readonly<Thing>>>
   whoNearMe: (subject: Thing) => Neighbor
   appendTransformInstructions: (changeFeatures: Map<ThingType, Array<FeatureCondition>>) => Promise<void>
+  processMoveInstructions: (moveFeatures: Map<ThingType, Array<FeatureCondition>>) => Promise<void>
   clean: () => void
   changeMapSize: (mapEdge: Edge) => void
 }
@@ -233,6 +242,51 @@ class MapControllerConcrete implements MapController {
           transformInstruction.setPriority(9999999990002)
           thing.thingController.addNewInstruction(transformInstruction)
           thing.thingController.pushInstructions()
+        }
+      }
+    }
+  }
+
+  public async processMoveInstructions(moveFeatures: Map<ThingType, Array<FeatureCondition>>): Promise<void> {
+    for (let x = 0; x <= this.maxX; x++) {
+      for (let y = 0; y <= this.maxY; y++) {
+        const block = this._gameMap[x][y]
+        if (isNone(block)) continue
+
+        for (const thing of block.value) {
+          // get conditions of thing
+          const conditions = moveFeatures.get(thing.name as ThingType)
+          if (!conditions) continue
+          if (conditions.length === 0) continue
+
+          for (const condition of conditions) {
+            if (condition.feature === PropertyType.MOVE) {
+              let moveInstruction = null
+              switch (thing.towards) {
+                case Direction.TOP:
+                  if (thing.atTopEdge()) moveInstruction = new MoveDownInstruction(thing)
+                  else moveInstruction = new MoveUpInstruction(thing)
+                  break
+                case Direction.DOWN:
+                  if (thing.atBottomEdge()) moveInstruction = new MoveUpInstruction(thing)
+                  else moveInstruction = new MoveDownInstruction(thing)
+                  break
+                case Direction.RIGHT:
+                  if (thing.atRightEdge()) moveInstruction = new MoveLeftInstruction(thing)
+                  else moveInstruction = new MoveRightInstruction(thing)
+                  break
+                case Direction.LEFT:
+                  if (thing.atLeftEdge()) moveInstruction = new MoveRightInstruction(thing)
+                  else moveInstruction = new MoveLeftInstruction(thing)
+                  break
+                default:
+                  moveInstruction = new EmptyInstruction(thing)
+              }
+              moveInstruction.setPriority(9999999990001)
+              thing.thingController.addNewInstruction(moveInstruction)
+              thing.thingController.pushInstructions()
+            }
+          }
         }
       }
     }

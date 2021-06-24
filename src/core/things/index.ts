@@ -1,10 +1,11 @@
-import { Sprite } from 'pixi.js'
 import type { Texture } from 'pixi.js'
-import type { Direction, ThingSetup } from '@/core/types/things'
+import { Sprite } from 'pixi.js'
+import type { ThingSetup } from '@/core/types/things'
+import { Direction } from '@/core/types/things'
 import { getUid } from '@/core/utils/uuid'
 import type { Species } from '@/core/resource'
 import { generalHandleEncounterMixin } from '@/core/things/_mixins/handleEncounter'
-import { Tween, update, Easing } from '@tweenjs/tween.js'
+import { Easing, Tween, update } from '@tweenjs/tween.js'
 import { THING_MOVE_DURATION } from '@/core/app/configs'
 import type { ThingController } from '@/core/controllers/thing'
 
@@ -162,6 +163,7 @@ export class Thing extends Sprite {
         reject()
       } else {
         this.blockY--
+        this.towards = Direction.TOP
       }
       resolve()
     })
@@ -173,6 +175,7 @@ export class Thing extends Sprite {
         reject()
       } else {
         this.blockY++
+        this.towards = Direction.DOWN
       }
       resolve()
     })
@@ -184,6 +187,7 @@ export class Thing extends Sprite {
         reject()
       } else {
         this.blockX++
+        this.towards = Direction.RIGHT
       }
       resolve()
     })
@@ -195,6 +199,7 @@ export class Thing extends Sprite {
         reject()
       } else {
         this.blockX--
+        this.towards = Direction.LEFT
       }
       resolve()
     })

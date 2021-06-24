@@ -90,7 +90,9 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
 
   // handle STOP
   const subjectIsStop = subjectIsWeak ? false : ruleController.$is(subject, PropertyType.STOP)
-  if (subjectIsStop) return false
+  if (subjectIsStop) {
+    return false
+  }
 
   // handle SINK
   if (isSameFloatStatus) {
@@ -102,8 +104,6 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
       return result
     }
   }
-
-
 
   // handle DEFEAT
   const subjectIsDefeat = ruleController.$is(subject, PropertyType.DEFEAT)
