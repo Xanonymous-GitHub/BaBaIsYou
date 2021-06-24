@@ -20,6 +20,14 @@ export class DisappearInstruction extends RawInstruction {
   }
 
   public override async unperform() {
-    return
+    // wait until the subject has already encountered.
+    await sleep(THING_MOVE_DURATION)
+
+    // TODO: How to add thing back to game scene?
+
+    // unperform disappear in map
+    await store.getMapController().update(this._subject, MapUpdateSituation.APPEAR)
+
+    // TODO: How to reconnect to Observer
   }
 }
