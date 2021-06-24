@@ -1,12 +1,12 @@
 import type { Thing } from '@/core/things'
-import type { Direction } from '@/core/types/things'
+import { Direction } from '@/core/types/things'
 import { PropertyType } from '@/core/types/properties'
 import {
   canBePushed,
+  prepareMutualDestroyActions,
   preparePushActions,
-  prepareWinActions,
   prepareSingleDestroyActions,
-  prepareMutualDestroyActions
+  prepareWinActions
 } from '@/core/things/actions'
 import type { ThingController } from '@/core/controllers/thing'
 import { store } from '@/core'
@@ -90,9 +90,7 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
 
   // handle STOP
   const subjectIsStop = subjectIsWeak ? false : ruleController.$is(subject, PropertyType.STOP)
-  if (subjectIsStop) {
-    return false
-  }
+  if (subjectIsStop) return false
 
   // handle SINK
   if (isSameFloatStatus) {

@@ -205,6 +205,30 @@ export class Thing extends Sprite {
     })
   }
 
+  public async reverseTowards(): Promise<void> {
+    await new Promise<void>((resolve, reject) => {
+      if (this.towards === Direction.UNDEFINED) {
+        reject()
+      } else {
+        switch (this.towards) {
+          case Direction.TOP:
+            this.towards = Direction.DOWN
+            break
+          case Direction.DOWN:
+            this.towards = Direction.TOP
+            break
+          case Direction.RIGHT:
+            this.towards = Direction.LEFT
+            break
+          case Direction.LEFT:
+            this.towards = Direction.RIGHT
+            break
+        }
+        resolve()
+      }
+    })
+  }
+
   public handleBeside(visitor: Thing, visitorBeside: Direction): Promise<void> {
     return Promise.resolve(undefined)
   }

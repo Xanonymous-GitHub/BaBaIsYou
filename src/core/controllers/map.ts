@@ -1,8 +1,8 @@
 import { Direction } from '@/core/types/things'
 import type { Thing } from '@/core/things'
 import type { Edge } from '@/core/store/services/screen'
-import { isNone, isSome, none, some } from 'fp-ts/es6/Option'
 import type { Option, Some } from 'fp-ts/es6/Option'
+import { isNone, isSome, none, some } from 'fp-ts/es6/Option'
 import type { ThingType } from '@/core/types'
 import type { FeatureCondition } from '@/core/controllers/rule'
 import { TransformInstruction } from '@/core/instructions/transform'
@@ -261,30 +261,49 @@ class MapControllerConcrete implements MapController {
 
           for (const condition of conditions) {
             if (condition.feature === PropertyType.MOVE) {
-              let moveInstruction = null
-              switch (thing.towards) {
-                case Direction.TOP:
-                  if (thing.atTopEdge()) moveInstruction = new MoveDownInstruction(thing)
-                  else moveInstruction = new MoveUpInstruction(thing)
-                  break
-                case Direction.DOWN:
-                  if (thing.atBottomEdge()) moveInstruction = new MoveUpInstruction(thing)
-                  else moveInstruction = new MoveDownInstruction(thing)
-                  break
-                case Direction.RIGHT:
-                  if (thing.atRightEdge()) moveInstruction = new MoveLeftInstruction(thing)
-                  else moveInstruction = new MoveRightInstruction(thing)
-                  break
-                case Direction.LEFT:
-                  if (thing.atLeftEdge()) moveInstruction = new MoveRightInstruction(thing)
-                  else moveInstruction = new MoveLeftInstruction(thing)
-                  break
-                default:
-                  moveInstruction = new EmptyInstruction(thing)
+              const getOppositeDirection = (direction: Direction) => {
+                switch (direction) {
+                  case Direction.TOP:
+                    return Direction.DOWN
+                  case Direction.DOWN:
+                    return Direction.TOP
+                  case Direction.RIGHT:
+                    return Direction.LEFT
+                  case Direction.LEFT:
+                    return Direction.RIGHT
+                  default:
+                    return Direction.UNDEFINED
+                }
               }
-              moveInstruction.setPriority(9999999990001)
-              thing.thingController.addNewInstruction(moveInstruction)
-              thing.thingController.pushInstructions()
+              const appendMoveInstruction = (thing: Thing) => {
+                let instruction
+                switch (thing.towards) {
+                  case Direction.TOP:
+                    instruction = new MoveUpInstruction(thing)
+                    break
+                  case Direction.DOWN:
+                    instruction = new MoveDownInstruction(thing)
+                    break
+                  case Direction.RIGHT:
+                    instruction = new MoveRightInstruction(thing)
+                    break
+                  case Direction.LEFT:
+                    instruction = new MoveLeftInstruction(thing)
+                    break
+                  default:
+                    instruction = new EmptyInstruction(thing)
+                }
+                instruction.setPriority(9999999990001)
+                thing.thingController.addNewInstruction(instruction)
+                thing.thingController.pushInstructions()
+              }
+
+              if (await this.canIEncounter(thing, thing.towards)) {
+                await appendMoveInstruction(thing)
+              } else if (await this.canIEncounter(thing, getOppositeDirection(thing.towards))) {
+                await thing.reverseTowards()
+                await appendMoveInstruction(thing)
+              }
             }
           }
         }

@@ -61,6 +61,10 @@ const gameLevels: Array<Level> = [
     setupFileName: 'level208.json'
   },
   {
+    name: '2-9',
+    setupFileName: 'level209.json'
+  },
+  {
     name: '2-12',
     setupFileName: 'level212.json'
   },
