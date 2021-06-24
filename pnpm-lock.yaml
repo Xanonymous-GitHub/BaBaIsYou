@@ -9,6 +9,7 @@ specifiers:
   '@vitejs/plugin-legacy': ^1.4.2
   '@vitejs/plugin-vue': ^1.2.3
   '@vue/compiler-sfc': ^3.1.2
+  '@vueuse/core': ^5.0.3
   axios: ^0.21.1
   eslint: ^7.29.0
   eslint-config-prettier: ^8.3.0
@@ -31,6 +32,7 @@ specifiers:
 
 dependencies:
   '@tweenjs/tween.js': 18.6.4
+  '@vueuse/core': 5.0.3_vue@3.1.2
   axios: 0.21.1
   mousetrap: 1.6.5
   pixi.js: 6.0.4
@@ -709,6 +711,25 @@ packages:
 
   /@vue/shared/3.1.2:
     resolution: {integrity: sha512-EmH/poaDWBPJaPILXNI/1fvUbArJQmmTyVCwvvyDYDFnkPoTclAbHRAtyIvqfez7jybTDn077HTNILpxlsoWhg==}
+
+  /@vueuse/core/5.0.3_vue@3.1.2:
+    resolution: {integrity: sha512-TMCL11EVMaj2Y5qdYosvuwA+i1aKrerFXs7fhNZiQiLCWxF8XsrNdxzoiaI2n12UcmSOXvd1xdyWs7Nss+p/Hg==}
+    dependencies:
+      '@vueuse/shared': 5.0.3_vue@3.1.2
+      vue-demi: 0.9.1_vue@3.1.2
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+    dev: false
+
+  /@vueuse/shared/5.0.3_vue@3.1.2:
+    resolution: {integrity: sha512-aY93WPygr8H/4RB8YuOmAD83Y+faq7zwW10Kd9i0kD9zf5ysVP+32j09rF/mZVtGCa0CSM8ambPZMsEhCkRbwQ==}
+    dependencies:
+      vue-demi: 0.9.1_vue@3.1.2
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+    dev: false
 
   /@windicss/plugin-utils/0.14.6:
     resolution: {integrity: sha512-jF+dJ6D4/UqVHSbH5kCdSoPnklLTZDf+seck4unICI0qyzmyPsrO15nmSS/gIvnmCedUfBrQj1MfYOX0tccFjQ==}
@@ -4300,6 +4321,20 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /vue-demi/0.9.1_vue@3.1.2:
+    resolution: {integrity: sha512-7s1lufRD2l369eFWPjgLvhqCRk0XzGWJsQc7K4q+0mZtixyGIvsK1Cg88P4NcaRIEiBuuN4q1NN4SZKFKwQswA==}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-beta.1
+      vue: ^2.6.0 || >=3.0.0-rc.1
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.1.2
+    dev: false
 
   /vue-eslint-parser/7.6.0_eslint@7.29.0:
     resolution: {integrity: sha512-QXxqH8ZevBrtiZMZK0LpwaMfevQi9UL7lY6Kcp+ogWHC88AuwUPwwCIzkOUc1LR4XsYAt/F9yHXAB/QoD17QXA==}

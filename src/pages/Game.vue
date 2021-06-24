@@ -21,13 +21,16 @@
 </template>
 
 <script setup lang='ts'>
-  import { onMounted, ref } from 'vue'
+  import { ref } from 'vue'
+  import { tryOnMounted } from '@vueuse/core'
   import GamePack from '@/core'
   import { GameResult } from '@/core/types'
   import WinText from '@/components/WinText.vue'
+  import { useGlobalState } from '@/store'
 
   const gameLayer = ref<HTMLElement>({} as HTMLElement)
   const showWinText = ref(false)
+  const globalState = useGlobalState()
 
   const gameOver = async (result: GameResult) => {
     if (result === GameResult.WIN) {
@@ -37,7 +40,7 @@
   }
 
   const startGame = async () => {
-    const setupFileName = localStorage.getItem('setupFileName')
+    const setupFileName = globalState.value.currentLevel.setupFileName
     if (!setupFileName) return
 
     const game = await (async () => await GamePack)()
@@ -50,7 +53,7 @@
     )
   }
 
-  onMounted(async () => {
+  tryOnMounted(async () => {
     await startGame()
   })
 </script>
