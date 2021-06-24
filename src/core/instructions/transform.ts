@@ -7,9 +7,23 @@ import { convertNounToCharacter, getSpeciesByThingType } from '@/core/utils/thin
 import type { NounType } from '@/core/types/nouns'
 import { sleep } from '@/core/utils/time'
 import { THING_MOVE_DURATION } from '@/core/app/configs'
+import { Thing } from '@/core/things'
 
 export class TransformInstruction extends RawInstruction {
-  private _thingTypes: Option<Array<ThingType>> = none
+  private readonly _originalName: string
+  private readonly _originalTexture
+  private _thingTypes: Option<Array<ThingType>>
+
+  constructor(subject: Thing) {
+    super(subject);
+
+    // save original data
+    this._originalName = this._subject.name
+    this._originalTexture = this._subject.texture
+
+    // init ThingTypes
+    this._thingTypes = none
+  }
 
   public addTransformName(name: ThingType): void {
     if (isSome(this._thingTypes)) {
@@ -39,5 +53,13 @@ export class TransformInstruction extends RawInstruction {
     const textureOption = store.getTextureByName(this._subject.name)
     if (isNone(textureOption)) throw new Error(`texture with name ${this._thingTypes.value[0]} does not exist`)
     this._subject.texture = textureOption.value
+  }
+
+  public override async unperform() {
+    // unperform subject name
+    this._subject.name = this._originalName
+
+    // unperform subject texture
+    this._subject.texture = this._originalTexture
   }
 }

@@ -18,4 +18,8 @@ export class DisappearInstruction extends RawInstruction {
     // remove subject from game container.
     await store.getContainerBuilder().removeThingFromGameScene(this._subject)
   }
+
+  public override async unperform() {
+    return
+  }
 }

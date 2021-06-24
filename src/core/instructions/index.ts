@@ -3,6 +3,7 @@ import { getUid } from '@/core/utils/uuid'
 
 export interface Instruction {
   perform: () => Promise<void>
+  unperform: () => Promise<void>
   setPriority: (priority: number) => void
   getPriority: () => number | undefined
 }
@@ -19,6 +20,8 @@ export abstract class RawInstruction implements Instruction {
 
   public abstract perform(): Promise<void>
 
+  public abstract unperform(): Promise<void>
+
   public setPriority(priority: number): void {
     this._priority = priority
   }
@@ -30,6 +33,10 @@ export abstract class RawInstruction implements Instruction {
 
 export class EmptyInstruction extends RawInstruction {
   public override async perform() {
+    return
+  }
+
+  public override async unperform() {
     return
   }
 }

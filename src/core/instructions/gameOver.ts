@@ -10,4 +10,9 @@ export class CongratulationInstruction extends RawInstruction {
     await sleep(THING_MOVE_DURATION)
     await gameOver!(GameResult.WIN)
   }
+
+  public override async unperform() {
+    // win cannot be unperformed
+    return Promise.reject();
+  }
 }

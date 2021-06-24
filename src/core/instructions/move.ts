@@ -18,6 +18,10 @@ export class MoveUpInstruction extends RawInstruction {
       Direction.TOP
     ])
   }
+
+  public override async unperform() {
+    await this._subject.moveDown()
+  }
 }
 
 export class MoveDownInstruction extends RawInstruction {
@@ -34,6 +38,10 @@ export class MoveDownInstruction extends RawInstruction {
       Direction.RIGHT,
       Direction.DOWN
     ])
+  }
+
+  public override async unperform() {
+    await this._subject.moveUp()
   }
 }
 
@@ -52,6 +60,10 @@ export class MoveLeftInstruction extends RawInstruction {
       Direction.LEFT
     ])
   }
+
+  public override async unperform() {
+    await this._subject.moveRight()
+  }
 }
 
 export class MoveRightInstruction extends RawInstruction {
@@ -68,6 +80,10 @@ export class MoveRightInstruction extends RawInstruction {
       Direction.DOWN,
       Direction.RIGHT
     ])
+  }
+
+  public override async unperform() {
+    await this._subject.moveLeft()
   }
 }
 
