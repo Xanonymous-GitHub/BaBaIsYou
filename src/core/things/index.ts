@@ -54,6 +54,7 @@ export class Thing extends AnimatedSprite {
 
     // setup default sprite towards.
     this._towards = defaultTowards ?? 0
+    this.updateTowards(this._towards)
 
     // setup block size.
     this._blockSize = blockSize
