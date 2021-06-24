@@ -47,10 +47,44 @@
 
   let game: GameCore
 
+  const gamePause = () => {
+    game.pause()
+  }
+
+  const gameResume = () => {
+    game.resume()
+  }
+
+  const handleEsc = (event?: ExtendedKeyboardEvent) => {
+    event?.preventDefault()
+    event?.stopImmediatePropagation()
+    event?.stopPropagation()
+    menuKey.value++
+    showMenu.value = !showMenu.value
+    if (showMenu.value) {
+      gamePause()
+    } else {
+      gameResume()
+      menuType.value = MenuType.GENERAL
+    }
+  }
+
+  const handleR = (event: ExtendedKeyboardEvent) => {
+    event.preventDefault()
+    event.stopImmediatePropagation()
+    event.stopPropagation()
+    menuType.value = MenuType.RESTART
+    menuKey.value++
+    gamePause()
+    showMenu.value = true
+  }
+
   const startNewGame = async () => {
     const setupFileName = globalState.value.currentLevel.setupFileName
     if (!setupFileName) return
     await game.startLevel(setupFileName.trim())
+    mousetrap.bind('esc', handleEsc)
+    mousetrap.bind('r', handleR)
   }
 
   const gameOver = async (result: GameResult) => {
@@ -58,7 +92,7 @@
       case GameResult.WIN:
         menuType.value = MenuType.WIN
         menuKey.value++
-        mousetrap.unbind('esc')
+        mousetrap.unbind(['esc', 'r'])
         showMenu.value = true
         break
       case GameResult.RESTART:
@@ -80,27 +114,6 @@
     )
   }
 
-  const gamePause = () => {
-    game.pause()
-  }
-
-  const gameResume = () => {
-    game.resume()
-  }
-
-  const handleEsc = (event?: ExtendedKeyboardEvent) => {
-    event?.preventDefault()
-    event?.stopImmediatePropagation()
-    event?.stopPropagation()
-    menuKey.value++
-    showMenu.value = !showMenu.value
-    if (showMenu.value) {
-      gamePause()
-    } else {
-      gameResume()
-    }
-  }
-
   const restartGame = () => {
     handleEsc()
     startNewGame()
@@ -113,8 +126,6 @@
   const toHome = async () => {
     await router.replace({ name: 'Home' })
   }
-
-  mousetrap.bind('esc', handleEsc)
 
   tryOnMounted(async () => {
     game = await (async () => await GamePack)()
