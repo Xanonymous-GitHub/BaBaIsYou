@@ -5,7 +5,7 @@ import { createContainerBuilder } from './builders/container'
 import { createSpriteBuilder } from './builders/sprite'
 import { createResourceMap } from './resource'
 import { RESOURCE_ROOT_PATH } from './app/configs'
-import { startLevel, setGameOverOutsideHandler, pause, resume } from '@/core/game'
+import { startLevel, setGameOverOutsideHandler, setYouGoneOutsideHandler, pause, resume } from '@/core/game'
 import type { GameCore } from '@/core/types'
 
 const app = createGameApp()
@@ -30,6 +30,7 @@ const gameCore: GameCore = {
   startLevel,
   pause,
   resume,
+  setYouGoneOutsideHandler,
   setGameOverOutsideHandler
 }
 

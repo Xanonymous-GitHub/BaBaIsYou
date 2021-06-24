@@ -1,5 +1,5 @@
 <template>
-  <Menu v-if='showMenu' :key='"menu"+menuKey'
+  <Menu v-if='showMenu' :key='"menu"+menuKey' :mode='menuType'
         @resume='handleEsc'
         @restart='restartGame'
         @to-menu='toMenu'
@@ -18,11 +18,6 @@
          game-layer
          self-center'
     />
-    <WinText v-if='showWinText' class='
-      inline-block
-      absolute
-      abs-center'
-    />
   </div>
 </template>
 
@@ -36,6 +31,7 @@
   import mousetrap from 'mousetrap'
   import { useGlobalState } from '@/store'
   import { useRouter } from 'vue-router'
+  import { MenuType } from '@/types'
 
   const globalState = useGlobalState()
   const router = useRouter()
@@ -45,9 +41,9 @@
   const showWinText = ref(false)
   const showMenu = ref(false)
   const menuKey = ref(0)
+  const menuType = ref(MenuType.GENERAL)
 
   const Menu = defineAsyncComponent(() => import('@/components/Menu.vue'))
-  const WinText = defineAsyncComponent(() => import('@/components/WinText.vue'))
 
   let game: GameCore
 
@@ -60,8 +56,10 @@
   const gameOver = async (result: GameResult) => {
     switch (result) {
       case GameResult.WIN:
-        showWinText.value = true
-        await new Promise() // DEBUG
+        menuType.value = MenuType.WIN
+        menuKey.value++
+        mousetrap.unbind('esc')
+        showMenu.value = true
         break
       case GameResult.RESTART:
         await startNewGame()
@@ -69,8 +67,13 @@
     }
   }
 
-  const prepareGame = async () => {
-    await game.setGameOverOutsideHandler(gameOver)
+  const handleYouGone = async (existYou: boolean) => {
+    console.log(existYou)
+  }
+
+  const prepareGame = () => {
+    game.setGameOverOutsideHandler(gameOver)
+    game.setYouGoneOutsideHandler(handleYouGone)
 
     gameLayer.value.appendChild(
       game.gameView
@@ -115,7 +118,7 @@
 
   tryOnMounted(async () => {
     game = await (async () => await GamePack)()
-    await prepareGame()
+    prepareGame()
     await startNewGame()
   })
 </script>

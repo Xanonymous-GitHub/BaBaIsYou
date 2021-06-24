@@ -46,8 +46,15 @@ export const startLevel = async (setupFileName: string) => {
 }
 
 export let gameOver: (gameResult: GameResult) => Promise<void>
+export let youGone: (existYou: boolean) => Promise<void>
 
-export const setGameOverOutsideHandler = (outsideHandler: (gameResult: GameResult) => Promise<void>) => {
+export const setYouGoneOutsideHandler = (outsideHandler: (existYou: boolean) => Promise<void>): void => {
+  youGone = async (existYou: boolean) => {
+    await outsideHandler(existYou)
+  }
+}
+
+export const setGameOverOutsideHandler = (outsideHandler: (gameResult: GameResult) => Promise<void>): void => {
   gameOver = async (gameResult: GameResult) => {
     const stageBuilder = store.getStageBuilder()
 

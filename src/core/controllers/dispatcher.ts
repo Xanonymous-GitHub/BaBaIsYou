@@ -6,6 +6,7 @@ import PriorityQueue from '@/core/data-structures/priorityQueue'
 import type { Observer } from '@/core/observer/observer'
 import { getUid } from '@/core/utils/uuid'
 import { store } from '@/core'
+import { youGone } from '@/core/game'
 
 
 export class InstructionDispatchServerConcrete extends ObservableSubject {
@@ -13,6 +14,7 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
   private _isActive = false
   private _pendingInstructions: PriorityQueue<Instruction>
   private _needScanRule = false
+  private _existYou = true
 
   public commandListener: Observer
 
@@ -93,8 +95,9 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
 
     await this._executeInstructions()
     const existYou = await store.getRuleController().checkYouExistsInLevel()
-    if (!existYou) {
-      console.log(12312313)
+    if (existYou !== this._existYou) {
+      await youGone(existYou)
+      this._existYou = existYou
     }
     this._setNotRunning()
   }
