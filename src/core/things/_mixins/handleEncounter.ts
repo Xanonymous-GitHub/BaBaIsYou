@@ -26,13 +26,25 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
 
   const isSameFloatStatus = Boolean(subjectIsFloat === visitorIsFloat)
 
-  // get WIN property status
+  // handle WIN
   const subjectIsWin = ruleController.$is(subject, PropertyType.WIN)
   const visitorIsWin = ruleController.$is(visitor, PropertyType.WIN)
 
+  if ((subjectIsYou && subjectIsWin) || (visitorIsYou && visitorIsWin)) {
+    prepareWinActions(subject, thingController)
+    return result
+  }
+
+  if (subjectIsFloat === visitorIsFloat) {
+    if ((subjectIsWin && visitorIsYou) || (visitorIsWin && subjectIsYou)) {
+      prepareWinActions(subject, thingController)
+      return result
+    }
+  }
+
   // handle PUSH
-  const subjectIsPush = ruleController.$is(subject, PropertyType.PUSH)
-  if (subjectIsPush) {
+  const isPush = ruleController.$is(subject, PropertyType.PUSH)
+  if (isPush) {
     if (await canBePushed(subject, mapController, visitorFrom)) {
       preparePushActions(subject, visitorFrom, thingController)
       return result
@@ -79,14 +91,6 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
   // handle STOP
   const subjectIsStop = subjectIsWeak ? false : ruleController.$is(subject, PropertyType.STOP)
   if (subjectIsStop) return false
-
-  // handle WIN
-  if (isSameFloatStatus && !subjectIsStop && !subjectIsPush) {
-    if ((subjectIsYou && subjectIsWin) || (visitorIsYou && visitorIsWin)) {
-      prepareWinActions(subject, thingController)
-      return result
-    }
-  }
 
   // handle SINK
   if (isSameFloatStatus) {
