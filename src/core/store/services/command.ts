@@ -35,12 +35,6 @@ export interface CommandService {
 const commandPackages: Array<CommandPackage> = [
   {
     command: {
-      value: CommandType.ESC
-    },
-    priority: 0
-  },
-  {
-    command: {
       value: CommandType.UP
     },
     priority: 1
@@ -78,6 +72,7 @@ class CommandServiceConcrete implements CommandService {
   private readonly _commandPackages: PriorityQueue<CommandPackage> = new PriorityQueue<CommandPackage>()
   private readonly _commandPrioritiesMap: Map<Command, number> = createCommandPrioritiesMap()
   private readonly _dispatchNotifier: ObservableSubject = new ObservableSubject()
+  private _commandWatchServiceStarted = false
 
   private _judgementCommandPriority(command: Command): number {
     const priority = this._commandPrioritiesMap.get(command)
@@ -119,8 +114,17 @@ class CommandServiceConcrete implements CommandService {
   }
 
   public initCommandWatchService(): void {
-    for (const commandPackage of commandPackages) {
-      mousetrap.bind(commandPackage.command.value, () => this.addCommand(commandPackage.command))
+    if (!this._commandWatchServiceStarted) {
+      for (const commandPackage of commandPackages) {
+        mousetrap.bind(commandPackage.command.value, () => this.addCommand(commandPackage.command))
+      }
+
+      // bind w, s, d, a for move
+      const secondKeyBoardCommands = ['w', 's', 'a', 'd'] // should be sorted like up, down, left, right
+      for (let i = 0; i < 4; i++) {
+        mousetrap.bind(secondKeyBoardCommands[i], () => this.addCommand(commandPackages[i].command))
+      }
+      this._commandWatchServiceStarted = true
     }
   }
 }

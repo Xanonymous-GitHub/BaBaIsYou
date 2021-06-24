@@ -2,12 +2,32 @@ import { store } from '@/core'
 import { getSceneSetup } from '@/core/resource/sceneSetup'
 import type { GameResult } from '@/core/types'
 import { sleep } from '@/core/utils/time'
+import { createInstructionDispatchServer } from '@/core/controllers/dispatcher'
+import { createMapController } from '@/core/controllers/map'
+import { createRuleController } from '@/core/controllers/rule'
+import { createRuleScanner } from '@/core/controllers/tools/ruleScanner'
 
 export const startLevel = async (setupFileName: string) => {
   const stageBuilder = store.getStageBuilder()
 
-  // stop command listen service.
-  store.disposeDispatchServer()
+  if (store.getDispatchServer()) {
+    // stop command listen service.
+    store.disposeDispatchServer()
+  }
+
+  const mapController = createMapController()
+  store.setMapController(mapController)
+
+  const ruleController = createRuleController(mapController)
+  store.setRuleController(ruleController)
+
+  const scanner = createRuleScanner(ruleController, mapController)
+  store.setScanner(scanner)
+
+  // create new dispatcher.
+  const dispatcher = createInstructionDispatchServer()
+  store.setDispatchServer(dispatcher)
+  store.connectDispatchListener(dispatcher.commandListener)
 
   // remove container on stage.
   await stageBuilder.removeScene()
@@ -43,4 +63,14 @@ export const setGameOverOutsideHandler = (outsideHandler: (gameResult: GameResul
     // remove container on stage.
     await stageBuilder.removeScene()
   }
+}
+
+export const pause = () => {
+  // stop command listen service.
+  store.disposeDispatchServer()
+}
+
+export const resume = () => {
+  // start command dispatcher.
+  store.initDispatchServer()
 }

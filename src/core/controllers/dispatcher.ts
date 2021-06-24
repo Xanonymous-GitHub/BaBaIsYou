@@ -75,8 +75,8 @@ export class InstructionDispatchServerConcrete extends ObservableSubject {
   }
 
   private async _run() {
-    if (!this._isActive || this._runningCommand) return
     const nextCommand = store.nextCommand()
+    if (!this._isActive || this._runningCommand) return
     if (isNone(nextCommand)) return
     this._setRunning()
     this.setChanged()

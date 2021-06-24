@@ -1,4 +1,4 @@
-import { createGlobalState, useSessionStorage, useStorage } from '@vueuse/core'
+import { createGlobalState, useSessionStorage } from '@vueuse/core'
 import type { Level } from '@/assets/levels'
 
 export interface GlobalStorage {

@@ -1,4 +1,8 @@
 <template>
+  <Menu v-if='showMenu' :key='"menu"+menuKey'
+        @resume='handleEsc'
+        @restart='restartGame'
+  />
   <div id='game-layer'
        class='
        transform-gpu
@@ -21,40 +25,86 @@
 </template>
 
 <script setup lang='ts'>
-  import { ref } from 'vue'
+  import { ref, defineAsyncComponent } from 'vue'
   import { tryOnMounted } from '@vueuse/core'
   import GamePack from '@/core'
   import { GameResult } from '@/core/types'
-  import WinText from '@/components/WinText.vue'
+  import type { GameCore } from '@/core/types'
+  import mousetrap from 'mousetrap'
+  import type { ExtendedKeyboardEvent } from 'mousetrap'
   import { useGlobalState } from '@/store'
 
-  const gameLayer = ref<HTMLElement>({} as HTMLElement)
-  const showWinText = ref(false)
   const globalState = useGlobalState()
 
+  const gameLayer = ref<HTMLElement>({} as HTMLElement)
+
+  const showWinText = ref(false)
+  const showMenu = ref(false)
+  const menuKey = ref(0)
+
+  const Menu = defineAsyncComponent(() => import('@/components/Menu.vue'))
+  const WinText = defineAsyncComponent(() => import('@/components/WinText.vue'))
+
+  let game: GameCore
+
+  const startNewGame = async () => {
+    const setupFileName = globalState.value.currentLevel.setupFileName
+    if (!setupFileName) return
+    await game.startLevel(setupFileName.trim())
+  }
+
   const gameOver = async (result: GameResult) => {
-    if (result === GameResult.WIN) {
-      showWinText.value = true
-      await new Promise() // DEBUG
+    switch (result) {
+      case GameResult.WIN:
+        showWinText.value = true
+        await new Promise() // DEBUG
+        break
+      case GameResult.RESTART:
+        await startNewGame()
+        break
     }
   }
 
-  const startGame = async () => {
-    const setupFileName = globalState.value.currentLevel.setupFileName
-    if (!setupFileName) return
-
-    const game = await (async () => await GamePack)()
-
+  const prepareGame = async () => {
     await game.setGameOverOutsideHandler(gameOver)
-    await game.startLevel(setupFileName.trim())
 
     gameLayer.value.appendChild(
       game.gameView
     )
   }
 
+  const gamePause = () => {
+    game.pause()
+  }
+
+  const gameResume = () => {
+    game.resume()
+  }
+
+  const handleEsc = (event?: ExtendedKeyboardEvent) => {
+    event?.preventDefault()
+    event?.stopImmediatePropagation()
+    event?.stopPropagation()
+    menuKey.value++
+    showMenu.value = !showMenu.value
+    if (showMenu.value) {
+      gamePause()
+    } else {
+      gameResume()
+    }
+  }
+
+  const restartGame = () => {
+    handleEsc()
+    startNewGame()
+  }
+
+  mousetrap.bind('esc', handleEsc)
+
   tryOnMounted(async () => {
-    await startGame()
+    game = await (async () => await GamePack)()
+    await prepareGame()
+    await startNewGame()
   })
 </script>
 
