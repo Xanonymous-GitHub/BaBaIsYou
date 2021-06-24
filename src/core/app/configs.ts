@@ -28,4 +28,4 @@ export const MAX_COMMAND_AMOUNT = 8
 export const COMMAND_MIN_INTERVAL = 100
 export const THING_MOVE_DURATION = 80
 
-export const RESOURCE_ROOT_PATH = '/things/'
+export const RESOURCE_LOCATION = '/things/game_sprites.json'

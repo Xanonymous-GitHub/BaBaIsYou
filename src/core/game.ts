@@ -6,6 +6,7 @@ import { createInstructionDispatchServer } from '@/core/controllers/dispatcher'
 import { createMapController } from '@/core/controllers/map'
 import { createRuleController } from '@/core/controllers/rule'
 import { createRuleScanner } from '@/core/controllers/tools/ruleScanner'
+import { RESOURCE_LOCATION } from '@/core/app/configs'
 
 export const startLevel = async (setupFileName: string) => {
   const stageBuilder = store.getStageBuilder()
@@ -15,7 +16,7 @@ export const startLevel = async (setupFileName: string) => {
     store.disposeDispatchServer()
   }
 
-  await store.loadResources('/things/game_sprites.json')
+  await store.loadResources(RESOURCE_LOCATION)
 
   const mapController = createMapController()
   store.setMapController(mapController)

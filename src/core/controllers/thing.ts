@@ -1,16 +1,17 @@
 import type { Thing } from '@/core/things'
 import type { Observer } from '@/core/observer/observer'
-import { EmptyInstruction } from '@/core/instructions'
 import type { Instruction } from '@/core/instructions'
+import { EmptyInstruction } from '@/core/instructions'
 import { getUid } from '@/core/utils/uuid'
 import { MapUpdateSituation } from '@/core/controllers/map'
 import type { Observable } from '@/core/observer/observable'
-import { CommandType } from '@/core/store/services/command'
 import type { Command } from '@/core/store/services/command'
+import { CommandType } from '@/core/store/services/command'
 import { PropertyType } from '@/core/types/properties'
 import { Direction } from '@/core/types/things'
 import move from '@/core/instructions/move'
 import { store } from '@/core'
+import { UpdateTowardsInstruction } from '@/core/instructions/towards'
 
 class ThingControllerConcrete implements Observer {
   public observeId: string
@@ -79,15 +80,19 @@ class ThingControllerConcrete implements Observer {
     switch (command.value) {
       case CommandType.UP:
         newInstruction = new move.MoveUpInstruction(this._thing)
+        this.addNewInstruction(new UpdateTowardsInstruction(this._thing, Direction.TOP))
         break
       case CommandType.DOWN:
         newInstruction = new move.MoveDownInstruction(this._thing)
+        this.addNewInstruction(new UpdateTowardsInstruction(this._thing, Direction.DOWN))
         break
       case CommandType.LEFT:
         newInstruction = new move.MoveLeftInstruction(this._thing)
+        this.addNewInstruction(new UpdateTowardsInstruction(this._thing, Direction.LEFT))
         break
       case CommandType.RIGHT:
         newInstruction = new move.MoveRightInstruction(this._thing)
+        this.addNewInstruction(new UpdateTowardsInstruction(this._thing, Direction.RIGHT))
         break
       default:
         newInstruction = new EmptyInstruction(this._thing)

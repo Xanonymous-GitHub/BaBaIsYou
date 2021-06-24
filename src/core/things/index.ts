@@ -8,6 +8,7 @@ import { generalHandleEncounterMixin } from '@/core/things/_mixins/handleEncount
 import { Easing, Tween, update } from '@tweenjs/tween.js'
 import { THING_MOVE_DURATION } from '@/core/app/configs'
 import type { ThingController } from '@/core/controllers/thing'
+import { reverseDirection } from '@/core/utils/direction'
 
 export class Thing extends AnimatedSprite {
   private readonly _id: string
@@ -77,7 +78,7 @@ export class Thing extends AnimatedSprite {
   public setup(options: Pick<ThingSetup, 'defaultBlockX' | 'defaultBlockY' | 'defaultTowards'>) {
     this.blockX = options.defaultBlockX
     this.blockY = options.defaultBlockY
-    this.towards = options.defaultTowards
+    this.updateTowards(options.defaultTowards)
   }
 
   public get blockX(): number {
@@ -128,6 +129,18 @@ export class Thing extends AnimatedSprite {
       .start()
   }
 
+  public updateTowards(side: Direction) {
+    switch (side) {
+      case Direction.LEFT:
+        this.scale.x = -1 * Math.abs(this.scale.x)
+        break
+      case Direction.RIGHT:
+        this.scale.x = Math.abs(this.scale.x)
+        break
+    }
+    this.towards = side
+  }
+
   public set towards(side: Direction) {
     this._towards = side
   }
@@ -166,7 +179,6 @@ export class Thing extends AnimatedSprite {
         reject()
       } else {
         this.blockY--
-        this.towards = Direction.TOP
       }
       resolve()
     })
@@ -178,7 +190,6 @@ export class Thing extends AnimatedSprite {
         reject()
       } else {
         this.blockY++
-        this.towards = Direction.DOWN
       }
       resolve()
     })
@@ -190,7 +201,6 @@ export class Thing extends AnimatedSprite {
         reject()
       } else {
         this.blockX++
-        this.towards = Direction.RIGHT
       }
       resolve()
     })
@@ -202,7 +212,6 @@ export class Thing extends AnimatedSprite {
         reject()
       } else {
         this.blockX--
-        this.towards = Direction.LEFT
       }
       resolve()
     })
@@ -213,20 +222,7 @@ export class Thing extends AnimatedSprite {
       if (this.towards === Direction.UNDEFINED) {
         reject()
       } else {
-        switch (this.towards) {
-          case Direction.TOP:
-            this.towards = Direction.DOWN
-            break
-          case Direction.DOWN:
-            this.towards = Direction.TOP
-            break
-          case Direction.RIGHT:
-            this.towards = Direction.LEFT
-            break
-          case Direction.LEFT:
-            this.towards = Direction.RIGHT
-            break
-        }
+        this.updateTowards(reverseDirection(this.towards))
         resolve()
       }
     })

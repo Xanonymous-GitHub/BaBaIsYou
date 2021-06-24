@@ -55,7 +55,7 @@ export class MoveDownInstruction extends RawInstruction {
     await store.getMapController().notifyLeave(this._subject, [
       Direction.TOP,
       Direction.RIGHT,
-      Direction.LEFT,
+      Direction.LEFT
     ])
     await store.getMapController().update(this._subject, MapUpdateSituation.UP)
     await this._subject.moveUp()
