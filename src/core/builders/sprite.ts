@@ -47,7 +47,8 @@ export class SpriteBuilderConcrete {
             options.defaultBlockY,
             blockSize,
             maxX,
-            maxY
+            maxY,
+            options.defaultTowards
           )
           things.push(
             await creationTask.execute()
