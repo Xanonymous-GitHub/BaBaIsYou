@@ -33,12 +33,6 @@
 
   const resumeButton = ref<HTMLButtonElement>({} as HTMLButtonElement)
 
-  const restartButton = ref<HTMLButtonElement>({} as HTMLButtonElement)
-
-  const toMenuButton = ref<HTMLButtonElement>({} as HTMLButtonElement)
-
-  const toHomeButton = ref<HTMLButtonElement>({} as HTMLButtonElement)
-
   tryOnMounted(() => {
     resumeButton.value.focus()
   })

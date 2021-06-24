@@ -14,6 +14,7 @@ import {
   MoveUpInstruction
 } from '@/core/instructions/move'
 import { EmptyInstruction } from '@/core/instructions'
+import { reverseDirection } from '@/core/utils/direction'
 
 export enum MapUpdateSituation {
   UP = 'up',
@@ -262,20 +263,6 @@ class MapControllerConcrete implements MapController {
 
           for (const condition of conditions) {
             if (condition.feature === PropertyType.MOVE) {
-              const getOppositeDirection = (direction: Direction) => {
-                switch (direction) {
-                  case Direction.TOP:
-                    return Direction.DOWN
-                  case Direction.DOWN:
-                    return Direction.TOP
-                  case Direction.RIGHT:
-                    return Direction.LEFT
-                  case Direction.LEFT:
-                    return Direction.RIGHT
-                  default:
-                    return Direction.UNDEFINED
-                }
-              }
               const appendMoveInstruction = (thing: Thing) => {
                 let instruction
                 switch (thing.towards) {
@@ -301,7 +288,7 @@ class MapControllerConcrete implements MapController {
 
               if (await this.canIEncounter(thing, thing.towards)) {
                 await appendMoveInstruction(thing)
-              } else if (await this.canIEncounter(thing, getOppositeDirection(thing.towards))) {
+              } else if (await this.canIEncounter(thing, reverseDirection(thing.towards))) {
                 await thing.reverseTowards()
                 await appendMoveInstruction(thing)
               }
