@@ -71,9 +71,26 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
     }
   }
 
+  // handle WEAK
+  const subjectIsWeak = ruleController.$is(subject, PropertyType.WEAK)
+  const visitorIsWeak = ruleController.$is(visitor, PropertyType.WEAK)
+
+  if (subjectIsWeak && visitorIsWeak) {
+    await prepareMutualDestroyActions(subject, visitor, thingController)
+    return result
+  }
+  if (subjectIsWeak) {
+    await prepareSingleDestroyActions(subject, thingController)
+    return result
+  }
+  if (visitorIsWeak) {
+    await prepareSingleDestroyActions(visitor, thingController)
+    return result
+  }
+
   // handle STOP
-  const isStop = ruleController.$is(subject, PropertyType.STOP)
-  if (isStop) return false
+  const subjectIsStop = subjectIsWeak ? false : ruleController.$is(subject, PropertyType.STOP)
+  if (subjectIsStop) return false
 
   // handle SINK
   if (isSameFloatStatus) {
@@ -85,6 +102,8 @@ export const generalHandleEncounterMixin = async (subject: Thing, visitor: Thing
       return result
     }
   }
+
+
 
   // handle DEFEAT
   const subjectIsDefeat = ruleController.$is(subject, PropertyType.DEFEAT)
