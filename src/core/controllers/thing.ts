@@ -12,6 +12,7 @@ import { Direction } from '@/core/types/things'
 import move from '@/core/instructions/move'
 import { store } from '@/core'
 import { UpdateTowardsInstruction } from '@/core/instructions/towards'
+import { Species } from '@/core/resource'
 
 class ThingControllerConcrete implements Observer {
   public observeId: string
@@ -80,19 +81,27 @@ class ThingControllerConcrete implements Observer {
     switch (command.value) {
       case CommandType.UP:
         newInstruction = new move.MoveUpInstruction(this._thing)
-        this.addNewInstruction(new UpdateTowardsInstruction(this._thing, Direction.TOP))
+        if (this._thing.species === Species.CHARACTERS) {
+          this.addNewInstruction(new UpdateTowardsInstruction(this._thing, Direction.TOP))
+        }
         break
       case CommandType.DOWN:
         newInstruction = new move.MoveDownInstruction(this._thing)
-        this.addNewInstruction(new UpdateTowardsInstruction(this._thing, Direction.DOWN))
+        if (this._thing.species === Species.CHARACTERS) {
+          this.addNewInstruction(new UpdateTowardsInstruction(this._thing, Direction.DOWN))
+        }
         break
       case CommandType.LEFT:
         newInstruction = new move.MoveLeftInstruction(this._thing)
-        this.addNewInstruction(new UpdateTowardsInstruction(this._thing, Direction.LEFT))
+        if (this._thing.species === Species.CHARACTERS) {
+          this.addNewInstruction(new UpdateTowardsInstruction(this._thing, Direction.LEFT))
+        }
         break
       case CommandType.RIGHT:
         newInstruction = new move.MoveRightInstruction(this._thing)
-        this.addNewInstruction(new UpdateTowardsInstruction(this._thing, Direction.RIGHT))
+        if (this._thing.species === Species.CHARACTERS) {
+          this.addNewInstruction(new UpdateTowardsInstruction(this._thing, Direction.RIGHT))
+        }
         break
       default:
         newInstruction = new EmptyInstruction(this._thing)
