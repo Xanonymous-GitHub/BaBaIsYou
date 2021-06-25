@@ -5,22 +5,22 @@
       ARE YOU SURE YOU WANT TO RESTART?
     </p>
     <div class='w-70 sm:w-60 relative mx-auto'>
-      <button ref='resumeButton' type='button' v-if='mode!==MenuType.WIN'
+      <button ref='resumeButton' type='button' v-show='mode!==MenuType.WIN'
               class='opacity-100 my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-green-500 hover:bg-green-600 focus:ring-green-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
               @click.prevent.stop='emit("resume")'>
         {{ mode !== MenuType.RESTART ? 'RESUME' : 'No' }}
       </button>
-      <button ref='restartButton' type='button'
+      <button type='button'
               class='opacity-100 my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-green-500 hover:bg-green-600 focus:ring-green-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
               @click.prevent.stop='emit("restart")'>
         {{ mode !== MenuType.RESTART ? 'RESTART' : 'Yes' }}
       </button>
-      <button ref='toMenuButton' type='button' v-if='mode!==MenuType.RESTART'
+      <button type='button' v-show='mode!==MenuType.RESTART'
               class='opacity-100 my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-green-500 hover:bg-green-600 focus:ring-green-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
               @click.prevent.stop='emit("toMenu")'>
         RETURN TO MENU
       </button>
-      <button ref='toHomeButton' type='button' v-if='mode!==MenuType.RESTART'
+      <button type='button' v-show='mode!==MenuType.RESTART'
               class='opacity-100 my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-green-500 hover:bg-green-600 focus:ring-green-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
               @click.prevent.stop='emit("toHome")'>
         RETURN TO HOME
