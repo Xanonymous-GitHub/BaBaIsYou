@@ -3,6 +3,8 @@
 
 ### [Play Now](https://baba.ntut.club/)
 
+[![github pages](https://github.com/Xanonymous-GitHub/BaBaIsYou/actions/workflows/node.js.yml/badge.svg)](https://github.com/Xanonymous-GitHub/BaBaIsYou/actions/workflows/node.js.yml)
+
 ## Announcement
 This is a reimplementation of a desktop game [Baba Is You](https://hempuli.com/baba/) which is **only used for educational purposes**.
 If you want the play the origin version of Baba Is You, please purchase it [here](https://store.steampowered.com/app/736260/Baba_Is_You/). 
