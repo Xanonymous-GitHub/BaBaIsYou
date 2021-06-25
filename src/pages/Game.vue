@@ -100,7 +100,7 @@
     mousetrap.bind('esc', handleEsc)
     mousetrap.bind('r', handleR)
     setAudioSrc(globalState.value.currentLevel.backgroundMusic)
-    if (audio.paused) await audio.play()
+    await audio.play()
   }
 
   const gameOver = async (result: GameResult) => {
@@ -146,6 +146,7 @@
   }
 
   const toHome = async () => {
+    audio.pause()
     await router.replace({ name: 'Home' })
   }
 
