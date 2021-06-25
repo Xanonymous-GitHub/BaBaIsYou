@@ -23,7 +23,10 @@ To know more about the rules, check out [Baba Is You Wiki](https://babaiswiki.fa
 ## Controls
 `ESC`: Menu
 `R`: Restart level
-Arrow keys: Move up/down/left/right
+Arrow keys: Move up/down/left/right, you can also use W/A/S/D.
+
+## Bugs
+There are actually many bugs to be fixed in this project. If you find them while playing, please let us know as much as possible.
 
 ## About us
 Hi! We are students from National Taipei University of Technology with a strong passion in programming.
