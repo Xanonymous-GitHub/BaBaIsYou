@@ -41,7 +41,11 @@ export default defineConfig({
       safari10: true,
       keep_classnames: false,
       keep_fnames: false,
-      compress: true
+      compress: true,
+      format: {
+        preserve_annotations: false,
+        comments: false
+      }
     },
     chunkSizeWarningLimit: 100000,
     rollupOptions: {
