@@ -1,1 +1,0 @@
-System.register(["./core-legacy.4223bc4d.js"],(function(t){"use strict";var e,n,r,s;return{setters:[function(t){e=t.f,n=t.o,r=t.c,s=t.u}],execute:function(){t("default",e({expose:[],setup:function(t){return function(t,e){return n(),r("img",{src:s("/assets/congratulations.a5a7d30e.png"),alt:"Congratulations"},null,8,["src"])}}}))}}}));
