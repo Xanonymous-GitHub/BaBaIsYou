@@ -31,13 +31,13 @@
 
 <script setup lang='ts'>
   import type { PropType } from 'vue'
-  import { defineAsyncComponent, defineEmit, defineProps, ref } from 'vue'
+  import { defineAsyncComponent, defineEmits, defineProps, ref } from 'vue'
   import { MenuType } from '@/types'
   import { tryOnMounted } from '@vueuse/core'
 
   const WinText = defineAsyncComponent(() => import('@/components/WinText.vue'))
 
-  const emit = defineEmit(['resume', 'restart', 'toMenu', 'toHome'])
+  const emit = defineEmits(['resume', 'restart', 'toMenu', 'toHome'])
 
   const props = defineProps({
     mode: {
