@@ -1,1 +1,0 @@
-import{f as a,o as s,q as t,u as o}from"./core.01a31b01.js";const r=["src"],n=a({setup:a=>(a,n)=>(s(),t("img",{src:o("/assets/congratulations.a5a7d30e.png"),alt:"Congratulations"},null,8,r))});export{n as default};
