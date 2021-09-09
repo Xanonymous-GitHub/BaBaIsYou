@@ -1,0 +1,1 @@
+System.register(["./core-legacy.c0c5fb61.js"],(function(t){"use strict";var n,e,r,u;return{setters:[function(t){n=t.f,e=t.o,r=t.q,u=t.u}],execute:function(){var s=["src"];t("default",n({setup:function(t){return function(t,n){return e(),r("img",{src:u("/assets/congratulations.a5a7d30e.png"),alt:"Congratulations"},null,8,s)}}}))}}}));

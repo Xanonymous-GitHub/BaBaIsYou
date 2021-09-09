@@ -1,0 +1,1 @@
+System.register(["./core-legacy.c0c5fb61.js"],(function(e){"use strict";var t,r;return{setters:[function(e){t=e.A,r=e.B}],execute:function(){var n={currentLevel:{name:"",setupFileName:""}};e("u",t((function(){return r("Babaisyou-storage",n)})))}}}));
