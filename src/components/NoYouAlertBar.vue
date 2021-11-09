@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script setup lang='ts'>
+<script lang='ts' setup>
   import '@/assets/scss/shared/abscenter.scss'
   import restartImgUrl from '@/assets/images/restart.png'
 </script>

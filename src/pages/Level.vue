@@ -1,5 +1,6 @@
 <template>
-  <div class='flex
+  <div
+    class='flex
         animate-bg
         h-full
         justify-center
@@ -7,21 +8,23 @@
         flex-col
         bg-gray-900'>
     <div class='card-container w-4/5 relative mx-auto my-auto'>
-      <button v-for='(level, i) of levels' :key='i' type='button'
-              class='w-60 h-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg'
-              @click.stop.prevent='startGame(level)'>
+      <button
+        v-for='(level, i) of levels' :key='i' class='w-60 h-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg'
+        type='button'
+        @click.stop.prevent='startGame(level)'>
         {{ level.name }}
       </button>
     </div>
-    <button type='button'
-            class='relative mx-auto my-10 w-45 h-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-white hover:bg-gray-400 text-black transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg'
-            @click.stop.prevent='router.push({ name: "Home" })'>
+    <button
+      class='relative mx-auto my-10 w-45 h-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-white hover:bg-gray-400 text-black transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg'
+      type='button'
+      @click.stop.prevent='router.push({ name: "Home" })'>
       Back To Home
     </button>
   </div>
 </template>
 
-<script setup lang='ts'>
+<script lang='ts' setup>
   import { useRouter } from 'vue-router'
   import levels from '@/assets/levels'
   import type { Level } from '@/assets/levels'

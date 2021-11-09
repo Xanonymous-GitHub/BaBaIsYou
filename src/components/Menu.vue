@@ -5,33 +5,40 @@
       ARE YOU SURE YOU WANT TO RESTART?
     </p>
     <div class='w-70 sm:w-60 relative mx-auto'>
-      <button ref='resumeButton' type='button' v-show='mode!==MenuType.WIN'
-              class='opacity-100 my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-green-500 hover:bg-green-600 focus:ring-green-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
-              @click.prevent.stop='emit("resume")'>
+      <button
+        v-show='mode!==MenuType.WIN' ref='resumeButton'
+        class='opacity-100 my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-green-500 hover:bg-green-600 focus:ring-green-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
+        type='button'
+        @click.prevent.stop='emit("resume")'>
         {{ mode !== MenuType.RESTART ? 'RESUME' : 'No' }}
       </button>
-      <button type='button'
-              class='opacity-100 my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-green-500 hover:bg-green-600 focus:ring-green-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
-              @click.prevent.stop='emit("restart")'>
+      <button
+        class='opacity-100 my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-green-500 hover:bg-green-600 focus:ring-green-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
+        type='button'
+        @click.prevent.stop='emit("restart")'>
         {{ mode !== MenuType.RESTART ? 'RESTART' : 'Yes' }}
       </button>
-      <button type='button' v-show='mode!==MenuType.RESTART'
-              class='opacity-100 my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-green-500 hover:bg-green-600 focus:ring-green-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
-              @click.prevent.stop='emit("toMenu")'>
+      <button
+        v-show='mode!==MenuType.RESTART'
+        class='opacity-100 my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-green-500 hover:bg-green-600 focus:ring-green-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
+        type='button'
+        @click.prevent.stop='emit("toMenu")'>
         RETURN TO MENU
       </button>
-      <button type='button' v-show='mode!==MenuType.RESTART'
-              class='opacity-100 my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-green-500 hover:bg-green-600 focus:ring-green-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
-              @click.prevent.stop='emit("toHome")'>
+      <button
+        v-show='mode!==MenuType.RESTART'
+        class='opacity-100 my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-green-500 hover:bg-green-600 focus:ring-green-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
+        type='button'
+        @click.prevent.stop='emit("toHome")'>
         RETURN TO HOME
       </button>
     </div>
   </div>
 </template>
 
-<script setup lang='ts'>
+<script lang='ts' setup>
   import type { PropType } from 'vue'
-  import { defineAsyncComponent, defineEmits, defineProps, ref } from 'vue'
+  import { defineAsyncComponent, ref } from 'vue'
   import { MenuType } from '@/types'
   import { tryOnMounted } from '@vueuse/core'
 

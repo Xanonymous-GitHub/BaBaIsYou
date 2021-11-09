@@ -1,28 +1,31 @@
 <template>
-  <Menu v-if='showMenu' :key='"menu"+menuKey' :mode='menuType'
-        @resume='handleEsc'
-        @restart='restartGame'
-        @to-menu='toMenu'
-        @to-home='toHome'
+  <Menu
+    v-if='showMenu' :key='"menu"+menuKey' :mode='menuType'
+    @restart='restartGame'
+    @resume='handleEsc'
+    @to-menu='toMenu'
+    @to-home='toHome'
   />
   <NoYouAlertBar v-if='showNoYouAlertBar' :key='"alertBar"+alertBarKey' />
-  <div id='game-layer'
-       class='
+  <div
+    id='game-layer'
+    class='
        transform-gpu
         flex
         h-screen
         justify-center
         relative
         bg-gray-900'>
-    <div ref='gameLayer'
-         class='
+    <div
+      ref='gameLayer'
+      class='
          game-layer
          self-center'
     />
   </div>
 </template>
 
-<script setup lang='ts'>
+<script lang='ts' setup>
   import { defineAsyncComponent, ref } from 'vue'
   import { tryOnMounted } from '@vueuse/core'
   import GamePack from '@/core'

@@ -2,6 +2,6 @@
   <img :src='congratulationsUrl' alt='Congratulations'>
 </template>
 
-<script setup lang='ts'>
+<script lang='ts' setup>
   import congratulationsUrl from '@/assets/images/congratulations.png'
 </script>
