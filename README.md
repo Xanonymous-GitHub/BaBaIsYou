@@ -3,7 +3,12 @@
 
 ### [Play Now](https://baba.ntut.club/)
 
+![Sonar Quality Gate](https://sonarcloud.io/api/project_badges/quality_gate?project=Xanonymous-GitHub_BaBaIsYou)
+<br />
 [![github pages](https://github.com/Xanonymous-GitHub/BaBaIsYou/actions/workflows/node.js.yml/badge.svg)](https://github.com/Xanonymous-GitHub/BaBaIsYou/actions/workflows/node.js.yml)
+![](https://sonarcloud.io/api/project_badges/measure?project=Xanonymous-GitHub_BaBaIsYou&metric=sqale_rating)
+![](https://sonarcloud.io/api/project_badges/measure?project=Xanonymous-GitHub_BaBaIsYou&metric=security_rating)
+![](https://sonarcloud.io/api/project_badges/measure?project=Xanonymous-GitHub_BaBaIsYou&metric=reliability_rating)
 
 ## Announcement
 This is a reimplementation of a desktop game [Baba Is You](https://hempuli.com/baba/) which is **only used for educational purposes**. <br>
