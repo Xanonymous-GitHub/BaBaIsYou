@@ -6,7 +6,7 @@ import 'virtual:windi.css'
 
 /**
 * @summary
- * Only import this for fun, hope I can use it in future.
+ * Only import this for fun, hope I can use it in the future.
 * */
 import 'uno.css'
 

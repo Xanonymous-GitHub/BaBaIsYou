@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { minifyHtml } from 'vite-plugin-html'
-import legacy from '@vitejs/plugin-legacy'
+import { createHtmlPlugin } from 'vite-plugin-html'
 import WindiCSS from 'vite-plugin-windicss'
 import Unocss from 'unocss/vite'
 import { join } from 'path'
@@ -16,21 +15,9 @@ export default defineConfig({
     vue({
       isProduction: true
     }),
-    Unocss(),
+    Unocss(), // for fun
     WindiCSS(),
-    legacy({
-      targets: ['defaults', 'dead', '> 1%', 'ie 10', 'ie 6', 'ie 7', 'ie 8', 'ie 9', 'ie 11', 'since 2002', 'unreleased versions']
-    }),
-    minifyHtml({
-      collapseBooleanAttributes: true,
-      collapseWhitespace: true,
-      minifyCSS: true,
-      minifyJS: true,
-      minifyURLs: true,
-      removeAttributeQuotes: true,
-      removeComments: true,
-      removeEmptyAttributes: true
-    })
+    createHtmlPlugin()
   ],
   build: {
     minify: 'terser',
