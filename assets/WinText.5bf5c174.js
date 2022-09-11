@@ -1,0 +1,1 @@
+import{f as t,o as n,l as a,u as e}from"./core.365c9d25.js";const o="/assets/congratulations.a5a7d30e.png",s=["src"],_=t({__name:"WinText",setup(r){return(c,l)=>(n(),a("img",{src:e(o),alt:"Congratulations"},null,8,s))}});export{_ as default};
