@@ -1,4 +1,4 @@
-import { Loader } from 'pixi.js'
+import { Assets } from 'pixi.js'
 import type { Texture, Spritesheet, Resource } from 'pixi.js'
 import type { Species } from '@/core/resource'
 
@@ -12,21 +12,15 @@ class TextureServiceConcrete implements TextureService {
   private _resourcesSheet!: Spritesheet
   private _loadingProgress = 0
 
-  private _prepareLoadedResources(resourcesLocation: string) {
-    const sheet = Loader.shared.resources[resourcesLocation.trim()].spritesheet
+  private async _prepareLoadedResources(resourcesLocation: string): Promise<void> {
+    const sheet = await Assets.load(resourcesLocation.trim())
     if (!sheet) throw new Error('Could not get game resources!')
     this._resourcesSheet = sheet
   }
 
-  public loadResources(resourcesLocation: string): Promise<void> {
-    if (this._resourcesSheet) return Promise.resolve()
-    return new Promise<void>(resolve => {
-      Loader.shared.add(resourcesLocation.trim())
-        .load(() => {
-          this._prepareLoadedResources(resourcesLocation)
-          resolve()
-        })
-    })
+  public async loadResources(resourcesLocation: string): Promise<void> {
+    if (this._resourcesSheet) return
+    await this._prepareLoadedResources(resourcesLocation)
   }
 
   public getLoadingProgress(): number {

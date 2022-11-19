@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { createHtmlPlugin } from 'vite-plugin-html'
-import WindiCSS from 'vite-plugin-windicss'
 import Unocss from 'unocss/vite'
 import { join } from 'path'
 
@@ -13,19 +12,25 @@ export default defineConfig({
   },
   plugins: [
     vue({
-      isProduction: true
+      isProduction: true,
+      reactivityTransform: true
     }),
-    Unocss(), // for fun
-    WindiCSS(),
+    Unocss(),
     createHtmlPlugin()
   ],
   build: {
     cssCodeSplit: true,
-    chunkSizeWarningLimit: 100000,
+    chunkSizeWarningLimit: 50000,
     rollupOptions: {
       output: {
+        chunkFileNames: 'assets/[name]-[hash].min.js',
+        assetFileNames: 'assets/[name]-[hash].min[extname]',
         preferConst: true,
         freeze: true,
+        minifyInternalExports: true,
+        sourcemap: false,
+        strict: true,
+        compact: true,
         manualChunks(id) {
           if (id.includes('core')) {
             return 'core'
@@ -35,6 +40,11 @@ export default defineConfig({
     }
   },
   esbuild: {
+    legalComments: 'none',
+    minifySyntax: true,
+    minifyWhitespace: true,
+    minifyIdentifiers: true,
+    platform: 'browser',
     include: './src/**/*.{js,ts,jsx,tsx,css,json,text,base64,dataurl,file,binary}'
   }
 })

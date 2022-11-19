@@ -3,5 +3,5 @@
 </template>
 
 <script lang='ts' setup>
-  import congratulationsUrl from '@/assets/images/congratulations.png'
+  import congratulationsUrl from '@/assets/images/congratulations.webp'
 </script>

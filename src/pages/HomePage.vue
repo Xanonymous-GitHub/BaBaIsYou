@@ -35,7 +35,7 @@
 </template>
 
 <script lang='ts' setup>
-  import babaBackgroundUrl from '@/assets/images/BaBaIsYou.png'
+  import babaBackgroundUrl from '@/assets/images/BaBaIsYou.webp'
   import animationBg from '../assets/images/animation-bg.webp'
 
   const animationBgStyleUrlValue = `url('${animationBg}')`

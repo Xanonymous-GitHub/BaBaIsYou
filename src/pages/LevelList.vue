@@ -47,6 +47,7 @@
     justify-items: center;
     gap: 1.5rem;
     padding: 1.5rem;
+    overflow-y: scroll;
   }
 
   .animate-bg {

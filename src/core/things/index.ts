@@ -229,7 +229,7 @@ export class Thing extends AnimatedSprite {
     })
   }
 
-  public handleBeside(visitor: Thing, visitorBeside: Direction): Promise<void> {
+  public handleBeside(): Promise<void> {
     return Promise.resolve(undefined)
   }
 
@@ -237,7 +237,7 @@ export class Thing extends AnimatedSprite {
     return await generalHandleEncounterMixin(this, visitor, visitorFrom, this.thingController)
   }
 
-  public handleLeave(visitor: Thing, visitorLeavesFrom: Direction): Promise<void> {
+  public handleLeave(): Promise<void> {
     return Promise.resolve(undefined)
   }
 }

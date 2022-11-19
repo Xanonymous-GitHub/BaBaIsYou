@@ -51,7 +51,7 @@
 
   const menuType = ref(MenuType.GENERAL)
 
-  const Menu = defineAsyncComponent(() => import('@/components/Menu.vue'))
+  const Menu = defineAsyncComponent(() => import('@/components/MainMenu.vue'))
   const NoYouAlertBar = defineAsyncComponent(() => import('@/components/NoYouAlertBar.vue'))
 
   let game: GameCore

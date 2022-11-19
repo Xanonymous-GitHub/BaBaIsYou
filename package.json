@@ -1,42 +1,40 @@
 {
   "name": "babaisyou",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "analysis": "windicss-analysis"
+    "lint": "eslint ./src --fix"
   },
   "dependencies": {
     "@tweenjs/tween.js": "18.6.4",
-    "@vueuse/core": "9.2.0",
-    "axios": "0.27.2",
+    "@vueuse/core": "9.5.0",
+    "axios": "1.1.3",
     "mousetrap": "1.6.5",
-    "pixi.js": "6.5.3",
+    "pixi.js": "7.0.4",
     "uuid": "9.0.0",
-    "vue": "3.2.39",
-    "vue-router": "4.1.5"
+    "vue": "3.2.45",
+    "vue-router": "4.1.6"
   },
   "devDependencies": {
-    "@types/mousetrap": "1.6.9",
+    "@types/mousetrap": "1.6.11",
     "@types/uuid": "8.3.4",
-    "@typescript-eslint/eslint-plugin": "5.36.2",
-    "@typescript-eslint/parser": "5.36.2",
-    "@vitejs/plugin-vue": "3.1.0",
-    "@vue/compiler-sfc": "3.2.39",
-    "eslint": "8.23.0",
+    "@typescript-eslint/eslint-plugin": "5.43.0",
+    "@typescript-eslint/parser": "5.43.0",
+    "@unocss/reset": "^0.46.5",
+    "@vitejs/plugin-vue": "3.2.0",
+    "@vue/compiler-sfc": "3.2.45",
+    "eslint": "8.28.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-vue": "9.4.0",
-    "fp-ts": "2.12.3",
+    "eslint-plugin-vue": "9.7.0",
+    "fp-ts": "2.13.1",
     "prettier": "2.7.1",
-    "sass": "1.54.9",
-    "typescript": "4.8.3",
-    "unocss": "0.45.18",
-    "vite": "3.1.0",
-    "vite-plugin-compress": "2.1.1",
-    "vite-plugin-html": "3.2.0",
-    "vite-plugin-windicss": "1.8.8",
-    "windicss-analysis": "0.3.5"
+    "sass": "1.56.1",
+    "typescript": "4.9.3",
+    "unocss": "0.46.5",
+    "vite": "3.2.4",
+    "vite-plugin-html": "3.2.0"
   }
 }

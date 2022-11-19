@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Home',
     component: () =>
       import(
-        '@/pages/Home.vue'
+        '@/pages/HomePage.vue'
         )
   },
 
@@ -15,7 +15,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Level',
     component: () =>
       import(
-        '@/pages/Level.vue'
+        '@/pages/LevelList.vue'
         )
   },
   {
@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Game',
     component: () =>
       import(
-        '@/pages/Game.vue'
+        '@/pages/GameLayout.vue'
         )
   }
 ]

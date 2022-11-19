@@ -8,7 +8,7 @@
 
 <script lang='ts' setup>
   import '@/assets/scss/shared/abscenter.scss'
-  import restartImgUrl from '@/assets/images/restart.png'
+  import restartImgUrl from '@/assets/images/restart.webp'
 </script>
 
 <style lang='scss' scoped>
