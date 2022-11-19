@@ -7,7 +7,7 @@
     <header class='w-10/12 sm:w-9/12 lg:w-8/12 xl:w-7/12 2xl:w-6/12 h-auto relative header-img mx-auto'>
       <img :src='babaBackgroundUrl' alt='' class='w-full' loading='lazy'>
     </header>
-    <div class='w-30 sm:w-40 relative top-15/100 mx-auto'>
+    <div class='w-30 sm:w-40 relative top-15/200 mx-auto'>
       <router-link :to='{name: "Level"}'>
         <button
           class='my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
@@ -22,13 +22,25 @@
           Wiki
         </button>
       </a>
+      <a href='https://github.com/Xanonymous-GitHub/BaBaIsYou' rel='noreferrer noopener' target='_blank'>
+        <button
+          class='my-10 py-1 px-2 sm:(py-2 px-4) flex justify-center items-center bg-gray-900 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg '
+          type='button'>
+          GitHub
+        </button>
+      </a>
     </div>
     <footer class='bottom-5 absolute w-full select-none cursor-default'>
       <p class='text-white text-center font-extrabold'>
-        Origin game by ARVI TEIKARI
+        Please play in desktop mode.
       </p>
       <p class='text-white text-center font-extrabold'>
-        Re-implemented by Xanonymous & Ricky
+        Origin game created by ARVI TEIKARI
+      </p>
+      <p class='text-white text-center font-extrabold'>
+        Re-implemented by
+        <a href='https://xcc.tw' rel='noreferrer noopener' target='_blank' text-blue hover:text-lime>TU Xanonymous</a> &
+        <a href='https://ricky-hu.com' rel='noreferrer noopener' target='_blank' text-blue hover:text-lime>RickyHu</a>.
       </p>
     </footer>
   </div>

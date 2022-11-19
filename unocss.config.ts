@@ -22,9 +22,9 @@ export default defineConfig({
     }),
     presetWebFonts({
       fonts: {
-        sans: 'DM Sans',
-        serif: 'DM Serif Display',
-        mono: 'DM Mono'
+        sans: 'Russo One',
+        serif: 'Russo One',
+        mono: 'Russo One'
       }
     })
   ]
