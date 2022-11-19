@@ -4,17 +4,20 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '17'
+          node-version: '19'
 
       - name: Cache dependencies
         uses: actions/cache@v3
@@ -26,7 +29,7 @@ jobs:
 
       - run: npm i -g pnpm
       - run: pnpm i --frozen-lockfile
-      - run: pnpm run build
+      - run: pnpm build
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
