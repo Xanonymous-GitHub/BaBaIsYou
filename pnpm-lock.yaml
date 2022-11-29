@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@tweenjs/tween.js': 18.6.4
   '@types/mousetrap': 1.6.11
-  '@types/uuid': 8.3.4
+  '@types/uuid': 9.0.0
   '@typescript-eslint/eslint-plugin': 5.43.0
   '@typescript-eslint/parser': 5.43.0
   '@unocss/reset': ^0.46.5
@@ -40,7 +40,7 @@ dependencies:
 
 devDependencies:
   '@types/mousetrap': 1.6.11
-  '@types/uuid': 8.3.4
+  '@types/uuid': 9.0.0
   '@typescript-eslint/eslint-plugin': 5.43.0_nqj4bdx4ekws7aecttskpih4py
   '@typescript-eslint/parser': 5.43.0_hsf322ms6xhhd4b5ne6lb74y4a
   '@unocss/reset': 0.46.5
@@ -462,8 +462,8 @@ packages:
     resolution: {integrity: sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==}
     dev: true
 
-  /@types/uuid/8.3.4:
-    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
+  /@types/uuid/9.0.0:
+    resolution: {integrity: sha512-kr90f+ERiQtKWMz5rP32ltJ/BtULDI5RVO0uavn1HQUOwjx0R1h0rnDYNL0CepF1zL5bSY6FISAfd9tOdDhU5Q==}
     dev: true
 
   /@types/web-bluetooth/0.0.16:

@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@types/mousetrap": "1.6.11",
-    "@types/uuid": "8.3.4",
+    "@types/uuid": "9.0.0",
     "@typescript-eslint/eslint-plugin": "5.43.0",
     "@typescript-eslint/parser": "5.43.0",
     "@unocss/reset": "^0.46.5",
