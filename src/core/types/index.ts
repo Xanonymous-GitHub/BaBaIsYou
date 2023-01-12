@@ -4,6 +4,7 @@ import type { CharacterType } from '@/core/types/characters'
 import type { NounType } from '@/core/types/nouns'
 import type { PropertyType } from '@/core/types/properties'
 import type { OperatorType } from '@/core/types/operators'
+import type { ICanvas } from 'pixi.js'
 
 export type ThingType = CharacterType | PropertyType | NounType | OperatorType
 
@@ -25,7 +26,7 @@ export enum GameResult {
 }
 
 export interface GameCore {
-  gameView: HTMLCanvasElement
+  gameView: ICanvas
   startLevel: (setupFileName: string) => Promise<void>
   pause: () => void
   resume: () => void

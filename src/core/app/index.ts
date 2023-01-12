@@ -1,9 +1,9 @@
-import { Application, utils, settings } from 'pixi.js'
+import { Application, BatchRenderer, GC_MODES, settings, TextureGCSystem } from 'pixi.js'
 import { appOptions } from './configs'
 
 export const createGameApp = (): Application => {
-  utils.skipHello()
-  settings.GC_MODE = 0
-  settings.SPRITE_MAX_TEXTURES = Math.min(settings.SPRITE_MAX_TEXTURES, 16)
+  settings.RENDER_OPTIONS.hello = false
+  TextureGCSystem.defaultMode = GC_MODES.AUTO
+  BatchRenderer.defaultBatchSize = Math.min(BatchRenderer.defaultBatchSize, 16)
   return new Application(appOptions)
 }
