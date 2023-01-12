@@ -25,7 +25,6 @@ export default defineConfig({
       output: {
         chunkFileNames: 'assets/[name]-[hash].min.js',
         assetFileNames: 'assets/[name]-[hash].min[extname]',
-        preferConst: true,
         freeze: true,
         minifyInternalExports: true,
         sourcemap: false,
