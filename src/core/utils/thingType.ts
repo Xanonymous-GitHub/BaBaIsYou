@@ -6,7 +6,7 @@ import { PropertyType } from '@/core/types/properties'
 import type { ThingType } from '@/core/types'
 
 export const convertNounToCharacter = (noun: NounType): CharacterType => {
-  return noun.substr(5) as CharacterType
+  return noun.substring(5) as CharacterType
 }
 
 export const isCharacter = (thingType: ThingType): boolean => {
