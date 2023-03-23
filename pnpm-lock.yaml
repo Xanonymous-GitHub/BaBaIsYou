@@ -19,7 +19,7 @@ specifiers:
   mousetrap: 1.6.5
   pixi.js: 7.1.1
   prettier: 2.8.3
-  sass: 1.57.1
+  sass: 1.60.0
   typescript: 4.9.4
   unocss: 0.48.4
   uuid: 9.0.0
@@ -52,10 +52,10 @@ devDependencies:
   eslint-plugin-vue: 9.9.0_eslint@8.32.0
   fp-ts: 2.13.1
   prettier: 2.8.3
-  sass: 1.57.1
+  sass: 1.60.0
   typescript: 4.9.4
   unocss: 0.48.4_vite@4.0.4
-  vite: 4.0.4_sass@1.57.1
+  vite: 4.0.4_sass@1.60.0
   vite-plugin-html: 3.2.0_vite@4.0.4
 
 packages:
@@ -940,7 +940,7 @@ packages:
       chokidar: 3.5.3
       fast-glob: 3.2.12
       magic-string: 0.27.0
-      vite: 4.0.4_sass@1.57.1
+      vite: 4.0.4_sass@1.60.0
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -952,7 +952,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.0.4_sass@1.57.1
+      vite: 4.0.4_sass@1.60.0
       vue: 3.2.45
     dev: true
 
@@ -2406,8 +2406,8 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
-  /sass/1.57.1:
-    resolution: {integrity: sha512-O2+LwLS79op7GI0xZ8fqzF7X2m/m8WFfI02dHOdsK5R2ECeS5F62zrwg/relM1rjSLy7Vd/DiMNIvPrQGsA0jw==}
+  /sass/1.60.0:
+    resolution: {integrity: sha512-updbwW6fNb5gGm8qMXzVO7V4sWf7LMXnMly/JEyfbfERbVH46Fn6q02BX7/eHTdKpE7d+oTkMMQpFWNUMfFbgQ==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
@@ -2669,10 +2669,10 @@ packages:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 4.0.4_sass@1.57.1
+      vite: 4.0.4_sass@1.60.0
     dev: true
 
-  /vite/4.0.4_sass@1.57.1:
+  /vite/4.0.4_sass@1.60.0:
     resolution: {integrity: sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -2701,7 +2701,7 @@ packages:
       postcss: 8.4.21
       resolve: 1.22.1
       rollup: 3.10.1
-      sass: 1.57.1
+      sass: 1.60.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
