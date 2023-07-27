@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@tweenjs/tween.js':
     specifier: 19.0.0
@@ -61,8 +65,8 @@ devDependencies:
     specifier: 9.10.0
     version: 9.10.0(eslint@8.38.0)
   fp-ts:
-    specifier: 2.13.1
-    version: 2.13.1
+    specifier: 2.16.1
+    version: 2.16.1
   prettier:
     specifier: 2.8.7
     version: 2.8.7
@@ -1968,8 +1972,8 @@ packages:
       mime-types: 2.1.35
     dev: false
 
-  /fp-ts@2.13.1:
-    resolution: {integrity: sha512-0eu5ULPS2c/jsa1lGFneEFFEdTbembJv8e4QKXeVJ3lm/5hyve06dlKZrpxmMwJt6rYen7sxmHHK2CLaXvWuWQ==}
+  /fp-ts@2.16.1:
+    resolution: {integrity: sha512-by7U5W8dkIzcvDofUcO42yl9JbnHTEDBrzu3pt5fKT+Z4Oy85I21K80EYJYdjQGC2qum4Vo55Ag57iiIK4FYuA==}
     dev: true
 
   /fs-extra@10.1.0:
