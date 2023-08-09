@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@tweenjs/tween.js':
     specifier: 19.0.0
@@ -58,8 +62,8 @@ devDependencies:
     specifier: 4.2.1
     version: 4.2.1(eslint-config-prettier@8.8.0)(eslint@8.38.0)(prettier@2.8.7)
   eslint-plugin-vue:
-    specifier: 9.10.0
-    version: 9.10.0(eslint@8.38.0)
+    specifier: 9.17.0
+    version: 9.17.0(eslint@8.38.0)
   fp-ts:
     specifier: 2.13.1
     version: 2.13.1
@@ -1728,8 +1732,8 @@ packages:
       prettier-linter-helpers: 1.0.0
     dev: true
 
-  /eslint-plugin-vue@9.10.0(eslint@8.38.0):
-    resolution: {integrity: sha512-2MgP31OBf8YilUvtakdVMc8xVbcMp7z7/iQj8LHVpXrSXHPXSJRUIGSPFI6b6pyCx/buKaFJ45ycqfHvQRiW2g==}
+  /eslint-plugin-vue@9.17.0(eslint@8.38.0):
+    resolution: {integrity: sha512-r7Bp79pxQk9I5XDP0k2dpUC7Ots3OSWgvGZNu3BxmKK6Zg7NgVtcOB6OCna5Kb9oQwJPl5hq183WD0SY5tZtIQ==}
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.2.0 || ^7.0.0 || ^8.0.0
@@ -1738,9 +1742,9 @@ packages:
       eslint: 8.38.0
       natural-compare: 1.4.0
       nth-check: 2.1.1
-      postcss-selector-parser: 6.0.11
-      semver: 7.4.0
-      vue-eslint-parser: 9.1.1(eslint@8.38.0)
+      postcss-selector-parser: 6.0.13
+      semver: 7.5.4
+      vue-eslint-parser: 9.3.1(eslint@8.38.0)
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - supports-color
@@ -2540,8 +2544,8 @@ packages:
       - '@pixi/utils'
     dev: false
 
-  /postcss-selector-parser@6.0.11:
-    resolution: {integrity: sha512-zbARubNdogI9j7WY4nQJBiNqQf3sLS3wCP4WfOidu+p28LofJqDH1tcXypGrcmMHhDk2t9wGhCsYe/+szLTy1g==}
+  /postcss-selector-parser@6.0.13:
+    resolution: {integrity: sha512-EaV1Gl4mUEV4ddhDnv/xtj7sxwrwxdetHdWUGnT4VJQf+4d05v6lHYZr8N573k5Z0BViss7BDhfWtKS3+sfAqQ==}
     engines: {node: '>=4'}
     dependencies:
       cssesc: 3.0.0
@@ -2661,6 +2665,14 @@ packages:
 
   /semver@7.4.0:
     resolution: {integrity: sha512-RgOxM8Mw+7Zus0+zcLEUn8+JfoLpj/huFTItQy2hsM4khuC1HYRDp0cU482Ewn/Fcy6bCjufD8vAj7voC66KQw==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      lru-cache: 6.0.0
+    dev: true
+
+  /semver@7.5.4:
+    resolution: {integrity: sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -2956,8 +2968,8 @@ packages:
       vue: 3.2.47
     dev: false
 
-  /vue-eslint-parser@9.1.1(eslint@8.38.0):
-    resolution: {integrity: sha512-C2aI/r85Q6tYcz4dpgvrs4wH/MqVrRAVIdpYedrxnATDHHkb+TroeRcDpKWGZCx/OcECMWfz7tVwQ8e+Opy6rA==}
+  /vue-eslint-parser@9.3.1(eslint@8.38.0):
+    resolution: {integrity: sha512-Clr85iD2XFZ3lJ52/ppmUDG/spxQu6+MAeHXjjyI4I1NUYZ9xmenQp4N0oaHJhrA8OOxltCVxMRfANGa70vU0g==}
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: '>=6.0.0'
@@ -2969,7 +2981,7 @@ packages:
       espree: 9.5.1
       esquery: 1.5.0
       lodash: 4.17.21
-      semver: 7.4.0
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
     dev: true
