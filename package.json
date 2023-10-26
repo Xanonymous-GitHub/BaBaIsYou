@@ -31,7 +31,7 @@
     "eslint-plugin-vue": "9.17.0",
     "fp-ts": "2.16.1",
     "prettier": "3.0.3",
-    "sass": "1.66.1",
+    "sass": "1.69.5",
     "typescript": "5.2.2",
     "unocss": "0.55.4",
     "vite": "4.4.9",
