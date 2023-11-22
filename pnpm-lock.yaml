@@ -32,8 +32,8 @@ dependencies:
 
 devDependencies:
   '@types/mousetrap':
-    specifier: 1.6.11
-    version: 1.6.11
+    specifier: 1.6.15
+    version: 1.6.15
   '@types/uuid':
     specifier: 9.0.3
     version: 9.0.3
@@ -873,8 +873,8 @@ packages:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
     dev: true
 
-  /@types/mousetrap@1.6.11:
-    resolution: {integrity: sha512-F0oAily9Q9QQpv9JKxKn0zMKfOo36KHCW7myYsmUyf2t0g+sBTbG3UleTPoguHdE1z3GLFr3p7/wiOio52QFjQ==}
+  /@types/mousetrap@1.6.15:
+    resolution: {integrity: sha512-qL0hyIMNPow317QWW/63RvL1x5MVMV+Ru3NaY9f/CuEpCqrmb7WeuK2071ZY5hczOnm38qExWM2i2WtkXLSqFw==}
     dev: true
 
   /@types/offscreencanvas@2019.7.0:
