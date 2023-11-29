@@ -88,9 +88,9 @@
     showMenu.value = true
   }
 
-  const setAudioSrc = (filename: string) => {
+  const setAudioSrc = (filename?: string) => {
     const pathPrefix = '/music/'
-    audio.src = pathPrefix + filename
+    audio.src = pathPrefix + filename ?? ''
     audio.loop = true
   }
 

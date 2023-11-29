@@ -1,7 +1,7 @@
 export interface Level {
   name: string
   setupFileName: string
-  backgroundMusic: string
+  backgroundMusic?: string
 }
 
 const gameLevels: Array<Level> = [
