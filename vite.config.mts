@@ -12,8 +12,7 @@ export default defineConfig({
   },
   plugins: [
     vue({
-      isProduction: true,
-      reactivityTransform: true
+      isProduction: true
     }),
     Unocss(),
     createHtmlPlugin()
