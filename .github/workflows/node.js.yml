@@ -12,10 +12,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '21'
 
@@ -27,7 +27,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: npm i -g pnpm
+      - run: corepack enable
       - run: pnpm i --frozen-lockfile
       - run: pnpm build
 
