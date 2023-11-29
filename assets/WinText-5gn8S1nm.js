@@ -1,0 +1,1 @@
+import{d as t,o as e,c as n,u as o}from"./index-j278QrV_.js";const s="/assets/congratulations-D4p9yYde.webp",a=["src"],_=t({__name:"WinText",setup(r){return(c,l)=>(e(),n("img",{src:o(s),alt:"Congratulations"},null,8,a))}});export{_ as default};
