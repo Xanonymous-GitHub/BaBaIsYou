@@ -28,7 +28,6 @@
 <script lang='ts' setup>
   import { defineAsyncComponent, ref } from 'vue'
   import { tryOnMounted } from '@vueuse/core'
-  import GamePack from '@/core'
   import type { GameCore } from '@/core/types'
   import { GameResult } from '@/core/types'
   import type { ExtendedKeyboardEvent } from 'mousetrap'
@@ -113,7 +112,7 @@
         menuKey.value++
         mousetrap.unbind(['esc', 'r'])
         showMenu.value = true
-        await audio.pause()
+        audio.pause()
         break
       case GameResult.RESTART:
         await startNewGame()
@@ -154,7 +153,7 @@
   }
 
   tryOnMounted(async () => {
-    game = await (async () => await GamePack)()
+    game = await (async () => (await import('@/core')).default)()
     prepareGame()
     await startNewGame()
   })
