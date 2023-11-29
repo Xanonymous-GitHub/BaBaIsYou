@@ -20,25 +20,13 @@ export default defineConfig({
   build: {
     cssCodeSplit: true,
     chunkSizeWarningLimit: 50000,
-    rollupOptions: {
-      output: {
-        chunkFileNames: 'assets/[name]-[hash].min.js',
-        assetFileNames: 'assets/[name]-[hash].min[extname]',
-        freeze: true,
-        minifyInternalExports: true,
-        sourcemap: false,
-        strict: true,
-        compact: true,
-        manualChunks(id) {
-          if (id.includes('core')) {
-            return 'core'
-          }
-        }
-      }
-    }
+    minify: true,
+    cssMinify: true,
+    sourcemap: false,
   },
   esbuild: {
     legalComments: 'none',
+    minify: true,
     minifySyntax: true,
     minifyWhitespace: true,
     minifyIdentifiers: true,
