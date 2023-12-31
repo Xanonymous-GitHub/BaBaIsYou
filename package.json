@@ -23,7 +23,7 @@
     "@typescript-eslint/eslint-plugin": "6.13.1",
     "@typescript-eslint/parser": "6.13.1",
     "@unocss/reset": "^0.57.7",
-    "@vitejs/plugin-vue": "4.5.0",
+    "@vitejs/plugin-vue": "4.6.2",
     "@vue/compiler-sfc": "3.3.9",
     "eslint": "8.54.0",
     "eslint-config-prettier": "9.0.0",
