@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@tweenjs/tween.js": "21.0.0",
-    "@vueuse/core": "10.6.1",
+    "@vueuse/core": "10.11.1",
     "axios": "1.6.2",
     "mousetrap": "1.6.5",
     "pixi.js": "7.3.2",
