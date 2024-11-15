@@ -22,7 +22,7 @@
     "@types/uuid": "9.0.7",
     "@typescript-eslint/eslint-plugin": "6.13.1",
     "@typescript-eslint/parser": "6.13.1",
-    "@unocss/reset": "^0.57.7",
+    "@unocss/reset": "^0.64.0",
     "@vitejs/plugin-vue": "4.5.0",
     "@vue/compiler-sfc": "3.3.9",
     "eslint": "8.54.0",
@@ -33,7 +33,7 @@
     "prettier": "3.1.0",
     "sass": "1.69.5",
     "typescript": "5.3.2",
-    "unocss": "0.57.7",
+    "unocss": "0.64.1",
     "vite": "5.0.3",
     "vite-plugin-html": "3.2.0"
   }
