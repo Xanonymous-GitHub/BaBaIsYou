@@ -18,7 +18,7 @@ export class TransformInstruction extends RawInstruction {
     super(subject);
 
     // save original data
-    this._originalName = this._subject.name
+    this._originalName = this._subject.thingName
     this._originalTexture = this._subject.texture
 
     // init ThingTypes
@@ -34,7 +34,7 @@ export class TransformInstruction extends RawInstruction {
   }
 
   public override async perform() {
-    // ignore if instructions does not contain new names
+    // ignore if instructions do not contain new names
     if (isNone(this._thingTypes)) return
 
     // cannot change 1 thing to multiple things yet, so we ignore instruction
@@ -45,11 +45,11 @@ export class TransformInstruction extends RawInstruction {
 
     // change subject name
     const thingType = convertNounToCharacter(this._thingTypes.value[0] as NounType)
-    this._subject.name = thingType as string
+    this._subject.thingName = thingType as string
 
     // change subject texture
     const species = getSpeciesByThingType(thingType)
-    this._subject.textures = store.getAnimationTextures(species, this._subject.name)
+    this._subject.textures = store.getAnimationTextures(species, this._subject.thingName)
   }
 
   public override async unperform() {
@@ -60,7 +60,7 @@ export class TransformInstruction extends RawInstruction {
     this._subject.texture = this._originalTexture
 
     // unperform subject name
-    this._subject.name = this._originalName
+    this._subject.thingName = this._originalName
 
   }
 }

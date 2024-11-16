@@ -25,7 +25,7 @@ export class DisappearInstruction extends RawInstruction {
 
     // TODO: How to add thing back to game scene?
 
-    // unperform disappear in map
+    // unperformed disappear in a map
     await store.getMapController().update(this._subject, MapUpdateSituation.APPEAR)
 
     // TODO: How to reconnect to Observer

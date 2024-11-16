@@ -1,11 +1,11 @@
-import type { Texture, Resource } from 'pixi.js'
+import type { Texture } from 'pixi.js'
 import { AnimatedSprite } from 'pixi.js'
 import type { ThingSetup } from '@/core/types/things'
 import { Direction } from '@/core/types/things'
-import { getUid } from '@/core/utils/uuid'
+import { getUid } from '@/core/utils/ulid'
 import type { Species } from '@/core/resource'
 import { generalHandleEncounterMixin } from '@/core/things/_mixins/handleEncounter'
-import { Easing, Tween, update } from '@tweenjs/tween.js'
+import { Easing, Tween } from '@tweenjs/tween.js'
 import { THING_MOVE_DURATION } from '@/core/app/configs'
 import type { ThingController } from '@/core/controllers/thing'
 import { reverseDirection } from '@/core/utils/direction'
@@ -24,7 +24,7 @@ export class Thing extends AnimatedSprite {
   constructor(
     name: string,
     species: Species,
-    textures: Array<Texture<Resource>>,
+    textures: Array<Texture>,
     defaultBlockX: number,
     defaultBlockY: number,
     blockSize: number,
@@ -39,7 +39,7 @@ export class Thing extends AnimatedSprite {
     this._id = getUid()
 
     // set name
-    this.name = name
+    this.label = name
 
     // set species
     this._species = species
@@ -48,7 +48,7 @@ export class Thing extends AnimatedSprite {
     this._blockX = defaultBlockX
     this._blockY = defaultBlockY
 
-    // setup maximum block point on map.
+    // setup maximum block point on a map.
     this._maxBlockX = maxBlockX
     this._maxBlockY = maxBlockY
 
@@ -68,7 +68,7 @@ export class Thing extends AnimatedSprite {
     this.x = (this._blockX + 0.5) * this._blockSize
     this.y = (this._blockY + 0.5) * this._blockSize
 
-    super.animationSpeed = 0.08
+    this.animationSpeed = 0.08
     super.play()
   }
 
@@ -92,18 +92,19 @@ export class Thing extends AnimatedSprite {
     const finalX = { x: (x + 0.5) * this._blockSize }
 
     let animationId = 0
-    const animate = (time: number) => {
-      animationId = requestAnimationFrame(animate)
-      update(time)
-    }
 
-    animationId = requestAnimationFrame(animate)
-
-    new Tween(currentX).to(finalX, THING_MOVE_DURATION)
+    const tween = new Tween(currentX).to(finalX, THING_MOVE_DURATION)
       .onUpdate(() => this.x = currentX.x)
       .easing(Easing.Quadratic.Out)
       .onComplete(() => cancelAnimationFrame(animationId))
       .start()
+
+    const animate = (time: number) => {
+      animationId = requestAnimationFrame(animate)
+      tween.update(time)
+    }
+
+    animationId = requestAnimationFrame(animate)
   }
 
   public get blockY(): number {
@@ -116,18 +117,27 @@ export class Thing extends AnimatedSprite {
     const finalY = { y: (y + 0.5) * this._blockSize }
 
     let animationId = 0
-    const animate = (time: number) => {
-      animationId = requestAnimationFrame(animate)
-      update(time)
-    }
 
-    animationId = requestAnimationFrame(animate)
-
-    new Tween(currentY).to(finalY, THING_MOVE_DURATION)
+    const tween = new Tween(currentY).to(finalY, THING_MOVE_DURATION)
       .easing(Easing.Quadratic.Out)
       .onUpdate(() => this.y = currentY.y)
       .onComplete(() => cancelAnimationFrame(animationId))
       .start()
+
+    const animate = (time: number) => {
+      animationId = requestAnimationFrame(animate)
+      tween.update(time)
+    }
+
+    animationId = requestAnimationFrame(animate)
+  }
+
+  public get thingName(): string {
+    return this.label
+  }
+
+  public set thingName(newName: string) {
+    this.label = newName
   }
 
   public updateTowards(side: Direction) {
@@ -229,7 +239,7 @@ export class Thing extends AnimatedSprite {
     })
   }
 
-  public handleBeside(): Promise<void> {
+  public handleBeside(_: Thing, __: Direction): Promise<void> {
     return Promise.resolve(undefined)
   }
 
@@ -237,7 +247,7 @@ export class Thing extends AnimatedSprite {
     return await generalHandleEncounterMixin(this, visitor, visitorFrom, this.thingController)
   }
 
-  public handleLeave(): Promise<void> {
+  public handleLeave(_: Thing, __: Direction): Promise<void> {
     return Promise.resolve(undefined)
   }
 }

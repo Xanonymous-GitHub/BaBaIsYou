@@ -52,7 +52,7 @@ class MapControllerConcrete implements MapController {
   private maxY: number
 
   constructor() {
-    // initial map size is 1 block.
+    // the initial map size is 1 block.
     this.maxX = 0
     this.maxY = 0
 
@@ -85,7 +85,7 @@ class MapControllerConcrete implements MapController {
     if (x < 0 || x > this.maxX || y < 0 || y > this.maxY) throw new Error(`Map system error, pos @ x:${x} y:${y} is out of range!`)
     if (isSome(this._gameMap[x][y])) {
       const pos = (this._gameMap[x][y] as Some<Array<Thing>>).value.findIndex(thing => thing.id === subject.id)
-      if (pos === -1) throw new Error(`Thing ${subject.id} name = ${subject.name} is not in the pos @ x:${x} y:${y}, can't be removed!`);
+      if (pos === -1) throw new Error(`Thing ${subject.id} name = ${subject.thingName} is not in the pos @ x:${x} y:${y}, can't be removed!`);
       (this._gameMap[x][y] as Some<Array<Thing>>).value.splice(pos, 1)
     } else throw new Error(`Map system error, pos @ x:${x} y:${y} is invalid type!`)
   }
@@ -232,7 +232,7 @@ class MapControllerConcrete implements MapController {
 
         for (const thing of block.value) {
           // get conditions of thing
-          const conditions = changeFeatures.get(thing.name as ThingType)
+          const conditions = changeFeatures.get(thing.thingName as ThingType)
           if (!conditions) continue
           if (conditions.length === 0) continue
 
@@ -257,7 +257,7 @@ class MapControllerConcrete implements MapController {
 
         for (const thing of block.value) {
           // get conditions of thing
-          const conditions = moveFeatures.get(thing.name as ThingType)
+          const conditions = moveFeatures.get(thing.thingName as ThingType)
           if (!conditions) continue
           if (conditions.length === 0) continue
 
@@ -287,10 +287,10 @@ class MapControllerConcrete implements MapController {
               }
 
               if (await this.canIEncounter(thing, thing.towards)) {
-                await appendMoveInstruction(thing)
+                appendMoveInstruction(thing)
               } else if (await this.canIEncounter(thing, reverseDirection(thing.towards))) {
                 await thing.reverseTowards()
-                await appendMoveInstruction(thing)
+                appendMoveInstruction(thing)
               }
             }
           }
@@ -306,7 +306,7 @@ class MapControllerConcrete implements MapController {
         if (isNone(block)) continue
 
         for (const thing of block.value) {
-          if (youThings.includes(thing.name as ThingType)) {
+          if (youThings.includes(thing.thingName as ThingType)) {
             return true
           }
         }

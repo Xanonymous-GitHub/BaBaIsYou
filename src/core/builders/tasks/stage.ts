@@ -1,4 +1,4 @@
-import type { Container, DisplayObject } from 'pixi.js'
+import type { Container } from 'pixi.js'
 import type { Task } from './index'
 
 abstract class StageTask<T> implements Task<T> {
@@ -56,7 +56,7 @@ export class MountContainerToStageAtIndexTask extends StageTask<void> {
   }
 }
 
-export class UnmountContainerFromStageAtIndexTask extends StageTask<DisplayObject> {
+export class UnmountContainerFromStageAtIndexTask extends StageTask<Container> {
   protected _unmountAtIndex!: number
 
   public setArgs(stage: Readonly<Container>, container: Readonly<Container>, unmountAtIndex: number): void {
@@ -65,8 +65,8 @@ export class UnmountContainerFromStageAtIndexTask extends StageTask<DisplayObjec
     this._unmountAtIndex = unmountAtIndex
   }
 
-  public async execute(): Promise<DisplayObject> {
-    return await new Promise<DisplayObject>((resolve, reject) => {
+  public async execute(): Promise<Container> {
+    return await new Promise<Container>((resolve, reject) => {
       const unmountContainerFromStage = this._stage.removeChildAt(this._unmountAtIndex)
       if (unmountContainerFromStage) {
         resolve(unmountContainerFromStage)

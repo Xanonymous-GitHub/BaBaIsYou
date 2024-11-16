@@ -33,7 +33,7 @@ export class SpriteBuilderConcrete {
         // load the texture of this Thing
         const textures = store.getAnimationTextures(species, name)
 
-        // call creation task to create Things and setup.
+        // call a creation task to create Things and setup.
         const creationTask = new CreateThingTask()
         const blockSize = getBlockSize()
         const { maxX, maxY } = store.getAppEdge()

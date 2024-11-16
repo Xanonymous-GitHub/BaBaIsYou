@@ -2,7 +2,7 @@ import type { Thing } from '@/core/things'
 import type { Observer } from '@/core/observer/observer'
 import type { Instruction } from '@/core/instructions'
 import { EmptyInstruction } from '@/core/instructions'
-import { getUid } from '@/core/utils/uuid'
+import { getUid } from '@/core/utils/ulid'
 import { MapUpdateSituation } from '@/core/controllers/map'
 import type { Observable } from '@/core/observer/observable'
 import type { Command } from '@/core/store/services/command'
@@ -52,8 +52,8 @@ class ThingControllerConcrete implements Observer {
     this.clearInstructions()
   }
 
-  public async update(subject: Observable, command: Command): Promise<void> {
-    // 1. when received a command, ask ruleController if self has privilege to execute this command. (am I 'YOU'?)
+  public async update(_: Observable, command: Command): Promise<void> {
+    // 1. when received a command, ask ruleController if self has the privilege to execute this command. (am I 'YOU'?)
     const isYou =
       store.getRuleController().$is(this._thing, PropertyType.YOU) ||
       store.getRuleController().$is(this._thing, PropertyType.YOU2)
@@ -76,7 +76,7 @@ class ThingControllerConcrete implements Observer {
     })())
     if (!iCanEncounter) return
 
-    // 3. if not any obstacles, apply an self instruction to the DispatchServer.
+    // 3. if not any obstacles, apply a self-instruction to the DispatchServer.
     let newInstruction: Instruction
     switch (command.value) {
       case CommandType.UP:

@@ -26,7 +26,7 @@ export enum GameResult {
 }
 
 export interface GameCore {
-  gameView: ICanvas
+  gameView: ICanvas,
   startLevel: (setupFileName: string) => Promise<void>
   pause: () => void
   resume: () => void

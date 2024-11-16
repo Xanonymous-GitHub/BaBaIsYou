@@ -116,7 +116,7 @@ class RuleControllerConcrete implements RuleController {
 
 
   public $is(requester: Thing, requestedFeature: PropertyType | NounType): boolean {
-    const requesterName = requester.name as CharacterType
+    const requesterName = requester.thingName as CharacterType
     const featureConditions = this._features.get(requesterName)
     if (!featureConditions) return false
     const containsProperty = Boolean(featureConditions._is.find(featureCondition => featureCondition.feature === requestedFeature))
@@ -124,7 +124,7 @@ class RuleControllerConcrete implements RuleController {
   }
 
   public $has(requester: Thing, requestedFeature: NounType): boolean {
-    const requesterName = requester.name as CharacterType
+    const requesterName = requester.thingName as CharacterType
     const featureConditions = this._features.get(requesterName)
     if (!featureConditions) return false
     const containsProperty = Boolean(featureConditions._has.find(featureCondition => featureCondition.feature === requestedFeature))
@@ -132,7 +132,7 @@ class RuleControllerConcrete implements RuleController {
   }
 
   public $make(requester: Thing, requestedFeature: NounType): boolean {
-    const requesterName = requester.name as CharacterType
+    const requesterName = requester.thingName as CharacterType
     const featureConditions = this._features.get(requesterName)
     if (!featureConditions) return false
     const containsProperty = Boolean(featureConditions._make.find(featureCondition => featureCondition.feature === requestedFeature))
@@ -144,7 +144,7 @@ class RuleControllerConcrete implements RuleController {
       throw new Error('[MY FAULT] Feature "getFeaturesOfThings" for Text-type things are not implemented yet')
     }
 
-    const name = thing.name as CharacterType
+    const name = thing.thingName as CharacterType
     if (!this._features.has(name)) return none
 
     const featureList = this._features.get(name)

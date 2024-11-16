@@ -27,7 +27,7 @@ export const startLevel = async (setupFileName: string) => {
   const scanner = createRuleScanner(ruleController, mapController)
   store.setScanner(scanner)
 
-  // create new dispatcher.
+  // create a new dispatcher.
   const dispatcher = createInstructionDispatchServer()
   store.setDispatchServer(dispatcher)
   store.connectDispatchListener(dispatcher.commandListener)

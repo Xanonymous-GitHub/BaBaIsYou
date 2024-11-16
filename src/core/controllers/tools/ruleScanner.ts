@@ -65,10 +65,10 @@ class RuleScannerConcrete implements RuleScanner {
       // console.log(`scanning primary characters in location (${x}, ${y}) `)
 
       if (expectAnd) {
-        // check if current block has AND
+        // check if the current block has AND
         let containsAnd = false
         for (const thing of thingsOnBlock.value) {
-          const name = thing.name as ThingType
+          const name = thing.thingName as ThingType
           if (name === OperatorType.AND) {
             containsAnd = true
             break
@@ -78,14 +78,14 @@ class RuleScannerConcrete implements RuleScanner {
         // skip to step 2 if block is not AND, because there are no more NOUNS in sentence
         if (!containsAnd) break
       } else {
-        // check if current block has a NOUN
+        // check if the current block has a NOUN
         let containsNoun = false
         for (const thing of thingsOnBlock.value) {
           const species = thing.species
           if (species === Species.NOUNS) {
             if (isNone(rulePattern.primaryCharacters)) rulePattern.primaryCharacters = some([])
             if (isSome(rulePattern.primaryCharacters)) {
-              const name = thing.name as NounType
+              const name = thing.thingName as NounType
               rulePattern.primaryCharacters.value.push(name)
               containsNoun = true
             } else {
@@ -118,7 +118,7 @@ class RuleScannerConcrete implements RuleScanner {
       const addConditionToPattern = (thing: Readonly<Thing>, currentAdj: OperatorType): void => {
         if (!adjectives.includes(currentAdj)) throw new Error(`currentAdj ${currentAdj} was passed in as unacceptable OperatorType`)
 
-        const name = thing.name as NounType
+        const name = thing.thingName as NounType
         if (isNone(rulePattern.conditionSettings)) rulePattern.conditionSettings = some(new Map())
         if (isSome(rulePattern.conditionSettings)) {
           if (rulePattern.conditionSettings.value.has(currentAdj)) {
@@ -149,7 +149,7 @@ class RuleScannerConcrete implements RuleScanner {
             expectAnd = true
           }
           if (species === Species.OPERATORS) {
-            const name = thing.name as OperatorType
+            const name = thing.thingName as OperatorType
             if (adjectives.includes(name)) {
               currentAdj = some(name)
 
@@ -168,7 +168,7 @@ class RuleScannerConcrete implements RuleScanner {
           const species = thing.species
 
           if (species === Species.OPERATORS) {
-            const name = thing.name as OperatorType
+            const name = thing.thingName as OperatorType
             if (name === OperatorType.AND) return none
 
             if (adjectives.includes(name)) {
@@ -206,7 +206,7 @@ class RuleScannerConcrete implements RuleScanner {
           const species = thing.species
 
           if (species === Species.OPERATORS) {
-            const name = thing.name as OperatorType
+            const name = thing.thingName as OperatorType
 
             if (name !== OperatorType.AND) return none
             if (verbs.includes(name)) {
@@ -245,7 +245,7 @@ class RuleScannerConcrete implements RuleScanner {
       const addEffectToPattern = (thing: Readonly<Thing>, currentVerb: OperatorType): void => {
         if (!verbs.includes(currentVerb)) throw new Error(`currentVerb ${currentVerb} was passed in as unacceptable OperatorType`)
 
-        const name = thing.name as (NounType | PropertyType)
+        const name = thing.thingName as (NounType | PropertyType)
         if (isNone(rulePattern.effectRules)) rulePattern.effectRules = some(new Map())
         if (isSome(rulePattern.effectRules)) {
           if (rulePattern.effectRules.value.has(currentVerb)) {
@@ -268,7 +268,7 @@ class RuleScannerConcrete implements RuleScanner {
         for (const thing of thingsOnBlock.value) {
           const species = thing.species
           if (species === Species.OPERATORS) {
-            const name = thing.name as OperatorType
+            const name = thing.thingName as OperatorType
             if (verbs.includes(name)) {
               currentVerb = some(name)
               containsVerbOrEffect = true
@@ -292,7 +292,7 @@ class RuleScannerConcrete implements RuleScanner {
         for (const thing of thingsOnBlock.value) {
           const species = thing.species
           if (species === Species.OPERATORS) {
-            const name = thing.name as OperatorType
+            const name = thing.thingName as OperatorType
             if (verbs.includes(name)) {
               currentVerb = some(name)
               containsVerb = true
@@ -300,7 +300,7 @@ class RuleScannerConcrete implements RuleScanner {
           }
         }
 
-        if (!containsVerb) return none // pattern will not be valid if does not contain first verb
+        if (!containsVerb) return none // the pattern will not be valid if it does not contain the first verb
         expectEffect = true
         expectVerb = false
       } else if (expectEffect) {
@@ -325,7 +325,7 @@ class RuleScannerConcrete implements RuleScanner {
       } else if (expectAnd) {
         let containsAnd = false
         for (const thing of thingsOnBlock.value) {
-          if (thing.name === OperatorType.AND) {
+          if (thing.thingName === OperatorType.AND) {
             containsAnd = true
           }
         }

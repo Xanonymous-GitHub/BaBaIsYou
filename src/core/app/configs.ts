@@ -1,4 +1,4 @@
-import type { IApplicationOptions } from 'pixi.js'
+import type { ApplicationOptions } from 'pixi.js'
 import { getBlockSize } from '@/core/app/screen'
 
 const blockSize = getBlockSize()
@@ -22,7 +22,7 @@ export const appOptions = {
   autoDensity: true,
   preserveDrawingBuffer: true,
   antialias: true
-} as IApplicationOptions
+} as ApplicationOptions
 
 export const MAX_COMMAND_AMOUNT = 8
 export const COMMAND_MIN_INTERVAL = 100
