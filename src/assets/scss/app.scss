@@ -1,9 +1,10 @@
-@import "shared";
+@use "shared";
+@use "shared/mixin";
 
 html,
 body,
 #app {
-  @include fix-100vh-in-mobile-WebKit;
+  @include mixin.fix-100vh-in-mobile-WebKit;
   -webkit-overflow-scrolling: touch;
   -moz-text-size-adjust: none;
   -ms-text-size-adjust: none;
