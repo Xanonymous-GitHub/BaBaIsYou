@@ -5,36 +5,37 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "lint": "eslint ./src --fix"
+    "lint": "eslint --fix"
   },
   "dependencies": {
-    "@tweenjs/tween.js": "21.0.0",
-    "@vueuse/core": "10.6.1",
-    "axios": "1.6.2",
+    "@tweenjs/tween.js": "25.0.0",
+    "@vueuse/core": "11.2.0",
+    "axios": "1.7.7",
     "mousetrap": "1.6.5",
-    "pixi.js": "7.3.2",
-    "uuid": "9.0.1",
-    "vue": "3.3.9",
-    "vue-router": "4.2.5"
+    "pixi.js": "8.5.2",
+    "ulidx": "^2.4.1",
+    "vue": "3.5.13",
+    "vue-router": "4.4.5"
   },
   "devDependencies": {
     "@types/mousetrap": "1.6.15",
-    "@types/uuid": "9.0.7",
-    "@typescript-eslint/eslint-plugin": "6.13.1",
-    "@typescript-eslint/parser": "6.13.1",
-    "@unocss/reset": "^0.57.7",
-    "@vitejs/plugin-vue": "4.5.0",
-    "@vue/compiler-sfc": "3.3.9",
-    "eslint": "8.54.0",
-    "eslint-config-prettier": "9.0.0",
-    "eslint-plugin-prettier": "5.0.1",
-    "eslint-plugin-vue": "9.18.1",
-    "fp-ts": "2.16.1",
-    "prettier": "3.1.0",
-    "sass": "1.69.5",
-    "typescript": "5.3.2",
-    "unocss": "0.57.7",
-    "vite": "5.0.3",
-    "vite-plugin-html": "3.2.0"
-  }
+    "@types/uuid": "10.0.0",
+    "@typescript-eslint/eslint-plugin": "8.14.0",
+    "@typescript-eslint/parser": "8.14.0",
+    "@unocss/reset": "^0.64.1",
+    "@vitejs/plugin-vue": "5.2.0",
+    "@vue/compiler-sfc": "3.5.13",
+    "eslint": "9.15.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-prettier": "5.2.1",
+    "eslint-plugin-vue": "9.31.0",
+    "fp-ts": "2.16.9",
+    "prettier": "3.3.3",
+    "sass": "1.81.0",
+    "typescript": "5.6.3",
+    "unocss": "0.64.1",
+    "vite": "5.4.11",
+    "vite-plugin-html": "3.2.2"
+  },
+  "packageManager": "pnpm@9.13.2+sha512.88c9c3864450350e65a33587ab801acf946d7c814ed1134da4a924f6df5a2120fd36b46aab68f7cd1d413149112d53c7db3a4136624cfd00ff1846a0c6cef48a"
 }
