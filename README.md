@@ -1,11 +1,11 @@
 # BaBa Is You
 <img src="https://i.imgur.com/44OJbB0.gif">
 
-### [Play Now](https://baba.ntut.club/)
+### [Play Now](https://baba.xcc.tw/)
 
 ![Sonar Quality Gate](https://sonarcloud.io/api/project_badges/quality_gate?project=Xanonymous-GitHub_BaBaIsYou)
 <br />
-[![github pages](https://github.com/Xanonymous-GitHub/BaBaIsYou/actions/workflows/node.js.yml/badge.svg)](https://github.com/Xanonymous-GitHub/BaBaIsYou/actions/workflows/node.js.yml)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/dd844fdb-6420-4ac8-b7eb-119dc3d0647a/deploy-status)](https://app.netlify.com/sites/baba-is-you/deploys)
 ![](https://sonarcloud.io/api/project_badges/measure?project=Xanonymous-GitHub_BaBaIsYou&metric=sqale_rating)
 ![](https://sonarcloud.io/api/project_badges/measure?project=Xanonymous-GitHub_BaBaIsYou&metric=security_rating)
 ![](https://sonarcloud.io/api/project_badges/measure?project=Xanonymous-GitHub_BaBaIsYou&metric=reliability_rating)
