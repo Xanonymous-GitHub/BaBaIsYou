@@ -1,5 +1,5 @@
 import type { Sprite } from 'pixi.js'
-import { getUid } from '@/core/utils/uuid'
+import { getUid } from '@/core/utils/ulid'
 import { none, some } from 'fp-ts/es6/Option'
 import type { Option } from 'fp-ts/es6/Option'
 

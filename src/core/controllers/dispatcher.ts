@@ -4,7 +4,7 @@ import type { Option } from 'fp-ts/es6/Option'
 import type { Instruction } from '@/core/instructions'
 import PriorityQueue from '@/core/data-structures/priorityQueue'
 import type { Observer } from '@/core/observer/observer'
-import { getUid } from '@/core/utils/uuid'
+import { getUid } from '@/core/utils/ulid'
 import { store } from '@/core'
 import { youGone } from '@/core/game'
 

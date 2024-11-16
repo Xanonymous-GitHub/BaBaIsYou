@@ -1,5 +1,5 @@
 import type { Thing } from '../things'
-import { getUid } from '@/core/utils/uuid'
+import { getUid } from '@/core/utils/ulid'
 
 export interface Instruction {
   perform: () => Promise<void>
