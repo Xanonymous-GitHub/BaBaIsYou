@@ -17,6 +17,13 @@ export default defineConfig({
     Unocss(),
     createHtmlPlugin()
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler'
+      }
+    }
+  },
   build: {
     cssCodeSplit: true,
     chunkSizeWarningLimit: 50000,
@@ -31,6 +38,6 @@ export default defineConfig({
     minifyWhitespace: true,
     minifyIdentifiers: true,
     platform: 'browser',
-    include: './src/**/*.{js,ts,jsx,tsx,css,json,text,base64,dataurl,file,binary}'
+    include: './src/**/*.{js,ts,jsx,tsx,css,json,text,base64,dataurl,file,binary}',
   }
 })
