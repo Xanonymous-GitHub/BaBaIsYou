@@ -17,10 +17,10 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '21'
+          node-version: '23'
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.pnpm
           key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -32,7 +32,7 @@ jobs:
       - run: pnpm build
 
       - name: deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.ACCESS_TOKEN }}
