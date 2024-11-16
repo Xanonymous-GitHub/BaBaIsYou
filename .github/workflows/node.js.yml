@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  try-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -31,10 +31,3 @@ jobs:
       - run: pnpm i --frozen-lockfile
       - run: pnpm build
 
-      - name: deploy
-        uses: peaceiris/actions-gh-pages@v4
-        if: github.ref == 'refs/heads/main'
-        with:
-          github_token: ${{ secrets.ACCESS_TOKEN }}
-          publish_dir: ./dist
-          cname: baba.ntut.club
