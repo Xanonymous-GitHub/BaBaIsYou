@@ -21,8 +21,8 @@ importers:
         specifier: 1.6.5
         version: 1.6.5
       pixi.js:
-        specifier: 8.5.2
-        version: 8.5.2
+        specifier: 8.6.4
+        version: 8.6.4
       ulidx:
         specifier: ^2.4.1
         version: 2.4.1
@@ -1569,8 +1569,8 @@ packages:
     resolution: {integrity: sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==}
     engines: {node: '>=12'}
 
-  pixi.js@8.5.2:
-    resolution: {integrity: sha512-TOt9g8ifOj4R9DN9ST1M8t2nvnuhr5oWL5YW9ywFLbnOVgFMDcEz+Xek5Mo8Xr64D+QU3qre3IFgreBlsHxTNw==}
+  pixi.js@8.6.4:
+    resolution: {integrity: sha512-hPJpxh3GRjU/wnDPlGZ9WqndJpDpQuaGnRpbAci3r7loX9Zw0zKFm1fph278YFNPfywPA15vjd512OQqYKq5dA==}
 
   pkg-types@1.2.1:
     resolution: {integrity: sha512-sQoqa8alT3nHjGuTjuKgOnvjo4cljkufdtLMnO2LBP/wRwuDlo1tkaEdMxCRhyGRPacv/ztlZgDPm2b7FAmEvw==}
@@ -3280,7 +3280,7 @@ snapshots:
 
   picomatch@4.0.2: {}
 
-  pixi.js@8.5.2:
+  pixi.js@8.6.4:
     dependencies:
       '@pixi/colord': 2.9.6
       '@types/css-font-loading-module': 0.0.12
