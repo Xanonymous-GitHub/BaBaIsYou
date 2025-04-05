@@ -32,7 +32,7 @@
     "fp-ts": "2.16.9",
     "prettier": "3.3.3",
     "sass": "1.81.0",
-    "typescript": "5.6.3",
+    "typescript": "5.8.3",
     "unocss": "0.64.1",
     "vite": "5.4.11",
     "vite-plugin-html": "3.2.2"
