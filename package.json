@@ -13,7 +13,7 @@
     "@vueuse/core": "13.1.0",
     "axios": "1.8.4",
     "mousetrap": "1.6.5",
-    "pixi.js": "8.9.1",
+    "pixi.js": "8.9.2",
     "ulidx": "^2.4.1",
     "vue": "3.5.13",
     "vue-router": "4.5.0"
