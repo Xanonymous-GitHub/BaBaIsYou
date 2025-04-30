@@ -29,7 +29,7 @@
     "eslint": "9.25.1",
     "eslint-config-prettier": "10.1.2",
     "eslint-plugin-prettier": "5.2.6",
-    "eslint-plugin-vue": "10.0.0",
+    "eslint-plugin-vue": "10.1.0",
     "fp-ts": "2.16.10",
     "prettier": "3.5.3",
     "sass": "1.87.0",
