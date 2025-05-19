@@ -47,7 +47,7 @@ importers:
         version: 8.31.0(eslint@9.25.1(jiti@2.4.2))(typescript@5.8.3)
       '@unocss/reset':
         specifier: ^66.0.0
-        version: 66.0.0
+        version: 66.1.2
       '@vitejs/plugin-vue':
         specifier: 5.2.3
         version: 5.2.3(vite@6.3.3(jiti@2.4.2)(sass@1.87.0)(terser@5.39.0)(tsx@4.19.2))(vue@3.5.13(typescript@5.8.3))
@@ -839,6 +839,9 @@ packages:
 
   '@unocss/reset@66.0.0':
     resolution: {integrity: sha512-YLFz/5yT7mFJC8JSmIUA5+bS3CBCJbtztOw+8rWzjQr/BEVSGuihWUUpI2Df6VVxXIXxKanZR6mIl59yvf+GEA==}
+
+  '@unocss/reset@66.1.2':
+    resolution: {integrity: sha512-njNy/QCpuPKBFeEvhYGwwCe3t8R8JTxONsyUB9NsFOamkF13DSlEB4Yy/QLQfIinbbmx0F/wiej/JGOJk1ecDg==}
 
   '@unocss/rule-utils@66.0.0':
     resolution: {integrity: sha512-UJ51YHbwxYTGyj35ugsPlOT4gaa7tCbXdywZ3m5Nn0JgywwIqGmBFyiN9ZjHBHfJuDxmmPd6lxojoBscih/WMQ==}
@@ -2525,6 +2528,8 @@ snapshots:
       '@unocss/preset-wind3': 66.0.0
 
   '@unocss/reset@66.0.0': {}
+
+  '@unocss/reset@66.1.2': {}
 
   '@unocss/rule-utils@66.0.0':
     dependencies:
