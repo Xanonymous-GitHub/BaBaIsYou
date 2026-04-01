@@ -16,7 +16,7 @@
     "pixi.js": "8.14.3",
     "ulidx": "^2.4.1",
     "vue": "3.5.25",
-    "vue-router": "4.6.3"
+    "vue-router": "4.6.4"
   },
   "devDependencies": {
     "@types/mousetrap": "1.6.15",
