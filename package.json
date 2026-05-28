@@ -28,7 +28,7 @@
     "@vue/compiler-sfc": "3.5.25",
     "eslint": "9.39.1",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-prettier": "5.5.4",
+    "eslint-plugin-prettier": "5.5.6",
     "eslint-plugin-vue": "10.6.2",
     "fp-ts": "2.16.11",
     "prettier": "3.7.4",
