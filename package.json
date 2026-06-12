@@ -39,5 +39,5 @@
     "vite-plugin-html": "3.2.2",
     "vue-eslint-parser": "^10.2.0"
   },
-  "packageManager": "pnpm@10.24.0"
+  "packageManager": "pnpm@10.34.3"
 }
