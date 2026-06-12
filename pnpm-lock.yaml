@@ -50,7 +50,7 @@ importers:
         version: 66.5.10
       '@vitejs/plugin-vue':
         specifier: 6.0.2
-        version: 6.0.2(vite@7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2))(vue@3.5.25(typescript@5.9.3))
+        version: 6.0.2(vite@7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2))(vue@3.5.25(typescript@5.9.3))
       '@vue/compiler-sfc':
         specifier: 3.5.25
         version: 3.5.25
@@ -73,20 +73,20 @@ importers:
         specifier: 3.7.4
         version: 3.7.4
       sass:
-        specifier: 1.94.2
-        version: 1.94.2
+        specifier: 1.101.0
+        version: 1.101.0
       typescript:
         specifier: 5.9.3
         version: 5.9.3
       unocss:
         specifier: 66.5.10
-        version: 66.5.10(postcss@8.5.6)(vite@7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2))
+        version: 66.5.10(postcss@8.5.6)(vite@7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2))
       vite:
         specifier: 7.2.6
-        version: 7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2)
+        version: 7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2)
       vite-plugin-html:
         specifier: 3.2.2
-        version: 3.2.2(vite@7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2))
+        version: 3.2.2(vite@7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2))
       vue-eslint-parser:
         specifier: ^10.2.0
         version: 10.2.0(eslint@9.39.1(jiti@2.6.1))
@@ -965,6 +965,7 @@ packages:
   '@xmldom/xmldom@0.8.11':
     resolution: {integrity: sha512-cQzWCtO6C8TQiYl1ruKNn2U6Ao4o4WBBcbL61yJl84x+j5sOWWFU9X7DpND8XZG3daDppSsigMdfAIl2upQBRw==}
     engines: {node: '>=10.0.0'}
+    deprecated: this version has critical issues, please update to the latest version
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -1045,9 +1046,9 @@ packages:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
 
-  chokidar@4.0.3:
-    resolution: {integrity: sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==}
-    engines: {node: '>= 14.16.0'}
+  chokidar@5.0.0:
+    resolution: {integrity: sha512-TQMmc3w+5AxjpL8iIiwebF73dRDF4fBIieAqGn9RGCWaEVwQ6Fb2cGe31Yns0RRIzii5goJ1Y7xbMwo1TxMplw==}
+    engines: {node: '>= 20.19.0'}
 
   clean-css@5.3.3:
     resolution: {integrity: sha512-D5J+kHaVb/wKSFcyyV75uCn8fiY4sV38XJoe4CUyGQ+mOU/fMVYUdH1hJC+CJQ5uY3EnW27SbJYS4X8BiLrAFg==}
@@ -1454,8 +1455,8 @@ packages:
     resolution: {integrity: sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg==}
     engines: {node: '>= 4'}
 
-  immutable@5.1.4:
-    resolution: {integrity: sha512-p6u1bG3YSnINT5RQmx/yRZBpenIl30kVxkTLDyHLIMk0gict704Q9n+thfDI7lTRm9vXdDYutVzXhzcThxTnXA==}
+  immutable@5.1.6:
+    resolution: {integrity: sha512-q1swsS8K7L8usSHuOqF2TAoCCkonYz0SG38wLAggaa4Wml70zixIvt2ql4coQ2C2B3hTjltJry4r6bULwgAXLQ==}
 
   import-fresh@3.3.1:
     resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
@@ -1723,9 +1724,9 @@ packages:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
     engines: {node: '>=8.10.0'}
 
-  readdirp@4.1.2:
-    resolution: {integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==}
-    engines: {node: '>= 14.18.0'}
+  readdirp@5.0.0:
+    resolution: {integrity: sha512-9u/XQ1pvrQtYyMpZe7DXKv2p5CNvyVwzUB6uhLAnQwHMSgKMBR62lc7AHljaeteeHXn11XTAaLLUVZYVZyuRBQ==}
+    engines: {node: '>= 20.19.0'}
 
   relateurl@0.2.7:
     resolution: {integrity: sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==}
@@ -1750,9 +1751,9 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  sass@1.94.2:
-    resolution: {integrity: sha512-N+7WK20/wOr7CzA2snJcUSSNTCzeCGUTFY3OgeQP3mZ1aj9NMQ0mSTXwlrnd89j33zzQJGqIN52GIOmYrfq46A==}
-    engines: {node: '>=14.0.0'}
+  sass@1.101.0:
+    resolution: {integrity: sha512-OL3GoQyoUdDt843DpVmDO6y2k1sc5IhUDSpu8XucEI+35neq5QivZ1iuegnpraEVTJXlQGK1gl27zKcTLEPbQw==}
+    engines: {node: '>=20.19.0'}
     hasBin: true
 
   semver@7.7.3:
@@ -2531,13 +2532,13 @@ snapshots:
       '@typescript-eslint/types': 8.48.1
       eslint-visitor-keys: 4.2.1
 
-  '@unocss/astro@66.5.10(vite@7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2))':
+  '@unocss/astro@66.5.10(vite@7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2))':
     dependencies:
       '@unocss/core': 66.5.10
       '@unocss/reset': 66.5.10
-      '@unocss/vite': 66.5.10(vite@7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2))
+      '@unocss/vite': 66.5.10(vite@7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2))
     optionalDependencies:
-      vite: 7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2)
+      vite: 7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2)
 
   '@unocss/cli@66.5.10':
     dependencies:
@@ -2665,7 +2666,7 @@ snapshots:
     dependencies:
       '@unocss/core': 66.5.10
 
-  '@unocss/vite@66.5.10(vite@7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2))':
+  '@unocss/vite@66.5.10(vite@7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2))':
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@unocss/config': 66.5.10
@@ -2676,12 +2677,12 @@ snapshots:
       pathe: 2.0.3
       tinyglobby: 0.2.15
       unplugin-utils: 0.3.1
-      vite: 7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2)
+      vite: 7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2)
 
-  '@vitejs/plugin-vue@6.0.2(vite@7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2))(vue@3.5.25(typescript@5.9.3))':
+  '@vitejs/plugin-vue@6.0.2(vite@7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2))(vue@3.5.25(typescript@5.9.3))':
     dependencies:
       '@rolldown/pluginutils': 1.0.0-beta.50
-      vite: 7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2)
+      vite: 7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2)
       vue: 3.5.25(typescript@5.9.3)
 
   '@vue/compiler-core@3.5.25':
@@ -2845,9 +2846,9 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  chokidar@4.0.3:
+  chokidar@5.0.0:
     dependencies:
-      readdirp: 4.1.2
+      readdirp: 5.0.0
 
   clean-css@5.3.3:
     dependencies:
@@ -3284,7 +3285,7 @@ snapshots:
 
   ignore@7.0.5: {}
 
-  immutable@5.1.4: {}
+  immutable@5.1.6: {}
 
   import-fresh@3.3.1:
     dependencies:
@@ -3539,7 +3540,7 @@ snapshots:
     dependencies:
       picomatch: 2.3.1
 
-  readdirp@4.1.2: {}
+  readdirp@5.0.0: {}
 
   relateurl@0.2.7: {}
 
@@ -3582,10 +3583,10 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  sass@1.94.2:
+  sass@1.101.0:
     dependencies:
-      chokidar: 4.0.3
-      immutable: 5.1.4
+      chokidar: 5.0.0
+      immutable: 5.1.6
       source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.5.1
@@ -3686,9 +3687,9 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  unocss@66.5.10(postcss@8.5.6)(vite@7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2)):
+  unocss@66.5.10(postcss@8.5.6)(vite@7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2)):
     dependencies:
-      '@unocss/astro': 66.5.10(vite@7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2))
+      '@unocss/astro': 66.5.10(vite@7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2))
       '@unocss/cli': 66.5.10
       '@unocss/core': 66.5.10
       '@unocss/postcss': 66.5.10(postcss@8.5.6)
@@ -3706,9 +3707,9 @@ snapshots:
       '@unocss/transformer-compile-class': 66.5.10
       '@unocss/transformer-directives': 66.5.10
       '@unocss/transformer-variant-group': 66.5.10
-      '@unocss/vite': 66.5.10(vite@7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2))
+      '@unocss/vite': 66.5.10(vite@7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2))
     optionalDependencies:
-      vite: 7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2)
+      vite: 7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2)
     transitivePeerDependencies:
       - postcss
       - supports-color
@@ -3726,7 +3727,7 @@ snapshots:
 
   uuid@13.0.0: {}
 
-  vite-plugin-html@3.2.2(vite@7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2)):
+  vite-plugin-html@3.2.2(vite@7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       colorette: 2.0.20
@@ -3740,9 +3741,9 @@ snapshots:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2)
+      vite: 7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2)
 
-  vite@7.2.6(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(tsx@4.19.2):
+  vite@7.2.6(jiti@2.6.1)(sass@1.101.0)(terser@5.44.1)(tsx@4.19.2):
     dependencies:
       esbuild: 0.25.12
       fdir: 6.5.0(picomatch@4.0.3)
@@ -3753,7 +3754,7 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
       jiti: 2.6.1
-      sass: 1.94.2
+      sass: 1.101.0
       terser: 5.44.1
       tsx: 4.19.2
 
