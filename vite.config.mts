@@ -30,14 +30,11 @@ export default defineConfig({
     minify: true,
     cssMinify: true,
     sourcemap: false,
-  },
-  esbuild: {
-    legalComments: 'none',
-    minify: true,
-    minifySyntax: true,
-    minifyWhitespace: true,
-    minifyIdentifiers: true,
-    platform: 'browser',
-    include: './src/**/*.{js,ts,jsx,tsx,css,json,text,base64,dataurl,file,binary}',
+    rolldownOptions: {
+      onLog(level, log, handler) {
+        if (log.code === 'INVALID_ANNOTATION') return
+        handler(level, log)
+      }
+    }
   }
 })
