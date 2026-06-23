@@ -20,7 +20,7 @@ jobs:
           node-version: '23'
 
       - name: Cache dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.pnpm
           key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
