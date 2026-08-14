@@ -30,7 +30,7 @@
     "eslint-plugin-prettier": "5.5.6",
     "eslint-plugin-vue": "10.9.2",
     "fp-ts": "2.16.11",
-    "prettier": "3.8.4",
+    "prettier": "3.9.6",
     "sass": "1.101.0",
     "typescript": "6.0.3",
     "unocss": "66.7.2",
