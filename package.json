@@ -22,7 +22,7 @@
     "@types/mousetrap": "1.6.15",
     "@typescript-eslint/eslint-plugin": "8.61.0",
     "@typescript-eslint/parser": "8.61.0",
-    "@unocss/reset": "66.7.2",
+    "@unocss/reset": "66.10.0",
     "@vitejs/plugin-vue": "6.0.7",
     "@vue/compiler-sfc": "3.5.38",
     "eslint": "10.5.0",
@@ -33,7 +33,7 @@
     "prettier": "3.8.4",
     "sass": "1.101.0",
     "typescript": "6.0.3",
-    "unocss": "66.7.2",
+    "unocss": "66.10.0",
     "vite": "8.0.16",
     "vite-plugin-html": "3.2.2",
     "vue-eslint-parser": "10.4.1"
