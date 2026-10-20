@@ -6,7 +6,7 @@ import prettierConfig from 'eslint-config-prettier'
 
 export default [
   {
-    ignores: ['dist/**', 'playwright-report/**', 'test-results/**']
+    ignores: ['dist/**', 'playwright-report/**', 'test-results/**', '.wrangler/**']
   },
   {
     files: ['**/*.{vue,ts,mts,js,mjs}'],

@@ -35,7 +35,7 @@ To know more about the rules, check out [Baba Is You Wiki](https://babaiswiki.fa
 
 ## Development
 
-Use Node.js **26.12.0** (`.node-version`) and Bun **1.4.3** (`package.json`). Bun is the package manager; commit `bun.lock` when dependencies change.
+Use Node.js **24.22.0** (`.node-version`) and Bun **1.4.3** (`package.json`). Bun is the package manager; commit `bun.lock` when dependencies change.
 
 ```sh
 bun install --frozen-lockfile
@@ -58,12 +58,24 @@ On Linux, use `bun x playwright install --with-deps chromium` to install browser
 - `bun run lint`: check all source/config files without modifying them (`bun run lint:fix` applies fixes).
 - `bun run typecheck`: check TypeScript with the native TypeScript 7 compiler and Vue components with `vue-tsc`.
 - `bun run build`: create the production site in `dist/`.
+- `bun run deploy:check`: validate the Cloudflare deployment without uploading (run `bun run build` first).
 - `bun run test`: run Chromium regression tests against the production build (run `bun run build` first).
 - `bun run serve`: preview the production build locally.
 
 TypeScript 7 currently has no compiler API for typescript-eslint or Vue tooling. The `typescript` dependency therefore aliases Microsoft's `@typescript/typescript6` compatibility package; `@typescript/native` retains TypeScript 7 and its `tsc` command. See [Microsoft's side-by-side setup](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6.0). Keep both aliases until the tooling supports the native API.
 
-CI uses the versions above, frozen installs, lint, both type checks, a production build, and browser tests covering level loading, keyboard controls, restart, and switching levels. GitHub Actions are pinned to the latest verified release commits; Renovate tracks their updates.
+CI uses the versions above, frozen installs, lint, both type checks, a production build, a Cloudflare deployment dry-run, and browser tests covering level loading, keyboard controls, restart, and switching levels. GitHub Actions are pinned to the latest verified release commits; Renovate tracks their updates.
+
+### Cloudflare Workers deployment
+
+The checked-in `wrangler.jsonc` deploys `dist/` as static assets for the `baba-is-you` Worker, with single-page application fallback. No Cloudflare Vite plugin is needed; keep the existing Vue Vite configuration.
+
+Set these commands in Cloudflare Workers Builds:
+
+- Build command: `bun run build`
+- Deploy command: `bun x wrangler deploy` (the existing `npx wrangler deploy` also uses the pinned local Wrangler).
+
+Do not use `pnpm run build`. Node.js is selected from `.node-version`; remove or align any dashboard `NODE_VERSION` override. For a local deployment with Cloudflare credentials configured, run `bun run deploy`.
 
 ## Bugs
 There are actually many bugs to be fixed in this project. If you find them while playing, please let us know as much as possible.

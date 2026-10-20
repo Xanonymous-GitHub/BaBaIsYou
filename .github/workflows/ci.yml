@@ -47,6 +47,9 @@ jobs:
       - name: Build
         run: bun run build
 
+      - name: Validate Cloudflare deployment
+        run: bun run deploy:check
+
       - name: Install Chromium
         run: bun x playwright install --with-deps chromium
 

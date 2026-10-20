@@ -11,7 +11,7 @@ Hope you enjoy this game, thank you.
 1. Install the Node.js and Bun versions listed in [README.md](README.md#development).
 2. Run `bun install --frozen-lockfile` and `bun x playwright install chromium` (add `--with-deps` on Linux).
 3. Make your changes. Add or update browser regression tests in `tests/` when changing gameplay or navigation.
-4. Run `bun run check`. This must pass lint, TypeScript/Vue type-checking, the production build, and browser tests before review.
+4. Run `bun run check`. This must pass lint, TypeScript/Vue type-checking, the production build, the Cloudflare deployment dry-run, and browser tests before review.
 
 Use `bun run lint:fix` for automatic lint fixes. Keep the existing code style and avoid unrelated formatting changes. If dependencies change, use `bun install` and include the updated `bun.lock`; do not add npm, Yarn, or pnpm lockfiles.
 

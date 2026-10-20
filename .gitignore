@@ -3,6 +3,7 @@ node_modules
 /dist
 /playwright-report
 /test-results
+/.wrangler
 
 
 # local env files
