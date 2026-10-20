@@ -27,7 +27,7 @@
 
 <script lang='ts' setup>
   import { defineAsyncComponent, ref } from 'vue'
-  import { tryOnMounted } from '@vueuse/core'
+  import { tryOnMounted, tryOnUnmounted } from '@vueuse/core'
   import type { GameCore } from '@/core/types'
   import { GameResult } from '@/core/types'
   import type { ExtendedKeyboardEvent } from 'mousetrap'
@@ -102,7 +102,14 @@
     mousetrap.bind('esc', handleEsc)
     mousetrap.bind('r', handleR)
     setAudioSrc(globalState.value.currentLevel.backgroundMusic)
-    await audio.play()
+    try {
+      await audio.play()
+    } catch (error) {
+      // Restarting/navigation can interrupt playback; browsers may also block autoplay.
+      if (!(error instanceof DOMException) || !['AbortError', 'NotAllowedError'].includes(error.name)) {
+        throw error
+      }
+    }
   }
 
   const gameOver = async (result: GameResult) => {
@@ -153,9 +160,16 @@
   }
 
   tryOnMounted(async () => {
-    game = await (async () => (await import('@/core')).default)()
+    const { default: createGameCore } = await import('@/core')
+    game = await createGameCore()
     prepareGame()
     await startNewGame()
+  })
+
+  tryOnUnmounted(() => {
+    game?.pause()
+    audio.pause()
+    mousetrap.unbind(['esc', 'r'])
   })
 </script>
 

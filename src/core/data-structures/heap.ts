@@ -1,6 +1,6 @@
 import Comparator from './comparator'
 
-export default class Heap<T extends Object> {
+export default class Heap<T> {
   protected compare!: Comparator
   private readonly heapContainer!: Array<T>
 

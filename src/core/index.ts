@@ -25,8 +25,10 @@ const gameInit = async () => {
   store.setStageBuilder(stageController)
 }
 
+let initialization: Promise<void> | undefined
+
 const gameCore = async (): Promise<GameCore> => {
-  await gameInit()
+  await (initialization ??= gameInit())
   return {
     gameView: app.canvas,
     startLevel,
@@ -37,4 +39,4 @@ const gameCore = async (): Promise<GameCore> => {
   }
 }
 
-export default new Promise<Promise<GameCore>>(($export) => $export(gameCore()))
+export default gameCore
