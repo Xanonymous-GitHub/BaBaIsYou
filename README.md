@@ -3,6 +3,7 @@
 
 ### [Play Now](https://baba.xcc.tw/)
 
+[![CI](https://github.com/Xanonymous-GitHub/BaBaIsYou/actions/workflows/ci.yml/badge.svg)](https://github.com/Xanonymous-GitHub/BaBaIsYou/actions/workflows/ci.yml)
 ![Sonar Quality Gate](https://sonarcloud.io/api/project_badges/quality_gate?project=Xanonymous-GitHub_BaBaIsYou)
 <br />
 [![Netlify Status](https://api.netlify.com/api/v1/badges/dd844fdb-6420-4ac8-b7eb-119dc3d0647a/deploy-status)](https://app.netlify.com/sites/baba-is-you/deploys)
@@ -31,6 +32,38 @@ To know more about the rules, check out [Baba Is You Wiki](https://babaiswiki.fa
 - `ESC`: Menu
 - `R`: Restart level
 - Arrow keys: Move up/down/left/right, you can also use W/A/S/D.
+
+## Development
+
+Use Node.js **26.12.0** (`.node-version`) and Bun **1.4.3** (`package.json`). Bun is the package manager; commit `bun.lock` when dependencies change.
+
+```sh
+bun install --frozen-lockfile
+bun run dev
+```
+
+Open the URL printed by Vite. Level data, sprites, and music are served from `public/`; no environment variables are required for local development.
+
+### Checks
+
+Install Chromium once, then run the same checks as CI:
+
+```sh
+bun x playwright install chromium
+bun run check
+```
+
+On Linux, use `bun x playwright install --with-deps chromium` to install browser system dependencies too.
+
+- `bun run lint`: check all source/config files without modifying them (`bun run lint:fix` applies fixes).
+- `bun run typecheck`: check TypeScript with the native TypeScript 7 compiler and Vue components with `vue-tsc`.
+- `bun run build`: create the production site in `dist/`.
+- `bun run test`: run Chromium regression tests against the production build (run `bun run build` first).
+- `bun run serve`: preview the production build locally.
+
+TypeScript 7 currently has no compiler API for typescript-eslint or Vue tooling. The `typescript` dependency therefore aliases Microsoft's `@typescript/typescript6` compatibility package; `@typescript/native` retains TypeScript 7 and its `tsc` command. See [Microsoft's side-by-side setup](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6.0). Keep both aliases until the tooling supports the native API.
+
+CI uses the versions above, frozen installs, lint, both type checks, a production build, and browser tests covering level loading, keyboard controls, restart, and switching levels. GitHub Actions are pinned to the latest verified release commits; Renovate tracks their updates.
 
 ## Bugs
 There are actually many bugs to be fixed in this project. If you find them while playing, please let us know as much as possible.
