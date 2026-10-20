@@ -1,4 +1,0 @@
-allowBuilds:
-  '@parcel/watcher': true
-minimumReleaseAgeExclude:
-  - axios@1.18.0
