@@ -5,38 +5,27 @@
     "strict": true,
     "jsx": "preserve",
     "importHelpers": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": false,
     "resolveJsonModule": true,
-    "downlevelIteration": true,
-    "baseUrl": ".",
-    "types": [
-      "vite/client",
-      "node"
-    ],
+    "noEmit": true,
+    "types": ["vite/client", "node"],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["./src/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
+    "*.config.ts",
+    "*.config.mts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

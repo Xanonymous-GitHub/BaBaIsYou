@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   printWidth: 100,
   tabWidth: 2,
   useTabs: false,
@@ -8,7 +8,7 @@ module.exports = {
   quoteProps: 'as-needed',
   bracketSpacing: true,
   trailingComma: 'none',
-  jsxBracketSameLine: false,
+  bracketSameLine: false,
   jsxSingleQuote: false,
   arrowParens: 'always',
   insertPragma: false,

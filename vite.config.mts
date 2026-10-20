@@ -2,28 +2,19 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import Unocss from 'unocss/vite'
-import { join } from 'path'
+import { fileURLToPath } from 'node:url'
 
 export default defineConfig({
   resolve: {
     alias: {
-      '@': `${join(__dirname, 'src')}`
+      '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
   plugins: [
-    vue({
-      isProduction: true
-    }),
+    vue(),
     Unocss(),
     createHtmlPlugin()
   ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        api: 'modern-compiler'
-      }
-    }
-  },
   build: {
     cssCodeSplit: true,
     chunkSizeWarningLimit: 50000,
