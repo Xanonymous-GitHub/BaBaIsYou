@@ -30,13 +30,18 @@ class ContainerServiceConcrete implements ContainerService {
 
   private _removeContainerPackage(id: string): void {
     const containerPackageIndex = this._containerPackages.findIndex(pkg => pkg.id === id)
-    if (containerPackageIndex === -1) {
-      const emptyContainerPackage = this._emptyContainerPackages.findIndex(pkg => pkg.id === id)
-      if (emptyContainerPackage === -1) throw new Error(`containerPackage ${id} does not exist.`)
-      this._emptyContainerPackages.splice(containerPackageIndex, 1)
-      return
+    if (containerPackageIndex !== -1) {
+      this._containerPackages.splice(containerPackageIndex, 1)
     }
-    this._containerPackages.splice(containerPackageIndex, 1)
+
+    const emptyContainerPackageIndex = this._emptyContainerPackages.findIndex(pkg => pkg.id === id)
+    if (emptyContainerPackageIndex !== -1) {
+      this._emptyContainerPackages.splice(emptyContainerPackageIndex, 1)
+    }
+
+    if (containerPackageIndex === -1 && emptyContainerPackageIndex === -1) {
+      throw new Error(`containerPackage ${id} does not exist.`)
+    }
   }
 
   public hasContainerById(id: string): boolean {
