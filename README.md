@@ -35,7 +35,7 @@ To know more about the rules, check out [Baba Is You Wiki](https://babaiswiki.fa
 
 ## Development
 
-Use Node.js **24.22.0** (`.node-version`) and Bun **1.4.4** (`package.json`). Bun is the package manager; commit `bun.lock` when dependencies change.
+Use Node.js **24.22.1** (`.node-version`) and Bun **1.4.4** (`package.json`). Bun is the package manager; commit `bun.lock` when dependencies change.
 
 ```sh
 bun install --frozen-lockfile --ignore-scripts
