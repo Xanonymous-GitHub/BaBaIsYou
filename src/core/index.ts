@@ -28,7 +28,8 @@ const gameInit = async () => {
 let initialization: Promise<void> | undefined
 
 const gameCore = async (): Promise<GameCore> => {
-  await (initialization ??= gameInit())
+  initialization ??= gameInit()
+  await initialization
   return {
     gameView: app.canvas,
     startLevel,

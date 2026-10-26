@@ -35,10 +35,10 @@ To know more about the rules, check out [Baba Is You Wiki](https://babaiswiki.fa
 
 ## Development
 
-Use Node.js **24.22.0** (`.node-version`) and Bun **1.4.3** (`package.json`). Bun is the package manager; commit `bun.lock` when dependencies change.
+Use Node.js **24.22.0** (`.node-version`) and Bun **1.4.4** (`package.json`). Bun is the package manager; commit `bun.lock` when dependencies change.
 
 ```sh
-bun install --frozen-lockfile
+bun install --frozen-lockfile --ignore-scripts
 bun run dev
 ```
 
@@ -49,11 +49,11 @@ Open the URL printed by Vite. Level data, sprites, and music are served from `pu
 Install Chromium once, then run the same checks as CI:
 
 ```sh
-bun x playwright install chromium
+bun run playwright install chromium
 bun run check
 ```
 
-On Linux, use `bun x playwright install --with-deps chromium` to install browser system dependencies too.
+On Linux, use `bun run test:install` to install browser system dependencies too.
 
 - `bun run lint`: check all source/config files without modifying them (`bun run lint:fix` applies fixes).
 - `bun run typecheck`: check TypeScript with the native TypeScript 7 compiler and Vue components with `vue-tsc`.

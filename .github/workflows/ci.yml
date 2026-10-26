@@ -36,7 +36,7 @@ jobs:
           bun-version-file: package.json
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile --ignore-scripts
 
       - name: Lint
         run: bun run lint
@@ -51,7 +51,7 @@ jobs:
         run: bun run deploy:check
 
       - name: Install Chromium
-        run: bun x playwright install --with-deps chromium
+        run: bun run test:install
 
       - name: Browser regression tests
         run: bun run test
