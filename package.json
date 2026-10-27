@@ -18,7 +18,7 @@
   "dependencies": {
     "@tweenjs/tween.js": "25.0.0",
     "@vueuse/core": "15.0.0",
-    "axios": "1.20.0",
+    "axios": "1.21.0",
     "mousetrap": "1.6.5",
     "pixi.js": "8.22.0",
     "ulidx": "2.4.1",
