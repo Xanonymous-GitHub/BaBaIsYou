@@ -48,7 +48,7 @@
     "vite-plugin-html": "3.2.2",
     "vue-eslint-parser": "10.4.1",
     "vue-tsc": "3.3.13",
-    "wrangler": "4.152.0"
+    "wrangler": "4.156.0"
   },
   "packageManager": "bun@1.4.4",
   "engines": {
