@@ -35,7 +35,7 @@
     "@unocss/reset": "66.11.0",
     "@vitejs/plugin-vue": "6.0.10",
     "@vue/compiler-sfc": "3.5.44",
-    "eslint": "10.13.0",
+    "eslint": "10.14.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.7",
     "eslint-plugin-vue": "10.11.1",
